@@ -1,0 +1,12 @@
+// $ANTLR : Bob.g -> Bob_LexerTokenTypes.txt$
+Bob_Lexer    // output token vocab name
+OR=4
+AND=5
+NOT=6
+LEFT_PAREN=7
+RIGHT_PAREN=8
+BLANK=9
+STRING_LITERAL=10
+ESCAPE=11
+CONC_=12
+EMPTYSTRING_=13

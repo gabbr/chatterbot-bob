@@ -1,0 +1,195 @@
+.bobComment {
+	background-color: #7CC96B;
+	text-align: center;
+}
+
+.msgList {
+	margin: 0px;
+	padding: 0px;
+	width: 383px;
+}
+
+.msgHead {
+	padding: 5px 10px;
+	cursor: pointer;
+	position: relative;
+	background-color: #7CC96B;
+	margin: 1px;
+}
+
+.msgBody {
+	padding: 5px 10px 15px;
+	background-color: #EDE9e1;
+}
+
+.evalLink {
+	display: inline;
+}
+
+#evalCnt {
+	text-decoration: underline;
+	color: red;
+	white-space: nowrap;
+	cursor: pointer;
+	cursor: hand;
+}
+
+body {
+	background-color: #ffffff;
+	font-size: 12px;
+	line-height: 12pt;
+	background-color: #fff;
+	font-family: arial, sans-serif
+}
+
+/* 
+.chatBoB {
+	margin: 1px 1px 5px 5px;
+	padding: 5px 5px 12px 5px;
+	text-align: left;
+	background-color: #7CC96B;
+}
+
+.chatYou {
+	margin: 1px 5px 5px 1px;
+	padding: 5px 5px 12px 5px;
+	background-color: #D9B825;
+}
+
+#page-wrap {
+	padding: 10px;
+}
+
+h5 {
+	color: #aaaaaa;
+}
+
+p {
+	padding: 0 0 1em;
+}
+
+#chatDiv {
+	height: 180px;
+	width: 200px;
+	overflow: auto;
+	background-color: #EDE9e1;
+	border: 1px solid #555555;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+
+#questionDiv {
+	position: relative;
+	width: 350px;
+}
+
+#txtMessage {
+	width: 270px;
+}
+
+
+
+*/
+.bob_main_wrap {
+	width: 500px;
+	height: 208px;
+}
+
+.bob_main_left {
+	width: 100px;
+	height: 220px;
+	padding: 0px 0px 0px 0px;
+	overflow: visible;
+	position: absolute;
+}
+
+.bob_main_left img {
+	margin: 75px 0px 0px 0px;
+}
+
+.bob_main_right {
+	float: right;
+	width: 395px;
+	height: 220px;
+}
+
+.bob_bubble_wrap {
+	width: 100%;
+	height: 138px;
+	margin: 8px 0px 0px 0px;
+	background: #ffffff url(img/bob_bubble_bg2.gif) no-repeat;
+}
+
+.bob_bubble {
+	padding: 10px 18px 0px 42px;
+}
+
+.bob_bubble_text {
+	height: 120px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 0px 5px 0px 0px;
+	font: 11px Tahoma;
+	color: #666;
+}
+
+/**
+.bob_bubble_text span.bob_answer {
+	font-weight: bold;
+	color: #518344;
+}
+
+.bob_bubble_text span.bob_you {
+	font-weight: bold;
+	color: #e1a22e;
+}
+
+**/
+.chatBoB .chatName {
+	font-weight: bold;
+	color: #518344;
+}
+
+.chatYou .chatName {
+	font-weight: bold;
+	color: #e1a22e;
+}
+
+.chatYou,.chatBoB {
+	padding: 1px 1px 3px 1px;
+}
+
+.bob_input {
+	width: 100%;
+	margin: 8px 0px 0px 35px;
+	font: 12px Tahoma;
+	color: #666;
+}
+
+.bob_input fieldset.bob_language {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.bob_input fieldset.bob_question {
+	border: 0px;
+	padding: 0px;
+	margin: 5px 0px 0px 0px;
+}
+
+.bob_input input.input {
+	font: 12px Tahoma;
+	color: #666;
+	width: 280px;
+	border: 1px solid #b7b9bb;
+}
+
+.bob_input input.submit {
+	font: bold 12px Tahoma;
+	color: #666;
+}
