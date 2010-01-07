@@ -1,0 +1,25 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=QCheck/src<it.unibz.lib.bob.qcheck{QCheckMainGUI.java[QCheckMainGUI"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="241"/>
+      <y="346"/>
+   </type>
+   <type>
+      <name="=Chatterbot/src<it.unibz.lib.bob.check{Bob_Lexer.java[Bob_Lexer"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="246"/>
+      <y="0"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=QCheck/src<it.unibz.lib.bob.qcheck{QCheckMainGUI.java[QCheckMainGUI"/>
+      <targetType="=Chatterbot/src<it.unibz.lib.bob.check{Bob_Lexer.java[Bob_Lexer"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+
