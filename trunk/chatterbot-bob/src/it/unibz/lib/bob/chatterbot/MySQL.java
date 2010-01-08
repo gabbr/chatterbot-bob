@@ -1,7 +1,7 @@
 package it.unibz.lib.bob.chatterbot;
 
 
-import it.unibz.lib.bob.check.CustomLog;
+import it.CustomLog;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +38,7 @@ public class MySQL {
 	public MySQL() {
 		if (logging) {
 			log = Logger.getLogger(MySQL.class);
+			
 		}
 	}
 
@@ -75,6 +76,7 @@ public class MySQL {
 		if (logging) {
 			log.log(CustomLog.MY_TRACE, userID.substring(0, 8) + " " + lang + " " + userName
 					+ " " + message);
+			
 		}
 
 		// this is hard-coded now, could have set this via argument if >1 chats

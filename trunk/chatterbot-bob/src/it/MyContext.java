@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.chatterbot;
+package it;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

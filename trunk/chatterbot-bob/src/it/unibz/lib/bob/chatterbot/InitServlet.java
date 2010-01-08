@@ -1,6 +1,6 @@
 package it.unibz.lib.bob.chatterbot;
 
-import it.unibz.lib.bob.check.CustomLog;
+import it.CustomLog;
 import it.unibz.lib.bob.check.DialogueManager;
 
 import javax.servlet.ServletConfig;
