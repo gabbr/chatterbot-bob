@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"> 
+<log4j:configuration debug="true"> 
+	<appender name="FILE" class="org.apache.log4j.FileAppender"> 
+		<param name="File" value="${log4jFile}"/> 
+		<param name="Threshold" value="MY_TRACE"/> 
+		<param name="Append" value="false"/> 
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%c] %m%n"/> 
+		</layout> 
+	</appender> 
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> 
+		<param name="Target" value="System.out"/> 
+		<param name="Threshold" value="INFO"/> 
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] %m%n"/>			
+		</layout> 
+	</appender> 
+	<category name="it"> 
+		<priority value="MY_TRACE" class="it.CustomLog" /> 
+		<appender-ref ref="FILE"/> 
+	</category> 
+	<root> 
+		<appender-ref ref="CONSOLE"/> 
+	</root> 
+</log4j:configuration> 

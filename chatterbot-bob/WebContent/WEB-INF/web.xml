@@ -2,32 +2,32 @@
 <web-app id="WebApp_ID" version="2.4"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-	<display-name>BoB 090924 sansAccents trilingual</display-name>
+	<display-name>BoB 100108 refactored evgeny</display-name>
 
 
-<!-- 
+
 	<context-param>
 		<param-name>urlTopicTree</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/topictree.xml 
+			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/topictree.xml 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileEN</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_EN.txt 
+			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_EN.txt 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileDE</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_DE.txt 
+			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_DE.txt 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileIT</param-name>
 		<param-value>
-		https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_IT.txt</param-value>
+		https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_IT.txt</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlIDFtrainingDataEN</param-name>
@@ -41,8 +41,8 @@
 		<param-name>urlIDFtrainingDataIT</param-name>
 		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/checkbob_gui/trunk/resources/itwac/ITWAC-1.txt_sm</param-value>
 	</context-param>
- -->
 
+	<!--
 		<context-param> <param-name>urlTopicTree</param-name>
 		<param-value>file:///Users/manuelkirschner/evgeny/konstanz_workspace/bob_knowledge_repository/topictree.xml</param-value>
 		</context-param> <context-param>
@@ -64,10 +64,10 @@
 		<param-name>urlIDFtrainingDataIT</param-name> <param-value>
 		file:///Users/manuelkirschner/evgeny/konstanz_workspace/itwac/ITWAC-1.txt_sm
 		</param-value> </context-param>
-
+	-->
 
 	<listener>
-		<listener-class>it.unibz.lib.bob.chatterbot.MyContext</listener-class>
+		<listener-class>it.MyContext</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>init</servlet-name>

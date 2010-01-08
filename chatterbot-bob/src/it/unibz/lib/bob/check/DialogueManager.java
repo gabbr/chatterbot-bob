@@ -1,6 +1,8 @@
 package it.unibz.lib.bob.check;
 
 
+import it.CustomLog;
+
 import java.io.File;
 import java.net.Authenticator;
 import java.net.MalformedURLException;

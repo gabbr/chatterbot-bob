@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/bob">
 
+<!-- working for local mysql  -->
+<!-- 
 	<Resource name="jdbc/bobLogger"
 		auth="Container"
 		type="javax.sql.DataSource"
@@ -17,4 +19,29 @@
 		testOnBorrow="true"
 		validationQuery="SELECT 1 FROM DUAL"
 		/>
+	 -->	
+
+		
+		
+		
+		<!-- working settings for krdb-tomcat: -->
+		
+	<Resource name="jdbc/bobLogger"
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"	
+		url="jdbc:mysql://localhost/bob"  
+		username="bob"
+		password="s93ks92pa" 		
+		maxActive="5"
+		maxIdle="10"
+		maxWait="-1"
+		removeAbandoned="true"
+		removeAbandonedTimeout="60"
+		logAbandoned="true"		
+		testOnBorrow="true"
+		validationQuery="SELECT 1 FROM DUAL"
+		/>
+		
+						
 </Context>
