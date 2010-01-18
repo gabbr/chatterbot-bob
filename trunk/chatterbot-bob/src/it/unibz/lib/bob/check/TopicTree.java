@@ -1253,13 +1253,13 @@ public class TopicTree {
 			// don't provide URLs for IDF training data here...
 			tt = new TopicTree(
 					new URL(
-							"https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/topictree.xml"),
+							"https://foobar"),
 					new URL(
-							"https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_EN.txt"),
+					"https://foobar"),
 					new URL(
-							"https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_DE.txt"),
+					"https://foobar"),
 					new URL(
-							"https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_IT.txt"),
+					"https://foobar"),
 					null, null, null);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

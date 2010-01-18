@@ -9,37 +9,37 @@
 	<context-param>
 		<param-name>urlTopicTree</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/topictree.xml 
+			https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/Application_Data/topictree.xml 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileEN</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_EN.txt 
+			https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/Application_Data/bob_macros_EN.txt 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileDE</param-name>
 		<param-value>
-			https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_DE.txt 
+			https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt 
 		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlAbbrevFileIT</param-name>
 		<param-value>
-		https://babbage.inf.unibz.it/krdb/libexperts/ApplicationsKonstanz/bob_knowledge_repository/bob_macros_IT.txt</param-value>
+		https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/Application_Data/bob_macros_IT.txt</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlIDFtrainingDataEN</param-name>
-		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/checkbob_gui/trunk/resources/ukwac/UKWAC-1.txt_sm</param-value>
+		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/TrainingData_AnswerReranker/ukwac/UKWAC-1.txt_sm</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlIDFtrainingDataDE</param-name>
-		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/checkbob_gui/trunk/resources/dewac/DEWAC-1.txt_sm</param-value>
+		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/TrainingData_AnswerReranker/dewac/DEWAC-1.txt_sm</param-value>
 	</context-param>
 	<context-param>
 		<param-name>urlIDFtrainingDataIT</param-name>
-		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/checkbob_gui/trunk/resources/itwac/ITWAC-1.txt_sm</param-value>
+		<param-value>https://babbage.inf.unibz.it/krdb/libexperts/BoB_FUB/TrainingData_AnswerReranker/itwac/ITWAC-1.txt_sm</param-value>
 	</context-param>
 
 	<!--
