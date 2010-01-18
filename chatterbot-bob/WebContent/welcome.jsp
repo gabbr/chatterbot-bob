@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 ><%
 	// <% has to be ON 1. LINE, otherwise servlet will generate blank lines !!! 
+
 	response.setContentType("text/html;charset=UTF-8");
 
 	// Set to expire far in the past. 
@@ -58,7 +59,7 @@ if (request.getParameter("debug") != null
 				
 					<div class="bob_bubble">
 					
-						<!-- @I-CT in dieses Div werden Bob Dialog / Chatfenster einf├╝gen | Dummy Text l├╢schen  -->
+						<!-- @I-CT in dieses Div werden Bob Dialog / Chatfenster einfügen | Dummy Text löschen  -->
 						<div class="bob_bubble_text" id="chatDiv">
 							 
 						</div>
@@ -111,7 +112,7 @@ if (request.getParameter("debug") != null
 		
 		</div>
 
-		<!-- @I-CT in diesem DIV werden die verschiedenen Bilder mti den Gef├╝hlsausdr├╝cken des BoB Avatars eingef├╝gt | Bilder bob01.gif - bob10.gif befinden sich im img Ordner -->
+		<!-- @I-CT in diesem DIV werden die verschiedenen Bilder mti den Gefühlsausdrücken des BoB Avatars eingefügt | Bilder bob01.gif - bob10.gif befinden sich im img Ordner -->
 		<div class="bob_main_left"><img id="face" src="img/bob01.gif" alt="Emotional face" width="103px" height="126px" /></div>
 
 	</div>
@@ -188,36 +189,36 @@ Want to know more about BoB? Go to the <a href="http://www.unibz.it/en/library/a
 
 <%if (request.getParameter("language") != null
 					&& request.getParameter("language").equals("de")) {%>
-<h3>Dar├╝ber kann man mit BoB reden:</h3>
-<p>Infrastruktur und Organisation der Universit├дtsbibliothek. Ausleihen, vormerken, verl├дngern, zur├╝ckgeben von Medien. Recherche im online Katalog. Suche von B├╝chern, Zeitschriften und Artikeln. Drucken und fotokopieren. U.v.m.</p>
+<h3>Darüber kann man mit BoB reden:</h3>
+<p>Infrastruktur und Organisation der Universitätsbibliothek. Ausleihen, vormerken, verlängern, zurückgeben von Medien. Recherche im online Katalog. Suche von Büchern, Zeitschriften und Artikeln. Drucken und fotokopieren. U.v.m.</p>
 <div class="msgList">
 <p class="msgHead">Beispielfragen (hier klicken)</p>
 <div class="msgBody">
 <ul>
-<li>Ich m├╢chte Infos ├╝ber den Research Publication Server</li>
-<li>Was kostet ein Bestellung ├╝ber Fernleihe?</li>
-<li>Wie bekomme ich B├╝cher, die in keiner s├╝dtiroler Bibliothek verf├╝gbar sind?</li>
+<li>Ich möchte Infos über den Research Publication Server</li>
+<li>Was kostet ein Bestellung über Fernleihe?</li>
+<li>Wie bekomme ich Bücher, die in keiner südtiroler Bibliothek verfügbar sind?</li>
 <li>Ist die Bibliothek am Samstag Vormittag offen?</li>
-<li>Wie kann ich ├╝ber Internet ein Buch verl├дngern?</li>
-<li>Wollte fragen, ob der Dienst des wireless LAN auch f├╝r Externe Nutzerinnen m├╢glich ist?</li>
-<li>Muss ich die B├╝cher selbst abgeben oder kann das auch meine Schwester f├╝r mich erledigen?</li>
-<li>Habe leider mein Passwort vergessen und es f├дllt mir auch beim besten Willen nicht ein</li>
-<li>Die Leihfrist f├╝r die ausgeliehenen B├╝cher ist abgelaufen, ich m├╢chte sie verl├дngern</li>
-<li>die Zeitschriften, m├╝ssen die in der Bibliothek bleiben, oder sind sie ausleihbar?</li>
-<li>Ich m├╢chte die Dolomiten ausborgen</li>
-<li>Ich m├╢chte eine DVD ausleihen, wie mache ich das am besten?</li>
+<li>Wie kann ich über Internet ein Buch verlängern?</li>
+<li>Wollte fragen, ob der Dienst des wireless LAN auch für Externe Nutzerinnen möglich ist?</li>
+<li>Muss ich die Bücher selbst abgeben oder kann das auch meine Schwester für mich erledigen?</li>
+<li>Habe leider mein Passwort vergessen und es fällt mir auch beim besten Willen nicht ein</li>
+<li>Die Leihfrist für die ausgeliehenen Bücher ist abgelaufen, ich möchte sie verlängern</li>
+<li>die Zeitschriften, müssen die in der Bibliothek bleiben, oder sind sie ausleihbar?</li>
+<li>Ich möchte die Dolomiten ausborgen</li>
+<li>Ich möchte eine DVD ausleihen, wie mache ich das am besten?</li>
 <li>Wie reserviere ich ein Buch?</li>
-<li>Ich ben├╢tige Zeitschriftenartikel, wie finde ich diese?</li>
+<li>Ich benötige Zeitschriftenartikel, wie finde ich diese?</li>
 <li>die e-Zeitschriften, kann ich die auch von zu Hause an meinem pc lesen</li>
 <li>Wie sucht man am besten nach einem Buch?</li>
 <li>Wo ist denn die Lehrbuchsammlung?</li>
-<li>Was hei├Яt es, wenn ein Medium den Status "Reserved" hat?</li>
+<li>Was heißt es, wenn ein Medium den Status "Reserved" hat?</li>
 <li>Welche Online Ressourcen gibts in der Bibliothek?</li>
 <li>Wie kann ich eure Datenbanken finden?</li>
 <li>wo finde ich im Internet den opac?</li>
-<li>Ich suche B├╝cher f├╝r Kinder und Jugendliche!</li>
+<li>Ich suche Bücher für Kinder und Jugendliche!</li>
 <li>Hat die Bibliothek auch zu Ostern auf?</li>
-<li>Wo finde ich die Diplomarbeiten der Studierenden der Universit├дt Bozen?</li>
+<li>Wo finde ich die Diplomarbeiten der Studierenden der Universität Bozen?</li>
 <li>wo kann ich die DVDs in Bozen finden?</li>
 <li>Gibt es in der Bibliothek Computer mit einem Internetanschluss?</li>
 </ul>
@@ -225,7 +226,7 @@ Want to know more about BoB? Go to the <a href="http://www.unibz.it/en/library/a
 </div>
 <br/>
 <br/>
-M├╢chtest Du mehr ├╝ber BoB erfahren? Hier findest Du eine detaillierte <a href="http://www.unibz.it/en/library/about/projects/bob-project.html">Projektbeschreibung</a>. 
+Möchtest Du mehr über BoB erfahren? Hier findest Du eine detaillierte <a href="http://www.unibz.it/en/library/about/projects/bob-project.html">Projektbeschreibung</a>. 
 <br/>Kommentare, Fragen, Anregungen? Kontakt: <a href="" rel="ti/zbinu/fni//renhcsrik" class="email"></a>.
 <%} 
 
@@ -244,25 +245,25 @@ if (request.getParameter("language") != null
 <li>Ci sono fotocopiatrici a colori? </li>
 <li>Quanto costa affittare un armadietto? </li>
 <li>A quale piano si trovano i dvd?</li>
-<li>Posso suggerire alla biblioteca lтАЩacquisto di un libro?</li>
+<li>Posso suggerire alla biblioteca l’acquisto di un libro?</li>
 <li>Dove si trovano i libri della bibliografia dei corsi?</li>
 <li>Cosa significa at disposal? </li>
-<li>├И possibile prendere in prestito le tesi di laurea?</li>
+<li>È possibile prendere in prestito le tesi di laurea?</li>
 <li>Vorrei sapere gli orari di apertura al pubblico della biblioteca in questa settimana</li>
 <li>Dove trovo i dizionari on line? </li>
-<li>├И possibile accedere ai database anche da casa?</li>
+<li>È possibile accedere ai database anche da casa?</li>
 <li>Cosa significa lo status reserved?</li>
 <li>Dove posso trovare le vostre riviste in versione elettronica?</li>
-<li>├И possibile consultare anche quotidiani online?</li>
-<li>Come si esegue una ricerca per argomento tramite lтАЩOPAC?</li>
+<li>È possibile consultare anche quotidiani online?</li>
+<li>Come si esegue una ricerca per argomento tramite l’OPAC?</li>
 <li>Devo cercare degli articoli.</li>
 <li>Quanti DVD si possono prendere in prestito contemporaneamente?</li>
 <li>Come si prenota un libro?</li>
-<li>├И possibile prendere in prestito un quotidiano?</li>
+<li>È possibile prendere in prestito un quotidiano?</li>
 <li>Si deve pagare per prenotare un libro? </li>
-<li>Quanto si paga per lтАЩiscrizione alla biblioteca?</li>
+<li>Quanto si paga per l’iscrizione alla biblioteca?</li>
 <li>Sai dirmi come trovo il numero della library card?   </li>
-<li>Ho la possibilit├а di prorogare da solo i miei prestiti?</li>
+<li>Ho la possibilità di prorogare da solo i miei prestiti?</li>
 <li>Ho provato a prorogare la scadenza dei miei prestiti tramite internet, ma con poco successo</li>
 <li>Ho dimenticato la mia password per la biblioteca. </li>
 <li>Vorrei ordinare un libro tramite il servizio di prestito interbibliotecario.</li>
@@ -271,7 +272,7 @@ if (request.getParameter("language") != null
 </div>
 <br/>
 <br/>
-Vuoi sapere di pi├╣ su BoB? Visita il sito del <a href="http://www.unibz.it/en/library/about/projects/bob-project.html">progetto BoB</a>. 
+Vuoi sapere di più su BoB? Visita il sito del <a href="http://www.unibz.it/en/library/about/projects/bob-project.html">progetto BoB</a>. 
 <br/>Hai commenti, domande, suggerimenti? Contatta <a href="" rel="ti/zbinu/fni//renhcsrik" class="email"></a>.
 <%} // end language-specific example questions %>
 

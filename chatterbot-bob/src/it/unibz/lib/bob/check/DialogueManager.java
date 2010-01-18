@@ -222,13 +222,13 @@ public class DialogueManager {
 	 */
 	public static void main(String[] args) {
 		DialogueManager dm = new DialogueManager(
-				"/Users/manuelkirschner/svn_base/libexperts/BoB_Entwicklungsversionen/ulrike/topictree.xml",
-				"/Users/manuelkirschner/svn_base/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_EN.txt",
-				"/Users/manuelkirschner/svn_base/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_DE.txt",
-				"/Users/manuelkirschner/svn_base/libexperts/BoB_Entwicklungsversionen/ulrike/bob_macros_IT.txt",
-				"file:///Users/manuelkirschner/svn_base/libexperts/checkbob_gui/trunk/resources/ukwac/UKWAC-1.txt_sm",
-				"file:///Users/manuelkirschner/svn_base/libexperts/checkbob_gui/trunk/resources/dewac/DEWAC-1.txt_sm",
-				"file:///Users/manuelkirschner/svn_base/libexperts/checkbob_gui/trunk/resources/itwac/ITWAC-1.txt_sm");
+				"foobar",
+				"foobar",
+				"foobar",
+				"foobar",
+				"file:///foobar",
+				"file:///foobar",
+				"file:///foobar");
 		dm.setSessionID("someIDsetInMain");
 
 		// System.out.println(dm.getNextResponse("hello BoB", "EN"));
@@ -850,6 +850,8 @@ public class DialogueManager {
 		continuousNoPatternFoundErrors = 0;
 		C = tt.getRootNode();
 		sdMode = false;
+		
+		
 		if (logging) {
 			log.log(CustomLog.MY_TRACE, sessionID.substring(0, 8)
 					+ " DEBUG: *******************************");
