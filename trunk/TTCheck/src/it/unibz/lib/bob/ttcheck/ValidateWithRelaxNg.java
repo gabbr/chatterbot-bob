@@ -36,7 +36,7 @@ public class ValidateWithRelaxNg {
 			abk_IT = args[4];
 		} else {
 			System.err
-					.println("Usage: java ValidateWithRelaxNg rng-file topic-tree-file abbrev-DE abbrev-EN abbrev-IT");
+					.println("Usage: java ValidateWithRelaxNg rng-file topic-tree-file macroFile-DE macroFile-EN macroFile-IT");
 			System.exit(1);
 		}
 
@@ -50,11 +50,11 @@ public class ValidateWithRelaxNg {
 		try {
 			rng2 = schemaFactory.createSchema(schemaFile);
 		} catch (XMLStreamException xe) {
-			System.err.println("Konnte RNG-Datei nicht laden ('" + schemaFile
+			System.err.println("Could not load RNG file ('" + schemaFile
 					+ "'): \n\t" + xe.getMessage());
 			System.exit(1);
 		}
-		System.err.println("Benutze RNG-Datei für XML-Validierung: " + rng);
+		System.err.println("Using RNG file for XML validation: " + rng);
 		// document validation
 		File inputFile = new File(xml);
 		try {
@@ -62,7 +62,7 @@ public class ValidateWithRelaxNg {
 					.newInstance();
 			XMLStreamReader2 streamReader = inputFactory
 					.createXMLStreamReader(inputFile);
-			System.err.println("Validiere TopicTree-XML-Datei: " + xml);
+			System.err.println("Validating topictree xml file: " + xml);
 
 			try {
 				streamReader.validateAgainst(rng2);
@@ -77,14 +77,14 @@ public class ValidateWithRelaxNg {
 				RegexCheckHelper.doRegexChecks(inputFile, abk_DE, abk_EN, abk_IT);
 
 			} catch (Exception vex) {
-				System.err.println("Datei '" + inputFile
-						+ "' hat die Validierung NICHT bestanden: "
+				System.err.println("File '" + inputFile
+						+ "' did NOT pass validation: "
 						+ vex.getMessage());
 				ReadReturnKeyFromConsole();
 				System.exit(1);
 			}
 		} catch (XMLStreamException xse) {
-			System.err.println("Konnte Eingangsdatei nicht lesen ('"
+			System.err.println("Could not read input file ('"
 					+ inputFile + "'): " + xse.getMessage());
 			ReadReturnKeyFromConsole();
 			System.exit(1);
