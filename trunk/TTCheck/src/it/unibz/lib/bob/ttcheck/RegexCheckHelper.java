@@ -70,7 +70,7 @@ public class RegexCheckHelper extends DefaultHandler {
 			System.err.println("+++ ERROR: German macro file contains errors.");
 		}
 
-		System.err.println("Checking macro file " + abbrevFile_EN + " ...");
+		System.err.println("\n\nChecking macro file " + abbrevFile_EN + " ...");
 		// make an URL
 		helper_EN = new BobHelper(abbrevFile_EN, "abbrevFile_EN");
 		if (helper_EN.checkAllRegexesInMacroMap() == true) {
@@ -88,7 +88,7 @@ public class RegexCheckHelper extends DefaultHandler {
 					.println("+++ ERROR: English macro file contains errors.");
 		}
 
-		System.err.println("Checking macro file " + abbrevFile_IT + " ...");
+		System.err.println("\n\nChecking macro file " + abbrevFile_IT + " ...");
 		// make an URL
 		helper_IT = new BobHelper(abbrevFile_IT, "abbrevFile_IT");
 		if (helper_IT.checkAllRegexesInMacroMap() == true) {
