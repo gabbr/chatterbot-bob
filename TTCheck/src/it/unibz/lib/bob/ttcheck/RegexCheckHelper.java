@@ -53,60 +53,57 @@ public class RegexCheckHelper extends DefaultHandler {
 		 * Check abbrev files alone
 		 */
 
-		System.err.println("ÃœberprÃ¼fe AbkÃ¼rzungsdatei " + abbrevFile_DE
-				+ " ...");
+		System.err.println("Checking macro file " + abbrevFile_DE + " ...");
 		// make an URL
 		helper_DE = new BobHelper(abbrevFile_DE, "abbrevFile_DE");
 		if (helper_DE.checkAllRegexesInMacroMap() == true) {
 			Pair[] longestMacros = helper_DE.get3OverallLongestMacros();
-			System.err.println("Die 3 lÃ¤ngsten AbkÃ¼rzungen:\n"
+			System.err.println("The 3 longest macros:\n"
 					+ longestMacros[0].getMacro() + " -> "
 					+ longestMacros[0].getLength() + "\n"
 					+ longestMacros[1].getMacro() + " -> "
 					+ longestMacros[1].getLength() + "\n"
 					+ longestMacros[2].getMacro() + " -> "
 					+ longestMacros[2].getLength());
-			System.err.println("+++ Deutsche AbkÃ¼rzungsdatei ist fehlerfrei.");
+			System.err.println("+++ OK: German macro file is correct.");
 		} else {
-			System.err.println("+++ Deutsche AbkÃ¼rzungsdatei enthÃ¤lt Fehler.");
+			System.err.println("+++ ERROR: German macro file contains errors.");
 		}
 
-		System.err.println("ÃœberprÃ¼fe AbkÃ¼rzungsdatei " + abbrevFile_EN
-				+ " ...");
+		System.err.println("Checking macro file " + abbrevFile_EN + " ...");
 		// make an URL
 		helper_EN = new BobHelper(abbrevFile_EN, "abbrevFile_EN");
 		if (helper_EN.checkAllRegexesInMacroMap() == true) {
 			Pair[] longestMacros = helper_EN.get3OverallLongestMacros();
-			System.err.println("Die 3 lÃ¤ngsten AbkÃ¼rzungen:\n"
+			System.err.println("The 3 longest macros:\n"
 					+ longestMacros[0].getMacro() + " -> "
 					+ longestMacros[0].getLength() + "\n"
 					+ longestMacros[1].getMacro() + " -> "
 					+ longestMacros[1].getLength() + "\n"
 					+ longestMacros[2].getMacro() + " -> "
 					+ longestMacros[2].getLength());
-			System.err.println("+++ Englische AbkÃ¼rzungsdatei ist fehlerfrei.");
+			System.err.println("+++ OK: English macro file is correct.");
 		} else {
-			System.err.println("+++ Englische AbkÃ¼rzungsdatei enthÃ¤lt Fehler.");
+			System.err
+					.println("+++ ERROR: English macro file contains errors.");
 		}
 
-		System.err.println("ÃœberprÃ¼fe AbkÃ¼rzungsdatei " + abbrevFile_IT
-				+ " ...");
+		System.err.println("Checking macro file " + abbrevFile_IT + " ...");
 		// make an URL
 		helper_IT = new BobHelper(abbrevFile_IT, "abbrevFile_IT");
 		if (helper_IT.checkAllRegexesInMacroMap() == true) {
 			Pair[] longestMacros = helper_IT.get3OverallLongestMacros();
-			System.err.println("Die 3 lÃ¤ngsten AbkÃ¼rzungen:\n"
+			System.err.println("The 3 longest macros:\n"
 					+ longestMacros[0].getMacro() + " -> "
 					+ longestMacros[0].getLength() + "\n"
 					+ longestMacros[1].getMacro() + " -> "
 					+ longestMacros[1].getLength() + "\n"
 					+ longestMacros[2].getMacro() + " -> "
 					+ longestMacros[2].getLength());
-			System.err
-					.println("+++ Italienische AbkÃ¼rzungsdatei ist fehlerfrei.");
+			System.err.println("+++ OK: Italian macro file is correct.");
 		} else {
 			System.err
-					.println("+++ Italienische AbkÃ¼rzungsdatei enthÃ¤lt Fehler.");
+					.println("+++ ERROR: Italian macro file contains errors.");
 		}
 
 		/**
@@ -114,7 +111,7 @@ public class RegexCheckHelper extends DefaultHandler {
 		 */
 
 		System.err
-				.println("ÃœberprÃ¼fe jetzt alle Patterns im TopicTree (kann etwas dauern) ...");
+				.println("Checking all question patterns in the Topic Tree (this will take a while) ...");
 		ValidateWithRelaxNg.ReadReturnKeyFromConsole();
 
 		DefaultHandler handler = new RegexCheckHelper();
@@ -185,11 +182,14 @@ public class RegexCheckHelper extends DefaultHandler {
 
 					String expandedRegex = null;
 					if (lang.equals("DE")) {
-						expandedRegex = helper_DE.replaceMacros(regexElem, "DE");
+						expandedRegex = helper_DE
+								.replaceMacros(regexElem, "DE");
 					} else if (lang.equals("EN")) {
-						expandedRegex = helper_EN.replaceMacros(regexElem, "EN");
+						expandedRegex = helper_EN
+								.replaceMacros(regexElem, "EN");
 					} else if (lang.equals("IT")) {
-						expandedRegex = helper_IT.replaceMacros(regexElem, "IT");
+						expandedRegex = helper_IT
+								.replaceMacros(regexElem, "IT");
 					}
 
 					Reader reader;
@@ -209,7 +209,8 @@ public class RegexCheckHelper extends DefaultHandler {
 						parser = new Bob_Parser(lexer);
 						parser.setASTNodeClass("it.unibz.lib.bob.check.MyAST");
 						treeparser = new Bob_TreeParser();
-						treeparser.setASTNodeClass("it.unibz.lib.bob.check.MyAST");
+						treeparser
+								.setASTNodeClass("it.unibz.lib.bob.check.MyAST");
 
 						parser.bExpression();
 						tree = (MyAST) parser.getAST();
@@ -225,7 +226,8 @@ public class RegexCheckHelper extends DefaultHandler {
 						 * "UTF8")); out.write(tree.toStringTree());
 						 * out.close(); } catch (UnsupportedEncodingException
 						 * ue) { System.err.println("Not supported : "); } catch
-						 * (IOException e) { System.err.println(e.getMessage()); }
+						 * (IOException e) { System.err.println(e.getMessage());
+						 * }
 						 */
 						/*
 						 * ASTFrame frame = new ASTFrame("The tree", tree);
@@ -234,43 +236,44 @@ public class RegexCheckHelper extends DefaultHandler {
 						// end output AST
 					} catch (RecognitionException e) {
 						System.err
-								.println("+++ Fehler im regulÃ¤ren Ausdruck (AUSSERHALB von AnfÃ¼hrungszeichen):\n"
+								.println("+++ Error in a regular expression pattern (OUTSIDE of quotation marks (\"\")):\n"
 										+ e.toString());
-						System.err.println("(um Zeile " + (errNum)
-								+ " im TopicTree)");
+						System.err.println("(around line number " + (errNum)
+								+ " in the Topic Tree xml file)");
 						// throw new SAXException("Regex-Fehler");
 						// System.exit(1);
 					} catch (TokenStreamException e) {
 						System.err
-								.println("+++ Fehler im regulÃ¤ren Ausdruck (INNERHALB von AnfÃ¼hrungszeichen): UngÃ¼ltiges Zeichen.\n"
+								.println("+++ Error in a regular expression pattern (INSIDE of quotation marks (\"\")): Invalid character.\n"
 										+ e.toString());
-						System.err.println("(um Zeile " + (errNum)
-								+ " im TopicTree)");
+						System.err.println("(around line number " + (errNum)
+								+ " in the Topic Tree xml file)");
 						// throw new SAXException("Regex-Fehler");
 					} catch (ANTLRException e) {
-						System.err.println("+++ Fehler im regulÃ¤ren Ausdruck. "
-								+ e.toString());
-						System.err.println("(um Zeile " + (errNum)
-								+ " im TopicTree)");
+						System.err
+								.println("+++ Error in the regular expression pattern. "
+										+ e.toString());
+						System.err.println("(around line number " + (errNum)
+								+ " in the Topic Tree xml file)");
 						// throw new SAXException("Regex-Fehler");
 
 					} catch (Exception e) {
 
 						if (e.getMessage().endsWith("Expression is too large.")) {
 							System.err
-									.println("+++ Fehler im regulÃ¤ren Ausdruck (INNERHALB von AnfÃ¼hrungszeichen): Pattern ist zu komplex!");
+									.println("+++ Error in a regular expression pattern (INSIDE of quotation marks (\"\")): Pattern is too large/complex!");
 						} else if (e.getMessage().endsWith(
 								"Unmatched parentheses.")) {
 							System.err
-									.println("+++ Fehler im regulÃ¤ren Ausdruck (INNERHALB von AnfÃ¼hrungszeichen): Klammern passen nicht zusammen:\n"
+									.println("+++ Error in a regular expression pattern (INSIDE of quotation marks (\"\")): Parentheses don't match:\n"
 											+ e.toString());
 						} else {
 							System.err
-									.println("+++ Unbekannter Fehler im regulÃ¤ren Ausdruck (INNERHALB von AnfÃ¼hrungszeichen):\n"
+									.println("+++ Unknown error in the regular expression pattern (INSIDE of quotation marks (\"\")):\n"
 											+ e.toString());
 						}
-						System.err.println("(um Zeile " + (errNum)
-								+ " im TopicTree)");
+						System.err.println("(around line number " + (errNum)
+								+ " in the Topic Tree xml file)");
 						// throw new SAXException("Regex-Fehler");
 
 					}
