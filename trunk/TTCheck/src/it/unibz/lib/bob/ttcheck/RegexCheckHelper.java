@@ -53,7 +53,7 @@ public class RegexCheckHelper extends DefaultHandler {
 		 * Check abbrev files alone
 		 */
 
-		System.err.println("Checking macro file " + abbrevFile_DE + " ...");
+		System.err.println("\n\nChecking macro file " + abbrevFile_DE + " ...");
 		// make an URL
 		helper_DE = new BobHelper(abbrevFile_DE, "abbrevFile_DE");
 		if (helper_DE.checkAllRegexesInMacroMap() == true) {
