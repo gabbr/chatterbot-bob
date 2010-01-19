@@ -523,7 +523,7 @@ public class BobHelper implements macroParser_LexerTokenTypes {
 										+ lang
 										+ "::"
 										+ key
-										+ " . Diese Abkuerzung ist fuer die angegebene Sprache undefiniert.");
+										+ " . This macro is undefined for the specified language.");
 					}
 				} else if (firstchild.getType() == NON_MACRO) {
 					result += firstchild.getFirstChild().toString();
