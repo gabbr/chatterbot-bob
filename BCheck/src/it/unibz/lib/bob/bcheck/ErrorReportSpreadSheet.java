@@ -163,8 +163,9 @@ public class ErrorReportSpreadSheet {
 
 			cell0.setCellValue(new HSSFRichTextString(testQuestion.get(i)));
 			cell1.setCellValue(new HSSFRichTextString(correctID.get(i)));
+			// this extracts just the 2-digit main topic numbers 
 			try {
-				seenMainTopics.add(correctID.get(i).substring(7, 9));
+				seenMainTopics.add(correctID.get(i).substring(4, 6));
 			} catch (Exception e) {
 				;
 			}
