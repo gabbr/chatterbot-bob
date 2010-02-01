@@ -767,7 +767,7 @@ public class DialogueManager {
 									+ " DEBUG: Answer reranker reranked "
 									+ reranked.size()
 									+ " 'normal' topics, shown below after '#' signs (picked topic: "
-									+ tt.getNodeName(topNode, sessionID) + ")");
+									+ tt.getNodeName(topNode, sessionID) + " )");
 
 			for (int x = reranked.size() - 1; x >= 0; x--) {
 				log.log(CustomLog.MY_TRACE, sessionID.substring(0, 8)
