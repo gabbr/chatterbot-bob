@@ -13,12 +13,11 @@ public class MyAuthenticator extends Authenticator {
 		 * getRequestingPort();
 		 */
         // Get the username from the user...
-        String username = "mkirschner";
-        //String username = "bob-webapp";
+        String username = "svn_user_with_read_access";
 
         // Get the password from the user...
-        String password = "";
-        //String password = "sNK212lrt";
+        String password = "foo_http_password";
+
 
         // Return the information
         return new PasswordAuthentication(username, password.toCharArray());
