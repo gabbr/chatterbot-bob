@@ -80,9 +80,22 @@ if (request.getParameter("debug") != null
 						<input type="hidden" name="last" id="last" value="0"/>
 						<fieldset class="bob_language">
 
-							<strong>Choose the language:</strong>
+							
 
-							<input class="bob_radiobutton" type="radio" name="lang" value="EN" 
+<%if (request.getParameter("language") == null
+					|| (!request.getParameter("language").equals("de") && !request
+							.getParameter("language").equals("it"))) {%>
+							<strong>Choose the language:</strong>
+<%} if (request.getParameter("language") != null
+					&& request.getParameter("language").equals("de")) {%>
+					<strong>W&auml;hle die Sprache:</strong>
+<%} if (request.getParameter("language") != null
+					&& request.getParameter("language").equals("it")) {%>
+					<strong>Scegli la lingua:</strong>
+<%}%>			
+							 
+							 
+			<input class="bob_radiobutton" type="radio" name="lang" value="EN" 
 	<%if (request.getParameter("language") == null
 					|| (!request.getParameter("language").equals("de") && !request
 							.getParameter("language").equals("it"))) {%>
