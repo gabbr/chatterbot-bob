@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:ns="http://relaxng.org/ns/structure/1.0">
+  <define name="library_domain">
+    <element name="library_domain">
+      <ref name="attlist.library_domain"></ref>
+
+      <oneOrMore>
+        <ref name="topic"></ref>
+      </oneOrMore>
+
+	  <optional>
+      <ref name="tasks"></ref>
+	  </optional>
+	  <optional>
+      <element name="entities">
+        <ref name="entityOnly-qTypes"></ref>
+      </element>
+	  </optional>
+    </element>
+  </define>
+
+  <define combine="interleave" name="attlist.library_domain">
+    <optional>
+      <attribute name="version"></attribute>
+    </optional>
+  </define>
+
+  <define name="topic">
+    <element name="topic">
+      <interleave>
+        <ref name="attlist.topic"></ref>
+
+        <ref name="regex"></ref>
+
+        <zeroOrMore>
+          <ref name="answer"></ref>
+        </zeroOrMore>
+
+        <zeroOrMore>
+          <ref name="link"></ref>
+        </zeroOrMore>
+
+        <zeroOrMore>
+          <ref name="topic"></ref>
+        </zeroOrMore>
+
+        <zeroOrMore>
+          <ref name="tasks-ref"></ref>
+        </zeroOrMore>
+
+		<zeroOrMore>
+          <ref name="name-trace"></ref>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="name-trace">
+    <element name="name-trace">
+      <attribute name="number"></attribute>
+	  <text></text>
+    </element>
+  </define>
+
+
+  <define name="tasks-ref">
+    <element name="tasks-ref">
+      <oneOrMore>
+        <ref name="task-ref"></ref>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="task-ref">
+    <element name="task-ref">
+      <attribute name="name"></attribute>
+
+      <optional>
+        <choice>
+          <ref name="q-type-entity"></ref>
+
+          <element name="q-type-task">
+            <choice>
+              <element name="howto">
+                <empty></empty>
+              </element>
+
+              <element name="where">
+                <empty></empty>
+              </element>
+
+              <element name="whatis">
+                <empty></empty>
+              </element>
+
+              <element name="who">
+                <empty></empty>
+              </element>
+
+              <element name="howlong">
+                <empty></empty>
+              </element>
+            </choice>
+          </element>
+        </choice>
+      </optional>
+    </element>
+  </define>
+
+  <define combine="interleave" name="attlist.topic">
+    <attribute name="name">
+      <data type="ID"></data>
+    </attribute>
+  </define>
+
+  <define name="q-type-entity">
+    <element name="q-type-entity">
+      <element name="argument-slot">
+        <choice>
+          <element name="arg0">
+            <empty></empty>
+          </element>
+
+          <element name="arg1">
+            <empty></empty>
+          </element>
+
+          <element name="arg2">
+            <empty></empty>
+          </element>
+
+          <element name="arg3">
+            <empty></empty>
+          </element>
+
+          <element name="arg4">
+            <empty></empty>
+          </element>
+
+          <element name="arg5">
+            <empty></empty>
+          </element>
+
+          <element name="argm-mnr">
+            <empty></empty>
+          </element>
+
+          <element name="argm-loc">
+            <empty></empty>
+          </element>
+          
+          <element name="argm-tmp">
+            <empty></empty>
+          </element>
+
+        </choice>
+      </element>
+
+      <choice>
+        <element name="whatis">
+          <empty></empty>
+        </element>
+
+        <element name="howmuch">
+          <empty></empty>
+        </element>
+
+        <element name="where">
+          <empty></empty>
+        </element>
+
+        <element name="howto">
+          <empty></empty>
+        </element>
+
+        <element name="when">
+          <empty></empty>
+        </element>
+
+        <element name="problem">
+          <empty></empty>
+        </element>
+
+        <element name="howmany-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="howto-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="howmuch-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="where-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="why-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="which-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="when-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="howlong-TASK">
+          <empty></empty>
+        </element>
+
+        <element name="problem-TASK">
+          <empty></empty>
+        </element>
+      </choice>
+    </element>
+  </define>
+
+  <define combine="interleave" name="attlist.topic">
+    <attribute name="isSubDialogue">
+      <choice>
+        <value>true</value>
+
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define combine="interleave" name="attlist.topic">
+    <attribute name="isSystemInitiative">
+      <choice>
+        <value>true</value>
+
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define combine="interleave" name="attlist.topic">
+    <attribute name="isLocal">
+      <choice>
+        <value>true</value>
+
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define combine="interleave" name="attlist.topic">
+    <attribute name="active">
+      <choice>
+        <value>true</value>
+
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="regex">
+    <element name="regex">
+      <optional>
+        <ref name="languages"></ref>
+      </optional>
+    </element>
+  </define>
+
+  <define name="answer">
+    <element name="answer">
+      <optional>
+        <ref name="languages"></ref>
+      </optional>
+    </element>
+  </define>
+
+  <define name="languages">
+    <element name="languages">
+      <interleave>
+        <ref name="DE"></ref>
+
+        <ref name="EN"></ref>
+
+        <ref name="IT"></ref>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="DE">
+    <element name="DE">
+      <text></text>
+    </element>
+  </define>
+
+  <define name="EN">
+    <element name="EN">
+      <text></text>
+    </element>
+  </define>
+
+  <define name="IT">
+    <element name="IT">
+      <text></text>
+    </element>
+  </define>
+
+  <define name="link">
+    <element name="link">
+      <text></text>
+    </element>
+  </define>
+
+  <define name="tasks">
+    <element name="tasks">
+      <oneOrMore>
+        <element name="task">
+          <attribute name="name"></attribute>
+		  <attribute name="stemmed"></attribute>
+          <ref name="task-related-q"></ref>
+
+          <optional>
+            <element name="arg0">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="arg1">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="arg2">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="arg3">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="arg4">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="arg5">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="argm-loc">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="argm-mnr">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="argm-tmp">
+              <ref name="taskPlusEntity-qTypes"></ref>
+            </element>
+          </optional>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="task-related-q">
+    <element name="task-related-q">
+      <interleave>
+        <optional>
+          <element name="howto">
+            <oneOrMore>
+              <ref name="response-link-container"></ref>
+            </oneOrMore>
+          </element>
+        </optional>
+
+        <optional>
+          <element name="where">
+            <oneOrMore>
+              <ref name="response-link-container"></ref>
+            </oneOrMore>
+          </element>
+        </optional>
+
+        <optional>
+          <element name="whatis">
+            <oneOrMore>
+              <ref name="response-link-container"></ref>
+            </oneOrMore>
+          </element>
+        </optional>
+
+        <optional>
+          <element name="who">
+            <oneOrMore>
+              <ref name="response-link-container"></ref>
+            </oneOrMore>
+          </element>
+        </optional>
+
+        <optional>
+          <element name="howlong">
+            <oneOrMore>
+              <ref name="response-link-container"></ref>
+            </oneOrMore>
+          </element>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="response-link-container">
+    <element name="response-link-container">
+      <optional>
+        <attribute name="topicID"></attribute>
+      </optional>
+
+      <optional>
+        <element name="answer">
+          <ref name="languages"></ref>
+        </element>
+      </optional>
+
+      <optional>
+        <element name="link">
+          <text></text>
+        </element>
+      </optional>
+    </element>
+  </define>
+
+  <define name="taskPlusEntity-qTypes">
+    <oneOrMore>
+      <element name="entity">      
+        <interleave>
+
+                <ref name="canonical"></ref>
+
+          <zeroOrMore>
+                <ref name="variant"></ref>
+          </zeroOrMore>
+          <optional>
+            <ref name="taskPlusEntity-qTypes"></ref>
+          </optional>
+
+          <optional>
+            <element name="howmany-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howto-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howmuch-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="where-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="why-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="which-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="when-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howlong-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="problem-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="yesno-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="yesnoneed-TASK">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+        </interleave>
+      </element>
+    </oneOrMore>
+  </define>
+
+  <define name="entityOnly-qTypes">
+    <oneOrMore>
+      <element name="entity2">
+        <interleave>
+          <zeroOrMore>
+                <ref name="variant"></ref>
+          </zeroOrMore>          
+		  <ref name="canonical"></ref>
+          <optional>
+            <ref name="entityOnly-qTypes"></ref>
+          </optional>
+          <optional>
+            <element name="whatis">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howmuch">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="where">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howto">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="when">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="problem">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="which">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="howmany">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="generalinfo">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="yesno">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+
+          <optional>
+            <element name="whatcanido">
+              <oneOrMore>
+                <ref name="response-link-container"></ref>
+              </oneOrMore>
+            </element>
+          </optional>
+        </interleave>
+      </element>
+    </oneOrMore>
+  </define>
+
+  <define name="variant">
+    <element name="variant">
+      <attribute name="stemmed"></attribute>
+      <text></text>
+    </element>
+  </define>
+
+  <define name="canonical">
+    <element name="canonical">
+      <attribute name="stemmed"></attribute>
+      <text></text>
+    </element>
+  </define>
+
+
+  <start>
+    <ref name="library_domain"></ref>
+  </start>
+</grammar>

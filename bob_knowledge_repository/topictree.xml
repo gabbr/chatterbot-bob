@@ -1,0 +1,2270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xxe-relaxng-schema location="library_domain.rng"?>
+<library_domain version="4.0">
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.bob">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.90_OPAC_MESSAGES">
+<regex></regex>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC">
+<regex>
+<languages>
+<DE>"XOPACX"</DE>
+<EN>"XOPACX"</EN>
+<IT>"XOPACX"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]...</DE>
+<EN>[10]No idea what you mean. Do you want to search for books or media with the keywords '__OPAC_QUERY__'?</EN>
+<IT>[10]...</IT>
+</languages>
+</answer>
+<link>bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC.10_YES_DELIVER_OPAC_LINK</link>
+<name-trace number="1">bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC.10_YES_DELIVER_OPAC_LINK">
+<regex>
+<languages>
+<DE>"__SPECIAL_TOPIC_TRIGGERED_VIA_ID__"</DE>
+<EN>"yes"</EN>
+<IT>"__SPECIAL_TOPIC_TRIGGERED_VIA_ID__"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]...</DE>
+<EN>[10]Please click on the link to open a window with the &lt;a target="_blanc" class="normal" href="__OPAC_LINK_URL__"&gt;catalogue query results&lt;/a&gt; using the keywords '__OPAC_QUERY__'.</EN>
+<IT>[10]...</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC.10_YES_DELIVER_OPAC_LINK</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.90_OPAC_MESSAGES.11_KEYWORD_SEARCH">
+<regex>
+<languages>
+<DE>("#ST_RECHERCHE#|#ICH_SUCHE#|#ICH_WILL#|#V_HABEN#|#GIBT_ES#" &amp;&amp; "#ST_BUCH#" &amp;&amp; "zum #ST_THEMA#")&amp;&amp;!("#WIE_FINDE_ICH#|#WIE#|#TIPP#|#ST_TITEL#|#WAS_KOSTET#|#KOSTENLOS#|#V_BEZAHLEN#|#ST_INFORMATIK#|#ST_WIWI#|(f|ph)iloso(f|ph)(ie|ische?)|psycholog(ie|ische?)|paedagog(ik|ische?)|#ST_SPRACHLEHRFORSCHUNG#|\b(fremd)?sprachwissen(t)?schaftlich(e|es)?\b|\blinguistisch(e|es|er)?\b|\b(fremd)?sprachen?\b|germanist(ik|ische?)|#ST_ANGLISTIK#|#ST_AMERIKANISTIK#|romanist(ik|ische?)|ethnolog(ie|ische?)|kunst|musik|polit(ik|ologie|ologische?)|#ST_SOZIOLOGIE#|#ST_GESCHICHTE#|#ST_GESETZESTEXTE#|#ST_JURA#|geogra(ph|f)(ie|ische)|#ST_MATHEMATIK#|#ST_PHYSIK#|#ST_CHEMIE#|#ST_BIOLOGIE#|#ST_MEDIZIN#|#ST_AGRAR#|#ST_TECHNIK#|sport|#ST_BESTELLEN#|#ST_AUSLEIHEN#|#ST_BUCHAUSLEIHE#|#NICHT#|_(ueber|zum|zur|zu) (#DIR#|#DICH#)")||("#ST_RECHERCHE#|#ICH_SUCHE#|#ICH_WILL#|#V_HABEN#|#GIBT_ES#" &amp;&amp; "#ST_BUCH#" &amp;&amp; "\b(zum|zu|zur|ueber)\b")&amp;&amp;!("#ST_THEMA#|#TIPP#|#ST_TITEL#|#WAS_KOSTET#|#KOSTENLOS#|#V_BEZAHLEN#|#ST_INFORMATIK#|#ST_WIWI#|(f|ph)iloso(f|ph)(ie|ische?)|psycholog(ie|ische?)|paedagog(ik|ische?)|#ST_SPRACHLEHRFORSCHUNG#|\b(fremd)?sprachwissen(t)?schaftlich(e|es)?\b|\blinguistisch(e|es|er)?\b|\b(fremd)?sprachen?\b|germanist(ik|ische?)|#ST_ANGLISTIK#|#ST_AMERIKANISTIK#|romanist(ik|ische?)|ethnolog(ie|ische?)|kunst|musik|polit(ik|ologie|ologische?)|#ST_SOZIOLOGIE#|#ST_GESCHICHTE#|#ST_GESETZESTEXTE#|#ST_JURA#|geogra(ph|f)(ie|ische)|#ST_MATHEMATIK#|#ST_PHYSIK#|#ST_CHEMIE#|#ST_BIOLOGIE#|#ST_MEDIZIN#|#ST_AGRAR#|#ST_TECHNIK#|sport|#ST_BESTELLEN#|#ST_AUSLEIHEN#|#WIE#|#WIE_FINDE_ICH#|#ST_BUCHAUSLEIHE#|#NICHT#|_(ueber|zum|zur|zu) (#DIR#|#DICH#)")</DE>
+<EN>"#V_SEARCH#|#V_I_AM_LOOKING_FOR#|#V_NEED#|#V_HAVE#|#V_FIND#" &amp;&amp; "#ST_BOOK#" &amp;&amp; "\b(concerning|on|about)\b" &amp;&amp;! "#HOW_DO_I_FIND#|#HOW#|in #LANGUAGES#|#ST_RESERVE#|#ST_COMPUTER_SCIENCE#|#ST_WIWI#|english philology|anglistics|#ST_NUMBER#|#PEOPLE#|#ST_AUTHOR#|#WRITERS_M#|#WRITERS_F#|#NOT#|#ST_BORROW#|#WHEN#|#ADVICE#|#PURCHASE#|#ST_TOPIC#|philosoph(y|ical)|psycholog(y|ical)|education(al)?|#ST_LINGUISTICS#|_German language and literature studies_|_Romance studies_|ethnolog(y|ical)|\barts\b|\bmusic\b|_political science_|sociolog(y|ical)|histor(y|ical)|\blaw\b|geograph(y|ical)|math(s|ematical)|physics|chemistry|biolog(y|ical)|medicine|medical|agricultur(e|ral)|forestry|engineering|sports"</EN>
+<IT>"#I_SEARCH#|#V_I_AM_LOOKING_FOR#|#V_NEED#|#V_HAVE#|#V_FIND#" &amp;&amp; "#ST_BOOK#" &amp;&amp; "\b(riguardo|su(l|i|lle|lla|gli|llo)?|sul tema)\b" &amp;&amp;!"#HOW_DO_I_FIND#|#HOW#|in #LANGUAGES#|#ST_RESERVE#|#ST_COMPUTER_SCIENCE#|#ST_WIWI#|#ST_NUMBER#|#PEOPLE#|#ST_AUTHOR#|#WRITERS_M#|#WRITERS_F#|#NOT#|#ST_BORROW#|#WHEN#|#ADVICE#|#PURCHASE#|#ST_TOPIC#|filologia inglese|anglistica|filosofi(ca)|psicologi(a|ca)|formazione|formativa|#ST_LINGUISTICS#|_Lingua e letteratura tedesca_|Germanistica|_Filologia romanza_|etnologi(a|ca)|\bart(e|i)\b|\bmusica\b|musicologia|_scienze politiche_|sociologi(a|ca)|stori(a|ca)|\bdiritto\b|geografi(a|ca)|matematic(a|he)|fisica|chimica|biologi(a|ca)|medicina|medica|agricoltura|scienze agricole|forestali|ingegneria|sport(s)?|scienze motorie"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[01]Wenn Du auf den Link klickst, öffnet sich ein neues Fenster mit der &lt;a target="_blank" class="normal" href="__OPAC_LINK_URL__"&gt;Trefferliste im OPAC&lt;/a&gt; zu den Suchbegriffen '__OPAC_QUERY__'.</DE>
+<EN>[01]Please click on the link to open a window with the &lt;a target="_blank" class="normal" href="__OPAC_LINK_URL__"&gt;catalogue query results&lt;/a&gt; using the keywords '__OPAC_QUERY__'.</EN>
+<IT>[01]Clicca sul link per aprire una finiestra con &lt;a target="_blank" class="normal" href="__OPAC_LINK_URL__"&gt;i risultati della ricerca&lt;/a&gt; con le keywords '__OPAC_QUERY__'.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.90_OPAC_MESSAGES.10_DOES_USER_WANT_OPAC.10_YES_DELIVER_OPAC_LINK</name-trace>
+<name-trace number="2">bob.90_OPAC_MESSAGES.11_KEYWORD_SEARCH</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.90_OPAC_MESSAGES.12_SUBJECT_SEARCH">
+<regex>
+<languages>
+<DE>"schlagwortsuche"</DE>
+<EN>"luigi"</EN>
+<IT>"soggetto"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Dazu gibt es das Schlagwortfeld.</DE>
+<EN>[03]Please use the subject field in the &lt;linkToPhrases&gt;PHRASES.URLS.N-Z.SubjectSearch|OPAC&lt;/linkToPhrases&gt;.</EN>
+<IT>[03]Ti consiglio di usare il campo "soggetto".</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.90_OPAC_MESSAGES.12_SUBJECT_SEARCH</name-trace>
+</topic>
+<name-trace number="1">bob.90_OPAC_MESSAGES</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS">
+<!--INFO: rule bob.00_FAQS.16_AerzteBibliothek was marked for deletion-->
+<!--INFO: rule bob.00_FAQS.32_STW_Bibliothekartag was marked for deletion-->
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.01_WhereBegin">
+<regex>
+<languages>
+<DE>(("#WO# #MUSS# #ICH# #V_ANFANGEN#")||("#WO#" &amp;&amp; "#V_ANFANGEN#"&amp;&amp;"#ICH#")||("zum ersten mal|#MEIN# erstes mal|das erste mal|erstsemester(in)?|_erstie?s?")||("#WO# #ICH# #V_ANFANGEN# #MUSS#|#WO# fange?n? #ICH# an|#WIE# gehe? #ICH# richtig vor|#ICH# #V_SEIN_PERF# noch nie .*#DIR#|(#ICH# |^)#V_SEIN# #NEU#(#SATZENDE#| .*#ST_UNI#)|#ICH# (bin|sind) #NEU# #DORT#|#WO# (bin|sind) #ICH#(#SATZENDE#| #DORT#)|#FRAGE_WAS# #IST# das #DORT#"))&amp;&amp;!("#ST_RECHERCHE#")</DE>
+<EN>(("how"&amp;&amp;"#V_BEGIN#")||("#WHERE# #MUST#( #I#)? #V_BEGIN#")||("#WHERE#"&amp;&amp;"#V_BEGIN#"&amp;&amp;"#I#")||("for the first time|#MY# first time|the first time|freshm(a|e)n|freshers?|freshman students?")||("#WHERE# #I# #MUST# .*#V_BEGIN#|(#WHERE#|how) do #I# #V_BEGIN#|#HOW# do #I# proceed correctly|#I# #V_BE_PERF# never .*#YOU_PERSON#|(#I# |^)#V_BE# #NEW#(#END_OF_SENTENCE#|.*#ST_UNIVERSITY#)|#I# (am|is|are) #NEW# #THERE#|#WHERE# (is|are|am) #I#(#END_OF_SENTENCE#| #THERE#)|#QUESTION_WHAT# #IS# this #THERE#")||"(#QUESTION_WHAT#|what's) .*first thing to do")&amp;&amp;!("#ST_RESEARCH#")</EN>
+<IT>((("(dove|#HOW#) si #V_BEGIN#") || ("(dove|#HOW#) #V_BEGIN#") ||("(dove|#HOW#) #MUST# #V_BEGIN#") || ("((Per )?la( #MY#)? prima volta)")||("#WHAT# devo fare") ||("#V_BE# #NEW#")||("(Cos'e|Cosa e) questo"))&amp;&amp;!("#ST_RESERVE#|#ST_RESEARCH#|numero|cifra"))&amp;&amp;!"nato|cresciuto|#ST_KVK#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[09]Hallo, ich bin BoB. Du kannst mich alles fragen, was irgendwie die Unibibliothek betrifft. Wenn Du zu ersten Mal hier bist - hast Du schon einen Ausweis für die Bibliothek? Oder willst Du Dich mal nur so umschauen?</DE>
+<EN>[09]Hello, I'm BoB. You may ask whatever you want if it's got to do something with the University Library. If you are here for the first time, do you already have a Library Card? Or do you just want to take a look around?</EN>
+<IT>[09]Ciao, io sono BoB. Puoi chiedermi tutto ciò che vuoi a proposito della biblioteca universitaria. Se sei qui per la prima volta: hai già la tessera della biblioteca? O vuoi solo guardarti intorno?</IT>
+</languages>
+</answer>
+<link>bob.00_FAQS.02_WhereBegin_Analyzer</link>
+<!--Wo soll ich anfangen? Wo fange ich an? Was mache ich, wenn ich zum ersten Mal in der Stabi bin?
+Come|Dove si inizia
+Come|Dove inzio
+Dove|Come devo iniziare
+Per la prima volta|La( mia)? prima volta
+Come proced(o|ere) correttamente
+Sono nuovo
+Dove sono
+Cos'è questo?-->
+<name-trace number="1">bob.00_FAQS.01_WhereBegin</name-trace>
+<name-trace number="2">bob.00_FAQS.01_WoAnfangen</name-trace>
+<name-trace number="3">bob.00_FAQS.01_WhereBegin</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.02_WhereBegin_Analyzer">
+<regex></regex>
+<answer></answer>
+<!--ANALYZER: WoAnfangen-->
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.02_WhereBegin_Analyzer__0">
+<regex>
+<languages>
+<DE>(("^ *$")||("#POSITIVE#|#WEITER#")||("umschauen"))</DE>
+<EN>(("^ *$")||("#POSITIVE#|#GO_ON#")||("look around|take a look"))</EN>
+<IT>(("^ *$")||("#POSITIVE#|#GO_ON#|occhiata"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[07]Als Student bist Du automatisch in der Bibliothek eingeschrieben. Externe Kunden können einen Bibliotheksausweis machen. Was möchtest Du denn gerne wissen?</DE>
+<EN>[07]As student you are automatically enrolled in the Library. External users may obtain a Library Card. How may I help you?</EN>
+<IT>[07]Come studente sei automaticamente iscritto alla biblioteca. Gli utenti esterni possono iscriversi alla biblioteca facendo una tessera. Cosa desideri sapere?</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.02_WhereBegin_Analyzer__0</name-trace>
+<name-trace number="2">bob.00_FAQS.02_WoAnfangen_Analyzer__0</name-trace>
+<name-trace number="3">bob.00_FAQS.02_WhereBegin_Analyzer__0</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.02_WhereBegin_Analyzer__1">
+<regex>
+<languages>
+<DE>( "#SCHON# (angemeldet|getan|gemacht)|#V_HABEN# #SCHON#|#ICH# #SCHON#")</DE>
+<EN>( "#ALREADY# (registered|done|subscribed)|#V_HAVE# #ALREADY#|#I# #ALREADY#")</EN>
+<IT>("#ALREADY# (registrato|fatto)|#V_HAVE# #ALREADY#|#I# #ALREADY#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Na super! Dann kennst Du die Bibliothek ja schon ein wenig, oder?</DE>
+<EN>[02]Perfect! Then you already know the Library a little bit, don't you?</EN>
+<IT>[02]Ottimo! Conosci già un po' la biblioteca!</IT>
+</languages>
+</answer>
+<link>bob.00_FAQS.03_WhereBegin_Weiter</link>
+<name-trace number="1">bob.00_FAQS.02_WhereBegin_Analyzer__1</name-trace>
+<name-trace number="2">bob.00_FAQS.02_WoAnfangen_Analyzer__1</name-trace>
+<name-trace number="3">bob.00_FAQS.02_WhereBegin_Analyzer__1</name-trace>
+</topic>
+<!--ho già
+già fatto|registrato-->
+<name-trace number="1">bob.00_FAQS.02_WhereBegin_Analyzer</name-trace>
+<name-trace number="2">bob.00_FAQS.02_WoAnfangen_Analyzer</name-trace>
+<name-trace number="3">bob.00_FAQS.02_WhereBegin_Analyzer</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.03_WhereBegin_Weiter">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.03_WhereBegin_GoOn__0">
+<regex>
+<languages>
+<DE>("#POSITIVE#|#WEITER#")</DE>
+<EN>("#POSITIVE#|#GO_ON#")</EN>
+<IT>("#POSITIVE#|#GO_ON#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Gut. Möchtest Du sonst noch etwas wissen?</DE>
+<EN>[03]Well. Would you like to know anything else?</EN>
+<IT>[03]Bene. Vuoi chiedere ancora qualcosa?</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.03_WhereBegin_GoOn__0</name-trace>
+<name-trace number="2">bob.00_FAQS.03_WoAnfangen_Weiter__0</name-trace>
+<name-trace number="3">bob.00_FAQS.03_WhereBegin_GoOn__0</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.03_WhereBegin_GoOn__1">
+<regex>
+<languages>
+<DE>("#NEIN#|#NICHT#|#KEINE_AHNUNG#")</DE>
+<EN>("#NO#|#NOT#|#NO_IDEA#")</EN>
+<IT>("#NO#|#NOT#|#NO_IDEA#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Wenn Du Infos zur Bibliothek haben möchtest, dann empfehle ich Dir &lt;linkToPhrases&gt;PHRASES.URLS.N-Z.UniversityLibrary_Homepage|diese&lt;/linkToPhrases&gt; Seite.</DE>
+<EN>[03]If you are looking for information about the Library I recommend visiting&lt;linkToPhrases&gt;PHRASES.URLS.N-Z.UniversityLibrary_Homepage|this&lt;/linkToPhrases&gt; site.</EN>
+<IT>[03]Se desideri avere informazioni sulla biblioteca ti consiglio di visitare&lt;linkToPhrases&gt;PHRASES.URLS.N-Z.UniversityLibrary_Homepage|questa&lt;/linkToPhrases&gt; pagina.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.03_WhereBegin_GoOn__1</name-trace>
+<name-trace number="2">bob.00_FAQS.03_WoAnfangen_Weiter__1</name-trace>
+<name-trace number="3">bob.00_FAQS.03_WhereBegin_GoOn__1</name-trace>
+</topic>
+<name-trace number="1">bob.00_FAQS.03_WhereBegin_Weiter</name-trace>
+<name-trace number="2">bob.00_FAQS.03_WoAnfangen_Weiter</name-trace>
+<name-trace number="3">bob.00_FAQS.03_WhereBegin_Weiter</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.05_Be_quiet">
+<regex>
+<languages>
+<DE>(("#MUSS#|#WIE#|#WELCH#|#V_KOENNEN#|#FRAGE_WAS#|verboten|erlaubt|unterstellt|untersagt") &amp;&amp; ("#NICHT#")&amp;&amp;("#RUHIG#") || ("#SPRECHEN#|telefonieren|\blaut\b|lautstaerke|schrei(e|st|t|en)|\blaute\b. stimme|geraeusch|laerm|musik|hand(y|ies)"||"leise|#RUHIG#")&amp;&amp;"#ST_UNI_BIBLIOTHEK#") &amp;&amp;!("#ST_GEBAEUDE#|\bsagen\b|\bsprach|#ST_LITERATUR#|formalkatalogie?sierung|katalogie?sier(en|ung)|formalerschlie?ssung|#SPRACHEN#|suedtiroler(isch)?|spanisch")</DE>
+<EN>( ( ("#CAN_I#|#MUST#|#HOW#|#WHICH#|#V_CAN#|#QUESTION_WHAT#|forbid|allow") &amp;&amp; (("#SPEAK#|\bloud\b|\bvolume\b|\bshouts?\b|\byells?\b|\bscreams?\b|\bnois(e|es|y)?\b|\bloud(ly)?\b|\bmobile\b|\bmusic\b|\bcell.?phone\b") || ("#NOT#")&amp;&amp;("#CALM#") ) ) || "#MUST#" &amp;&amp;"#CALM#" &amp;&amp; "#ST_LIBRARY#" ) &amp;&amp;!"#ST_DATA#|about|#ST_TOPIC#|requests?|#ST_ORDER#|#ST_JOURNAL#|_(can|do) you speak_"</EN>
+<IT>(("(#MUST#|bisogna)" &amp;&amp; "((re)?stare|rimanere|fare)" &amp;&amp; "silenzio") || (("(#CAN_I#|(e vietato)|(e possibile))")&amp;&amp; ("((rumor(e|oso)|fastidioso))|urlare|parlare|telefonare|discutere")&amp;&amp;"#ST_LIBRARY#") || ("#V_CAN# .*parlare .*#ST_READING_ROOM#"))||"ascoltare"&amp;&amp;"musica"&amp;&amp;"#ST_LIBRARY#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Heißt es denn nicht "In der Ruhe liegt die Kraft."? Daher bitten wir unsere Besucher in den offenen Arbeitsbereichen um Rücksichtnahme auf andere Anwesende. Wer sich austoben möchte, dem empfehle ich das abwechslungsreiche Südtiroler Veranstaltungsangebot, oder Du schaust mal auf einer Uni-Party vorbei!</DE>
+<EN>[08]"Silence is wisdom", isn't it? So we kindly ask our visitors to think about other people present in the common working area. If you seek active relaxation, I recommend you to consider the variety of South Tyrolean events or to visit one of our University parties!</EN>
+<IT>[08]Si studia molto meglio in silenzio! Per questo preghiamo i nostri visitatori di rispettare le esigenze degli altri e di non fare rumore. Chi vuole sfogarsi può sempre rivolgersi alle feste campestri o ai party universitari!</IT>
+</languages>
+</answer>
+<!--Muss man in der Stabi ruhig sein? Wie laut darf man reden?-->
+<!--DONE: Marked for change
+devo rimanere in silezio
+bisogna stare in silezio
+è vietato urlare?
+posso essere rumoroso
+possiamo parlare nella sala di lettura
+-->
+<name-trace number="1">bob.00_FAQS.05_Be_quiet</name-trace>
+<name-trace number="2">bob.00_FAQS.05_Leise_Sein</name-trace>
+<name-trace number="3">bob.00_FAQS.05_Be_quiet</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.06_Drinks_Library">
+<regex>
+<languages>
+<DE>("#KANN_ICH#|#MUSS#|#WIE#|#WELCH#|#V_KOENNEN#|#FRAGE_WAS#|verboten|erlaubt|unterstellt") &amp;&amp; ("#SOFTDRINKS#|#ALK#|getraenk|trink|\bess|fl(a|ae)sch")&amp;&amp;!"#WO#|\bwas\b"</DE>
+<EN>("#CAN_I#|#MUST#|#HOW#|#WHICH#|#V_CAN#|#QUESTION_WHAT#|forbidden|allowed") &amp;&amp; ("#SOFTDRINKS#|#ALCOHOL#|drink|\beat\b|food|beverages?")&amp;&amp;!"where"</EN>
+<IT>"(#ST_CAN#|#ST_PROHIBITION#)" &amp;&amp; "(#V_BRING# .* (#FOOD#|#SOFTDRINKS#))|(mangiare|bere)"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[06]In die Bibliothek sollte man nur Wasser mitnehmen - andere Getränke oder etwas zu Essen bitte nicht. Bücher reagieren nun mal sensibel darauf.</DE>
+<EN>[06]Take only water with you if you visit the Library. Other drinks or meals are to be left outside, because they are definitely not the best friends of books.</EN>
+<IT>[06]In biblioteca si può portare solo acqua e non altre bevande o cibo. I libri sono molto sensibili da questo punto di vista!</IT>
+</languages>
+</answer>
+<!--Darf ich Getränke mit in die Bibliothek nehmen? Ist die Mitnahme von Getränken in die Bibliothek erlaubt? Es ist sicher nicht erlaubt, seine Getränke mit in die Bibliotheksräume zu nehmen. Oder? Sag mal, Stella, ist das o.k., wenn ich was zu trinken mit in eure heiligen Hallen nehme oder gibts da Stunk?-->
+<!--DONE: Marked for change
+posso portare bevande
+posso portare nella biblioteca da mangiare-->
+<name-trace number="1">bob.00_FAQS.06_Drinks_Library</name-trace>
+<name-trace number="2">bob.00_FAQS.06_Getraenke_Stabi</name-trace>
+<name-trace number="3">bob.00_FAQS.06_Drinks_Library</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.07_User_does_not_need_anything">
+<regex>
+<languages>
+<DE>(((("#ICH_WILL# #NICHT#")&amp;&amp;("#ST_RECHERCHE#")||(("#V_ICH_SUCHE#")&amp;&amp;("#NICHT#"))&amp;&amp;("#ST_RECHERCHE#")) || (("#V_ICH_SUCHE#")&amp;&amp;("#NICHT#")&amp;&amp;("#ETWAS#|\binformation\b")))&amp;&amp;!"#FUNKTIONIEREN#|#ST_OEFFNUNGSZEIT#|#ST_ZEITSCHRIFT#|#ST_BUCH#"||("#ICH# #ST_RECHERCHE#( #FUELLWOERTER# | )(#NICHT#|#KEIN# #ST_LITERATUR#)")&amp;&amp;!"#ST_ZEITUNG#|#ST_ZEITSCHRIFT#" || ("#ICH_WILL# #NICHT#( #FUELLWOERTER# | )#SATZENDE#")&amp;&amp;!"#ST_ZEITUNG#|#ST_ZEITSCHRIFT#" || ("#ICH# #ICH_WILL# #NUR#*_#V_SEHEN#")&amp;&amp;!"#ST_ZEITUNG#|#ST_ZEITSCHRIFT#|#ST_LITERATUR#" || ("#ICH_WILL# #NICHT# .*#ST_BESTELLEN#")&amp;&amp;!"#ST_ZEITUNG#|#ST_ZEITSCHRIFT#" || "#V_BRAUCHEN#"&amp;&amp;"#KEIN#|#NICHT#"&amp;&amp;!"#ST_BUCH#|#ST_OEFFNUNGSZEIT#|#ST_ZEITUNG#|#ST_ZEITSCHRIFT#" || ("(#V_HABEN#) \balles\b")&amp;&amp;!"#ST_PASSWORT#|#V_BRAUCHEN#|#ST_ZEITUNG#|#ST_ZEITSCHRIFT#|#ST_DRUCKEN#")&amp;&amp;!"#V_FINDEN#"</DE>
+<EN>((("#I_DO_NOT_WANT#")&amp;&amp;("#ST_RESEARCH#")||(("#V_I_AM_LOOKING_FOR#")&amp;&amp;("#NOT#"))&amp;&amp;("#ST_RESEARCH#")) || (("#V_I_AM_LOOKING_FOR#")&amp;&amp;("#NOT#")&amp;&amp;("#SOMETHING#|\binformation\b")))&amp;&amp;!"#ST_JOURNAL#"||("#I# #ST_RESEARCH#( #FILLER_WORDS# | )(#NOT#|#NOTHING# #ST_LITERATURE#)")&amp;&amp;!"#ST_NEWSPAPER#|#ST_JOURNAL#" || ("#I_DO_NOT_WANT#( #FILLER_WORDS# | )#END_OF_SENTENCE#")&amp;&amp;!"#ST_NEWSPAPER#|#ST_JOURNAL#" || ("#I# #JUST# want to .*_#V_SEE#")&amp;&amp;!"#ST_NEWSPAPER#|#ST_JOURNAL#|#ST_LITERATURE#" || ("#I_DO_NOT_WANT# .*#ST_ORDER#")&amp;&amp;!"#ST_NEWSPAPER#|#ST_JOURNAL#" || "#V_NEED#"&amp;&amp;"#NOTHING#|anything"&amp;&amp;!"#ST_NEWSPAPER#|#ST_JOURNAL#" || ("(#V_HAVE#|#V_KNOW#) \ball\b|\beverything\b")&amp;&amp;!"#V_NEED#|#ST_NEWSPAPER#|#ST_JOURNAL#|#ST_PRINT#"</EN>
+<IT>(("#NOT# #ST_RESEARCH# #I_WANT#|#I_WANT# #NOT# #ST_RESEARCH#|#ST_RESEARCH# .*#I_WANT# #NOT#"))||(("#I# #ST_RESEARCH#( #FILLER_WORDS# | )(#NOT##END_OF_SENTENCE#|#NOTHING# #ST_LITERATURE#)") || ("#I_WANT#( #FILLER_WORDS# | )#NOT##END_OF_SENTENCE#")||("#I_WANT# #JUST# .*_#V_SEE#")||("#I_WANT# #NOT# #ST_ORDER#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Das kann ich gut verstehen. Mir ist auch oft einfach nur nach einem guten Gespräch zumute.</DE>
+<EN>[08]I can understand you very well. I too, like to have a good chat from time to time.</EN>
+<IT>[08]Posso capirlo! A volte preferisco anch'io fare quattro chiacchiere!</IT>
+</languages>
+</answer>
+<!--Ich brauche nichts. Ich suche nichts. -->
+<name-trace number="1">bob.00_FAQS.07_User_does_not_need_anything</name-trace>
+<name-trace number="2">bob.00_FAQS.07_User_Braucht_Nichts</name-trace>
+<name-trace number="3">bob.00_FAQS.07_User_does_not_need_anything</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.08_Library_WhatIs">
+<regex>
+<languages>
+<DE>("was ist eine bibliothek") || ("#WAS_BEDEUTET#|#WAS_IST#|defini")&amp;&amp; ("#ST_BIBLIOTHEK#") &amp;&amp;!"#ST_PASSWORT#|fakultaet|card|karte|andere|locations?|standorte?|groesse|gross|#COMPUTER#|magazin|#ST_OEFFNUNGSZEIT#|#ST_FERNLEIHE#|sammlung|#ST_ZEITSCHRIFT#|medien|reference|#ST_CAMPUSKATALOG#|\borganis(iert|ation)\b|\bhierarchien?\b|#ST_BIBLIOGRAPHIE#|#AUFGABEN#|_in welcher_|#NICHT#|#ST_LITERATUR#|#ST_SYSTEMATIK#|#ST_SAMMELSCHWERPUNKT#|#AUFGABEN#|#JOB#|#V_ARBEITEN#|#ST_AUSWEIS#"</DE>
+<EN>( ("_what is a library_") || ("#WHAT_SIGNIFIES#|#WHAT_IS#")&amp;&amp; ("#ST_LIBRARY#") ) &amp;&amp;!("history|faculty|card|other|price|locations?|size|#COMPUTER#|storage|depot|#ST_OPENING_HOURS#|#ST_INTERLIBRARYLOAN#|collection|#ST_JOURNAL#|media|reference|#ST_OPAC#|\borgani(z|s)(ed|ations?)\b|\bhierarch(y|ies)\b|#ST_BIBLIOGRAPHY#|#TASKS#|appreciate|_in which_|#NOT#|#ST_LITERATURE#|#ADDRESS#")</EN>
+<IT>( ("#WHAT_SIGNIFIES#|#WHAT_IS#")&amp;&amp; ("#ST_LIBRARY#") ) &amp;&amp;!("facolta|prezzo|ll'indirizzo|#COMPUTER#|#ST_OPENING_HOURS#|#ST_INTERLIBRARYLOAN#|#ST_JOURNAL#|#ST_OPAC#|#ST_BIBLIOGRAPHY#|#TASKS#|_in which_|#NOT#|#ST_LITERATURE#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Also im klassischen Sinn ist eine Bibliothek ein Ort, an dem Bücher aufbewahrt werden. Es steckt aber noch mehr dahinter ...</DE>
+<EN>[03]Well, in the traditional sense a library is a place where books are stored. But there is a lot more behind libraries...</EN>
+<IT>[03]Letteralmente la biblioteca è un posto dove si conservano i libri. C'è dietro molto altro però...</IT>
+</languages>
+</answer>
+<link>bob.00_FAQS.09_Library_WhatIs_Analyzer</link>
+<!--Was ist eine Bibliothek?
+Cos'è una biblioteca-->
+<name-trace number="1">bob.00_FAQS.08_Library_WhatIs</name-trace>
+<name-trace number="2">bob.00_FAQS.08_Bibliothek_WasIst</name-trace>
+<name-trace number="3">bob.00_FAQS.08_Library_WhatIs</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.09_Library_WhatIs_Analyzer">
+<regex>
+<languages>
+<DE>(("#POSITIVE#|#WEITER#"))</DE>
+<EN>(("#POSITIVE#|#GO_ON#|\bmore\b"))</EN>
+<IT>(("#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Es gibt ja nicht nur Bücher sondern auch viele elektronische Informationsquellen. Bei uns findest Du also ein umfassendes Angebot - entweder auf unseren Webseiten oder Du schaust mal persönlich vorbei.</DE>
+<EN>[03]There are not only books but also lots of electronic resources. You can find a broad offer of electronic information resources at our Library. Either visit our website or pop in for a chat with the librarians.</EN>
+<IT>[03]Non ci sono solo libri ma anche, per esempio, molte fonti di informazione elettroniche. Da noi trovi quindi un'offerta di informazioni completa, o sul nostro sito internet o quando vieni di persona.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.09_Library_WhatIs_Analyzer</name-trace>
+<name-trace number="2">bob.00_FAQS.09_Bibliothek_WasIst_Analyzer</name-trace>
+<name-trace number="3">bob.00_FAQS.09_Library_WhatIs_Analyzer</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.10_Surfen_HowMuchIs">
+<regex>
+<languages>
+<DE>(("#WAS_KOSTET#|#KOSTENLOS#|#V_BEZAHLEN#") &amp;&amp; ("surf(e|st|t|en)?|#ST_INTERNETPLATZ#|#ST_COMPUTERPLATZ#|#INTERNET#|(#V_BENUTZEN# .*#INTERNET#)"))</DE>
+<EN>(("#HOW_MUCH_IS#|#V_COST#|#GRATIS#") &amp;&amp; ("surf(ing)?|#ST_INTERNET_WORKSTATIONS#|#ST_COMPUTER_WORKPLACE#|#INTERNET#|#V_USE# .*#INTERNET#")) &amp;&amp;! ("#ST_COPY#")</EN>
+<IT>(("#HOW_MUCH_IS#|#GRATIS#|#V_PAY#")&amp;&amp;("navigare|surf(ing)?| .*(#ST_INTERNET_WORKSTATIONS#|#ST_COMPUTER_WORKPLACE#)|#V_USE# .*#INTERNET#")||("#HOW_MUCH_IS#|#GRATIS#|#V_PAY#")&amp;&amp;("#INTERNET#")&amp;&amp;!"#ST_COPY#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Mit der Library Card zahlt man 2,40 € pro Stunde fürs Internet. Die Recherche in den OPAC PCs ist natürlich gratis. Als Student der Uni kannst Du den PC Raum in der Bibliothek benutzen, und zwar kostenlos.</DE>
+<EN>[03]Using the Internet for one hour costs 2.40€ which is debited from your Library Card. Using the OPAC PCs is of course free of charge. As a University student you may use the PC room within the Library, also free of charge.</EN>
+<IT>[03]Con la Library Card navigare in Internet costa 2,40 € all'ora. La ricerca nell'OPAC invece è gratis, naturalmente. Come studente dell'Università puoi usare gratuitamente l'aula pc della biblioteca.</IT>
+</languages>
+</answer>
+<!--Kostet das Surfen am Internetplatz was?
+Quanto costa navigare
+Quanto costa utilizzare un internet pc-->
+<name-trace number="1">bob.00_FAQS.10_Surfen_HowMuchIs</name-trace>
+<name-trace number="2">bob.00_FAQS.10_Surfen_WasKostet</name-trace>
+<name-trace number="3">bob.00_FAQS.10_Surfen_HowMuchIs</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.11_Cataloguing">
+<regex>
+<languages>
+<DE>(("\bwas\b|#WAS_IST#|#WAS_BEDEUTET#|#WIE#") &amp;&amp; ("formalkatalogie?sierung|katalogie?sier(en|ung)|formalerschlie?ssung"))</DE>
+<EN>(("#QUESTION_WHAT#|#WHAT_IS#|#WHAT_SIGNIFIES#|#HOW#")&amp;&amp;("author-title catalogu?ing|descriptive catalogu?ing|alphabetical catalogu?ing|catalogu?ing"))</EN>
+<IT>(("#WHAT_IS#|#WHAT_SIGNIFIES#")&amp;&amp;("catalogazione autore-titolo|catalogazione descrittiva|catalogazione alfabetica|catalogazione"))&amp;&amp;!"#V_BEGIN#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Oh - da werden Erinnerungen an die Ausbildung geweckt! Bei der Formalkatalogisierung wird ein Medium durch seine formalen Kriterien (Autor, Titel, Publikationsjahr, etc.) beschrieben und so in den Katalog einer Bibliothek aufgenommen.</DE>
+<EN>[08]Oh, this brings back memories of my education! Cataloguing is the indexing of material according to formal criteria (author, title, year of publication, etc.). It helps us to describe material and list it in the library catalogue.</EN>
+<IT>[08]Mamma mia quanti ricordi ai bei tempi degli studi! Nella catalogazione un medium viene descritto secondo i suoi criteri formali (autore, titolo, anno di pubblicazione ecc.) e inserito così nel catalogo di una biblioteca.</IT>
+</languages>
+</answer>
+<!--Was ist denn bitte Formalkatalogisierung?
+Cosa vuol dire catalogazione
+Cos'è la catalogazione alfabetica-->
+<name-trace number="1">bob.00_FAQS.11_Cataloguing</name-trace>
+<name-trace number="2">bob.00_FAQS.11_Formalkatalogisierung</name-trace>
+<name-trace number="3">bob.00_FAQS.11_Cataloguing</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.13_UserWillNichtRechechieren">
+<regex>
+<languages>
+<DE>(("#NICHT# #ST_RECHERCHE# #ICH_WILL#|#ICH_WILL# #NICHT# #ST_RECHERCHE#|#ST_RECHERCHE# .*#ICH_WILL# #NICHT#"))</DE>
+<EN>((("#I_DO_NOT_WANT#")&amp;&amp;("#ST_RESEARCH#")||(("#V_I_AM_LOOKING_FOR#")&amp;&amp;("#NOT#"))&amp;&amp;("#ST_RESEARCH#")) || (("#V_I_AM_LOOKING_FOR#")&amp;&amp;("#NOT#")&amp;&amp;("#SOMETHING#|\binformation\b")))&amp;&amp;!"#ST_JOURNAL#"</EN>
+<IT>(("#NOT# #ST_RESEARCH# #I_WANT#|#I_WANT# #NOT# #ST_RESEARCH#|#ST_RESEARCH# .*#I_WANT# #NOT#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Das kann ich gut verstehen. Mir ist auch oft einfach nur nach einem guten Gespräch zumute.</DE>
+<EN>[08]I can understand you very well. I too, like to have a good chat from time to time.</EN>
+<IT>[08]Posso capirlo! A volte preferisco anch'io fare quattro chiacchiere!</IT>
+</languages>
+</answer>
+<!--und wenn ich gar nicht recherchieren will?-->
+<name-trace number="1">bob.00_FAQS.13_UserWillNichtRechechieren</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.14_IsTooMuch">
+<regex>
+<languages>
+<DE>("#IST#|#V_FINDEN#|#V_HABEN#") &amp;&amp; ("\b(zu)?viel\b|\bmuede\b|\bschlaefrig\b|\bmatt\b|\bgenu(ch|g)\b")</DE>
+<EN>( ("#IS#")&amp;&amp;("#VERY#")&amp;&amp;("#MUCH#") ) || ("\btired\b|\bsleepy\b|\bdull\b|\benough\b|\bdone\b|\btilt\b")</EN>
+<IT>("#IS# abbastanza")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Machen wir ein kleine Pause. Du kannst ja in Ruhe alles noch einmal durchgehen. Wenn Du weitermachen willst - ich bin jederzeit da!</DE>
+<EN>[02]Let's take a short break. You can quietly review everything again. Just tell me when you'd like to go on. I'm here all the time.</EN>
+<IT>[02]Facciamo una pausa! Puoi guardare di nuovo con calma. Quando vuoi ricominciare sono sempre qui!</IT>
+</languages>
+</answer>
+<!--Das ist alles ziemlich viel
+è tutto
+è tutto abbastanza tanto-->
+<name-trace number="1">bob.00_FAQS.14_IsTooMuch</name-trace>
+<name-trace number="2">bob.00_FAQS.14_IstSehrViel</name-trace>
+<name-trace number="3">bob.00_FAQS.14_IsTooMuch</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.15_Remain_HowLong">
+<regex>
+<languages>
+<DE>("#WIE_LANGE#|#WANN#|\bnachts?\b|\blange?\b") &amp;&amp; ("\blernen\b|\bsitzen\b|\bbleiben\b|\bsein\b|\bschreiben\b|\bverbringen\b|#ARBEITE#|#ST_RECHERCHE#|bleiben") &amp;&amp; ("euch|#DORT# |.*#ST_LESESAAL# |#ST_ARBEITSPLATZ#|#ST_COMPUTERPLATZ#|#ST_INTERNETPLATZ#|#ST_UNI_BIBLIOTHEK#|#ST_BIBLIOTHEK#")</DE>
+<EN>( ("#HOW_LONG#|#WHEN#|\blimit\b") &amp;&amp; ("\bbe\b|\bsit\b|\bremain\b|\bwrite\b|\bstay\b|\buse\b|#WORKING#|#ST_RESEARCH#|#V_LERAN#") &amp;&amp; ("#THERE# |.*#ST_READING_ROOM# |#ST_WORKPLACE#|#ST_COMPUTER_WORKPLACE#|#ST_INTERNET_WORKSTATIONS#|#ST_UNI_LIBRARY#|#ST_LIBRARY#") ) &amp;&amp;!"_to limit _|card|pass"</EN>
+<IT>"#HOW_LONG#" &amp;&amp; "((E'|e) consentito|(E'|e) permesso)|(si puo)|#CAN_I#|#V_CAN#" &amp;&amp; ("sedere|(re)?stare|lavorare|scrivere|rimanere") &amp;&amp;"(#ST_READING_ROOM#|#ST_WORKPLACE#|#ST_COMPUTER_WORKPLACE#|#ST_INTERNET_WORKSTATIONS#|#ST_UNI_LIBRARY#|#ST_LIBRARY#|qu(a|i))"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Du kannst fast den ganzen Tag sitzenbleiben. Die aktuellen Öffnungszeiten findest Du auf &lt;linkToPhrases&gt;PHRASES.URLS.N-Z.OpeningHours|dieser&lt;/linkToPhrases&gt; Webseite</DE>
+<EN>[08]You may stay as long as we're open. You can find our current opening hours on &lt;linkToPhrases&gt;PHRASES.URLS.N-Z.OpeningHours|this&lt;/linkToPhrases&gt; website.</EN>
+<IT>[08]Puoi restare nella biblioteca anche tutto il giorno. Gli orari di apertura aggiornati si trovano su &lt;linkToPhrases&gt;PHRASES.URLS.N-Z.OpeningHours|questa&lt;/linkToPhrases&gt; pagina.</IT>
+</languages>
+</answer>
+<!--Wie lange darf ich hier sitzen? Wie lange darf ich im lesesaal sitzen?
+per quanto tempo posso stare qui
+per quanto tempo posso stare nella biblioteca universitaria
+quanto a lungo posso sedere nella biblioteca universitaria-->
+<name-trace number="1">bob.00_FAQS.15_Remain_HowLong</name-trace>
+<name-trace number="2">bob.00_FAQS.15_Sitzen_WieLange</name-trace>
+<name-trace number="3">bob.00_FAQS.15_Remain_HowLong</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.18_OtherLibraries_Recommend">
+<regex>
+<languages>
+<DE>(("#ANDERE#" &amp;&amp; "#ST_BIBLIOTHEK#"))&amp;&amp;("#V_VORSCHLAGEN#|#V_BENUTZEN#|gibt|besuchen|gehen|existier|kennst")&amp;&amp;!"#ST_OEFFNUNGSZEIT#|tessmann|claudia|#ST_AUSWEIS#"||((("#ANDERE#")&amp;&amp;("#ST_BIBLIOTHEK#")) &amp;&amp; ("#V_BRAUCHEN#|#V_FINDEN#|suchen?")) &amp;&amp;! (("#ST_OEFFNUNGSZEIT#|#ST_LANDESBIBLIOTHEK#|#ST_FACHBIBLIOTHEK#|#ST_BIBLIOTHEKENSYSTEM#|#ST_BIBLIOTHEKSSIGEL#|#ST_EMEDIEN#|#ST_GBV#|#ST_AUSWEIS#|#ST_BIBLIOTHEKSFUEHRER#|#MAIL#|#ST_EZB#|#ST_FUEHRUNG#|#MITARBEITER#"))||(("#ANDERE#" &amp;&amp; "#ST_BIBLIOTHEK#")&amp;&amp;("\b#SUEDTIROLER_STAEDTE#")&amp;&amp;!"#ST_OEFFNUNGSZEIT#|#ST_LANDESBIBLIOTHEK#|#GROSS#|#ST_STOCKWERK#|#ST_VERWALTUNG#|#MITARBEITER#|#ST_GEBUEHR#|#ST_LITERATUR#|#ST_AUSWEIS#")</DE>
+<EN>( ("#OTHER#") &amp;&amp; ("#ST_LIBRARY#") &amp;&amp; ("#V_PROPOSE#|#V_USE#|#IS_THERE#|#V_BE_AWARE#|visit|\bgo\b|indicate") ) &amp;&amp;! "#ST_LIBRARY_CARD#|#ST_LIMIT#|catalog(ue)?s?|#ST_BORROW#|#ST_RESERVE#"||((("#OTHER# #ST_LIBRARY#")||("#ST_LIBRARY#")) &amp;&amp; ("#ST_RESEARCH#") &amp;&amp; "#OTHER#") &amp;&amp;! ("#ST_OPENING_HOURS#|\bolder\b|#ST_LIMIT#|#CHILDREN#|#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#") || ("#ST_LIBRARY#")&amp;&amp;("#SOUTH_TYROLEAN_CITIES#") &amp;&amp;! ("#ST_OPENING_HOURS#|#CHILDREN#|#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#|#ST_LIMIT#")</EN>
+<IT>("#V_PROPOSE#|#IS_THERE#" &amp;&amp; "#OTHER#" &amp;&amp; "#ST_LIBRARY#|bibliotec(a|he)"||"#WHICH# .*(#ST_LIBRARY#|bibliotec(a|he)) conosci"||"#ST_LIBRARY#"&amp;&amp;"#SOUTH_TYROLEAN_CITIES#" ||"#ST_LIBRARY#|bibliotec(a|he)" &amp;&amp; "#OTHER#" &amp;&amp; "#ST_RESEARCH#")&amp;&amp;!"#ST_LIBRARY_CARD#|#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Es hängt davon ab, was Du gerne lesen möchtest. Für wissenschaftliche Literatur gibt es noch andere Fachbibliotheken. Oder wenn Du etwa Romane, Ratgeber und ähnliches suchst, gibt es die Öffentlichen Bibliotheken. Möchtest Du einen Überblick?</DE>
+<EN>[03]It depends on what you'd like to read. You can find scientific literature in other scientific libraries too. If you are interested in fiction, guidebooks, or similar literature there are also public libraries. Would you like to get an overview?</EN>
+<IT>[03]Dipende da quello che desideri leggere. Per la letteratura specialistica ci sono altre biblioteche di settore. Se invece cerchi romanzi o manuali ci sono le biblioteche civiche. Vuoi sapere quali?</IT>
+</languages>
+</answer>
+<link>bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer</link>
+<!--Können Sie mir noch andere Bibliotheken empfehlen?
+Mi puoi consigliare altre biblioteche
+Quali biblioteche conosci?
+mi puoi consigliare un'altra biblioteca
+-->
+<name-trace number="1">bob.00_FAQS.18_OtherLibraries_Recommend</name-trace>
+<name-trace number="2">bob.00_FAQS.18_AndereBibliotheken_Empfehlen</name-trace>
+<name-trace number="3">bob.00_FAQS.18_OtherLibraries_Recommend</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_Yes">
+<regex>
+<languages>
+<DE>(("#POSITIVE#|#WEITER#")&amp;&amp;!("#ST_UNI_BIBLIOTHEK#"))</DE>
+<EN>(("#POSITIVE#|#GO_ON#")&amp;&amp;!("#ST_UNI_LIBRARY#"))</EN>
+<IT>(("#POSITIVE#|#GO_ON#")&amp;&amp;!("#ST_UNI_LIBRARY#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[07]Links zu Südtiroler und auch überregionalen Bibliothekskatalogen findest Du auf &lt;linkToPhrases&gt;PHRASES.URLS.F-M.Catalogue|dieser&lt;/linkToPhrases&gt; Seite.</DE>
+<EN>[07]You can find links to South Tyrolean as well as national library catalogues on &lt;linkToPhrases&gt;PHRASES.URLS.F-M.Catalogue|this&lt;/linkToPhrases&gt; page.</EN>
+<IT>[07]I link ai cataloghi di biblioteche altoatesine li trovi su &lt;linkToPhrases&gt;PHRASES.URLS.F-M.Catalogue|questa&lt;/linkToPhrases&gt; pagina.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_Yes</name-trace>
+<name-trace number="2">bob.00_FAQS.19_AndereBibliotheken_Empfehlen_Analyzer_Ja</name-trace>
+<name-trace number="3">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_Yes</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_No">
+<regex>
+<languages>
+<DE>("#NEIN#|#NEGATIVE#|#NICHT#")</DE>
+<EN>("#NO#|#NEGATIVE#|#NOT#")</EN>
+<IT>("#NO#|#NEGATIVE#|#NOT#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Tja, das kann ich wohl leider nicht ändern.</DE>
+<EN>[10]I'm sorry to hear this.</EN>
+<IT>[10]Mi spiace, non posso farci nulla.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_No</name-trace>
+<name-trace number="2">bob.00_FAQS.19_AndereBibliotheken_Empfehlen_Analyzer_Nein</name-trace>
+<name-trace number="3">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer_No</name-trace>
+</topic>
+<name-trace number="1">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer</name-trace>
+<name-trace number="2">bob.00_FAQS.19_AndereBibliotheken_Empfehlen_Analyzer</name-trace>
+<name-trace number="3">bob.00_FAQS.19_OtherLibraries_Recommend_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.20_STW_Libraries">
+<regex>
+<languages>
+<DE>((("#ANDERE#")&amp;&amp;("#ST_BIBLIOTHEK#")) &amp;&amp; ("#V_BRAUCHEN#|#V_FINDEN#|suchen?")) &amp;&amp;! (("#ST_FACHBIBLIOTHEK#|#ST_BIBLIOTHEKENSYSTEM#|#ST_BIBLIOTHEKSSIGEL#|#ST_EMEDIEN#|#ST_GBV#|#ST_AUSWEIS#|#ST_BIBLIOTHEKSFUEHRER#|#MAIL#|#ST_EZB#|#ST_FUEHRUNG#|#MITARBEITER#"))||(("#ST_BIBLIOTHEK#")&amp;&amp;("#SUEDTIROLER_STAEDTE#"))</DE>
+<EN>((("#OTHER# #ST_LIBRARY#")||("#ST_LIBRARY#")) &amp;&amp; ("#ST_RESEARCH#")) &amp;&amp;! ("#ST_OPENING_HOURS#|#CHILDREN#|#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#") || ("#ST_LIBRARY#")&amp;&amp;("#SOUTH_TYROLEAN_CITIES#") &amp;&amp;! ("#ST_OPENING_HOURS#|#CHILDREN#|#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#")</EN>
+<IT>((("#ST_LIBRARY#")&amp;&amp;!("#ST_FACULTY_LIBRARY#|#ST_LIBRARY_SYSTEM#|#ST_LOCATION_SYMBOL#|#ST_EMEDIA#|#ST_GBV#|#ST_LIBRARY_CARD#|#ST_LIBRARY_INDEX#|#MAIL#|#ST_EZB#|#ST_GUIDED_TOUR#|#EMPLOYEES#"))||(("#ST_LIBRARY#")&amp;&amp;("#SOUTH_TYROLEAN_CITIES#")))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Geht es um eine Bibliothek in Südtirol? Dann kannst Du hier im &lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|Bibliotheksführer&lt;/linkToPhrases&gt; nachschauen. Ansonsten bieten wir aber auch Verzeichnisse &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|internationaler Bibliotheken&lt;/linkToPhrases&gt;.</DE>
+<EN>[02]Do you mean a library in South Tyrol? Then you could look it up in the &lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|library index&lt;/linkToPhrases&gt;. Otherwise I can also offer you catalogues of &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|international libraries&lt;/linkToPhrases&gt;.</EN>
+<IT>[02]Si tratta di una biblioteca altoatesina? Allora puoi guardare su &lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|Bibliotheksführer&lt;/linkToPhrases&gt;. Altrimenti puoi collegarti ad altri cataloghi &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|internazionali&lt;/linkToPhrases&gt;</IT>
+</languages>
+</answer>
+<!--DONE: Marked for change-->
+<name-trace number="1">bob.00_FAQS.20_STW_Libraries</name-trace>
+<name-trace number="2">bob.00_FAQS.20_STW_Bibliotheken</name-trace>
+<name-trace number="3">bob.00_FAQS.20_STW_Libraries</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.21_STW_Libraries_Analyzer">
+<regex></regex>
+<answer></answer>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.21_STW_Libraries_Analyzer__0">
+<regex>
+<languages>
+<DE>("#ST_BIBLIOTHEKSFUEHRER#")</DE>
+<EN>("#ST_LIBRARY_INDEX#")</EN>
+<IT>("#ST_LIBRARY_INDEX#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Auf &lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|dieser&lt;/linkToPhrases&gt; Seite findest Du einen Überböick der Südtiroler Bibliotheken und den online Kataloge.</DE>
+<EN>[03]On &lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|this&lt;/linkToPhrases&gt; page you get an overview of South Tyrolean libraries and online catalogues</EN>
+<IT>[03]&lt;linkToPhrases&gt;PHRASES.URLS.A-E.LibrariesGuide|Qui&lt;/linkToPhrases&gt;trovi una panoramica delle biblioteche Sud tirolesi con cataloghi on line.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.21_STW_Libraries_Analyzer__0</name-trace>
+<name-trace number="2">bob.00_FAQS.21_STW_Bibliotheken_Analyzer__0</name-trace>
+<name-trace number="3">bob.00_FAQS.21_STW_Libraries_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.21_STW_Libraries_Analyzer__1">
+<regex>
+<languages>
+<DE>("#ST_ADRESSEVERZEICHNIS#|internationale|#ST_BIBLIOTHEK#")</DE>
+<EN>("#ST_ADDRESS_INDEX#|international|#ST_LIBRARY#")</EN>
+<IT>("#ST_ADDRESS_INDEX#|internazionali|#ST_LIBRARY#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]&lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|Hier&lt;/linkToPhrases&gt; findest Du eine Auflistung von Bibliotheken weltweit.</DE>
+<EN>[03]&lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|This&lt;/linkToPhrases&gt; page lists libraries worldwide.</EN>
+<IT>[03]&lt;linkToPhrases&gt;PHRASES.URLS.A-E.Libraries_Internet|Qui&lt;/linkToPhrases&gt; trovi una lista di biblioteche sparse in tutto il mondo.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.21_STW_Libraries_Analyzer__1</name-trace>
+<name-trace number="2">bob.00_FAQS.21_STW_Bibliotheken_Analyzer__1</name-trace>
+<name-trace number="3">bob.00_FAQS.21_STW_Libraries_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.00_FAQS.21_STW_Libraries_Analyzer</name-trace>
+<name-trace number="2">bob.00_FAQS.21_STW_Bibliotheken_Analyzer</name-trace>
+<name-trace number="3">bob.00_FAQS.21_STW_Libraries_Analyzer</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.22_LocationNumber">
+<regex>
+<languages>
+<DE>( ("\bwas\b|#WAS_IST#|#WAS_BEDEUTET#|#WO#") &amp;&amp; ("\b11\b|\b13\b|\b14\b|\b15\b|\b16\b|\b21\b|\b23\b|\b24\b|\b26\b|\b33\b|\b34\b|\b35\b") || ("zweistelligen?")&amp;&amp;("\bZahl(en)?|Ziffern?|Nummern?\b") ) || ("^11$|^13$|^14$|^15$|^16$|^21$|^23$|^24$|^26$|^33$|^34$|^35$")||("\b11\b|\b13\b|\b14\b|\b15\b|\b16\b|\b21\b|\b23\b|\b24\b|\b26\b|\b33\b|\b34\b|\b35\b")&amp;&amp;("\bZahl(en)?|Ziffern?|Nummern?\b")||("\b11\?|\b13\?|\b14\?|\b15\?|\b16\?|\b21\?|\b23\?|\b24\?|\b26\?|\b33\?|\b34\?|\b35\?")</DE>
+<EN>( ("\bwhat\b|#WHAT_IS#|#WHAT_SIGNIFIES#|#WHERE#") &amp;&amp; ("\b11\b|\b13\b|\b14\b|\b15\b|\b16\b|\b21\b|\b23\b|\b24\b|\b26\b|\b33\b|\b34\b|\b35\b") || ("two(-)?|double(-)?digit")&amp;&amp;("numbers?|digits?|c(i|y)phers?") ) || ("^11$|^13$|^14$|^15$|^16$|^21$|^23$|^24$|^33$|^34$|^35$")||("\b11\?|\b13\?|\b14\?|\b15\?|\b16\?|\b21\?|\b23\?|\b24\?|\b33\?|\b34\?|\b35\?")</EN>
+<IT>("Cosa|#WHAT_IS#|#WHAT_SIGNIFIES#|#WHERE#")&amp;&amp;("(il numero|la cifra|le cifre|numeri)|11|13|14|15|16|21|23|24|26|\b33\b|\b34\b|\b35\b")|| ("^11$|^13$|^14$|^15$|^16$|^21$|^23$|^24$|^33$|^34$|^35$")||("\b11\?|\b13\?|\b14\?|\b15\?|\b16\?|\b21\?|\b23\?|\b24\?|\b33\?|\b34\?|\b35\?")&amp;&amp;!("Bob|te|tuo progetto")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[07]Diese Nummer ist ein Lokalkennzeichen, also eine Identifikationsnummer für eine Bibliothek. Medien mit den Nummern 11, 13, 14, 15 und 16 stehen in Bozen. Medien mit den Nummern 21, 23, 24 und 26 stehen in Brixen. Die Medien mit den Nummern 33, 34 und 35 befinden sich in Bruneck.</DE>
+<EN>[07]This number is a local registration number, i.e. a library identification number. Items with numbers 11, 13, 14, 15 and 16 are in Bozen-Bolzano. Items with numbers 21, 23, 24 and 26 are in Brixen-Bressanone. Items with numbers 33, 34 and 35 are in Bruneck-Brunico.</EN>
+<IT>[07]Questo numero è un identificatore di luogo, cioè identifica fisicamente una biblioteca. I media con 11, 13, 14, 15 e 16 sono a Bolzano mentre quelli con 21, 23, 24 e 26 sono a Bressanone. I media con 33, 34 e 35 si trovano a Brunico.</IT>
+</languages>
+</answer>
+<!--18/132-->
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.00_FAQS.22_LocationNumber</name-trace>
+<name-trace number="2">bob.00_FAQS.22_Sigeleingabe</name-trace>
+<name-trace number="3">bob.00_FAQS.22_LocationNumber</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.23_Trivial_Serious">
+<regex>
+<languages>
+<DE>(("nur (triviale.?|einfache.?|serioese.?|ernste.?|wissenschaftliche) (#ST_LITERATUR#|zeug)")||(("trivale.?|einfache.?|serioese.?|ernste.?|normale\b")&amp;&amp;("(#ST_LITERATUR#|zeug)"))||("comics?\b|\bromane?\b"))&amp;&amp;!"#MENSCHEN#"</DE>
+<EN>( (("#ALSO#|#JUST#")&amp;&amp;("\bnon.?fiction\b|\btrivial\b|\bpopular\b|\bscientific\b|\btrivial\b|\bfiction(al)?\b|\bnormal\b")&amp;&amp;("#ST_LITERATURE#|\bstuff\b")) || (("#V_HAVE#")&amp;&amp;("\bcomics?\b|\bfiction\b")) )</EN>
+<IT>(("(#ST_LITERATURE#|cose) (facil(i|e)|popolar(i|e)|scientific(i|o|he))") || (("facil.? o scientific(o|i|he)")&amp;&amp;("(#ST_LITERATURE#|cose)"))||("fumetti"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Witzige Frauenromane, Bilderbücher für die lieben Kleinen oder einen ordentlichen Reiseführer für die Toskana? Gibt es bei uns natürlich auch. Die Südtiroler Öffentlichen Bibliotheken haben aber vielleicht ein größeres Angebot. &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Bison|Hier&lt;/linkToPhrases&gt; findest Du den Onlinekatalog.</DE>
+<EN>[08]You need humorous literature, picture books for children or a good travel guide for Tuscany? We have these too, of course. But it may be that the South Tyrolean public libraries have more to offer in these fields. On &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Bison|this&lt;/linkToPhrases&gt; page you can access the online catalogue.</EN>
+<IT>[08]Naturalmente abbiamo anche simpatici romanzi d'amore, libri illustrati per i bimbi o guide turistiche della Toscana. Però su questi temi trovate di più nelle biblioteche civiche. Su &lt;linkToPhrases&gt;PHRASES.URLS.A-E.Bison|questa&lt;/linkToPhrases&gt; pagina puoi accedere il catalogo online.</IT>
+</languages>
+</answer>
+<!--Haben Sie so triviale Literatur oder nur so seriöses zeug?
+solo libri facili
+cose facili o scientifiche
+fumetti-->
+<name-trace number="1">bob.00_FAQS.23_Trivial_Serious</name-trace>
+<name-trace number="2">bob.00_FAQS.23_Trivial_Serioes</name-trace>
+<name-trace number="3">bob.00_FAQS.23_Trivial_Serious</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.24_Project_Chatrobot">
+<regex>
+<languages>
+<DE>((("projekt")&amp;&amp;("#IPI#|#AGENTNAME#"))||("^#IPI##SATZENDE#")||("(#ST_DATEN#|#ST_LITERATUR#) (ueber|zu) (#AGENTNAME#|dich)")||("(et)?was ueber #IPI#") ||("ich will auch (einen bob|ein(e|en)? chatbot)") || ("nach dir") ||("erzaehl(en)? (sie)? .*(dir|sich|Ihnen)"))</DE>
+<EN>( (("\bproject\b")&amp;&amp;("#IPI#|#AGENT_NAME#")) || ("^#IPI##END_OF_SENTENCE#")|| "((#ST_DATA#|#ST_LITERATURE#|#SOMETHING#) .*\babout\b .*(#AGENT_NAME#|#IPI#|\byou(rself)?\b|your project))" || ("i also want (a bob|a chatbot |a chatterbot)") || ("tell ((me)?) .*you\b")&amp;&amp;!"look"|| ("tell ((me)?) .*yourself") )&amp;&amp;!"#FAMILY#|strengths"</EN>
+<IT>("progetto|informazion[ei]")&amp;&amp;("#IPI#|Bob|tuo|#YOU#")&amp;&amp;!"#FAMILY#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Auf &lt;linkToPhrases&gt;PHRASES.URLS.A-E.BoB|dieser&lt;/linkToPhrases&gt; Seite findest Du Hintergrundinfos über mich.</DE>
+<EN>[03]On &lt;linkToPhrases&gt;PHRASES.URLS.A-E.BoB|this&lt;/linkToPhrases&gt; page you find some background information about myself.</EN>
+<IT>[03]Su &lt;linkToPhrases&gt;PHRASES.URLS.A-E.BoB|questa&lt;/linkToPhrases&gt; pagina può trovare alcune informazioni su di me.</IT>
+</languages>
+</answer>
+<!--Ich suche Informationen über das Projekt Chatbot
+progetto bot
+libri su di te-->
+<name-trace number="1">bob.00_FAQS.24_Project_Chatrobot</name-trace>
+<name-trace number="2">bob.00_FAQS.24_Projekt_Chatrobot</name-trace>
+<name-trace number="3">bob.00_FAQS.24_Project_Chatrobot</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.25_Internet_WhereIs">
+<regex>
+<languages>
+<DE>(("#WO_FINDE_ICH#") || ("#WO#|\bliegt\b")) &amp;&amp; (("#INTERNET#") &amp;&amp;! ("homepage|#ST_INTERNETPLATZ#"))</DE>
+<EN>( ("#WHERE_DO_I_FIND#|#WHERE#|\blocated\b|\bsituated\b") &amp;&amp; ("#INTERNET#") ) &amp;&amp;! ("homepage|#ST_INTERNET_WORKSTATIONS#")</EN>
+<IT>((("(l')?#INTERNET#")&amp;&amp;("dove trovo"))&amp;&amp;!("homepage|#ST_INTERNET_WORKSTATIONS#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Also wenn Du mit mir redest, hast Du schon einen Teil des Internet gefunden - der Rest ist wohl weltweit verstreut... Du möchtest aber wohl eher wissen, wo Du in der Bibliothek ins Internet kommst, richtig??</DE>
+<EN>[08]Well, the fact that we are talking to each other right now indicates, that you somehow managed to access the internet. But you would rather like to know where you can find internet access in the Library, right??</EN>
+<IT>[08]Mentre parli con me hai già trovato una parte di internet: il resto è sparso nel mondo! Forse volevi sapere come puoi navigare in internet dalla biblioteca?</IT>
+</languages>
+</answer>
+<link>bob.00_FAQS.26_Internet_WhereIs_Analyzer</link>
+<!--Wo ist das Internet
+dove trovo l'internet
+dove trovo internet-->
+<name-trace number="1">bob.00_FAQS.25_Internet_WhereIs</name-trace>
+<name-trace number="2">bob.00_FAQS.25_Internet_WoIst</name-trace>
+<name-trace number="3">bob.00_FAQS.25_Internet_WhereIs</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.00_FAQS.26_Internet_WhereIs_Analyzer">
+<regex>
+<languages>
+<DE>(("#POSITIVE#|#WEITER#"))</DE>
+<EN>(("#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.01_COMPLEX.02_AREAS.18_Internet</link>
+<!--Wenn ja: Goto 01_KOMPLEX/02_BEREICHE/14_STW_Internetarbeitsplaetze-->
+<name-trace number="1">bob.00_FAQS.26_Internet_WhereIs_Analyzer</name-trace>
+<name-trace number="2">bob.00_FAQS.26_Internet_WoIst_Analyzer</name-trace>
+<name-trace number="3">bob.00_FAQS.26_Internet_WhereIs_Analyzer</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.27_Access">
+<regex>
+<languages>
+<DE>(("#ICH_WILL#|#V_BRAUCHEN#|#ICH_WILL#")&amp;&amp;("\bzug(a|ae)nge?\b") || ("#WIE#")&amp;&amp;("#V_BEKOMMEN#")&amp;&amp;("\bzug(a|ae)nge?\b"))&amp;&amp;!("#ST_OFFICEPLATZ#|_internet_|#ST_DATENBANK#")</DE>
+<EN>(("#I_WANT#|#V_NEED#|#I_WANT#")&amp;&amp;("\baccess\b"))&amp;&amp;!("#ST_OFFICE_WORKSTATION#|_internet_") || (("#HOW#")&amp;&amp;("#V_RECEIVE#")&amp;&amp;("\baccess\b")&amp;&amp;!("#ST_OFFICE_WORKSTATION#|_internet_"))</EN>
+<IT>("#CAN_I#"&amp;&amp;"acceder|entrar")&amp;&amp;"\?|\.|;"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[05]Wozu möchtest Du Zugang haben?</DE>
+<EN>[05]What exactly do you want to access?</EN>
+<IT>[05]A cosa desideri accedere?</IT>
+</languages>
+</answer>
+<!--Zugang (Ist nicht klar wofür?)
+entrata
+
+QP EN -> Synonym access (Zugang) <-> Access (DB)-->
+<name-trace number="1">bob.00_FAQS.27_Access</name-trace>
+<name-trace number="2">bob.00_FAQS.27_Zugang</name-trace>
+<name-trace number="3">bob.00_FAQS.27_Access</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.28_Recipe">
+<regex>
+<languages>
+<DE>(("#ST_REZEPT#")||("kochb(u|ue)ch(er)?|rezeptb(u|ue)ch(er)?")||(("#LEBENSMITTEL#")&amp;&amp;!("#ST_GRUNDLAGENLITERATUR#|#DU#|#ST_THEMA#")))</DE>
+<EN>(("#ST_RECIPE#")||("cook( |-|)books?|cook(ing)?( |-|)books?|cookery-books?|cookery books?")||(("#GROCERIES#")&amp;&amp;!("#YOU#|#HOW_MUCH_IS#")))</EN>
+<IT>((("#ST_RECIPE# per .*")||("(libri di ricette)|ricettario?|ricett(a|e)")||(("#GROCERIES#")&amp;&amp;!("#YOU#"))))&amp;&amp;!"mangi"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[08]Kochbücher dürfen in keiner guten Bibliothek fehlen! Wenn Du im OPAC einfach Kochbuch eintippst, bekommst Du sicher einige gute Treffer zu regionaler und auch internationaler Küche.</DE>
+<EN>[08]A good library shouldn't lack cookbooks! Just write cookbook in the OPAC search and you'll surely get plenty of good results for regional and international recipes.</EN>
+<IT>[08]In una buona biblioteca non possono mancare i libri di cucina! Se inserisci "ricette" nell'OPAC trovi sicuramente qualche buon risultato.</IT>
+</languages>
+</answer>
+<!--Wo finde ich das Rezept für Salzburger Nockerln: umwandeln in STW (koch-)Rezept wo finde ich Kochrezepte
+ricettario
+ricetta per la pasta-->
+<name-trace number="1">bob.00_FAQS.28_Recipe</name-trace>
+<name-trace number="2">bob.00_FAQS.28_STW_Rezept</name-trace>
+<name-trace number="3">bob.00_FAQS.28_Recipe</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.29_Monograph_WhatIs">
+<regex>
+<languages>
+<DE>("\bwas\b|#WAS_IST#|#WAS_BEDEUTET#|#WIE#") &amp;&amp; ("monogra(ph|f)i(e|en)?")</DE>
+<EN>("#WHAT_IS#|#WHAT_SIGNIFIES#")&amp;&amp;(".*monogra(ph|f)s?")</EN>
+<IT>("(#WHAT_SIGNIFIES#|#WHAT_IS#) .*monografia?")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Eine Monographie ist ganz einfach ein Buch. Und zwar zu einem bestimmten Thema. Und meistens von nur einem Autor geschrieben.</DE>
+<EN>[04]A monograph is just a normal book. And it is about a special subject. In most cases it is written by just one author.</EN>
+<IT>[04]Una monografia è semplicemente un libro su un tema preciso. Di solito scritto da un solo autore.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.29_Monograph_WhatIs</name-trace>
+<name-trace number="2">bob.00_FAQS.29_Monographie_WasIst</name-trace>
+<name-trace number="3">bob.00_FAQS.29_Monograph_WhatIs</name-trace>
+</topic>
+<!--Cos'è una monografia-->
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.30_FeedbackBoB">
+<regex>
+<languages>
+<DE>(("(feedback|fragebogen)(( .*(#DIR#|#DICH#))|#SATZENDE#)"))</DE>
+<EN>(("(feedback|questionnaire)(( .*(#YOU_PERSON#|#YOURSELF#))|#END_OF_SENTENCE#)"))</EN>
+<IT>(("(feedbacks?|questionario|opinione)(( .*(#YOU_PERSON#|#YOURSELF#))|#END_OF_SENTENCE#)"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Du kannst mir jederzeit direkt sagen, wie Du mich findest. Oder schick ein E-Mail an die Unibibliothek: library@unibz.it</DE>
+<EN>[02]You may just tell me what you think of me, whenever you want. Or you could write an e-mail to the University Library: library@unibz.ut</EN>
+<IT>[02]Puoi dirmi in ogni momento cosa pensi di me. Oppure manda una mail a la Biblioteca Universitaria: library@unibz.it</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.30_FeedbackBoB</name-trace>
+<name-trace number="2">bob.00_FAQS.30_FeedbackStella</name-trace>
+<name-trace number="3">bob.00_FAQS.30_FeedbackBoB</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.31_Pop-Up-Window">
+<regex>
+<languages>
+<DE>(("pop(-| |)up(-| |)fenstern?") || ("seite oeffnet .*nicht|hier geht es nicht weiter|wo denn|seh(e)? ich nicht")|| ("pop ups?"))</DE>
+<EN>(("pop(-| |)up(-| |)windows?") || ("pages? (does not|doesn't|do not|don't) open|i (do not|don't) see (it|you|anything)|i (cannot|can not|can't) see (it|you|anything)")|| ("pop ups?"))</EN>
+<IT>(("(finestre )?pop(-| |)up(-| |)") || ("pagin(e|a) non si apre|non .*ved(iamo|o|ere) (niente|tu)")|| ("pop ups?"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Du musst wahrscheinlich den Pop-up-Blocker ausschalten - dann siehst Du alles.</DE>
+<EN>[04]You probably have to turn off the pop-up-blocker, and then you can see everything.</EN>
+<IT>[04]Forse devi disattivare il pop-up blocker. Dopo potrai vedere ogni finestra!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.00_FAQS.31_Pop-Up-Window</name-trace>
+<name-trace number="2">bob.00_FAQS.31_Pop-Up-Fenster</name-trace>
+<name-trace number="3">bob.00_FAQS.31_Pop-Up-Window</name-trace>
+</topic>
+<!--finestre pop up
+la pagina non si apre
+non riesco a vedere niente-->
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.00_FAQS.32_Coats_Bags">
+<regex>
+<languages>
+<DE>("#MUSS#|#WIE#|#WELCH#|#V_KOENNEN#|#FRAGE_WAS#|verboten|erlaubt|untersagt") &amp;&amp; ("#ST_GARDEROBE_DINGE#")&amp;&amp;!"#WO#|\bort\b|\bstelle\b"</DE>
+<EN>("#I_WOULD_LIKE#|#CAN_I#|#MUST#|#HOW#|#WHICH#|#V_CAN#|#QUESTION_WHAT#|forbid|allow") &amp;&amp; ("#ST_WARDROBE_ITMES#")</EN>
+<IT>((("#ST_WARDROBE_ITMES#")&amp;&amp;("biblioteca|#CAN_I# portare.*((dentro|all'interno|in|nella)( la)? (#ST_UNI_LIBRARY#|#ST_LIBRARY#)|.*#ST_READING_ROOM#)"))||("(portare|tenere) .*#ST_WARDROBE_ITMES#")&amp;&amp;"(#ST_LIBRARY#|#ST_READING_ROOM#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[07]In der Bibliothek sind Taschen aller Art tabu. Du kannst deine Sachen aber gerne an der Garderobe lassen oder in einem Schließfach. Schlüssel dafür bekommst Du an der Info.</DE>
+<EN>[07]All sorts of bags are a no-no in the Library. You may leave your things at the wardrobe or put them in a locker. You can get locker keys daily free of charge at the info desk.</EN>
+<IT>[07]Nella biblioteca non si possono portare borse di nessun tipo. Puoi lasciare le tue cose nel guardaroba o in un armadietto. Al banco informazioni ti daranno la chiave.</IT>
+</languages>
+</answer>
+<!--Darf man Jacken mit in die Bibliothek nehmen?-->
+<!--DONE: Marked for change
+posso portare la giacca dentro la biblioteca? posso portare la giacca? posso portare nella biblioteca la giacca-->
+<name-trace number="1">bob.00_FAQS.32_Coats_Bags</name-trace>
+<name-trace number="2">bob.00_FAQS.32_Jackenmitnahme</name-trace>
+<name-trace number="3">bob.00_FAQS.32_Coats_Bags</name-trace>
+</topic>
+<name-trace number="1">bob.00_FAQS</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.98_POSTIVE_FEEDBACK">
+<regex></regex>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.98_POSTIVE_FEEDBACK_00.COOL">
+<regex>
+<languages>
+<DE>("^(okay|gut|bravo|cool|ok|wow|i c|ic|super|toll|perfekt|grossartig|fein)_$")||("^(okay|gut|bravo|cool|ok|wow|i c|ic|super|toll|perfekt|grossartig|fein)!?$")</DE>
+<EN>("^(okay|cool|ok|o.k.|wow|i c|ic|super|great|good|i see)_$")||("^(okay|cool|ok|o.k.|wow|i c|ic|super|great|good|i see)!?$")||"^_that'?s (okay|cool|ok|o.k.|wow|i c|ic|super|great|good|i see)_$"</EN>
+<IT>"\bok\b|perfetto|grande|super|bene|ho capito|benissimo|ottimo"&amp;&amp;! "#YOU#|#YOURSELF#|sei|#ST_LIBRARY#|biblioteca"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Freut mich!</DE>
+<EN>[04]Good!</EN>
+<IT>[04]Bene!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.98_POSTIVE_FEEDBACK_00.COOL</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.98_POSTIVE_FEEDBACK_01.Smiley">
+<regex>
+<languages>
+<DE>"^[:;]-?\)$"</DE>
+<EN>"^[:;]-?\)$"</EN>
+<IT>"^[:;]-?\)$"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03];-)</DE>
+<EN>[03];-)</EN>
+<IT>[03];-)</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.98_POSTIVE_FEEDBACK_01.Smiley</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.98_POSTIVE_FEEDBACK_02.Sorry">
+<regex>
+<languages>
+<DE>"entschuldigung|_tut mit leid_"</DE>
+<EN>"sorry"</EN>
+<IT>"\bscus(a|i)"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Ok.</DE>
+<EN>[02]Ok.</EN>
+<IT>[02]Va bene.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.98_POSTIVE_FEEDBACK_02.Sorry</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.98_POSTIVE_FEEDBACK_03.Joking">
+<regex>
+<languages>
+<DE>"scherz|\bspass"</DE>
+<EN>"jok(e|ing)"||"#YOU#" &amp;&amp; "funny"</EN>
+<IT>"scherzo"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[01]Humor ist keine Gabe des Geistes, er ist eine Gabe des Herzens. Darum beneide ich die Menschen.</DE>
+<EN>[02]Humour is mankind's greatest blessing.</EN>
+<IT>[02]La potenza intellettuale di un uomo si misura dalla dose di umorismo che è capace di utilizzare.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.98_POSTIVE_FEEDBACK_03.Joking</name-trace>
+</topic>
+<name-trace number="1">bob.98_POSTIVE_FEEDBACK</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.97_NEGATIVE_FEEDBACK">
+<regex></regex>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.97_NEGATIVE_FEEDBACK_00.Smileys">
+<regex>
+<languages>
+<DE>"^[:;]-?\($"</DE>
+<EN>"^[:;]-?\($"</EN>
+<IT>"^[:;]-?\($"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Es tut mir leid, falls das die falsche Antwort war.</DE>
+<EN>[10]I'm sorry if it wasn't the correct answer.</EN>
+<IT>[10]Mi dispiace se non era la risposta corretta.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.97_NEGATIVE_FEEDBACK_00.Smileys</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.97_NEGATIVE_FEEDBACK_01.Insult">
+<regex>
+<languages>
+<DE>"#SCHIMPFWORTE#|#EXIT#|_ich hasse (dich|bob)_|_ich mag (dich|bob) nicht_"||"#DOOF#" &amp;&amp; "#DU#|\bbob\b"</DE>
+<EN>("#SWEARWORDS#|_i hate (you|bob)_|_i (don't|do not) like (you|bob)_"||"#STUPID#|not smart" &amp;&amp; "#YOU#|\bbob\b")&amp;&amp;!"where|#ST_SERVICE#|#WEBSITE#|#ST_INFORMATION#|#ST_UNI_LIBRARY#|#ST_LIBRARY#"</EN>
+<IT>("#SWEARWORDS#|ti odio|non mi piaci|mi stai antipatico"||"#STUPID#" &amp;&amp; "sei|bbob")&amp;&amp;!"#ST_SERVICE#|#WEBSITE#|#ST_INFORMATION#|#ST_UNI_LIBRARY#|#ST_LIBRARY#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Ich weiß nicht, was Dich zu dieser Reaktion veranlasst - aber ein wenig freundlicher könnest Du das schon formulieren.</DE>
+<EN>[10]I've no clue what the reason for this reaction is. However, you could be a bit more polite.</EN>
+<IT>[10]Non capisco perche reagisci così. Comunque, potresti essere un po' piu educato.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.97_NEGATIVE_FEEDBACK_01.Insult</name-trace>
+<name-trace number="2">bob.97_NEGATIVE_FEEDBACK_01.Beleidigung</name-trace>
+<name-trace number="3">bob.97_NEGATIVE_FEEDBACK_01.Insult</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.97_NEGATIVE_FEEDBACK_02.NoQuestion">
+<regex>
+<languages>
+<DE>"\bist\b|\bwar\b" &amp;&amp; "keine" &amp;&amp; "frage"</DE>
+<EN>"\bwas\b" &amp;&amp; "\bno\b|_\bnot a\b_" &amp;&amp; "question"||"wasn't" &amp;&amp; "question"</EN>
+<IT>"non era una domanda|non ti ho chiesto niente"||("non"&amp;&amp;"domanda")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[07]Tja, ich kann nun mal nicht aus meiner Haut raus. Ich beantworte so gerne Fragen, dass ich sogar auf Nicht-Fragen eine Antwort habe ;-)</DE>
+<EN>[07]Well, as a leopard cannot change its spots I can't stop giving answers even to non-questions ;-)</EN>
+<IT>[07]Beh, come un leopardo non può cambiare le sue macchie, io non posso smettere di dare risposte anche alle non-domande ;-)</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.97_NEGATIVE_FEEDBACK_02.NoQuestion</name-trace>
+</topic>
+<name-trace number="1">bob.97_NEGATIVE_FEEDBACK</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.Dank">
+<regex>
+<languages>
+<DE>(("#DIALOG#") &amp;&amp; ("#DANKE#")||("#DANKE#")&amp;&amp;!"#NICHT#")</DE>
+<EN>(("#DIALOGUE#") &amp;&amp; ("#THANKS#")||("#THANKS#"))</EN>
+<IT>(("#DIALOGUE#") &amp;&amp; ("#THANKS#")||("#THANKS#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Ich danke auch recht herzlich. Das war eine nette Unterhaltung!</DE>
+<EN>[03]Thank you too. I really enjoyed our chat!</EN>
+<IT>[03]Grazie a te! E' stato un piacere conversare insieme.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Auch Dir vielen Dank für das Gespräch!</DE>
+<EN>[02]I want to thank you for the nice conversation!</EN>
+<IT>[02]Anch'io ti ringrazio per la piacevole conversazione!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[08]Danke für Deinen Besuch.</DE>
+<EN>[08]And thanks for visiting me!</EN>
+<IT>[08]Grazie per la visita.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.Dank</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.DoppelteVerabschiedung">
+<regex>
+<languages>
+<DE>(("(schon|bereits) .*verabschiedet") || ("(schon|bereits) #TSCHUESS# .*gesagt"))</DE>
+<EN>("already .*(say|said|told|wrote)")&amp;&amp;("#GOOD_BYE#")</EN>
+<IT>("gia .*(detto|scritto) #GOOD_BYE#|gia .*salutato")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[01]Du merkst vielleicht, dass ich gerne rede. Deswegen bin ich nicht still, solange Du etwas schreibst.</DE>
+<EN>[01]You may already have noticed that I really do like talking. That's why I won't keep quiet as long as you say something ...</EN>
+<IT>[01]Forse avrai già notato che mi piace parlare. Per questo non sto zitto finché tu continui a scrivere.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Das ist mir bewusst. Aber wenn Du nicht aufhörst zu reden - ich tu es auch nicht ;-)</DE>
+<EN>[03]I do know this very well but if you don't stop talking - I won't neither.</EN>
+<IT>[03]Lo so, però, se non la smetti di parlare, non la smetto nemmeno io ;-).</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.DoppelteVerabschiedung</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.Exit">
+<regex>
+<languages>
+<DE>(("#EXIT#"))</DE>
+<EN>(("#EXIT#"))</EN>
+<IT>(("#EXIT#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[05]Das ist ja ein rasches Ende unseres Gesprächs. Eine Verabschiedung wäre nett gewesen Nun, sag ich es halt: Auf Wiedersehen.</DE>
+<EN>[05]No time to say good bye? Well, I've got plenty of time: Good bye!</EN>
+<IT>[05]Perché te ne sei andato in fretta e furia? Potevi almeno salutare. Vuol dire che lo farò io: arrivederci!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[01]Ohne viele Worte zu verlieren - tschüss.</DE>
+<EN>[01]Keep it short and simple: bye.</EN>
+<IT>[01]Per farla breve: ciao.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.Exit</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.FrohesFest">
+<regex>
+<languages>
+<DE>((("froehliche|frohes?|schoenes?") &amp;&amp; ("neues jahr|wochenende|fest|pfingsten|ostern|feiertage?|weihnacht(en)?")) &amp;&amp; (!("_(kein|nicht_)")))</DE>
+<EN>(("happy|merry|nice") &amp;&amp; ("#ST_HOLIDAYS#|new year")) &amp;&amp; (!("_(none|not_)"))</EN>
+<IT>((("buon.?|felic.") &amp;&amp; ("weekend|anno|pentecoste|pasqua|vacanze|feste|natale")) &amp;&amp; (!("_(nessun.|no_)")))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Das ist nett - Danke. Ich werde zwar arbeiten, aber ich hoffe, Du hast erholsame Tage.</DE>
+<EN>[03]That's nice - thank you. I hope you get some nice days off. I will be working as usual.</EN>
+<IT>[03]Grazie, è gentile da parte tua. Io resto qui a lavorare, ma spero che tu possa goderti questi giorni di vacanza.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Danke. Das wünsche ich Dir auch!</DE>
+<EN>[02]Same to you!</EN>
+<IT>[02]Grazie, altrettanto!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.FrohesFest</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.GrussAn">
+<regex>
+<languages>
+<DE>(("^ *((einen |)(schoenen? |freundlichen? |herzlichen? |)(gruss|gruesse) an_)|#V_KOENNEN# #DU# .*_gruessen"))</DE>
+<EN>("#ST_REGARDS#|_say hello_")&amp;&amp;("\bto\b|\bfor\b")</EN>
+<IT>("^ *(distinti |cordiali )?(saluti) (a|per)"||"puoi .*(dare|mandare) .*(distinti |cordiali )?(saluti) (a|per)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Danke! Sobald sich die Gelegenheit ergibt, werde ich es ausrichten.</DE>
+<EN>[03]Thanks! I'll do that as soon as possible.</EN>
+<IT>[03]Grazie, non mancherò!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.GrussAn</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.Gruss">
+<regex>
+<languages>
+<DE>("^ *((schoenen? |freundlichen? |herzlichen? |lieben? )(gruss|gruesse))#SATZENDE#")||("^ *(schoenen? |freundlichen? |herzlichen? |lieben? )(gruss|gruesse) \b(aus|von)")</DE>
+<EN>("#ST_REGARDS#|love from")&amp;&amp;!("\bto\b|\bfor\b")</EN>
+<IT>("^ *(cordiali |distinti )?(saluti)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Herzlichen Dank!</DE>
+<EN>[03]Thanks a lot!</EN>
+<IT>[03]Grazie mille!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Danke!</DE>
+<EN>[02]Thank you!</EN>
+<IT>[02]Grazie!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Vielen Dank!</DE>
+<EN>[02]Thanks!</EN>
+<IT>[02]Tante grazie!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.Gruss</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.GuteWuensche">
+<regex>
+<languages>
+<DE>("wuensche .*((angenehme|schoene|erholsame|ruhige).*(woche|tag|morgen|abend)|alles gute|noch viel spass)")</DE>
+<EN>(("\bhave\b|\bwish\b")&amp;&amp;("\bgood\b|\bnice\b|\brecreative\b|\bquiet\b")&amp;&amp;("\bweek\b|\bday\b|\bmorning\b|\bafternoon\b|\bevening\b|\btime\b")) || ("all the best|(lots of|have).* fun|enjoy .* time")</EN>
+<IT>("auguro .*((buon.|divertent.|riposant.).*(settiman.|giorn.|mattina|pomeriggio|sera|divertimento)|il meglio)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Vielen Dank! Wünsche ich Dir auch.</DE>
+<EN>[02]Ditto!</EN>
+<IT>[02]Grazie, altrettanto a te!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Ich wünsche Dir auch noch eine angenehme Zeit. Vielleicht kommst Du wieder einmal bei mir vorbei!</DE>
+<EN>[03]The same to you! Maybe you will visit me again some time.</EN>
+<IT>[03]Buon divertimento anche a te. Magari un giorno ci rivedremo!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.GuteWuensche</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.UserKommtWieder">
+<regex>
+<languages>
+<DE>(("_komme?n?_|wir sehen uns") &amp;&amp; ("wieder|noch einmal|erneut") &amp;&amp; (!("_(nicht|nie)_")))</DE>
+<EN>("I|I'.?ll|I'.?m|I'.?am|I will|we|we'.?ll")&amp;&amp;((("\bbe|com(e|ing)|get(ing)\b")&amp;&amp;("\bback\b"))||("\breturn\b|\bsee you\b|\beach other\b")) &amp;&amp;! "_(loan|#ST_LITERATURE#|never|not|#WHEN#)_"</EN>
+<IT>"tornero"||"ci rivedremo" &amp;&amp;! "_(mai|no)_"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Das ist nett von Dir! Bis dann.</DE>
+<EN>[03]That's nice. See you!</EN>
+<IT>[03]Molto gentile da parte tua! A presto!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Da freue ich mich schon drauf!</DE>
+<EN>[02]I'm looking forward to it!</EN>
+<IT>[02]Non vedo l'ora!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.UserKommtWieder</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.Verabschiedung">
+<regex>
+<languages>
+<DE>(("#TSCHUESS#") &amp;&amp; (!("_nicht_|#SCHON#")))</DE>
+<EN>(("#GOOD_BYE#") &amp;&amp; (!("_not_|#ALREADY#")))</EN>
+<IT>(("#GOOD_BYE#") &amp;&amp; (!("ciao|_no_|#ALREADY#|#WHO#")))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Auf Wiedersehen. Ich würde mich freuen, wenn Du wieder einmal vorbeischauen würdest!</DE>
+<EN>[04]Good bye! It would be nice to see you again some time.</EN>
+<IT>[04]Arrivederci! Sarei felice se tu tornassi a farmi visita.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Bis bald!</DE>
+<EN>[02]See you!</EN>
+<IT>[02]A presto!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[02]Tschüss.</DE>
+<EN>[02]Bye.</EN>
+<IT>[02]Ciao!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Wiedersehen.</DE>
+<EN>[03]Good bye.</EN>
+<IT>[03]Saluti!</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.FAREWELL.FarewellAnalyzer1</link>
+<!--Wenn von dem Benutzer eine Beurteilung gewünscht wird, sollte die Regel 'Gesprächsbeurteilung' anstelle von 'Verabschiedung' in den Prozess genommen werden.-->
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.Verabschiedung</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.FarewellAnalyzer1">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__0">
+<regex>
+<languages>
+<DE>( "#POSITIVE#|#AUCH#|\bokay")&amp;&amp;!"#ST_LITERATUR#"</DE>
+<EN>( "#POSITIVE#|#ALSO#|\bokay")&amp;&amp;!"#ST_LITERATURE#"</EN>
+<IT>( "#POSITIVE#|#ALSO#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Das freut mich. Dann bis zum nächsten Mal!</DE>
+<EN>[02]That's nice. See you soon!</EN>
+<IT>[02]Mi fa piacere. Allora, alla prossima!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__0</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__1">
+<regex>
+<languages>
+<DE>( "#NEGATIVE#|#NICHT#")</DE>
+<EN>( "#NEGATIVE#|#NOT#")</EN>
+<IT>( "#NEGATIVE#|#NOT#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Tja, das kann ich wohl leider nicht ändern. Trotzdem alles Gute.</DE>
+<EN>[10]I'm sorry to hear this. Anyhow - all the best to you.</EN>
+<IT>[10]Mi spiace, non posso farci nulla. Ad ogni modo, tanti auguri!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__1</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__2">
+<regex>
+<languages>
+<DE>( "#UNENTSCHIEDEN#")</DE>
+<EN>( "#INDIFFERENT#")</EN>
+<IT>( "#INDIFFERENT#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[01]Ist das jetzt ein Ja oder ein Nein?</DE>
+<EN>[01]Does this mean yes or no?</EN>
+<IT>[01]Sarebbe un sì o un no?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.FAREWELLFarewellAnalyzer2</link>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1__2</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.FarewellAnalyzer1</name-trace>
+<name-trace number="2">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer1</name-trace>
+<name-trace number="3">bob.15_HELLOGOODBYE.FAREWELL.FarewellAnalyzer1</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELLFarewellAnalyzer2">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_DISSERTATION#"))</DE>
+<EN>(("(.*)")&amp;&amp;!("#ST_DISSERTATION#"))</EN>
+<IT>(("(.*)")&amp;&amp;!("#ST_DISSERTATION#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__0">
+<regex>
+<languages>
+<DE>( "#NEGATIVE#|#NICHT#")</DE>
+<EN>( "#NEGATIVE#|#NOT#")</EN>
+<IT>( "#NEGATIVE#|#NOT#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Tja, das kann ich wohl leider nicht ändern. Trotzdem alles Gute.</DE>
+<EN>[10]I'm sorry to hear this. Anyhow - all the best to you.</EN>
+<IT>[10]Mi spiace, non posso farci nulla. Ad ogni modo, tanti auguri!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__0</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__1">
+<regex>
+<languages>
+<DE>( "#POSITIVE#|klar|komme")</DE>
+<EN>( "#POSITIVE#|certainly")</EN>
+<IT>( "#POSITIVE#|cert(o|amente)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Das freut mich. Dann bis zum nächsten Mal!</DE>
+<EN>[02]That's nice. See you soon!</EN>
+<IT>[02]Mi fa piacere. Allora, alla prossima!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__1</name-trace>
+</topic>
+<topic active="true" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__2">
+<regex>
+<languages>
+<DE>( "#UNENTSCHIEDEN#")</DE>
+<EN>( "#INDIFFERENT#")</EN>
+<IT>( "#INDIFFERENT#")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Dann hoffentlich bis zum nächsten Mal!</DE>
+<EN>[02]See you soon - maybe.</EN>
+<IT>[02]Speriamo allora di rivederci!</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.FAREWELLFarewellAnalyzer2</link>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2__2</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELLFarewellAnalyzer2</name-trace>
+<name-trace number="2">bob.15_HELLOGOODBYE.FAREWELL.VerabschiedungAnalyzer2</name-trace>
+<name-trace number="3">bob.15_HELLOGOODBYE.FAREWELLFarewellAnalyzer2</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.FAREWELL</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.Begruessung">
+<regex>
+<languages>
+<DE>("--BEGIN-DIALOGUE--")</DE>
+<EN>("--BEGIN-DIALOGUE--")</EN>
+<IT>("--BEGIN-DIALOGUE--")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Hallo! Ich heiße BoB und bin der Chatbot der Bibliothek. Ich kann Dir Informationen zu den Dienstleistungen der Bibliothek geben oder Dir etwas über Ausleihe, Recherche und noch vieles mehr erzählen.</DE>
+<EN>[02]Hello, I am BoB. I can tell you how to use the Library's services e.g., how to search the OPAC, borrow a book or how to find things in the Library.</EN>
+<IT>[02]Ciao, io sono BoB. Puoi chiedermi tutto ciò che vuoi a proposito della biblioteca universitaria.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.Begruessung</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.GreetingMorning">
+<regex>
+<languages>
+<DE>("--BEGIN-DIALOGUE-MORNING--")</DE>
+<EN>("--BEGIN-DIALOGUE-MORNING--")</EN>
+<IT>("--BEGIN-DIALOGUE-MORNING--")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Guten Morgen! Ich heiße BoB und bin der Chatbot der Bibliothek. Ich kann Dir Informationen zu den Dienstleistungen der Bibliothek geben oder Dir etwas über Ausleihe, Recherche und noch vieles mehr erzählen.</DE>
+<EN>[02]Good morning, I am BoB. I can tell you how to use the Library's services e.g., how to search the OPAC, borrow a book or how to find things in the Library.</EN>
+<IT>[02]Ciao, io sono BoB. Puoi chiedermi tutto ciò che vuoi a proposito della biblioteca universitaria.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.Begruessung</name-trace>
+<name-trace number="2">bob.15_HELLOGOODBYE.SALUTATION.GreetingMorning</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.GreetingEvening">
+<regex>
+<languages>
+<DE>("--BEGIN-DIALOGUE-EVENING--")</DE>
+<EN>("--BEGIN-DIALOGUE-EVENING--")</EN>
+<IT>("--BEGIN-DIALOGUE-EVENING--")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Guten Abend! Ich heiße BoB und bin der Chatbot der Bibliothek. Ich kann Dir Informationen zu den Dienstleistungen der Bibliothek geben oder Dir etwas über Ausleihe, Recherche und noch vieles mehr erzählen.</DE>
+<EN>[02]Good Evening, I am BoB. I can tell you how to use the Library's services e.g., how to search the OPAC, borrow a book or how to find things in the Library.</EN>
+<IT>[02]Buona sera, io sono BoB. Puoi chiedermi tutto ciò che vuoi a proposito della biblioteca universitaria.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.Begruessung</name-trace>
+<name-trace number="2">bob.15_HELLOGOODBYE.SALUTATION.GreetingEvening</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.BegruessungHallo">
+<regex>
+<languages>
+<DE>("")</DE>
+<EN>("")</EN>
+<IT>("")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Hallo! Ich heiße BoB und bin der Chatbot der Bibliothek. Wie kann ich Dir helfen?</DE>
+<EN>[02]Hi! I'm BoB the Chatbot working at the University Library. How may I help you?</EN>
+<IT>[02]Ciao, io sono BoB. Puoi chiedermi tutto ciò che vuoi a proposito della biblioteca universitaria.</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.BegruessungHallo</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN">
+<regex></regex>
+<answer></answer>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Begruessung_ErsteFragen">
+<regex>
+<languages>
+<DE>((""))</DE>
+<EN>((""))</EN>
+<IT>((""))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Kann ich Dir helfen, sich bei uns zurechtzufinden?</DE>
+<EN>[03]Can I help you to get your bearings?</EN>
+<IT>[03]Vuoi che ti aiuti a orientarti un po'?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Ich vermute, Du möchtest eine Auskunft. Kann ich Dir helfen?</DE>
+<EN>[03]I guess you need some information. May I help you?</EN>
+<IT>[03]Ad occhio, direi che hai bisogno di informazioni. Posso aiutarti?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Du bist sicher nicht ohne Grund hier. Sagst Du ihn mir?</DE>
+<EN>[03]I'm sure youve got a reason to visit me. Would you like to tell me?</EN>
+<IT>[03]Se sei qui, un motivo ci sarà. Ti va di dirmelo?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Wenn es etwas gibt, was ich für Dich tun kann ... zum Beispiel Deine Fragen beantworten ...?</DE>
+<EN>[04]If there is something I can do for you ... for example answer your questions?</EN>
+<IT>[04]C'è qualcosa che posso fare per te, ad esempio rispondere alle tue domande?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Ich ahne, Du hast eine Frage. Kann ich helfen?</DE>
+<EN>[03]I do feel that you've got a question. May I help?</EN>
+<IT>[03]Mi sa che hai una domanda che ti frulla per la testa. Posso aiutarti?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[03]Bücher, Zeitschriften, Aufsätze, Artikel zu diversen Themen? Soll ich Dir Strategien für die Suche danach vorstellen?</DE>
+<EN>[04]Books, journals, or articles about a special topic? Should I explain some search strategies to you?</EN>
+<IT>[03]Libri, riviste, saggi, articoli su vari argomenti? Vuoi che ti mostri qualche strategia di ricerca?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende</link>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau</link>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund</link>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun</link>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen</link>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau</link>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Begruessung_ErsteFragen</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#|#KEINE_AHNUNG#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#|#NO_IDEA#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#|#NO_IDEA#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Wir gehen da wohl ganz systematisch vor. Wonach suchst Du denn: nach einem Buch, einer Zeitschrift, einem Aufsatz? Oder geht es um Literatur zu einem bestimmten Thema?</DE>
+<EN>[04]I suggest a systematic approach. What are you looking for: a book, a journal, or an article? Or are you interested in literature about a certain topic?</EN>
+<IT>[04]La cosa migliore è procedere sistematicamente. Cosa stai cercando: un libro, una rivista o un saggio? O forse cerchi letteratura su un dato argomento?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Dann möchtest Du Dich einfach nur umschauen? Ich warte einfach, bis Du eine Frage an mich hast.</DE>
+<EN>[02]So you only want to look around a bit? That's fine with me. I'll be waiting here just in case you have a question.</EN>
+<IT>[02]Allora vuoi semplicemente dare un'occhiata? Va bene; io resto qui ad aspettare finché avrai una domanda per me.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer__0">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer__1">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.08_TOPICS.01_GENERAL.00_Topic_HowDoIFind</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_01_Bestaende_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Dann gehst Du am Besten ganz systematisch vor: handelt es sich um ein Buch, eine Zeitschrift, einen Aufsatz oder Artikel? Oder suchst Du möglichst relevante Literatur zu einem bestimmten Thema?</DE>
+<EN>[04]I suggest a systematic approach. What are you looking for: a book, a journal, or an article? Or are you interested in literature about a certain topic?</EN>
+<IT>[04]In questo caso, è meglio procedere in maniera sistematica. Stai cercando un libro, una rivista, un saggio o un articolo? O cerchi letteratura specifica su un determinato argomento?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Nichts Bestimmtes? Dann möchtest Du Dich vielleicht erst einmal orientieren. Und wenn Du Fragen hast, melde Dich einfach wieder.</DE>
+<EN>[02]Nothing specific you want to know? So you would probably just look around a bit. And if there is a question, just ask me.</EN>
+<IT>[02]Niente di particolare? Allora vuoi solo dare un'occhiata in giro per vedere come funziona. Se hai domande, fatti vivo.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__1</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__2">
+<regex>
+<languages>
+<DE>( "#ST_AUFSATZ#|#ARTIKEL#")</DE>
+<EN>( "#ST_ESSAY#|#ARTICLE#")</EN>
+<IT>( "#ST_ESSAY#|#ARTICLE#")</IT>
+</languages>
+</regex>
+<link>bob.09_ARTICLES.01_GENERAL.00_Essay_Article_HowDoIFind</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__2</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__3">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau__3</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.08_TOPICS.01_GENERAL.00_Topic_HowDoIFind</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer__1">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_02_Bestimmtes_Ungenau_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|#ST_THEMA#|(funktionier(en|st|t))|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|#ST_TOPIC#|(funktionier(en|st|t))|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|#ST_TOPIC#|(funktionier(en|st|t))|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[05]Und? Der wäre? Ich kann Dir vielleicht helfen.</DE>
+<EN>[05]Which would be? Maybe I can help.</EN>
+<IT>[05]E chi sarebbe? Forse ti posso aiutare.</IT>
+</languages>
+</answer>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Pardon - ich will mich nicht aufdrängen. Wenn Du mit den Recherche-Techniken hier vertraut bist, bitte leg los. Ansonsten: frag mich ruhig.</DE>
+<EN>[02]Sorry - I do not want to obtrude. If you already know the best search strategies - off you go. Otherwise you can ask me.</EN>
+<IT>[02]Chiedo scusa, non voglio imporre la mia presenza. Se conosci già i metodi di ricerca, fai pure; altrimenti, chiedi senza problemi.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__1</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__2">
+<regex>
+<languages>
+<DE>"2CHECK"&amp;&amp;"STELLA-DISABLED: problem spotting the regex within a case block"</DE>
+<EN>"2CHECK"&amp;&amp;"STELLA-DISABLED: problem spotting the regex within a case block"</EN>
+<IT>"2CHECK"&amp;&amp;"STELLA-DISABLED: problem spotting the regex within a case block"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Dann hatten wir also schon mal das Vergnügen ... danke für das Kompliment, dass Sie wiedergekommen sind. Und womit kann ich diesmal behilflich sein?</DE>
+<EN></EN>
+<IT></IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__2</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__3">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund__3</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_03_Grund</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Freut mich. Was suchst Du denn? Ein Buch? Eine Zeitung, Zeitschrift oder einen Aufsatz? Die Bibliothek hat Literatur in allen Medienarten. Und ich verrate Dir gerne, wie Du sie findest.</DE>
+<EN>[03]That's nice. What are you looking for? A book? A journal? An article? A newspaper? A film? The Library collects lots of things and publication types. And I would love to tell you how to find them!</EN>
+<IT>[03]Mi fa piacere. Cosa cerchi: un libro, un quotidiano, una rivista o un saggio? La nostra biblioteca ha titoli di ogni tipo. E ti insegno volentieri come fare per trovarli.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Keine Fragen? Du kennst Dich hier aus? Fein. Falls Du doch noch irgendwo nicht recht weiter kommst - ich bin für Dich da. Immer und jederzeit.</DE>
+<EN>[04]No questions at all? Very well. Should there be any problem - I'll be there.</EN>
+<IT>[04]Nessuna domanda? Sai già come funziona? Benissimo. Se però ti trovassi in difficoltà, sappi che sono qui - sempre a tua disposizione.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__1</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__2">
+<regex>
+<languages>
+<DE>(( "#ST_STUDIENGANG#")&amp;&amp;("#ST_DATENBANK#"))</DE>
+<EN>(( "#ST_STUDY_PROGRAMMES#")&amp;&amp;("#ST_DATABASE#"))</EN>
+<IT>(( "#ST_STUDY_PROGRAMMES#")&amp;&amp;("#ST_DATABASE#"))</IT>
+</languages>
+</regex>
+<link>bob.04_RECHERCHE.05_DATENBANK.15_STW_Fachdatenbanken</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__2</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__3">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun__3</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.05_CATALOGUE_SEARCH.01_SEARCH_CRITRIA.01_Search_Example</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer__1">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_04_WasTun_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_FACHBIBLIOTHEK#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_FACULTY_LIBRARY#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|treffer|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_FACULTY_LIBRARY#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Wenn es um die Recherche geht, kann ich Dir ein paar grundlegende Hinweise geben, die Ihnen hoffentlich weiterhelfen. Worum geht es denn?</DE>
+<EN>[04]If it's got something to do with searching I could give you some basic tips. What is it you need?</EN>
+<IT>[04]Se sei in difficoltà con la ricerca, posso darti qualche consiglio che spero ti possa essere utile. Qual è il problema?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[05]Okay, aber ich halte mich für Dich bereit. Falls Dir doch etwas nicht so ganz klar ist - ich helfe klären. Versprochen.</DE>
+<EN>[05]No problem. I'll be there all the time just in case you've got a question.</EN>
+<IT>[08]D'accordo, ma resto a tua disposizione. Se c'è qualcosa che non ti è del tutto chiaro, ti aiuto io - promesso.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__1</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__2">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen__2</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.05_CATALOGUE_SEARCH.01_SEARCH_CRITRIA.01_Search_Example</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer__1">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_05_Helfen_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|_borchert|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Gut. Dann wollen wir das Gesuchte mal etwas eingrenzen. Geht es um ein Buch, eine Zeitung oder Zeitschrift, einen Aufsatz oder um ein Thema, fachbezogen oder allgemein?</DE>
+<EN>[04]OK. So let's narrow the search a bit. are you looking for a book, a journal, an article, or maybe something for a specific topic?</EN>
+<IT>[04]Bene. Allora proviamo a restringere un po' il campo della tua ricerca. Cerchi un libro, un quotidiano, una rivista, un saggio o un argomento? Qualcosa di specifico o di generico?</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__1">
+<regex>
+<languages>
+<DE>( "^(#NEIN#|#NICHT#|#KEINE_AHNUNG#|#KEIN#)")</DE>
+<EN>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</EN>
+<IT>( "^(#NO#|#NOT#|#NO_IDEA#|#NOTHING#)")</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[04]Also suchst Du etwas Unbestimmtes? Oder willst Du nur mal sehen, wie es hier läuft, falls Du mal was suchst.</DE>
+<EN>[04]I see. So you you are looking for anything? Or do you just want to know how things are organised here, just in case you need something.</EN>
+<IT>[03]Allora non stai cercando nulla di preciso? O forse vuoi solo dare un'occhiata per sapere come fare nel caso ti serva qualcosa?</IT>
+</languages>
+</answer>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__1</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__2">
+<regex>
+<languages>
+<DE>( "#ST_BUCH#")</DE>
+<EN>( "#ST_BOOK#")</EN>
+<IT>( "#ST_BOOK#")</IT>
+</languages>
+</regex>
+<link>bob.06_BOOKS.00_HOW_DO_I_FIND.00_Book_HowDoIFind</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__2</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__3">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau__3</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer">
+<regex>
+<languages>
+<DE>(("(.*)")&amp;&amp;!("#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|ueber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_BIBLIOTHEK#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(.*)")&amp;&amp;!("#ST_BORROW#|#ST_ORDER#|mir eine geschichte|#GERMAN_CITIES#|#SWEARWORDS#|#ST_SIGNATURE#|#ST_COLLECT#|#ST_SPEND#|#V_CONSIGN#|ueber #YOURSELF#|#ST_CATALOGUE#|#ST_OPAC#|ausserhalb|#ST_COLLECT#|#ST_FACULTY_LIBRARY#|#ST_VIFAS#|geoeffnet|#ST_STUDENT#|#ST_UNI_LIBRARY#|entleihbar|#ST_PICTURE_BOOK#|kind(er)?|#YOU# #ARE#|#ST_INTERLIBRARYLOAN#|#V_SEND#|#DELIVER#|#ST_PASSWORD#|#CURRENT#|#ST_REFERENCE_WORK#|#ST_LIBRARY_CARD#|#ST_BUILDING#|#ST_OPENING_HOURS#|_webis_|#V_FIND# .*#NOT#|#NOT# .*(#V_FIND#|da|vorhanden)|(worum|um was) .*geht|#ST_UNLOCK#|#ST_JOURNAL_TITLE#|#ST_CONTACT#|#ST_NUMBER#|#ST_EMEDIA_ACCESS#|#ST_MAKING_AVAILABLE#|#ST_MEDIA_TYPE#|#ST_WIWI#|#ST_COMPUTER_SCIENCE#"))</IT>
+</languages>
+</regex>
+<answer></answer>
+<!--TODO: Marked for change-->
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer__0">
+<regex>
+<languages>
+<DE>(("^ *$")||( "#POSITIVE#|#WEITER#"))</DE>
+<EN>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</EN>
+<IT>(("^ *$")||( "#POSITIVE#|#GO_ON#"))</IT>
+</languages>
+</regex>
+<link>bob.05_CATALOGUE_SEARCH.01_SEARCH_CRITRIA.01_Search_Example</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer__0</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer__1">
+<regex>
+<languages>
+<DE>( "#KEINE_AHNUNG#")</DE>
+<EN>( "#NO_IDEA#")</EN>
+<IT>( "#NO_IDEA#")</IT>
+</languages>
+</regex>
+<link>bob.00_FAQS.07_User_does_not_need_anything</link>
+<!--TODO: Marked for change-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer__1</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.ErsteFrage_06_Bestimmtes_Genau_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="false" isSubDialogue="true" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer">
+<regex>
+<languages>
+<DE>(("#POSITIVE#"))</DE>
+<EN>(("#POSITIVE#"))</EN>
+<IT>(("#POSITIVE#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Ist gut. Bis dann.</DE>
+<EN>[03]OK. See you.</EN>
+<IT>[03]Bene. A dopo.</IT>
+</languages>
+</answer>
+<link>bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</link>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.Erste_Frage_Analyzer</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.UserKollege_Lokal">
+<regex>
+<languages>
+<DE>(("(#ICH# |^)bin .*#DEIN# #MITARBEITER#|#ICH# arbeite? (hier|(in|fuer) .*#ST_UNI_BIBLIOTHEK#)"))</DE>
+<EN>"2CHECK"&amp;&amp;(("(#I# |^)bin .*#YOUR# #EMPLOYEES#|#I# arbeite? (hier|(in|fuer) .*#ST_UNI_LIBRARY#)"))</EN>
+<IT>"2CHECK"&amp;&amp;(("(#I# |^)bin .*#YOUR# #EMPLOYEES#|#I# arbeite? (hier|(in|fuer) .*#ST_UNI_LIBRARY#)"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Oh, hallo, grüß dich. Frag mich ruhig mal aus - und dann sag mir bitte ehrlich: was war falsch, was kann ich besser machen? Ich kann Kritik vertragen. Lob natürlich auch.</DE>
+<EN></EN>
+<IT></IT>
+</languages>
+</answer>
+<!--Ich bin deine Kollegin (während der Begrüßung)-->
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN.UserKollege_Lokal</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.ERSTE_FRAGEN</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.Hallo">
+<regex>
+<languages>
+<DE>((("^#HALLO#!?( bob!?)?$") ||("^#HALLO#$") ||("^#HALLO#!$") ||"_hoi_"||"_hoila_"||("^da #BIST# #DU##SATZENDE#")|| ("^ *(wir fangen (#FUELLWOERTER# )*von vorne? an|fangen wir(#FUELLWOERTER# )*von vorne an)")) &amp;&amp; (!(("_(huebsch|charmant|lieb|suess|suess|anbetungswuerdig|attraktiv|toll|nett|sympathisch)_")||"_du bist cool_"||"_du siehst cool aus_"||"_komplimente?_"||"\blob"||"_\bich mag dich_"||"_#ICH_MAG# #DICH#_"||"_wie geht es dir_"||"_wie geht's dir_"||"_wie geht's_"||"_bist du gluecklich_"||"_geht es dir gut_"||"_geht's dir gut_"||"_gehts dir gut_"||"_wie laeuft es _"||"_wie laeuft's_"||"_wie laeufts_"||"_wie gehts_"||"Wohlbefinden"||"#DEIN#" &amp;&amp; "befinden")))</DE>
+<EN>(("^#HELLO#!?( bob!?)?$")||("^#HELLO#$") ||("^#HELLO#!$") ||("^there #YOU# #ARE#")||"good morning|mornig"|| "^ *(we start (#FILLER_WORDS# )*from the beginning|do we start(#FILLER_WORDS# )*from the beginning)" )&amp;&amp; !"(_how do you do_|_how are you_|_how are u_|_How are things_|_How are you doing_|_How's it going_|_how is it going_|_What's up_|_How's tricks_|_how's things_|_are you happy_|_Are you having a nice day_)"</EN>
+<IT>((("^#HELLO#!?( bob!?)?$") ||("^#ARE# qu.")|| ("^ *(iniziamo (#FILLER_WORDS# )*dall'inizio)") &amp;&amp; (!("(#MY_NAME_IS#|#MY_NAME_IS_FIRST#|#MY_NAME_IS_NAMECATALOGUE#)")))) &amp;&amp;! "#WHO#"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[02]Es freut mich, Dich hier begrüßen zu dürfen. Wie kann ich Dir behilflich sein?</DE>
+<EN>[02]Hi! Nice to meet you. How may I help you?</EN>
+<IT>[02]E' un piacere darti il benvenuto. Cosa posso fare per te?</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.Hallo</name-trace>
+</topic>
+<topic active="false" isLocal="true" isSubDialogue="false" isSystemInitiative="false" name="bob.15_HELLOGOODBYE.SALUTATION.UserErfreut">
+<regex>
+<languages>
+<DE>(("es ist mir eine ehre|(#TOLL#|nett|freue mich.*),? #DICH# (kennen *zu *lernen|kennen *gelernt zu haben|zu treffen|treffen zu koennen|getroffen zu haben),? *#SATZENDE#|^ *sehr erfreut,? *#SATZENDE#|^ *angenehm *#SATZENDE#|freut mich|freut mich auch|sehr erfreut|ich bin erfreut|ebenfalls|ich freue? mich auch|ganz meinerseits|ganz auf meiner seite|#DICH# zu kennenlernen|^(meinerseits|angenehm|dito)#SATZENDE#"))</DE>
+<EN>"2CHECK"&amp;&amp;(("es ist mir eine ehre|(#GREAT#|nett|freue mich.*),? #YOURSELF# (kennen *zu *lernen|kennen *gelernt zu haben|zu treffen|treffen zu koennen|getroffen zu haben),? *#END_OF_SENTENCE#|^ *sehr erfreut,? *#END_OF_SENTENCE#|^ *angenehm *#END_OF_SENTENCE#|freut mich|freut mich auch|sehr erfreut|ich bin erfreut|ebenfalls|ich freue? mich auch|ganz meinerseits|ganz auf meiner seite|#YOURSELF# zu kennenlernen|^(meinerseits|angenehm|dito)#END_OF_SENTENCE#"))</EN>
+<IT>"2CHECK"&amp;&amp;(("es ist mir eine ehre|(#GREAT#|nett|freue mich.*),? #YOURSELF# (kennen *zu *lernen|kennen *gelernt zu haben|zu treffen|treffen zu koennen|getroffen zu haben),? *#END_OF_SENTENCE#|^ *sehr erfreut,? *#END_OF_SENTENCE#|^ *angenehm *#END_OF_SENTENCE#|freut mich|freut mich auch|sehr erfreut|ich bin erfreut|ebenfalls|ich freue? mich auch|ganz meinerseits|ganz auf meiner seite|#YOURSELF# zu kennenlernen|^(meinerseits|angenehm|dito)#END_OF_SENTENCE#"))</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[03]Das Vergnügen ist ganz auf meiner Seite!</DE>
+<EN>[03]It's my pleasure!</EN>
+<IT>[03]Piacere mio!</IT>
+</languages>
+</answer>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION.UserErfreut</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE.SALUTATION</name-trace>
+</topic>
+<name-trace number="1">bob.15_HELLOGOODBYE</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.99_ERROR_MESSAGES">
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND">
+<regex></regex>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.00_EMPTY_INPUT">
+<regex>
+<languages>
+<DE>"^ *$"</DE>
+<EN>"^ *$"</EN>
+<IT>"^ *$"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Du musst mir schon etwas mehr Informationen geben ...</DE>
+<EN>[10]You'll have to give me some more information ...</EN>
+<IT>[10]Dovresti darmi altre informazioni ...</IT>
+</languages>
+</answer>
+<link>bob.bob</link>
+<name-trace number="1">bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.00_EMPTY_INPUT</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.80_CONTINUED_ERROR">
+<regex>
+<languages>
+<DE>"__SPECIAL_TOPIC_TRIGGERED_VIA_ID__"</DE>
+<EN>"__SPECIAL_TOPIC_TRIGGERED_VIA_ID__"</EN>
+<IT>"__SPECIAL_TOPIC_TRIGGERED_VIA_ID__"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Dazu fällt mir leider nichts ein. Ich kann Dir aber etwas über die Unibibliothek erzählen. Oder wir reden über die Ausleihe, Rückgabe oder das Vorbestellen von Medien. Dann kenne ich mich auch mit dem Katalog und der Recherche nach Aufsätzen gut aus. Oder Du benötigst vielleicht Hilfe zur Fernleihe.</DE>
+<EN>[10]Let me try to help you out here. I can tell you something about the organization of the University Library. Borrowing, reserving, returning, renewing items. Using the OPAC. Searching for books, journals, and articles. Using the Interlibrary Loan Service.</EN>
+<IT>[10]Lascia che ti aiuti. Posso dirti qualcosa circa l'organizzazione della biblioteca universitaria. Prendere in prestito, riservare, restituire, rinnovare, cercare libri, giornali o articoli con l'OPAC, fino al servizio del prestito interbibliotecario.</IT>
+</languages>
+</answer>
+<link>bob.bob</link>
+<name-trace number="1">bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.80_CONTINUED_ERROR</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.99_ANY_INPUT">
+<regex>
+<languages>
+<DE>".*"</DE>
+<EN>".*"</EN>
+<IT>".*"</IT>
+</languages>
+</regex>
+<answer>
+<languages>
+<DE>[10]Das verstehe ich leider nicht.</DE>
+<EN>[10]Sorry, I don't understand.</EN>
+<IT>[10]Non capisco bene.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[10]Kannst Du Deine Frage bitte anders formulieren.</DE>
+<EN>[10]Could you rephrase your question, please.</EN>
+<IT>[10]Mm.., in altre parole?</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[10]Ich werde meine Kollegen bitten, mir hier mehr Informationen zu geben.</DE>
+<EN>[10]I will ask to get updated with this information.</EN>
+<IT>[10]Chiederò di essere aggiornato con questa informazione.</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[10]Das hab ich jetzt leider nicht verstanden. An sich weiß ich recht viel. Ich werde mir dazu aber etwas überlegen, und wenn Du mich bei Deinem nächsten Besuch wieder danach fragst, habe ich hoffentlich eine Antwort parat.</DE>
+<EN>[10]Gosh, I didn't quite get that. Strange, since I am actually pretty intelligent. Well, I will ponder upon that further and do some research, so the issue will make more sense to me on your next visit.</EN>
+<IT>[10]Ops, non ho capito. Strano, sono piuttosto intelligente. Ok, ci penso un po' e faccio qualche ricerca, così saprò risponderti la prossima volta che mi farai visita!!</IT>
+</languages>
+</answer>
+<answer>
+<languages>
+<DE>[10]Also entweder war das jetzt eine Frage, die gar nichts mit der Unibibliothek zu tun hat oder wir verstehen uns einfach nicht. Das ist aber jetzt ein Problem, um das sich meine Entwickler ganz sicher kümmern werden.</DE>
+<EN>[10]I don't understand that, but it's not a biggie. My creators check on me regularly, and I will ask them to resolve this issue. They will surely take care of it.</EN>
+<IT>[10]Non capisco. Ma non è grave, i miei creatori mi controllano regolarmente e chiederò loro di risolvere il problema. Si prenderanno sicuramente cura di me.</IT>
+</languages>
+</answer>
+<link>bob.bob</link>
+<name-trace number="1">bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.99_ANY_INPUT</name-trace>
+</topic>
+<name-trace number="1">bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND</name-trace>
+</topic>
+<regex></regex>
+<answer></answer>
+<name-trace number="1">bob.99_ERROR_MESSAGES</name-trace>
+</topic>
+<name-trace number="1">bob.bob</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="phrases">
+<regex></regex>
+<answer></answer>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.Advisory_Service">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://www.unibz.it/de/prospective/info/guidance/default.html</DE>
+<EN>http://www.unibz.it/en/prospective/info/guidance/default.html</EN>
+<IT>http://www.unibz.it/it/prospective/info/guidance/default.html</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.Advisory_Service</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.AIDA">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://libproxy.unibz.it/login?url=http://www.gbv.de/gsomenu/opendb.php?db=2.88&amp;ln=du</DE>
+<EN>http://libproxy.unibz.it/login?url=http://www.gbv.de/gsomenu/opendb.php?db=2.88&amp;ln=en</EN>
+<IT>http://libproxy.unibz.it/login?url=http://www.gbv.de/gsomenu/opendb.php?db=2.88&amp;ln=en</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.AIDA</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.EZB_Help">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://rzblx1.uni-regensburg.de/ezeit/hilfe.phtml?bibid=UBBZ&amp;colors=7&amp;lang=de</DE>
+<EN>http://rzblx1.uni-regensburg.de/ezeit/hilfe.phtml?bibid=UBBZ&amp;colors=7&amp;lang=en</EN>
+<IT>http://rzblx1.uni-regensburg.de/ezeit/hilfe.phtml?bibid=UBBZ&amp;colors=7&amp;lang=en</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.EZB_Help</name-trace>
+<name-trace number="2">PHRASES.URLS.A-E.Ampel_Hilfe</name-trace>
+<name-trace number="3">PHRASES.URLS.A-E.EZB_Help</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.Disabled">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://www.unibz.it/de/prospective/info/disabled/default.html</DE>
+<EN>http://www.unibz.it/en/prospective/info/disabled/default.html</EN>
+<IT>http://www.unibz.it/it/prospective/info/disabled/default.html</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.Disabled</name-trace>
+<name-trace number="2">PHRASES.URLS.A-E.Behinderte</name-trace>
+<name-trace number="3">PHRASES.URLS.A-E.Disabled</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.User_Information">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://www.unibz.it/library/opac_account/index.html?LanguageID=DE</DE>
+<EN>http://www.unibz.it/library/opac_account/index.html?LanguageID=EN</EN>
+<IT>http://www.unibz.it/library/opac_account/index.html?LanguageID=IT</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.User_Information</name-trace>
+<name-trace number="2">PHRASES.URLS.A-E.Benutzer-Info</name-trace>
+<name-trace number="3">PHRASES.URLS.A-E.User_Information</name-trace>
+</topic>
+<topic active="true" isLocal="false" isSubDialogue="false" isSystemInitiative="false" name="PHRASES.URLS.A-E.Librarians_LiteratureMovies">
+<regex></regex>
+<answer>
+<languages>
+<DE>http://www.8ung.at/library_mistress/berufsbild/berufsbild-belletristik.html</DE>
+<EN>http://www.8ung.at/library_mistress/berufsbild/berufsbild-belletristik.html</EN>
+<IT>http://www.8ung.at/library_mistress/berufsbild/berufsbild-belletristik.html</IT>
+</languages>
+</answer>
+<name-trace number="1">PHRASES.URLS.A-E.Librarians_LiteratureMovies</name-trace>
+<name-trace number="2">PHRASES.URLS.A-E.Bibliothekare_BUCH_FILM</name-trace>
+<name-trace number="3">PHRASES.URLS.A-E.Librarians_LiteratureMovies</name-trace>
+</topic>
+<name-trace number="1">phrases</name-trace>
+</topic>
+</library_domain>
