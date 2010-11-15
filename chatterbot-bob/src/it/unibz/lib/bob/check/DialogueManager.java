@@ -1,6 +1,5 @@
 package it.unibz.lib.bob.check;
 
-
 import it.CustomLog;
 
 import java.io.File;
@@ -86,6 +85,12 @@ public class DialogueManager {
 	 * Count cont. errors to handle them at some threshold
 	 */
 	int continuousNoPatternFoundErrors = 0;
+
+	/**
+	 * remember the user query which did not match any question pattern, as it
+	 * might be an OPAC query...
+	 */
+	String possibleOpacQuery = null;
 
 	/**
 	 * The Java Session ID that this DM is connected to; needed for logging
@@ -221,14 +226,8 @@ public class DialogueManager {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		DialogueManager dm = new DialogueManager(
-				"foobar",
-				"foobar",
-				"foobar",
-				"foobar",
-				"file:///foobar",
-				"file:///foobar",
-				"file:///foobar");
+		DialogueManager dm = new DialogueManager("foobar", "foobar", "foobar",
+				"foobar", "file:///foobar", "file:///foobar", "file:///foobar");
 		dm.setSessionID("someIDsetInMain");
 
 		// System.out.println(dm.getNextResponse("hello BoB", "EN"));
@@ -239,8 +238,7 @@ public class DialogueManager {
 		// true));
 
 		System.out.println(dm.topicIDsAreEquivalent("12", "12"));
-		System.out.println(dm.topicIDsAreEquivalent("bob.bob",
-				"bob.bob"));
+		System.out.println(dm.topicIDsAreEquivalent("bob.bob", "bob.bob"));
 
 		System.out.println(dm.topicIDsAreEquivalent(
 				"bob.04_RECHERCHE.01_WIE_FINDE_ICH.46_Tests", "foobar"));
@@ -284,12 +282,51 @@ public class DialogueManager {
 		// setLanguage(lang);
 		String response = null;
 		C = getNextNode(removeAccents(userUtt), lang);
+
+		// if topic ID is special OPAC query case, before getting answer from
+		// topicTree, extracted keywords from the user question to be inserted
+		// into the topicTree's response
+
+		if (tt.getNodeName(C, sessionID).equals(
+				"bob.90_OPAC_MESSAGES.11_KEYWORD_SEARCH")) {
+			System.out.println("OPAC question!");
+			possibleOpacQuery = OpacQueryQuestionParser.KeywordQuestion
+					.getQueryTerms(userUtt, lang);
+		}
+		// get answer from TopicTree
 		response = tt.getNodeAnswer(C, lang, sessionID, true);
 		if (C == null) {
 			C = tt.getRootNode();
 			sdMode = false;
 			tt.reset();
 		}
+
+		response = response.replaceAll("__OPAC_QUERY__",
+				possibleOpacQuery != null ? possibleOpacQuery : "");
+
+		// the OPAC query string
+		// $1 is language selector
+		// $2 is '+'-separated list of query terms
+
+		String opacLanguageCode = "1"; // german
+		if (lang.equals("EN"))
+			opacLanguageCode = "2";
+		if (lang.equals("IT"))
+			opacLanguageCode = "3";
+
+		String opacLinkUrl = "http://pro.unibz.it/opacuni/index.asp?SEARCH=TRUE&bSWIN=TRUE&lang=__LANGCODE__&WITHTHESIS=false&STICHWORT=__QUERY__";
+		opacLinkUrl = opacLinkUrl
+				.replaceFirst("__LANGCODE__", opacLanguageCode);
+
+		String possibleOpacQuery_escaped = it.unibz.lib.bob.chatterbot.EscapeChars
+				.forHrefAmpersand(it.unibz.lib.bob.chatterbot.EscapeChars
+						.forURL(possibleOpacQuery != null ? possibleOpacQuery
+								: ""));
+
+		opacLinkUrl = opacLinkUrl.replaceFirst("__QUERY__",
+				possibleOpacQuery_escaped);
+		response = response.replaceAll("__OPAC_LINK_URL__", opacLinkUrl);
+
 		return response;
 	}
 
@@ -331,6 +368,7 @@ public class DialogueManager {
 
 		return s;
 	}
+
 	/**
 	 * For a give user question and language, returns a Vector of 4-tuples:
 	 * MatchedTopicID, TopicIDAfterLinks, AnswerString at MatchedTopicID (or at
@@ -591,8 +629,7 @@ public class DialogueManager {
 			sdMode = false;
 		}
 
-		if (tt.getNodeName(C, sessionID)
-				.startsWith("bob.99_ERROR_MESSAGES.")) {
+		if (tt.getNodeName(C, sessionID).startsWith("bob.99_ERROR_MESSAGES.")) {
 			C = tt.getRootNode();
 			if (logging) {
 				log
@@ -628,10 +665,9 @@ public class DialogueManager {
 			 * followed // a link to the root node (bob.bob), and entered
 			 * subdialogue // mode. Here, we have to override SubDialogue mode,
 			 * because the // next search should not be within subdialogues. if
-			 * (tt.getNodeName(match, sessionID).equals("bob.bob")) {
-			 * sdMode = false; C = match; if (logging) {
-			 * log.log(CustomLog.MY_TRACE, sessionID +
-			 * " DEBUG: [Verlasse (ERROR-) SubDialog]"); } }
+			 * (tt.getNodeName(match, sessionID).equals("bob.bob")) { sdMode =
+			 * false; C = match; if (logging) { log.log(CustomLog.MY_TRACE,
+			 * sessionID + " DEBUG: [Verlasse (ERROR-) SubDialog]"); } }
 			 */
 		}
 
@@ -693,10 +729,12 @@ public class DialogueManager {
 		// only "error" pattern matched; keep count of this event
 		if (originalResponses.size() == 1) {
 			continuousNoPatternFoundErrors++;
+			possibleOpacQuery = userUtt;
 
 			// handle continuous error messages over some threshold: go to
 			// special rule
 			if (continuousNoPatternFoundErrors > 1) {
+				possibleOpacQuery = null;
 				Node node = tt
 						.getNodeFromTopicID(
 								"bob.99_ERROR_MESSAGES.00_NO_PATTERN_FOUND.80_CONTINUED_ERROR",
@@ -729,6 +767,7 @@ public class DialogueManager {
 		// unique answer
 		if (originalResponses.size() == 2) {
 			continuousNoPatternFoundErrors = 0;
+
 			Node node = tt.getNodeFromTopicID(Quadruple.get1(originalResponses
 					.get(0)), sessionID);
 			if (logging) {
@@ -745,6 +784,7 @@ public class DialogueManager {
 
 		// Answer ambiguity: Enter the answer reranker for the right language
 		continuousNoPatternFoundErrors = 0;
+		possibleOpacQuery = null;
 		Vector<Quadruple<String, String, String, String>> reranked = null;
 		if (lang.toUpperCase().equals("EN")) {
 			reranked = tt.getQAMB().rerankAnswers(userUtt, originalResponses,
@@ -850,8 +890,7 @@ public class DialogueManager {
 		continuousNoPatternFoundErrors = 0;
 		C = tt.getRootNode();
 		sdMode = false;
-		
-		
+
 		if (logging) {
 			log.log(CustomLog.MY_TRACE, sessionID.substring(0, 8)
 					+ " DEBUG: *******************************");
