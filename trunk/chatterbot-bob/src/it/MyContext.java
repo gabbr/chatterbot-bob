@@ -1,5 +1,6 @@
 package it;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,14 +16,15 @@ public final class MyContext implements ServletContextListener {
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {
-		/**
+
 		// back up old file
 		File f = new File(context.getAttribute("javax.servlet.context.tempdir")
 				+ "/internal.log");
 
-		f.renameTo(new File(context.getRealPath("/") + "/WEB-INF/internal__"
-				+ now() + ".log"));
-				*/
+		f.renameTo(new File(context.getRealPath("/")
+				+ "/WEB-INF/internal.log__contextDestroyedBackup__" + now()
+				+ ".log"));
+
 		this.context = null;
 	}
 
@@ -31,9 +33,9 @@ public final class MyContext implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		this.context = event.getServletContext();
 
-		System.setProperty("log4jFile", context
-				.getAttribute("javax.servlet.context.tempdir")
-				+ "/internal.log");
+		System.setProperty("log4jFile",
+				context.getAttribute("javax.servlet.context.tempdir")
+						+ "/internal.log");
 	}
 
 	public static String now() {
@@ -41,4 +43,7 @@ public final class MyContext implements ServletContextListener {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd-HHmmss");
 		return sdf.format(cal.getTime());
 	}
+	
+	
+	
 }
