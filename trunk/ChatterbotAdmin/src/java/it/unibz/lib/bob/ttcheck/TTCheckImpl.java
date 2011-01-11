@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @version $Id: TTCheckImpl.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class TTCheckImpl implements TTCheck
 {

@@ -40,7 +40,7 @@ import it.unibz.lib.bob.macroparser.macroParser_Parser;
  * Bob-imported topic tree and the abbreviations file.
  * 
  * @author kirschner
- * @version $Id: ChatterbotHelper.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  * 
  */
 public class ChatterbotHelper implements macroParser_LexerTokenTypes {

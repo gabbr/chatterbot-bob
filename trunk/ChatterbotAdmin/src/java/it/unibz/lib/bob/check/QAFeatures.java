@@ -4,7 +4,7 @@ package it.unibz.lib.bob.check;
  * Representation of the features we use to rerank first questions.
  * 
  * @author manuelkirschner
- * @version $Id: QAFeatures.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  * 
  */
 public class QAFeatures {

@@ -6,7 +6,7 @@ import org.apache.oro.text.MalformedCachePatternException;
 
 /**
  *
- * @version $Id: Bob_LexerTokenTypes.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public interface Bob_LexerTokenTypes
 {

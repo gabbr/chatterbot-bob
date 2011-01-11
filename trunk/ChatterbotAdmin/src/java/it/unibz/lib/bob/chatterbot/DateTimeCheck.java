@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  * also be extended to check special dates.)
  * 
  * @author manuelkirschner
- * @version $Id: DateTimeCheck.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class DateTimeCheck {
 	private static final int startHourMorning = 3;

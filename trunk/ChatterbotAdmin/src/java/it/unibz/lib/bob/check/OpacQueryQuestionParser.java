@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Parses a user question that had been identified to contain an OPAC query, and returns the contained query terms
  *
  * @author manuelkirschner
- * @version $Id: OpacQueryQuestionParser.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  *
  */
 public class OpacQueryQuestionParser

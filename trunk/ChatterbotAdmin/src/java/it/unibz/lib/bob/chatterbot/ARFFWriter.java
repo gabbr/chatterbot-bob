@@ -3,7 +3,7 @@ package it.unibz.lib.bob.chatterbot;
 /**
  * At some point should provide a nice API for writing correct ARFF files
  *
- * @version $Id: ARFFWriter.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 
 import java.io.FileWriter;

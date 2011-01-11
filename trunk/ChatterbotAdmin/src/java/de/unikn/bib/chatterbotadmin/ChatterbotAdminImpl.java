@@ -25,7 +25,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 /**
  *
  * @author markus.grandpre@uni-konstanz.de
- * @version $Id: ChatterbotAdminImpl.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class ChatterbotAdminImpl implements ChatterbotAdmin
 {
