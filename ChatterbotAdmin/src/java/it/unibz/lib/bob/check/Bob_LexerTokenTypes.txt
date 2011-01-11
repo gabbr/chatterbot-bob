@@ -1,4 +1,4 @@
-// $Id: Bob_LexerTokenTypes.txt 313 2010-12-22 10:41:47Z markus.grandpre $
+// $Id$
 
 // $ANTLR : Bob.g -> Bob_LexerTokenTypes.txt$
 Bob_Lexer    // output token vocab name

@@ -25,7 +25,7 @@ import antlr.collections.impl.ASTArray;
 
 /**
  *
- * @version $Id: Bob_Parser.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
 {

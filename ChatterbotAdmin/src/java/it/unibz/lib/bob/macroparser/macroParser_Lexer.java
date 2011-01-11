@@ -27,7 +27,7 @@ import antlr.SemanticException;
 
 /**
  *
- * @version $Id: macroParser_Lexer.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class macroParser_Lexer extends antlr.CharScanner implements macroParser_LexerTokenTypes, TokenStream
 {

@@ -27,7 +27,7 @@ import java.util.*;
  * 
  * @author Geoffrey Washburn &lt;<a
  *         href="mailto:geoffw@cis.upenn.edu">geoffw@cis.upenn.edu</a>&gt;
- * @version $Id: SortedMultiSet.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class SortedMultiSet extends LinkedList implements SortedSet {
 

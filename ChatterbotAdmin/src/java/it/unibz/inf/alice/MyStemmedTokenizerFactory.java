@@ -28,7 +28,7 @@ import com.aliasi.util.Compilable;
  * </ul>
  * 
  * @author Manuel Kirschner
- * @version $Id: MyStemmedTokenizerFactory.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class MyStemmedTokenizerFactory implements Compilable, TokenizerFactory,
 		Serializable {

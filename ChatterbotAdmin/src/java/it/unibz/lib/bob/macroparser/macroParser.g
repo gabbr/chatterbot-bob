@@ -1,4 +1,4 @@
-// $Id: macroParser.g 313 2010-12-22 10:41:47Z markus.grandpre $
+// $Id$
 
 header {
 package it.unibz.lib.macroparser;

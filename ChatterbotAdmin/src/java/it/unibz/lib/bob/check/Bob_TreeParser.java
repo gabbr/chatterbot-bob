@@ -18,7 +18,7 @@ import antlr.collections.impl.ASTArray;
 
 /**
  *
- * @version $Id: Bob_TreeParser.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class Bob_TreeParser extends antlr.TreeParser       implements Bob_LexerTokenTypes
  {

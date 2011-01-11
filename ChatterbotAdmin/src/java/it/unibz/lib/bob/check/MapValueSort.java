@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 /**
  *
- * @version $Id: MapValueSort.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  */
 public class MapValueSort {
 

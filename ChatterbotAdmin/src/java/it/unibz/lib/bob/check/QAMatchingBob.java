@@ -20,7 +20,7 @@ import com.mallardsoft.tuple.Tuple;
  * Train and test the answer reranker for first questions.
  * 
  * @author manuelkirschner
- * @version $Id: QAMatchingBob.java 313 2010-12-22 10:41:47Z markus.grandpre $
+ * @version $Id$
  * 
  */
 public class QAMatchingBob {
