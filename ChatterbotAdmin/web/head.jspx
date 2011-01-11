@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     $Id: head.jspx 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<jsp:root 
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.0">
+  <title>
+    Test
+  </title>
+  <!--
+       some browser settings
+  -->
+  <meta
+    http-equiv="Content-Type"
+    content="text/html; charset=utf-8"/>
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=EmulateIE7"/>
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=8"/>
+  <!--
+         include css files of uni, bib and chatterbot admin
+  -->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://www.rz.uni-konstanz.de/fileadmin/templates/uni/uni.css"
+    title="MainStyle"
+    media="screen"/>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    media="screen"
+    href="css/chatterbotadmin.css"/>
+</jsp:root>

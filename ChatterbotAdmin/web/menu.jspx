@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     $Id: menu.jspx 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<jsp:root
+  xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  version="2.0">
+  <!--
+           display command buttons to select language and to logout
+  -->
+  <h:form
+    id="message_language_selection">
+    <h:panelGrid
+      columns="3"
+      styleClass="chatterbotAdminLanguageSelection">
+      <h:commandButton
+        id="de_button"
+        image="images/de.gif"
+        action="locale">
+        <f:setPropertyActionListener
+          target="#{chatterbotAdminBean.locale}"
+          value="de" />
+      </h:commandButton>
+      <h:commandButton
+        id="en_button"
+        image="images/en.gif"
+        action="locale">
+        <f:setPropertyActionListener
+          target="#{chatterbotAdminBean.locale}"
+          value="en" />
+      </h:commandButton>
+      <h:commandButton
+        id="it_button"
+        image="images/it.gif"
+        action="locale">
+        <f:setPropertyActionListener
+          target="#{chatterbotAdminBean.locale}"
+          value="it" />
+      </h:commandButton>
+    </h:panelGrid>
+  </h:form>
+  <!--
+           display title of menu to select management
+  -->
+  <h:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <h:outputText
+      value="#{message.menu_title}" />
+  </h:panelGrid>
+  <!--
+          display command buttons to select management
+  -->
+  <h:form
+    id="menu">
+    <h:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminMenu">
+      <h:commandButton
+        id="bcheck_not_selected"
+        rendered="#{!chatterbotAdminBean.bcheckSelected}"
+        value="#{message.menu_bcheck}"
+        action="#{chatterbotAdminBean.selectBCheck}"
+        styleClass="chatterbotAdminMenuButton" />
+      <h:commandButton
+        id="bcheck_selected"
+        rendered="#{chatterbotAdminBean.bcheckSelected}"
+        value="#{message.menu_bcheck}"
+        action="#{chatterbotAdminBean.selectBCheck}"
+        styleClass="chatterbotAdminMenuButtonSelected" />
+      <h:commandButton
+        id="qcheck_not_selected"
+        rendered="#{!chatterbotAdminBean.qcheckSelected}"
+        value="#{message.menu_qcheck}"
+        action="#{chatterbotAdminBean.selectQCheck}"
+        styleClass="chatterbotAdminMenuButton" />
+      <h:commandButton
+        id="qcheck_selected"
+        rendered="#{chatterbotAdminBean.qcheckSelected}"
+        value="#{message.menu_qcheck}"
+        action="#{chatterbotAdminBean.selectQCheck}"
+        styleClass="chatterbotAdminMenuButtonSelected" />
+      <h:commandButton
+        id="ttcheck_not_selected"
+        rendered="#{!chatterbotAdminBean.ttcheckSelected}"
+        value="#{message.menu_ttcheck}"
+        action="#{chatterbotAdminBean.selectTTCheck}"
+        styleClass="chatterbotAdminMenuButton" />
+      <h:commandButton
+        id="ttcheck_selected"
+        rendered="#{chatterbotAdminBean.ttcheckSelected}"
+        value="#{message.menu_ttcheck}"
+        action="#{chatterbotAdminBean.selectTTCheck}"
+        styleClass="chatterbotAdminMenuButtonSelected" />
+      <h:commandButton
+        id="chatterbot_not_selected"
+        rendered="#{!chatterbotAdminBean.chatterbotSelected}"
+        value="#{message.menu_chatterbot}"
+        action="#{chatterbotAdminBean.selectChatterbot}"
+        styleClass="chatterbotAdminMenuButton" />
+      <h:commandButton
+        id="chatterbot_selected"
+        rendered="#{chatterbotAdminBean.chatterbotSelected}"
+        value="#{message.menu_chatterbot}"
+        action="#{chatterbotAdminBean.selectChatterbot}"
+        styleClass="chatterbotAdminMenuButtonSelected" />
+    </h:panelGrid>
+  </h:form>
+</jsp:root>

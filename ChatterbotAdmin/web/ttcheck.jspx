@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     $Id: ttcheck.jspx 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<jsp:root
+  xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:t="http://myfaces.apache.org/tomahawk"
+  version="2.0">
+  <!--
+       display title of ttcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.ttcheck_title}" />
+  </t:panelGrid>
+  <!--
+       display info of qcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.ttcheck_info}" />
+  </t:panelGrid>
+  <!--
+       display title of file management ttcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.ttcheck_file_title}" />
+  </t:panelGrid>
+  <!--
+       display info of file management of ttcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.ttcheck_file_info}" />
+  </t:panelGrid>
+  <!--
+       file upload for file topictree.xml
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float: left;"
+          value="#{message.ttcheck_file_topictree}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.topicTreeFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="ttcheck_upload_topic_tree_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.ttcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+       file upload for file bob_macros_EN.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.ttcheck_file_bob_macros_EN}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosENFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="ttcheck_upload_macros_en_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.ttcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosENFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+ file upload  for file bob_macros_DE.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.ttcheck_file_bob_macros_DE}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosDEFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="ttcheck_upload_macros_de_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.ttcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+ file upload  for file bob_macros_IT.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.ttcheck_file_bob_macros_IT}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosITFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="ttcheck_upload_macros_it_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.ttcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosITFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+ file upload  for rng file
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.ttcheck_file_rng}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.rngFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="ttcheck_upload_rng_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.ttcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadRngFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+       display title of ttcheck test
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.ttcheck_test_title}" />
+  </t:panelGrid>
+  <!--
+       display info of ttcheck test
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.ttcheck_test_info}" />
+  </t:panelGrid>
+  <!--
+     display button and text area of ttcheck test
+  -->
+  <h:form>
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:panelGrid
+        styleClass="chatterbotAdminTextButtonArea"
+        columns="2">
+        <t:outputText
+          style="float: left;"
+          value="#{message.ttcheck_test_text}" />
+        <t:commandButton
+          style="float: right;"
+          value="#{message.ttcheck_test_button_text}"
+          action="#{chatterbotAdminBean.performTTCheck}" />
+      </t:panelGrid>
+      <t:outputText
+        value="#{message.ttcheck_test_result_text}" />
+      <t:inputTextarea
+        styleClass="chatterbotAdminTextArea"
+        readonly="true"
+        rows="20"
+        value="#{chatterbotAdminBean.ttResults}" />
+    </t:panelGrid>
+  </h:form>
+</jsp:root>

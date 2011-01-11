@@ -1,0 +1,5 @@
+// $ANTLR : macroParser.g -> macroParser_LexerTokenTypes.txt$
+macroParser_Lexer    // output token vocab name
+NON_MACRO=4
+MACRO=5
+STRING_=6

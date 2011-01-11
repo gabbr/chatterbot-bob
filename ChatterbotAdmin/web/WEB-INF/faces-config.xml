@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     $Id: faces-config.xml 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<faces-config 
+  xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	version="1.2">
+
+	<!-- application settings -->
+  <application>
+    <message-bundle>messages</message-bundle>
+    <locale-config>
+      <default-locale>de</default-locale>
+      <supported-locale>en</supported-locale>
+      <supported-locale>it</supported-locale>
+    </locale-config>
+  </application>
+
+	<!-- chatterbotAdmin bean -->
+  <managed-bean>
+    <description>
+    </description>
+    <managed-bean-name>chatterbotAdminBean</managed-bean-name>
+    <managed-bean-class>de.unikn.bib.chatterbotadmin.jsf.ChatterbotAdminBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>text</property-name>
+      <property-class>java.lang.String</property-class>
+      <value>
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text 
+text text text text text text text text text text text text text text
+      </value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bcheckLanguage</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>machineLearningSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bResults</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>qFormat</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>ttResults</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>topicTreeFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>macrosFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>macrosENFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>macrosDEFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>macrosITFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>textCorpusFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>textCorpusENFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>textCorpusDEFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>textCorpusITFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>rngFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description></description>
+      <property-name>testQuestionsFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+             This String value represents the currently chosen language to
+             display messages from message bundle file.
+      </description>
+      <property-name>locale</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+             This Boolean object indicates if bcheck application is selected.
+      </description>
+      <property-name>bcheckSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>TRUE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+             This Boolean object indicates if qcheck application is selected.
+      </description>
+      <property-name>qcheckSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+             This Boolean object indicates if ttcheck application is selected.
+      </description>
+      <property-name>ttcheckSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+             This Boolean object indicates if chatterbot application is selected.
+      </description>
+      <property-name>chatterbotSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- navigation rules -->
+  <navigation-rule>
+    <from-view-id>/chatterbotadmin.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>locale</from-outcome>
+      <to-view-id>/chatterbotadmin.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/chatterbotadmin.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>failed</from-outcome>
+      <to-view-id>/chatterbotadmin.jspx</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+</faces-config>

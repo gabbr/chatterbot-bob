@@ -1,0 +1,167 @@
+/* $Id: chatterbotadmin.css 313 2010-12-22 10:41:47Z markus.grandpre $ */
+
+body {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+hr {
+  color: #000000;
+  background-color: #000000;
+  border: none;
+  height: 1px;
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+a {
+  color: #005577;
+}
+
+.chatterbotAdminPanelLeft {
+  margin: 10px;
+  color: black;
+  vertical-align: top;
+  width: 20%;
+}
+
+.chatterbotAdminPanelRight {
+  margin: 10px;
+  color: black;
+  vertical-align: top;
+}
+
+.chatterbotAdminTitle {
+  background-color: #005577;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: -4px;
+  font-size: 14px;
+}
+
+.chatterbotAdminInfo {
+  text-align: justify;
+  color: #005577;
+  background-color: #dee9ef;
+  margin-bottom: 6px;
+}
+
+.chatterbotAdminInput {
+  color: #000000;
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  margin-bottom: 6px;
+  width:100%;
+  /* border: 1px solid #000000; */
+}
+
+.chatterbotAdminUpload {
+  margin-top: -6px;
+  margin-left: 2px;
+  /* border: 1px solid #000000; */
+  background-color: #FFFFFF;
+}
+
+.chatterbotAdminUploadArea {
+  margin-top: -6px;
+  margin-bottom: -6px;
+  margin-left: -6px;
+  /* border: 1px solid #000000; */
+  width: 600px;
+}
+
+.chatterbotAdminUploadItem {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* border: 1px solid #000000; */
+  text-align: justify;
+}
+
+.chatterbotAdminUploadButton {
+  /* border: 1px solid #000000; */
+  float: right;
+}
+
+.chatterbotAdminSelectArea {
+  color: #000000;
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  width: 30%;
+  float: left;
+  /* border: 1px solid #000000; */
+}
+
+.chatterbotAdminTextArea {
+  margin-left: auto;
+  margin-top: 10px;
+  color: black;
+  border: 1px solid #000000; 
+  text-align: justify;
+  width: 100%;
+}
+
+.chatterbotAdminTextButtonArea {
+  margin-top: -6px;
+  margin-left: -6px;
+  width: 101.8%;
+  /* border: 1px solid #000000; */
+}
+
+.chatterbotAdminChatArea {
+  margin-top: 6px;
+  color: black;
+  /* border: 1px solid #000000; */
+}
+
+.chatterbotAdminChatInput {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.chatterbotAdminLanguageSelection {
+  margin: 0 auto;
+  width: 15%;
+}
+
+.chatterbotAdminMessage {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.chatterbotAdminErrorMessage {
+  color: red;
+  font-weight: bold;
+}
+
+.chatterbotAdminSuccessMessage {
+  color: green;
+  font-weight: bold;
+}
+
+.chatterbotAdminMenuButton {
+  height: 22px;
+  border: 0px solid #006;
+  color: #005577;
+  background-color: #FFFFFF;
+  text-align: left;
+  padding-left: 12px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background: url('../images/arrowR.png') no-repeat left;
+}
+
+.chatterbotAdminMenuButtonSelected {
+  height: 22px;
+  border: 0px solid #006;
+  color: #000000;
+  background-color: #ffffff;
+  text-align: left;
+  padding-left: 12px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background: url('../images/arrowR.png') no-repeat left;
+}
