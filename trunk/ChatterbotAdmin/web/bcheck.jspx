@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     $Id: bcheck.jspx 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<jsp:root
+  xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:t="http://myfaces.apache.org/tomahawk"
+  version="2.0">
+  <!--
+       display title of bcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bcheck_title}" />
+  </t:panelGrid>
+  <!--
+       display info of bcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bcheck_info}" />
+  </t:panelGrid>
+  <!--
+       display title of file upload bcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bcheck_file_title}" />
+  </t:panelGrid>
+  <!--
+       display info of file upload of bcheck application
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bcheck_file_info}" />
+  </t:panelGrid>
+  <!--
+        file upload for file topictree.xml
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float: left;"
+          value="#{message.bcheck_file_topictree}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.topicTreeFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="bcheck_upload_topictree_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+        file upload for file bob_macros_EN.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.bcheck_file_bob_macros_EN}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosENFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="bcheck_upload_macros_en_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosENFile}" />
+    </t:panelGrid>
+  </h:form>
+
+  <!--
+        file upload for file bob_macros_DE.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.bcheck_file_bob_macros_DE}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosDEFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="bcheck_upload_macros_de_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+        file upload for file bob_macros_IT.txt
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.bcheck_file_bob_macros_IT}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.macrosITFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="bcheck_upload_macros_it_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadMacrosITFile}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+        file upload for user questions file
+  -->
+  <h:form enctype="multipart/form-data">
+    <t:panelGrid
+      styleClass="chatterbotAdminUpload"
+      columns="2">
+      <t:panelGrid
+        styleClass="chatterbotAdminUploadArea"
+        columns="2">
+        <t:outputText
+          style="float:left"
+          value="#{message.bcheck_file_test_questions}" />
+        <t:inputFileUpload
+          size="40"
+          style="float: right"
+          styleClass="chatterbotAdminUploadItem"
+          value="#{chatterbotAdminBean.testQuestionsFile}"
+          storage="file"
+          required="true"
+          maxlength="20000"/>
+      </t:panelGrid>
+      <t:commandButton
+        id="bcheck_upload_test_questions_file"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bcheck_file_load_button_text}"
+        action="#{chatterbotAdminBean.uploadTestQuestionsFile}" />
+    </t:panelGrid>
+  </h:form>
+
+  <!--
+       display title of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bcheck_language_title}" />
+  </t:panelGrid>
+  <!--
+       display info of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bcheck_language_info}" />
+  </t:panelGrid>
+  <h:form>
+    <!--
+       display text and radio buttons of language selection
+    -->
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:outputText
+        value="#{message.bcheck_language_selection}" />
+      <t:selectOneRadio
+        styleClass="chatterbotAdminSelectArea"
+        layout="pageDirection"
+        value="#{chatterbotAdminBean.bcheckLanguage}"
+        immediate="true">
+        <f:selectItem
+          itemLabel="#{message.bcheck_language_de}"
+          itemValue="de" />
+        <f:selectItem
+          itemLabel="#{message.bcheck_language_en}"
+          itemValue="en" />
+        <f:selectItem
+          itemLabel="#{message.bcheck_language_it}"
+          itemValue="it" />
+      </t:selectOneRadio>
+      <t:commandButton
+        style="float: right;"
+        value="#{message.bcheck_language_select_button_text}"
+        action="#{chatterbotAdminBean.load}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
+       display title of learning selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bcheck_learning_title}" />
+  </t:panelGrid>
+  <!--
+       display info of learning selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bcheck_learning_info}" />
+  </t:panelGrid>
+  <h:form enctype="multipart/form-data">
+    <!--
+       display text and radio buttons of learning mode selection
+    -->
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:outputText
+        value="#{message.bcheck_learning_selection}" />
+      <t:selectOneRadio
+        styleClass="chatterbotAdminSelect"
+        layout="pageDirection"
+        value="#{chatterbotAdminBean.machineLearningSelected}"
+        immediate="true">
+        <f:selectItem
+          itemLabel="#{message.bcheck_learning_yes}"
+          itemValue="yes" />
+        <f:selectItem
+          itemLabel="#{message.bcheck_learning_no}"
+          itemValue="no" />
+      </t:selectOneRadio>
+      <t:commandButton
+        style="float: right;"
+        value="#{message.bcheck_learning_select_button_text}"
+        action="#{chatterbotAdminBean.load}" />
+    </t:panelGrid>
+    <f:verbatim>
+      <br/>
+    </f:verbatim>
+    <t:panelGrid
+      styleClass="chatterbotAdminInput"
+      columns="1">
+      <t:panelGrid
+        styleClass="chatterbotAdminUpload"
+        columns="2">
+        <t:panelGrid
+          styleClass="chatterbotAdminUploadArea"
+          columns="2">
+          <t:outputText
+            style="float:left"
+            value="#{message.bcheck_learning_file_text_corpus}" />
+          <t:inputFileUpload
+            size="40"
+            style="float: right"
+            styleClass="chatterbotAdminUploadItem"
+            value="#{chatterbotAdminBean.textCorpusFile}"
+            storage="file"
+            required="true"
+            maxlength="20000"/>
+        </t:panelGrid>
+        <t:commandButton
+          id="bcheck_upload_text_corpus_file"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bcheck_learning_load_button_text}"
+          action="#{chatterbotAdminBean.uploadTextCorpusFile}" />
+      </t:panelGrid>
+    </t:panelGrid>
+  </h:form>
+  <!--
+       display title of test section
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bcheck_test_title}" />
+  </t:panelGrid>
+  <!--
+       display info of test section
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bcheck_test_info}" />
+  </t:panelGrid>
+  <!--
+     display button and text area of bcheck test
+  -->
+  <h:form>
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:panelGrid
+        styleClass="chatterbotAdminTextButtonArea"
+        columns="2">
+        <t:outputText
+          style="float: left;"
+          value="#{message.bcheck_test_text}" />
+        <t:commandButton
+          style="float: right;"
+          value="#{message.bcheck_test_button_text}"
+          action="#{chatterbotAdminBean.load}" />
+      </t:panelGrid>
+      <t:outputText
+        value="#{message.bcheck_test_result}" />
+      <t:inputTextarea
+        styleClass="chatterbotAdminTextArea"
+        readonly="true"
+        rows="20"
+        cols="100"
+        value="#{chatterbotAdminBean.bResults}" />
+    </t:panelGrid>
+  </h:form>
+</jsp:root>
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     $Id: chatterbotadmin.jspx 313 2010-12-22 10:41:47Z markus.grandpre $
+-->
+<jsp:root
+  xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  version="2.0">
+  <jsp:output
+    doctype-root-element="html"
+    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+  <jsp:directive.page
+    contentType="text/html; charset=utf-8"
+    language="java" />
+  <html
+    xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <jsp:include page="head.jspx"/>
+    </head>
+    <body>
+      <f:view
+        locale="#{chatterbotAdminBean.locale}">
+        <!--
+                     load message bundle
+        -->
+        <f:loadBundle
+          basename="messages"
+          var="message" />
+        <!--
+                     display menu and application pages
+        -->
+        <h:panelGrid
+          columns="2"
+          columnClasses="chatterbotAdminPanelLeft, chatterbotAdminPanelRight">
+          <!--
+                     display menu entries
+          -->
+          <h:panelGrid
+            columns="1">
+            <jsp:include
+              page="menu.jspx" />
+          </h:panelGrid>
+          <!--
+                     display status management UI elements on right side of page
+                     if user has selected bcheck application on menu page
+          -->
+          <h:panelGrid
+            rendered="#{chatterbotAdminBean.bcheckSelected}"
+            columns="1">
+            <jsp:include
+              page="bcheck.jspx" />
+          </h:panelGrid>
+          <!--
+                       display password management UI elements on right side of page
+                       if user has selected qcheck application on menu page
+          -->
+          <h:panelGrid
+            rendered="#{chatterbotAdminBean.qcheckSelected}"
+            columns="1">
+            <jsp:include
+              page="qcheck.jspx" />
+          </h:panelGrid>
+          <!--
+                       display sender name management UI elements on right side of page
+                       if user has selected ttcheck application on menu page
+          -->
+          <h:panelGrid
+            rendered="#{chatterbotAdminBean.ttcheckSelected}"
+            columns="1">
+            <jsp:include
+              page="ttcheck.jspx" />
+          </h:panelGrid>
+          <!--
+                       display forwarding management UI elements on right side of page
+                       if user has selected chatterbot application on menu page
+          -->
+          <h:panelGrid
+            rendered="#{chatterbotAdminBean.chatterbotSelected}"
+            columns="1">
+            <jsp:include
+              page="chatterbot.jspx" />
+          </h:panelGrid>
+        </h:panelGrid>
+      </f:view>
+    </body>
+  </html>
+</jsp:root>
