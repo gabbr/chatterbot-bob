@@ -137,11 +137,9 @@ public class ChatterbotAdminBean implements Serializable
   {
     FacesContext fcontext = FacesContext.getCurrentInstance();
     ServletContext scontext = (ServletContext) fcontext.getExternalContext().getContext();
-    String path = scontext.getRealPath("/shared-files"); // Or some resource
+    String path = scontext.getRealPath("/shared-files");
 
     log.debug("Shared files path is: " + path);
-
-
 
     chatterbotAdmin = new ChatterbotAdminImpl(path);
   }
@@ -155,99 +153,89 @@ public class ChatterbotAdminBean implements Serializable
 
   public String uploadTopicTreeFile()
   {
-    log.debug("Upload of topictree file started.");
-
+    log.debug("test");
     chatterbotAdmin.uploadTopicTreeFile(topicTreeFile);
+    log.debug("Upload of file " + topicTreeFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosFile()
   {
-    log.debug("Upload of macros file started.");
-
     chatterbotAdmin.uploadMacrosFile(macrosFile);
+    log.debug("Upload of file " + macrosFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosENFile()
   {
-    log.debug("Upload of macros en file started.");
-
     chatterbotAdmin.uploadMacrosENFile(macrosENFile);
+    log.debug("Upload of file " + macrosENFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosDEFile()
   {
-    log.debug("Upload of macros de file started.");
-
     chatterbotAdmin.uploadMacrosDEFile(macrosDEFile);
+    log.debug("Upload of file " + macrosDEFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosITFile()
   {
-    log.debug("Upload of macros it file started.");
-
     chatterbotAdmin.uploadMacrosITFile(macrosITFile);
+    log.debug("Upload of file " + macrosITFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusFile()
   {
-    log.debug("Upload of text corpus file started.");
-
     chatterbotAdmin.uploadTextCorpusFile(textCorpusFile);
+    log.debug("Upload of file " + textCorpusFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusENFile()
   {
-    log.debug("Upload of text corpus en file started.");
-
     chatterbotAdmin.uploadTextCorpusENFile(textCorpusENFile);
+    log.debug("Upload of file " + textCorpusENFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusDEFile()
   {
-    log.debug("Upload of text corpus de file started.");
-
     chatterbotAdmin.uploadTextCorpusDEFile(textCorpusDEFile);
+    log.debug("Upload of file " + textCorpusDEFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusITFile()
   {
-    log.debug("Upload of text corpus it file started.");
-
     chatterbotAdmin.uploadTextCorpusITFile(textCorpusITFile);
+    log.debug("Upload of file " + textCorpusITFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadRngFile()
   {
-    log.debug("Upload of rng file started.");
-
     chatterbotAdmin.uploadRngFile(rngFile);
+    log.debug("Upload of file " + rngFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTestQuestionsFile()
   {
-    log.debug("Upload of test questions file started.");
-
     chatterbotAdmin.uploadTestQuestionsFile(testQuestionsFile);
+    log.debug("Upload of file " + testQuestionsFile.getName() + " has succeeded.");
 
     return SUCCESS;
   }
