@@ -61,7 +61,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
 
   private String testQuestionsFilename;
 
-  private final String FILE_PATH = "/home/markus/test/";
+  private String sharedFilesPath;
 
   /**
    * <p>
@@ -81,13 +81,14 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
    */
   private Logger log = Logger.getLogger(ChatterbotAdmin.class);
 
-  public ChatterbotAdminImpl()
+  public ChatterbotAdminImpl(String sharedFilesPath)
   {
-    bCheck = new BCheckImpl();
-    qCheck = new QCheckImpl();
-    ttCheck = new TTCheckImpl();
-    macroparser = new MacroparserImpl();
-    chatterbot = new ChatterbotImpl();
+    this.sharedFilesPath = sharedFilesPath;
+    this.bCheck = new BCheckImpl();
+    this.qCheck = new QCheckImpl();
+    this.ttCheck = new TTCheckImpl();
+    this.macroparser = new MacroparserImpl();
+    this.chatterbot = new ChatterbotImpl();
   }
 
   private void uploadFile(UploadedFile uploadedfile, String filename)
@@ -123,77 +124,77 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   @Override
   public void uploadTopicTreeFile(UploadedFile topicTreeFile)
   {
-    topicTreeFilename = FILE_PATH + topicTreeFile.getName();
+    topicTreeFilename = sharedFilesPath + topicTreeFile.getName();
     uploadFile(topicTreeFile, topicTreeFilename);
   }
 
   @Override
   public void uploadMacrosFile(UploadedFile macrosFile)
   {
-    macrosFilename = FILE_PATH + macrosFile.getName();
+    macrosFilename = sharedFilesPath + macrosFile.getName();
     uploadFile(macrosFile, macrosFilename);
   }
 
   @Override
   public void uploadMacrosENFile(UploadedFile macrosENFile)
   {
-    macrosENFilename = FILE_PATH + macrosENFile.getName();
+    macrosENFilename = sharedFilesPath + macrosENFile.getName();
     uploadFile(macrosENFile, macrosENFilename);
   }
 
   @Override
   public void uploadMacrosDEFile(UploadedFile macrosDEFile)
   {
-    macrosDEFilename = FILE_PATH + macrosDEFile.getName();
+    macrosDEFilename = sharedFilesPath + macrosDEFile.getName();
     uploadFile(macrosDEFile, macrosDEFilename);
   }
 
   @Override
   public void uploadMacrosITFile(UploadedFile macrosITFile)
   {
-    macrosITFilename = FILE_PATH + macrosITFile.getName();
+    macrosITFilename = sharedFilesPath + macrosITFile.getName();
     uploadFile(macrosITFile, macrosITFilename);
   }
 
   @Override
   public void uploadTextCorpusFile(UploadedFile textCorpusFile)
   {
-    textCorpusFilename = FILE_PATH + textCorpusFile.getName();
+    textCorpusFilename = sharedFilesPath + textCorpusFile.getName();
     uploadFile(textCorpusFile, textCorpusFilename);
   }
 
   @Override
   public void uploadTextCorpusENFile(UploadedFile textCorpusENFile)
   {
-    textCorpusENFilename = FILE_PATH + textCorpusENFile.getName();
+    textCorpusENFilename = sharedFilesPath + textCorpusENFile.getName();
     uploadFile(textCorpusENFile, macrosFilename);
   }
 
   @Override
   public void uploadTextCorpusDEFile(UploadedFile textCorpusDEFile)
   {
-    textCorpusDEFilename = FILE_PATH + textCorpusDEFile.getName();
+    textCorpusDEFilename = sharedFilesPath + textCorpusDEFile.getName();
     uploadFile(textCorpusDEFile, textCorpusDEFilename);
   }
 
   @Override
   public void uploadTextCorpusITFile(UploadedFile textCorpusITFile)
   {
-    textCorpusITFilename = FILE_PATH + textCorpusITFile.getName();
+    textCorpusITFilename = sharedFilesPath + textCorpusITFile.getName();
     uploadFile(textCorpusITFile, textCorpusITFilename);
   }
 
   @Override
   public void uploadRngFile(UploadedFile rngFile)
   {
-    rngFilename = FILE_PATH + rngFile.getName();
+    rngFilename = sharedFilesPath + rngFile.getName();
     uploadFile(rngFile, rngFilename);
   }
 
   @Override
   public void uploadTestQuestionsFile(UploadedFile testQuestionsFile)
   {
-    testQuestionsFilename = FILE_PATH + testQuestionsFile.getName();
+    testQuestionsFilename = sharedFilesPath + testQuestionsFile.getName();
     uploadFile(testQuestionsFile, testQuestionsFilename);
   }
 

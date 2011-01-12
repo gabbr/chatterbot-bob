@@ -7,6 +7,8 @@ import de.unikn.bib.chatterbotadmin.ChatterbotAdminImpl;
 import java.io.Serializable;
 
 // logging context
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 
 // myfaces context
@@ -23,7 +25,9 @@ public class ChatterbotAdminBean implements Serializable
 
   private String bcheckLanguage;
 
-  private Boolean machineLearningSelected;
+  private String bcheckLearningInput;
+
+  private Boolean bcheckLearningSelected;
 
   private String bResults;
 
@@ -109,7 +113,6 @@ public class ChatterbotAdminBean implements Serializable
    */
   private final String FAILED = "failed";
 
-
   private ChatterbotAdmin chatterbotAdmin;
 
   /**
@@ -132,11 +135,21 @@ public class ChatterbotAdminBean implements Serializable
 
   public ChatterbotAdminBean()
   {
-    chatterbotAdmin = new ChatterbotAdminImpl();
+    FacesContext fcontext = FacesContext.getCurrentInstance();
+    ServletContext scontext = (ServletContext) fcontext.getExternalContext().getContext();
+    String path = scontext.getRealPath("/shared-files"); // Or some resource
+
+    log.debug("Shared files path is: " + path);
+
+
+
+    chatterbotAdmin = new ChatterbotAdminImpl(path);
   }
 
   public String load()
   {
+    log.debug("load");
+
     return SUCCESS;
   }
 
@@ -235,6 +248,39 @@ public class ChatterbotAdminBean implements Serializable
     log.debug("Upload of test questions file started.");
 
     chatterbotAdmin.uploadTestQuestionsFile(testQuestionsFile);
+
+    return SUCCESS;
+  }
+
+  public String selectBcheckLearning()
+  {
+    log.debug("Machine learning mode: " + bcheckLearningInput);
+
+    if (bcheckLearningInput != null)
+    {
+      if (bcheckLearningInput.equals("yes"))
+      {
+        setBcheckLearningSelected(Boolean.TRUE);
+
+        log.debug("Machine learning mode has been enabled: "
+                + bcheckLearningInput);
+      }
+      else
+      {
+        setBcheckLearningSelected(Boolean.FALSE);
+
+        log.debug("Machine learning mode has been disabled: "
+                + bcheckLearningInput);
+      }
+    }
+    else
+    {
+      bcheckLearningInput = "no";
+      setBcheckLearningSelected(Boolean.FALSE);
+
+      log.debug("Machine learning mode has been disabled: "
+              + bcheckLearningInput);
+    }
 
     return SUCCESS;
   }
@@ -370,19 +416,35 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
-   * @return the machineLearningSelected
+   * @return the bcheckLearningInput
    */
-  public Boolean getMachineLearningSelected()
+  public String getBcheckLearningInput()
   {
-    return machineLearningSelected;
+    return bcheckLearningInput;
   }
 
   /**
-   * @param machineLearningSelected the machineLearningSelected to set
+   * @param bcheckLearningInput the bcheckLearningInput to set
    */
-  public void setMachineLearningSelected(Boolean machineLearningSelected)
+  public void setBcheckLearningInput(String bcheckLearningInput)
   {
-    this.machineLearningSelected = machineLearningSelected;
+    this.bcheckLearningInput = bcheckLearningInput;
+  }
+
+  /**
+   * @return the bcheckLearningSelected
+   */
+  public Boolean getBcheckLearningSelected()
+  {
+    return bcheckLearningSelected;
+  }
+
+  /**
+   * @param bcheckLearningSelected the bcheckLearningSelected to set
+   */
+  public void setBcheckLearningSelected(Boolean bcheckLearningSelected)
+  {
+    this.bcheckLearningSelected = bcheckLearningSelected;
   }
 
   /**

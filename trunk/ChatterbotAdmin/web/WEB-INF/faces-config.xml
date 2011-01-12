@@ -70,17 +70,25 @@ text text text text text text text text text text text text text text
       <description>
 
       </description>
-      <property-name>bcheckLanguage</property-name>
+      <property-name>bcheckLearningInput</property-name>
       <property-class>java.lang.String</property-class>
-      <value/>
+      <value>no</value>
     </managed-property>
     <managed-property>
       <description>
 
       </description>
-      <property-name>machineLearningSelected</property-name>
+      <property-name>bcheckLearningSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bcheckLanguage</property-name>
+      <property-class>java.lang.String</property-class>
+      <value>de</value>
     </managed-property>
     <managed-property>
       <description>
