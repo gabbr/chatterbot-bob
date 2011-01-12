@@ -69,11 +69,12 @@
           required="true"
           maxlength="20000"/>
       </t:panelGrid>
-      <t:commandButton
+      <h:commandButton
         id="bcheck_upload_topictree_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
+
     </t:panelGrid>
   </h:form>
   <!--
@@ -278,7 +279,7 @@
     </t:panelGrid>
   </h:form>
   <!--
-   display title of language selection
+       display title of language selection
   -->
   <t:panelGrid
     columns="1"
@@ -296,10 +297,10 @@
     <t:outputText
       value="#{message.bcheck_language_info}" />
   </t:panelGrid>
-  <h:form>
-    <!--
+  <!--
        display text and radio buttons of language selection
-    -->
+  -->
+  <h:form>
     <t:panelGrid
       columns="1"
       styleClass="chatterbotAdminInput">
