@@ -273,6 +273,24 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
+  public String performBCheck()
+  {
+    log.debug("Perform bcheck.");
+
+    bResults = chatterbotAdmin.performBCheck(bcheckLanguage);
+
+    if (bResults.isEmpty() || bResults == null)
+    {
+      log.warn("No test results for bcheck received.");
+
+      return FAILED;
+    }
+
+    log.debug("Test results for bcheck received.");
+
+    return SUCCESS;
+  }
+
   public String performTTCheck()
   {
     log.debug("Perform ttcheck.");

@@ -358,7 +358,7 @@
         <t:commandButton
           style="float: right;"
           value="#{message.bcheck_test_button_text}"
-          action="#{chatterbotAdminBean.load}" />
+          action="#{chatterbotAdminBean.performBCheck}" />
       </t:panelGrid>
       <t:outputText
         value="#{message.bcheck_test_result}" />

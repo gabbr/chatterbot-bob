@@ -6,7 +6,6 @@ package it.unibz.lib.bob.ttcheck;
  */
 public interface TTCheck
 {
-  // test
   public String performTTCheck(String ttFile, String rngFile, String macrosDEFile,
           String macrosENFile, String macrosITFile);
 }
