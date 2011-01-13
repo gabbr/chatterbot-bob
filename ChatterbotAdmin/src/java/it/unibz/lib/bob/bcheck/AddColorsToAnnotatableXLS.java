@@ -17,7 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 
 class CsvToXls {
-	private static final String FS = "¤";
+	private static final String FS = " ";
 
 	/**
 	 * Generates temp.xls

@@ -200,9 +200,18 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   }
 
   @Override
+  public String performBCheck(String language)
+  {
+    return bCheck.performBCheck(testQuestionsFilename, topicTreeFilename,
+            macrosENFilename, macrosDEFilename, macrosITFilename,
+            textCorpusENFilename, textCorpusENFilename, textCorpusITFilename,
+            language, Boolean.FALSE);
+  }
+
+  @Override
   public String performTTCheck()
   {
-    return ttCheck.performTTCheck(topicTreeFilename, rngFilename, 
+    return ttCheck.performTTCheck(topicTreeFilename, rngFilename,
             macrosDEFilename, macrosENFilename, macrosITFilename);
   }
 }
