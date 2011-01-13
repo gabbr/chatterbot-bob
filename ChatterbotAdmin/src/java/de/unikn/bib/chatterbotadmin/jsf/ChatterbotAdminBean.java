@@ -277,6 +277,8 @@ public class ChatterbotAdminBean implements Serializable
   {
     log.debug("Perform bcheck.");
 
+    bResults = new String();
+
     bResults = chatterbotAdmin.performBCheck(bcheckLanguage);
 
     if (bResults.isEmpty() || bResults == null)
@@ -294,6 +296,8 @@ public class ChatterbotAdminBean implements Serializable
   public String performTTCheck()
   {
     log.debug("Perform ttcheck.");
+    
+    ttResults = new String();
 
     ttResults = chatterbotAdmin.performTTCheck();
 

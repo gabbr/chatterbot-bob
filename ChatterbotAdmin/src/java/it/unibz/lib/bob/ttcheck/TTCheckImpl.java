@@ -1,6 +1,7 @@
 package it.unibz.lib.bob.ttcheck;
 
 import java.io.File;
+import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -83,8 +84,7 @@ public class TTCheckImpl implements TTCheck
 
       // Check all regex patterns in abbrev file and topic tree, using
       // abbreviations from the 3 abbrev files
-      testResults = testResults + RegexCheckHelper.doRegexChecks(fileFocusTree,
-              macrosDEFile, macrosENFile, macrosITFile);
+      testResults = testResults + RegexCheckHelper.doRegexChecks(fileFocusTree, macrosDEFile, macrosENFile, macrosITFile);
     }
     catch (XMLStreamException e)
     {
@@ -93,6 +93,8 @@ public class TTCheckImpl implements TTCheck
     }
     catch (Exception e)
     {
+      log.error("Could not parse file (" + schemaFile.getName() + "): "
+              + e.getMessage());
     }
 
     return testResults;
