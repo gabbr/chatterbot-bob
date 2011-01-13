@@ -1,7 +1,7 @@
 package de.unikn.bib.chatterbotadmin;
 
-import it.unibz.lib.bob.bcheck.BCheck;
-import it.unibz.lib.bob.bcheck.BCheckImpl;
+import it.unibz.lib.bob.bbcheck.BBCheck;
+import it.unibz.lib.bob.bbcheck.BBCheckImpl;
 import it.unibz.lib.bob.chatterbot.Chatterbot;
 import it.unibz.lib.bob.chatterbot.ChatterbotImpl;
 import it.unibz.lib.bob.macroparser.Macroparser;
@@ -29,7 +29,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
  */
 public class ChatterbotAdminImpl implements ChatterbotAdmin
 {
-  private BCheck bCheck;
+  private BBCheck bbCheck;
 
   private QCheck qCheck;
 
@@ -84,7 +84,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   public ChatterbotAdminImpl(String sharedFilesPath)
   {
     this.sharedFilesPath = sharedFilesPath;
-    this.bCheck = new BCheckImpl();
+    this.bbCheck = new BBCheckImpl();
     this.qCheck = new QCheckImpl();
     this.ttCheck = new TTCheckImpl();
     this.macroparser = new MacroparserImpl();
@@ -202,7 +202,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   @Override
   public String performBCheck(String language)
   {
-    return bCheck.performBCheck(testQuestionsFilename, topicTreeFilename,
+    return bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
             macrosENFilename, macrosDEFilename, macrosITFilename,
             textCorpusENFilename, textCorpusENFilename, textCorpusITFilename,
             language, Boolean.FALSE);
