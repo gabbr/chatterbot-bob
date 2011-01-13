@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 /**
  * Write results to ARFF or CSV

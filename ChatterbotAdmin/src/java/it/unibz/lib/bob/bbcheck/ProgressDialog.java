@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;

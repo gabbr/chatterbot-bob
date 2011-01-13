@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
