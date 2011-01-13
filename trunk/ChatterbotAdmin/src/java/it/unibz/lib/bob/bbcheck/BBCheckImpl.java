@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 import it.unibz.lib.bob.check.DialogueManager;
 import it.unibz.lib.bob.check.QAFeatures;
@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * 
  * @version $Id$
  */
-public class BCheckImpl implements BCheck
+public class BBCheckImpl implements BBCheck
 {
   /**
    * <p>
@@ -37,10 +37,10 @@ public class BCheckImpl implements BCheck
    * <tt>WEB-INF/classes</tt> directory of this web application.
    * </p>
    */
-  private Logger log = Logger.getLogger(BCheckImpl.class);
+  private Logger log = Logger.getLogger(BBCheckImpl.class);
 
   @Override
-  public String performBCheck(String testQuestionsFilename,
+  public String performBBCheck(String testQuestionsFilename,
           String topicTreeFilename,
           String macrosENFilename, String macrosDEFilename,
           String macrosITFilename,

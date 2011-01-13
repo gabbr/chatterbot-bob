@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 /*************************************************************************
  *  Compilation:  javac In.java

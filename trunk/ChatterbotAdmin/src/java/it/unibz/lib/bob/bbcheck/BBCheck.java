@@ -1,12 +1,12 @@
-package it.unibz.lib.bob.bcheck;
+package it.unibz.lib.bob.bbcheck;
 
 /**
  *
  * @version $Id$
  */
-public interface BCheck
+public interface BBCheck
 {
-  public String performBCheck(String testQuestionsFilename,
+  public String performBBCheck(String testQuestionsFilename,
           String topicTreeFilename,
           String macrosENFilename, String macrosDEFilename,
           String macrosITFilename,
