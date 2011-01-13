@@ -46,6 +46,7 @@ public class RegexCheckHelper extends DefaultHandler
     languagesToCheck.add("EN");
     languagesToCheck.add("IT");
   }
+   
 
   /**
    * Does the checking of all regular expressions in the XML focus tree
@@ -67,6 +68,7 @@ public class RegexCheckHelper extends DefaultHandler
             + abbrevFile_DE + " ...";
     // make an URL
     helper_DE = new BobHelper(abbrevFile_DE, "abbrevFile_DE");
+
     if (helper_DE.checkAllRegexesInMacroMap() == true)
     {
       Pair[] longestMacros = helper_DE.get3OverallLongestMacros();
@@ -211,7 +213,7 @@ public class RegexCheckHelper extends DefaultHandler
       for (String lang : languagesToCheck)
       {
         String regexElem = values.get(lang);
-        if (regexElem != "" && regexElem != null)
+        if (!regexElem.isEmpty() && regexElem != null)
         {
 
           // String buf = regexElem.trim();

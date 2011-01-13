@@ -188,10 +188,10 @@ public class BCheckImpl implements BCheck
           Vector<Quadruple<String, String, String, String>> vresp =
                   dm.getAllPossibleNormalResponses(infile.questions.get(i),
                   language.toUpperCase());
-          timer.print("Elapsed time for getting all responses from DM for "
-                  + i
-                  + "th test question ("
-                  + infile.questions.get(i) + "): ");
+
+          testResults = testResults + "Elapsed time for getting all responses "
+                  + "from DM for " + i + "th test question ("
+                  + infile.questions.get(i) + "): " + timer.elapsed() + "\n";
 
           // do the eval
 

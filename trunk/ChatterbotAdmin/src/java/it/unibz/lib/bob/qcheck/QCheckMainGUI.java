@@ -229,7 +229,7 @@ public class QCheckMainGUI extends JPanel implements ActionListener {
 					parser.bExpression();
 					MyAST tree = (MyAST) parser.getAST();
 
-					// Fehler zurücksetzen
+					// Fehler zuruecksetzen
 					regexArea.setBackground(Color.WHITE);
 					textArea
 							.setText("Enter regular expression and corresponding user question, then hit the 'check' button.");
