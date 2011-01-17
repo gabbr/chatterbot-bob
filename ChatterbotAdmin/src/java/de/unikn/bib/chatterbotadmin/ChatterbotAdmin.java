@@ -35,5 +35,8 @@ public interface ChatterbotAdmin
 
   public String getBBCheckTestReportFile();
 
+  public String performQCheck(String regularExpression,
+          String userQuestion, String format);
+
   public String performTTCheck();
 }
