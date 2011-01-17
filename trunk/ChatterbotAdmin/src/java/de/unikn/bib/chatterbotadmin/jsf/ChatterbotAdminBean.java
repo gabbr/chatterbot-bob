@@ -4,11 +4,19 @@ import de.unikn.bib.chatterbotadmin.ChatterbotAdmin;
 import de.unikn.bib.chatterbotadmin.ChatterbotAdminImpl;
 
 // Java SE context
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 // logging context
+import java.net.URL;
+import java.net.URLConnection;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 // myfaces context
@@ -23,13 +31,19 @@ public class ChatterbotAdminBean implements Serializable
 {
   private String text;
 
-  private String bcheckLanguage;
+  private String bbcheckLanguage;
 
-  private String bcheckLearningInput;
+  private String bbcheckLearningInput;
 
-  private Boolean bcheckLearningSelected;
+  private Boolean bbcheckLearningSelected;
 
-  private String bResults;
+  private String bbResults;
+
+  private String bbReportFileURL;
+
+  private String bbReportFilename;
+
+  private String bbReportFileContentType;
 
   private String qFormat;
 
@@ -57,6 +71,8 @@ public class ChatterbotAdminBean implements Serializable
 
   private UploadedFile testQuestionsFile;
 
+  private String sharedFilesPath;
+
   /**
    * <p>
    * This String value represents the currently chosen language to display
@@ -70,7 +86,7 @@ public class ChatterbotAdminBean implements Serializable
    * This Boolean object indicates if bcheck application is selected.
    * </p>
    */
-  private Boolean bcheckSelected;
+  private Boolean bbcheckSelected;
 
   /**
    * <p>
@@ -137,11 +153,63 @@ public class ChatterbotAdminBean implements Serializable
   {
     FacesContext fcontext = FacesContext.getCurrentInstance();
     ServletContext scontext = (ServletContext) fcontext.getExternalContext().getContext();
-    String path = scontext.getRealPath("/shared-files");
+    sharedFilesPath = scontext.getRealPath("/shared-files");
 
-    log.debug("Shared files path is: " + path);
+    log.debug("Shared files path is: " + sharedFilesPath);
 
-    chatterbotAdmin = new ChatterbotAdminImpl(path);
+    chatterbotAdmin = new ChatterbotAdminImpl(sharedFilesPath);
+  }
+
+  private void downloadStream(String urlstr, ServletOutputStream outstr)
+    throws IOException
+  {
+    try
+    {
+      BufferedInputStream bis = null;
+      BufferedOutputStream bos = null;
+
+      try
+      {
+        URL url = new URL(urlstr);
+        URLConnection urlc = url.openConnection();
+        int length = urlc.getContentLength();
+        InputStream in = urlc.getInputStream();
+        bis = new BufferedInputStream(in);
+        bos = new BufferedOutputStream(outstr);
+        byte[] buff = new byte[length];
+        int bytesRead;
+
+        while (-1 != (bytesRead = bis.read(buff, 0, buff.length)))
+        {
+          bos.write(buff, 0, bytesRead);
+        }
+      }
+      catch (IOException e)
+      {
+        log.error("Failed to set download stream: " + e.getMessage());
+        throw e;
+      }
+      finally
+      {
+        if (bis != null)
+        {
+          bis.close();
+        }
+        if (bos != null)
+        {
+          bos.close();
+        }
+        if (outstr != null)
+        {
+          outstr.flush();
+          outstr.close();
+        }
+      }
+    }
+    catch (Exception e)
+    {
+      log.error("Failed to get download stream: " + e.getMessage());
+    }
   }
 
   public String load()
@@ -154,134 +222,134 @@ public class ChatterbotAdminBean implements Serializable
   public String uploadTopicTreeFile()
   {
     log.debug("test");
-    chatterbotAdmin.uploadTopicTreeFile(topicTreeFile);
-    log.debug("Upload of file " + topicTreeFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTopicTreeFile(getTopicTreeFile());
+    log.debug("Upload of file " + getTopicTreeFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosFile()
   {
-    chatterbotAdmin.uploadMacrosFile(macrosFile);
-    log.debug("Upload of file " + macrosFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadMacrosFile(getMacrosFile());
+    log.debug("Upload of file " + getMacrosFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosENFile()
   {
-    chatterbotAdmin.uploadMacrosENFile(macrosENFile);
-    log.debug("Upload of file " + macrosENFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadMacrosENFile(getMacrosENFile());
+    log.debug("Upload of file " + getMacrosENFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosDEFile()
   {
-    chatterbotAdmin.uploadMacrosDEFile(macrosDEFile);
-    log.debug("Upload of file " + macrosDEFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadMacrosDEFile(getMacrosDEFile());
+    log.debug("Upload of file " + getMacrosDEFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadMacrosITFile()
   {
-    chatterbotAdmin.uploadMacrosITFile(macrosITFile);
-    log.debug("Upload of file " + macrosITFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadMacrosITFile(getMacrosITFile());
+    log.debug("Upload of file " + getMacrosITFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusFile()
   {
-    chatterbotAdmin.uploadTextCorpusFile(textCorpusFile);
-    log.debug("Upload of file " + textCorpusFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTextCorpusFile(getTextCorpusFile());
+    log.debug("Upload of file " + getTextCorpusFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusENFile()
   {
-    chatterbotAdmin.uploadTextCorpusENFile(textCorpusENFile);
-    log.debug("Upload of file " + textCorpusENFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTextCorpusENFile(getTextCorpusENFile());
+    log.debug("Upload of file " + getTextCorpusENFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusDEFile()
   {
-    chatterbotAdmin.uploadTextCorpusDEFile(textCorpusDEFile);
-    log.debug("Upload of file " + textCorpusDEFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTextCorpusDEFile(getTextCorpusDEFile());
+    log.debug("Upload of file " + getTextCorpusDEFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTextCorpusITFile()
   {
-    chatterbotAdmin.uploadTextCorpusITFile(textCorpusITFile);
-    log.debug("Upload of file " + textCorpusITFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTextCorpusITFile(getTextCorpusITFile());
+    log.debug("Upload of file " + getTextCorpusITFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadRngFile()
   {
-    chatterbotAdmin.uploadRngFile(rngFile);
-    log.debug("Upload of file " + rngFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadRngFile(getRngFile());
+    log.debug("Upload of file " + getRngFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String uploadTestQuestionsFile()
   {
-    chatterbotAdmin.uploadTestQuestionsFile(testQuestionsFile);
-    log.debug("Upload of file " + testQuestionsFile.getName() + " has succeeded.");
+    chatterbotAdmin.uploadTestQuestionsFile(getTestQuestionsFile());
+    log.debug("Upload of file " + getTestQuestionsFile().getName() + " has succeeded.");
 
     return SUCCESS;
   }
 
   public String selectBcheckLearning()
   {
-    log.debug("Machine learning mode: " + bcheckLearningInput);
+    log.debug("Machine learning mode: " + getBbcheckLearningInput());
 
-    if (bcheckLearningInput != null)
+    if (getBbcheckLearningInput() != null)
     {
-      if (bcheckLearningInput.equals("yes"))
+      if (getBbcheckLearningInput().equals("yes"))
       {
-        setBcheckLearningSelected(Boolean.TRUE);
+        setBbcheckLearningSelected(Boolean.TRUE);
 
         log.debug("Machine learning mode has been enabled: "
-                + bcheckLearningInput);
+                + getBbcheckLearningInput());
       }
       else
       {
-        setBcheckLearningSelected(Boolean.FALSE);
+        setBbcheckLearningSelected(Boolean.FALSE);
 
         log.debug("Machine learning mode has been disabled: "
-                + bcheckLearningInput);
+                + getBbcheckLearningInput());
       }
     }
     else
     {
-      bcheckLearningInput = "no";
-      setBcheckLearningSelected(Boolean.FALSE);
+      setBbcheckLearningInput("no");
+      setBbcheckLearningSelected(Boolean.FALSE);
 
       log.debug("Machine learning mode has been disabled: "
-              + bcheckLearningInput);
+              + getBbcheckLearningInput());
     }
 
     return SUCCESS;
   }
 
-  public String performBCheck()
+  public String performBBCheck()
   {
     log.debug("Perform bcheck.");
 
-    bResults = new String();
+    setBbResults(new String());
 
-    bResults = chatterbotAdmin.performBCheck(bcheckLanguage);
+    setBbResults(chatterbotAdmin.performBBCheck(getBbcheckLanguage()));
 
-    if (bResults.isEmpty() || bResults == null)
+    if (getBbResults().isEmpty() || getBbResults() == null)
     {
       log.warn("No test results for bcheck received.");
 
@@ -293,15 +361,81 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
+  public String downloadBBCheckReport()
+  {
+    
+    try
+    {
+      // set content type
+      bbReportFileContentType = "application/octet-stream";
+
+      // content type set
+      log.debug("Content type set: " + bbReportFileContentType);
+
+       // read filename of test report file from manager object
+      bbReportFilename = chatterbotAdmin.getBBCheckTestReportFile();
+
+      // filename of test report file read from manager object
+      log.debug("Filename of test report file read from manager "
+        + "object: " + bbReportFilename);
+
+      // create URL
+      bbReportFileURL = "file://"+ sharedFilesPath + "/" + bbReportFilename;
+             
+      // url of test report file created
+      log.debug("URL of test report file created: " + bbReportFileURL);
+
+      // get JSF context is used to access HttpServlerResponse
+      // objects from Java EE context.
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+
+      // get HttpServletResponse object to add file name to the header of HTTP
+      // response.
+      HttpServletResponse response = (HttpServletResponse) facesContext.
+        getExternalContext().getResponse();
+
+      // set content type and add filename of vpn profile
+      // to header of HTTP response
+      response.setContentType(bbReportFileContentType);
+      response.setHeader("Content-Disposition", "attachment;filename=\""
+        + bbReportFilename + "\"");
+
+      // get ServletOutputStream object to flush file content for download
+      ServletOutputStream outputStream = response.getOutputStream();
+
+      // flush content of certification chain by retrieving file
+      // specified URL from
+      downloadStream(bbReportFileURL, outputStream);
+      outputStream.flush();
+
+      // complete response
+      facesContext.responseComplete();
+
+      // certificate chain has been downloaded
+      log.info("Certificate chain has been downloaded.");
+
+      // report success for JSF navigation rules
+      return SUCCESS;
+    }
+    catch (IOException e)
+    {
+      // download of VPN profile has failed
+      log.error("Download of VPN profile has failed: " + e.getMessage());
+
+      // report exception for JSF navigation rules
+      return FAILED;
+    }
+  }
+
   public String performTTCheck()
   {
     log.debug("Perform ttcheck.");
     
-    ttResults = new String();
+    setTtResults(new String());
 
-    ttResults = chatterbotAdmin.performTTCheck();
+    setTtResults(chatterbotAdmin.performTTCheck());
 
-    if (ttResults.isEmpty() || ttResults == null)
+    if (getTtResults().isEmpty() || getTtResults() == null)
     {
       log.warn("No test results for ttcheck received.");
 
@@ -324,7 +458,7 @@ public class ChatterbotAdminBean implements Serializable
   public void selectBCheck()
   {
     // enable bcheck application, disable other applications
-    setBcheckSelected(Boolean.TRUE);
+    setBbcheckSelected(Boolean.TRUE);
     setQcheckSelected(Boolean.FALSE);
     setTtcheckSelected(Boolean.FALSE);
     setChatterbotSelected(Boolean.FALSE);
@@ -344,7 +478,7 @@ public class ChatterbotAdminBean implements Serializable
   public void selectQCheck()
   {
     // enable qcheck application, disable other applications
-    setBcheckSelected(Boolean.FALSE);
+    setBbcheckSelected(Boolean.FALSE);
     setQcheckSelected(Boolean.TRUE);
     setTtcheckSelected(Boolean.FALSE);
     setChatterbotSelected(Boolean.FALSE);
@@ -364,7 +498,7 @@ public class ChatterbotAdminBean implements Serializable
   public void selectTTCheck()
   {
     // enable qcheck application, disable other applications
-    setBcheckSelected(Boolean.FALSE);
+    setBbcheckSelected(Boolean.FALSE);
     setQcheckSelected(Boolean.FALSE);
     setTtcheckSelected(Boolean.TRUE);
     setChatterbotSelected(Boolean.FALSE);
@@ -384,7 +518,7 @@ public class ChatterbotAdminBean implements Serializable
   public void selectChatterbot()
   {
     // enable chatterbot application, disable other applications
-    setBcheckSelected(Boolean.FALSE);
+    setBbcheckSelected(Boolean.FALSE);
     setQcheckSelected(Boolean.FALSE);
     setTtcheckSelected(Boolean.FALSE);
     setChatterbotSelected(Boolean.TRUE);
@@ -410,67 +544,67 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
-   * @return the bcheckLanguage
+   * @return the bbcheckLanguage
    */
-  public String getBcheckLanguage()
+  public String getBbcheckLanguage()
   {
-    return bcheckLanguage;
+    return bbcheckLanguage;
   }
 
   /**
-   * @param bcheckLanguage the bcheckLanguage to set
+   * @param bbcheckLanguage the bbcheckLanguage to set
    */
-  public void setBcheckLanguage(String bcheckLanguage)
+  public void setBbcheckLanguage(String bbcheckLanguage)
   {
-    this.bcheckLanguage = bcheckLanguage;
+    this.bbcheckLanguage = bbcheckLanguage;
   }
 
   /**
-   * @return the bcheckLearningInput
+   * @return the bbcheckLearningInput
    */
-  public String getBcheckLearningInput()
+  public String getBbcheckLearningInput()
   {
-    return bcheckLearningInput;
+    return bbcheckLearningInput;
   }
 
   /**
-   * @param bcheckLearningInput the bcheckLearningInput to set
+   * @param bbcheckLearningInput the bbcheckLearningInput to set
    */
-  public void setBcheckLearningInput(String bcheckLearningInput)
+  public void setBbcheckLearningInput(String bbcheckLearningInput)
   {
-    this.bcheckLearningInput = bcheckLearningInput;
+    this.bbcheckLearningInput = bbcheckLearningInput;
   }
 
   /**
-   * @return the bcheckLearningSelected
+   * @return the bbcheckLearningSelected
    */
-  public Boolean getBcheckLearningSelected()
+  public Boolean getBbcheckLearningSelected()
   {
-    return bcheckLearningSelected;
+    return bbcheckLearningSelected;
   }
 
   /**
-   * @param bcheckLearningSelected the bcheckLearningSelected to set
+   * @param bbcheckLearningSelected the bbcheckLearningSelected to set
    */
-  public void setBcheckLearningSelected(Boolean bcheckLearningSelected)
+  public void setBbcheckLearningSelected(Boolean bbcheckLearningSelected)
   {
-    this.bcheckLearningSelected = bcheckLearningSelected;
+    this.bbcheckLearningSelected = bbcheckLearningSelected;
   }
 
   /**
-   * @return the bResults
+   * @return the bbResults
    */
-  public String getbResults()
+  public String getBbResults()
   {
-    return bResults;
+    return bbResults;
   }
 
   /**
-   * @param bResults the bResults to set
+   * @param bbResults the bbResults to set
    */
-  public void setbResults(String bResults)
+  public void setBbResults(String bbResults)
   {
-    this.bResults = bResults;
+    this.bbResults = bbResults;
   }
 
   /**
@@ -698,19 +832,19 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
-   * @return the bcheckSelected
+   * @return the bbcheckSelected
    */
-  public Boolean getBcheckSelected()
+  public Boolean getBbcheckSelected()
   {
-    return bcheckSelected;
+    return bbcheckSelected;
   }
 
   /**
-   * @param bcheckSelected the bcheckSelected to set
+   * @param bbcheckSelected the bbcheckSelected to set
    */
-  public void setBcheckSelected(Boolean bcheckSelected)
+  public void setBbcheckSelected(Boolean bbcheckSelected)
   {
-    this.bcheckSelected = bcheckSelected;
+    this.bbcheckSelected = bbcheckSelected;
   }
 
   /**
