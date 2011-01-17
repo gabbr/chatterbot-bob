@@ -12,5 +12,8 @@ public interface BBCheck
           String macrosITFilename,
           String textCorpusENFilename, String textCorpusDEFilename,
           String textCorpusITFilename,
-          String language, Boolean trainingMode);
+          String language, Boolean trainingMode,
+          String outfilePath);
+
+  public String getBBCheckTestReportFile();
 }

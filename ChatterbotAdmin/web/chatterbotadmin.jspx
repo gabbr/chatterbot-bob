@@ -45,13 +45,13 @@
           </h:panelGrid>
           <!--
                      display status management UI elements on right side of page
-                     if user has selected bcheck application on menu page
+                     if user has selected bbcheck application on menu page
           -->
           <h:panelGrid
-            rendered="#{chatterbotAdminBean.bcheckSelected}"
+            rendered="#{chatterbotAdminBean.bbcheckSelected}"
             columns="1">
             <jsp:include
-              page="bcheck.jspx" />
+              page="bbcheck.jspx" />
           </h:panelGrid>
           <!--
                        display password management UI elements on right side of page

@@ -200,12 +200,18 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   }
 
   @Override
-  public String performBCheck(String language)
+  public String performBBCheck(String language)
   {
     return bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
             macrosENFilename, macrosDEFilename, macrosITFilename,
             textCorpusENFilename, textCorpusENFilename, textCorpusITFilename,
-            language, Boolean.FALSE);
+            language, Boolean.FALSE, sharedFilesPath);
+  }
+
+  @Override
+  public String getBBCheckTestReportFile()
+  {
+    return bbCheck.getBBCheckTestReportFile();
   }
 
   @Override

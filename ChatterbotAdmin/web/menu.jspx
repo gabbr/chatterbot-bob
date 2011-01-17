@@ -61,13 +61,13 @@
       styleClass="chatterbotAdminMenu">
       <h:commandButton
         id="bcheck_not_selected"
-        rendered="#{!chatterbotAdminBean.bcheckSelected}"
+        rendered="#{!chatterbotAdminBean.bbcheckSelected}"
         value="#{message.menu_bcheck}"
         action="#{chatterbotAdminBean.selectBCheck}"
         styleClass="chatterbotAdminMenuButton" />
       <h:commandButton
         id="bcheck_selected"
-        rendered="#{chatterbotAdminBean.bcheckSelected}"
+        rendered="#{chatterbotAdminBean.bbcheckSelected}"
         value="#{message.menu_bcheck}"
         action="#{chatterbotAdminBean.selectBCheck}"
         styleClass="chatterbotAdminMenuButtonSelected" />

@@ -31,10 +31,9 @@ public interface ChatterbotAdmin
 
   public void uploadTestQuestionsFile(UploadedFile testQuestionsFile);
 
-  public String performBCheck(String language);
+  public String performBBCheck(String language);
+
+  public String getBBCheckTestReportFile();
 
   public String performTTCheck();
-
-
-
 }

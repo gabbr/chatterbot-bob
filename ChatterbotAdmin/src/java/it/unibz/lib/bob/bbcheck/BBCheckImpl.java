@@ -21,6 +21,10 @@ import org.apache.log4j.Logger;
  */
 public class BBCheckImpl implements BBCheck
 {
+  private TestQuestionSpreadSheet infile;
+
+  private ErrorReportSpreadSheet outfile;
+
   /**
    * <p>
    * Logging of this class uses four different log levels:
@@ -46,15 +50,16 @@ public class BBCheckImpl implements BBCheck
           String macrosITFilename,
           String textCorpusENFilename, String textCorpusDEFilename,
           String textCorpusITFilename,
-          String language, Boolean trainingMode)
+          String language, Boolean trainingMode,
+          String outfilePath)
   {
 
     String testResults = new String();
-    TestQuestionSpreadSheet infile = new TestQuestionSpreadSheet(
+    infile = new TestQuestionSpreadSheet(
             new File(testQuestionsFilename));
     infile.loadSheet();
 
-    ErrorReportSpreadSheet outfile = new ErrorReportSpreadSheet(language,
+    outfile = new ErrorReportSpreadSheet(language,
             !trainingMode && (macrosENFilename != null || macrosENFilename != null
             || macrosENFilename != null));
 
@@ -121,7 +126,7 @@ public class BBCheckImpl implements BBCheck
     }
     catch (Exception e)
     {
-      testResults = testResults  + "\n*****ERROR: Reading TopicTree, Abbreviations Files "
+      testResults = testResults + "\n*****ERROR: Reading TopicTree, Abbreviations Files "
               + "or IDF files: " + e.getMessage() + "\n";
 
       return testResults;
@@ -181,24 +186,25 @@ public class BBCheckImpl implements BBCheck
       {
         for (int i = 0; i < infile.questions.size(); i++)
         {
-          testResults = testResults  + "Checking " + (i + 1) + " of "
-                  + infile.questions.size() + " questions. \n";
+          //testResults = testResults + "Checking " + (i + 1) + " of "
+          //        + infile.questions.size() + " questions. \n";
 
           Timer timer = new Timer();
           Vector<Quadruple<String, String, String, String>> vresp =
                   dm.getAllPossibleNormalResponses(infile.questions.get(i),
                   language.toUpperCase());
-
+          /*
           testResults = testResults + "Elapsed time for getting all responses "
-                  + "from DM for " + i + "th test question ("
-                  + infile.questions.get(i) + "): " + timer.elapsed() + "\n";
+          + "from DM for " + i + "th test question ("
+          + infile.questions.get(i) + "): " + timer.elapsed() + "\n";
+           */
 
           // do the eval
 
           // should always have matched "no answer found" pattern
           if (vresp.isEmpty())
           {
-            testResults = testResults  + "\n*****ERROR: TopicTree contains no Question "
+            testResults = testResults + "\n*****ERROR: TopicTree contains no Question "
                     + "Pattern for 'No answer found'!\n";
           }
 
@@ -218,7 +224,7 @@ public class BBCheckImpl implements BBCheck
 
             if (Tuple.get3(bestresp).equals(""))
             {
-              testResults = testResults  + "WARNING: empty answer found!\n";
+              testResults = testResults + "WARNING: empty answer found!\n";
             }
 
             if (dm.topicIDsAreEquivalent(Tuple.get1(bestresp),
@@ -261,11 +267,11 @@ public class BBCheckImpl implements BBCheck
             // enter BoB MarLey, the answer reranker
             if (!trainingMode)
             {
-              testResults = testResults  + "###\n";
+              testResults = testResults + "###\n";
 
               for (int m = 0; m < vresp.size(); m++)
               {
-                testResults = testResults  + "original " + m + " "
+                testResults = testResults + "original " + m + " "
                         + Tuple.get1(vresp.get(m)) + "\n";
               }
 
@@ -294,7 +300,7 @@ public class BBCheckImpl implements BBCheck
 
             if (Tuple.get3(firstMatch).equals(""))
             {
-              testResults = testResults  + "WARNING: empty answer found!\n";
+              testResults = testResults + "WARNING: empty answer found!\n";
             }
 
             if (dm.topicIDsAreEquivalent(Tuple.get1(firstMatch),
@@ -358,11 +364,11 @@ public class BBCheckImpl implements BBCheck
 
                 if (totr == null)
                 {
-                  testResults = testResults  + "totr == null\n";
+                  testResults = testResults + "totr == null\n";
                 }
                 if (quan == null)
                 {
-                  testResults = testResults  + "quan == null\n";
+                  testResults = testResults + "quan == null\n";
                 }
 
                 trainingCsv_out.append(quan.getTrainingData(
@@ -394,7 +400,7 @@ public class BBCheckImpl implements BBCheck
 
                   if (Tuple.get3(vresp.get(k)).equals(""))
                   {
-                    testResults = testResults  + "WARNING: empty answer found!\n";
+                    testResults = testResults + "WARNING: empty answer found!\n";
                   }
 
                   if (dm.topicIDsAreEquivalent(Tuple.get1(vresp.get(k)), infile.ids.get(i))
@@ -421,7 +427,7 @@ public class BBCheckImpl implements BBCheck
                 {
                   if (Tuple.get3(reranked.get(k)).equals(""))
                   {
-                    testResults = testResults  + "WARNING: empty answer found!\n";
+                    testResults = testResults + "WARNING: empty answer found!\n";
                   }
 
                   if (dm.topicIDsAreEquivalent(Tuple.get1(reranked.get(k)), (infile.ids.get(i)))
@@ -491,19 +497,19 @@ public class BBCheckImpl implements BBCheck
             }
           }
         }
-        testResults = testResults  + "\n********************\n";
+        testResults = testResults + "\n********************\n";
 
         if (!trainingMode && (textCorpusENFilename != null
                 || textCorpusDEFilename != null || textCorpusITFilename != null))
         {
-          testResults = testResults  + "Answer Reranker enabled.\n";
+          testResults = testResults + "Answer Reranker enabled.\n";
         }
         else
         {
-          testResults = testResults  + "Answer Reranker disabled.\n";
+          testResults = testResults + "Answer Reranker disabled.\n";
         }
 
-        testResults = testResults  + "BoB's answer correctness: "
+        testResults = testResults + "BoB's answer correctness: "
                 + (100 * (.0 + countCorrectOnesol + countCorrectMultisol_luckyOrder) / (.0
                 + countWrongNoSol
                 + countCorrectOnesol
@@ -512,28 +518,28 @@ public class BBCheckImpl implements BBCheck
                 + countWrongMultisol_unluckyOrder + countWrongMultisol_allBad))
                 + "%\n";
 
-        testResults = testResults  + "********************\n";
-        testResults = testResults  + "A - !!! No match: " + countWrongNoSol + "\n";
-        testResults = testResults  + "B - Correct match, single solution: "
+        testResults = testResults + "********************\n";
+        testResults = testResults + "A - !!! No match: " + countWrongNoSol + "\n";
+        testResults = testResults + "B - Correct match, single solution: "
                 + countCorrectOnesol + "\n";
-        testResults = testResults  + "C - !!! Wrong match, single solution: "
+        testResults = testResults + "C - !!! Wrong match, single solution: "
                 + countWrongOnesol + "\n";
-        testResults = testResults  + "D - Correct match, many solutions: "
+        testResults = testResults + "D - Correct match, many solutions: "
                 + countCorrectMultisol_luckyOrder + "\n";
-        testResults = testResults  + "E - wrong match, many solutions, including correct one: "
+        testResults = testResults + "E - wrong match, many solutions, including correct one: "
                 + countWrongMultisol_unluckyOrder + "\n";
-        testResults = testResults  + "F - !!! wrong match, many solutions, all wrong: "
+        testResults = testResults + "F - !!! wrong match, many solutions, all wrong: "
                 + countWrongMultisol_allBad + "\n";
 
         if (trainingMode && (textCorpusENFilename != null
                 || textCorpusDEFilename != null || textCorpusITFilename != null))
         {
-          testResults = testResults  + "****** How the answer reranker WOULD have done here: \n";
-          testResults = testResults  + "D->E - !!! after machine learning reranker: "
+          testResults = testResults + "****** How the answer reranker WOULD have done here: \n";
+          testResults = testResults + "D->E - !!! after machine learning reranker: "
                   + reranked_DtoE + "\n";
-          testResults = testResults  + "E->D - after machine learning reranker: "
+          testResults = testResults + "E->D - after machine learning reranker: "
                   + reranked_EtoD + "\n";
-          testResults = testResults  + "********************\n";
+          testResults = testResults + "********************\n";
         }
       }
     }
@@ -543,14 +549,14 @@ public class BBCheckImpl implements BBCheck
       /*
       if (monitor.getCurrent() != monitor.getTotal())
       {
-        monitor.setCurrent(null, monitor.getTotal());
+      monitor.setCurrent(null, monitor.getTotal());
       }
-      */
+       */
 
       // generate output files
-      outfile.writeSheet();
-      testResults = testResults  + "Report .xls generated: " + outfile.getFilename();
-      testResults = testResults  + "\nPlease restart checkbob if you want to run a new test!";
+      outfile.writeSheet(outfilePath);
+      testResults = testResults + "Report .xls generated: " + outfile.getFilename();
+      testResults = testResults + "\nPlease restart checkbob if you want to run a new test!";
 
       if (trainingMode)
       {
@@ -559,5 +565,11 @@ public class BBCheckImpl implements BBCheck
     }
 
     return testResults;
+  }
+
+  @Override
+  public String getBBCheckTestReportFile()
+  {
+    return outfile.getFilename();
   }
 }
