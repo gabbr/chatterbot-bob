@@ -215,6 +215,14 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   }
 
   @Override
+  public String performQCheck(String regularExpression, String userQuestion,
+          String format)
+  {
+    return qCheck.performQCheck(macrosFilename, regularExpression, userQuestion,
+            format);
+  }
+
+  @Override
   public String performTTCheck()
   {
     return ttCheck.performTTCheck(topicTreeFilename, rngFilename,

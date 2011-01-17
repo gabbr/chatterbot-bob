@@ -104,6 +104,30 @@ text text text text text text text text text text text text text text
       </description>
       <property-name>qFormat</property-name>
       <property-class>java.lang.String</property-class>
+      <value>tt</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>qcheckRegularExpression</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>qcheckUserQuestion</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>qResults</property-name>
+      <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>

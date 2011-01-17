@@ -47,6 +47,12 @@ public class ChatterbotAdminBean implements Serializable
 
   private String qFormat;
 
+  private String qcheckRegularExpression;
+
+  private String qcheckUserQuestion;
+
+  private String qResults;
+
   private String ttResults;
 
   private UploadedFile topicTreeFile;
@@ -161,7 +167,7 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   private void downloadStream(String urlstr, ServletOutputStream outstr)
-    throws IOException
+          throws IOException
   {
     try
     {
@@ -363,7 +369,7 @@ public class ChatterbotAdminBean implements Serializable
 
   public String downloadBBCheckReport()
   {
-    
+
     try
     {
       // set content type
@@ -372,16 +378,16 @@ public class ChatterbotAdminBean implements Serializable
       // content type set
       log.debug("Content type set: " + bbReportFileContentType);
 
-       // read filename of test report file from manager object
+      // read filename of test report file from manager object
       bbReportFilename = chatterbotAdmin.getBBCheckTestReportFile();
 
       // filename of test report file read from manager object
       log.debug("Filename of test report file read from manager "
-        + "object: " + bbReportFilename);
+              + "object: " + bbReportFilename);
 
       // create URL
-      bbReportFileURL = "file://"+ sharedFilesPath + "/" + bbReportFilename;
-             
+      bbReportFileURL = "file://" + sharedFilesPath + "/" + bbReportFilename;
+
       // url of test report file created
       log.debug("URL of test report file created: " + bbReportFileURL);
 
@@ -391,14 +397,14 @@ public class ChatterbotAdminBean implements Serializable
 
       // get HttpServletResponse object to add file name to the header of HTTP
       // response.
-      HttpServletResponse response = (HttpServletResponse) facesContext.
-        getExternalContext().getResponse();
+      HttpServletResponse response = (HttpServletResponse)
+              facesContext.getExternalContext().getResponse();
 
       // set content type and add filename of vpn profile
       // to header of HTTP response
       response.setContentType(bbReportFileContentType);
       response.setHeader("Content-Disposition", "attachment;filename=\""
-        + bbReportFilename + "\"");
+              + bbReportFilename + "\"");
 
       // get ServletOutputStream object to flush file content for download
       ServletOutputStream outputStream = response.getOutputStream();
@@ -427,10 +433,31 @@ public class ChatterbotAdminBean implements Serializable
     }
   }
 
+  public String performQCheck()
+  {
+    log.debug("Perform qcheck.");
+
+    setqResults(new String());
+
+    setqResults(chatterbotAdmin.performQCheck(qcheckRegularExpression,
+            qcheckUserQuestion, qFormat));
+
+    if (getqResults().isEmpty() || getqResults() == null)
+    {
+      log.warn("No test results for qcheck received.");
+
+      return FAILED;
+    }
+
+    log.debug("Test results for qcheck received.");
+
+    return SUCCESS;
+  }
+
   public String performTTCheck()
   {
     log.debug("Perform ttcheck.");
-    
+
     setTtResults(new String());
 
     setTtResults(chatterbotAdmin.performTTCheck());
@@ -622,6 +649,28 @@ public class ChatterbotAdminBean implements Serializable
   {
     this.qFormat = qFormat;
   }
+
+  public String getQcheckRegularExpression()
+  {
+    return qcheckRegularExpression;
+  }
+
+  public void setQcheckRegularExpression(String qcheckRegularExpression)
+  {
+    this.qcheckRegularExpression = qcheckRegularExpression;
+  }
+
+  public String getQcheckUserQuestion()
+  {
+    return qcheckUserQuestion;
+  }
+
+  public void setQcheckUserQuestion(String qcheckUserQuestion)
+  {
+    this.qcheckUserQuestion = qcheckUserQuestion;
+  }
+
+  
 
   /**
    * @return the ttResults
@@ -893,5 +942,21 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotSelected(Boolean chatterbotSelected)
   {
     this.chatterbotSelected = chatterbotSelected;
+  }
+
+  /**
+   * @return the qResults
+   */
+  public String getqResults()
+  {
+    return qResults;
+  }
+
+  /**
+   * @param qResults the qResults to set
+   */
+  public void setqResults(String qResults)
+  {
+    this.qResults = qResults;
   }
 }
