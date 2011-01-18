@@ -125,6 +125,7 @@ public class DialogueManager
     // clumsy way of converting from file path to URL string
     try
     {
+
       urlTopicTreeStr = new File(tts).toURL().toString();
       urlAbbrevFileENStr = new File(ae).toURL().toString();
       urlAbbrevFileDEStr = new File(ad).toURL().toString();
@@ -140,6 +141,7 @@ public class DialogueManager
       e1.printStackTrace();
     }
     URL urlIDFtrainingDataEN = null;
+
     if (urlIDFtrainingDataENStr != null)
     {
       try
@@ -151,7 +153,9 @@ public class DialogueManager
         e.printStackTrace();
       }
     }
+
     URL urlIDFtrainingDataDE = null;
+
     if (urlIDFtrainingDataDEStr != null)
     {
       try
@@ -163,6 +167,7 @@ public class DialogueManager
         e.printStackTrace();
       }
     }
+
     URL urlIDFtrainingDataIT = null;
     if (urlIDFtrainingDataITStr != null)
     {

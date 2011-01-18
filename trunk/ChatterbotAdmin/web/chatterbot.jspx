@@ -219,7 +219,7 @@
         id="chatterbot_upload_text_corpus_de_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
-        action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
+        action="#{chatterbotAdminBean.uploadTextCorpusDEFile}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -282,22 +282,18 @@
       <t:selectOneRadio
         styleClass="chatterbotAdminSelectArea"
         layout="pageDirection"
-        value="#{chatterbotAdminBean.bcheckLanguage}"
+        value="#{chatterbotAdminBean.chatterbotLanguage}"
         immediate="true">
         <f:selectItem
           itemLabel="#{message.chatterbot_language_de}"
-          itemValue="de" />
+          itemValue="DE" />
         <f:selectItem
           itemLabel="#{message.chatterbot_language_en}"
-          itemValue="en" />
+          itemValue="EN" />
         <f:selectItem
           itemLabel="#{message.chatterbot_language_it}"
-          itemValue="it" />
+          itemValue="IT" />
       </t:selectOneRadio>
-      <t:commandButton
-        style="float: right;"
-        value="#{message.chatterbot_language_select_button_text}"
-        action="#{chatterbotAdminBean.load}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -330,7 +326,7 @@
         styleClass="chatterbotAdminTextArea"
         readonly="true"
         rows="20"
-        value="#{chatterbotAdminBean.text}" />
+        value="#{chatterbotAdminBean.chatterbotAnswer}" />
       <t:panelGrid
         styleClass="chatterbotAdminChatArea"
         columns="2">
@@ -338,11 +334,11 @@
           size="40"
           styleClass="chatterbotAdminChatInput"
           readonly="false"
-          value="Test" />
+          value="#{chatterbotAdminBean.chatterbotQuestion}" />
         <t:commandButton
           style="float: right;"
           value="#{message.chatterbot_test_button_text}"
-          action="#{chatterbotAdminBean.load}" />
+          action="#{chatterbotAdminBean.chat}" />
       </t:panelGrid>
     </t:panelGrid>
   </h:form>

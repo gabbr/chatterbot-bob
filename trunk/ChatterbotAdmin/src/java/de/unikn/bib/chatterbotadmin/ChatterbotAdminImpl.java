@@ -91,8 +91,10 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
     this.chatterbot = new ChatterbotImpl();
   }
 
-  private void uploadFile(UploadedFile uploadedFile, String filename)
+  private void uploadFile(UploadedFile uploadedFile, String file)
   {
+    log.debug("Read file: " + uploadedFile.getName() + "(" + file + ")");
+
     try
     {
       InputStream streamIn = uploadedFile.getInputStream();
@@ -100,7 +102,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
       byte[] buffer = new byte[(int) size];
       streamIn.read(buffer, 0, (int) size);
 
-      File fileOut = new File(filename);
+      File fileOut = new File(file);
       FileOutputStream streamOut = new FileOutputStream(fileOut);
 
       streamOut.write(buffer);
@@ -168,7 +170,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   public void uploadTextCorpusENFile(UploadedFile textCorpusENFile)
   {
     textCorpusENFilename = sharedFilesPath + "/" + textCorpusENFile.getName();
-    uploadFile(textCorpusENFile, macrosFilename);
+    uploadFile(textCorpusENFile, textCorpusENFilename);
   }
 
   @Override
@@ -204,7 +206,7 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   {
     return bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
             macrosENFilename, macrosDEFilename, macrosITFilename,
-            textCorpusENFilename, textCorpusENFilename, textCorpusITFilename,
+            textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
             language, Boolean.FALSE, sharedFilesPath);
   }
 
@@ -227,5 +229,13 @@ public class ChatterbotAdminImpl implements ChatterbotAdmin
   {
     return ttCheck.performTTCheck(topicTreeFilename, rngFilename,
             macrosDEFilename, macrosENFilename, macrosITFilename);
+  }
+
+  @Override
+  public String chat(String question, String language)
+  {
+    return chatterbot.chat(question, language, topicTreeFilename, macrosENFilename,
+            macrosDEFilename, macrosITFilename, textCorpusENFilename,
+            textCorpusDEFilename, textCorpusITFilename);
   }
 }

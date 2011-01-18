@@ -29,47 +29,6 @@
       <description>
 
       </description>
-      <property-name>text</property-name>
-      <property-class>java.lang.String</property-class>
-      <value>
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text 
-text text text text text text text text text text text text text text
-      </value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
       <property-name>bbcheckLearningInput</property-name>
       <property-class>java.lang.String</property-class>
       <value>no</value>
@@ -88,7 +47,7 @@ text text text text text text text text text text text text text text
       </description>
       <property-name>bbcheckLanguage</property-name>
       <property-class>java.lang.String</property-class>
-      <value>de</value>
+      <value>EN</value>
     </managed-property>
     <managed-property>
       <description>
@@ -133,6 +92,30 @@ text text text text text text text text text text text text text text
     <managed-property>
       <description></description>
       <property-name>ttResults</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotLanguage</property-name>
+      <property-class>java.lang.String</property-class>
+      <value>EN</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotAnswer</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotQuestion</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
