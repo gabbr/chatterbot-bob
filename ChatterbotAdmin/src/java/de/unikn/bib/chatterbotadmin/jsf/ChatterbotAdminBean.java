@@ -29,8 +29,6 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
  */
 public class ChatterbotAdminBean implements Serializable
 {
-  private String text;
-
   private String bbcheckLanguage;
 
   private String bbcheckLearningInput;
@@ -54,6 +52,12 @@ public class ChatterbotAdminBean implements Serializable
   private String qResults;
 
   private String ttResults;
+
+  private String chatterbotLanguage;
+
+  private String chatterbotAnswer;
+
+  private String chatterbotQuestion;
 
   private UploadedFile topicTreeFile;
 
@@ -474,6 +478,28 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
+  public String chat()
+  {
+    log.debug("Perform chatterbot.");
+
+    setChatterbotAnswer(new String());
+
+    setChatterbotAnswer(chatterbotAdmin.chat(getChatterbotQuestion(), getChatterbotLanguage()));
+
+    if (getChatterbotAnswer().isEmpty() || getChatterbotAnswer() == null)
+    {
+      log.warn("No answer received.");
+
+      setChatterbotAnswer("Error");
+
+      return FAILED;
+    }
+
+    log.debug("Bob's answer has been received.");
+
+    return SUCCESS;
+  }
+
   /**
    * <p>
    * This method is used to select bcheck application by setting the
@@ -552,22 +578,6 @@ public class ChatterbotAdminBean implements Serializable
 
     // chatterbot application has been selected
     log.info("Chatterbot application has been selected.");
-  }
-
-  /**
-   * @return the text
-   */
-  public String getText()
-  {
-    return text;
-  }
-
-  /**
-   * @param text the text to set
-   */
-  public void setText(String text)
-  {
-    this.text = text;
   }
 
   /**
@@ -686,6 +696,36 @@ public class ChatterbotAdminBean implements Serializable
   public void setTtResults(String ttResults)
   {
     this.ttResults = ttResults;
+  }
+
+  public String getChatterbotLanguage()
+  {
+    return chatterbotLanguage;
+  }
+
+  public void setChatterbotLanguage(String chatterbotLanguage)
+  {
+    this.chatterbotLanguage = chatterbotLanguage;
+  }
+
+  public String getChatterbotAnswer()
+  {
+    return chatterbotAnswer;
+  }
+
+  public void setChatterbotAnswer(String chatterbotAnswer)
+  {
+    this.chatterbotAnswer = chatterbotAnswer;
+  }
+
+  public String getChatterbotQuestion()
+  {
+    return chatterbotQuestion;
+  }
+
+  public void setChatterbotQuestion(String chatterbotQuestion)
+  {
+    this.chatterbotQuestion = chatterbotQuestion;
   }
 
   /**

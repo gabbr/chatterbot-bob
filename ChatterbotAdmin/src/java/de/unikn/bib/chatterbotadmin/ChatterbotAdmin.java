@@ -38,5 +38,7 @@ public interface ChatterbotAdmin
   public String performQCheck(String regularExpression,
           String userQuestion, String format);
 
+  public String chat(String question, String language);
+
   public String performTTCheck();
 }

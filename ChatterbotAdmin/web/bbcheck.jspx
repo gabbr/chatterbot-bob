@@ -313,13 +313,13 @@
         immediate="true">
         <f:selectItem
           itemLabel="#{message.bbcheck_language_de}"
-          itemValue="de" />
+          itemValue="DE" />
         <f:selectItem
           itemLabel="#{message.bbcheck_language_en}"
-          itemValue="en" />
+          itemValue="EN" />
         <f:selectItem
           itemLabel="#{message.bbcheck_language_it}"
-          itemValue="it" />
+          itemValue="IT" />
       </t:selectOneRadio>
     </t:panelGrid>
   </h:form>
