@@ -12,8 +12,8 @@
   <application>
     <message-bundle>messages</message-bundle>
     <locale-config>
-      <default-locale>de</default-locale>
-      <supported-locale>en</supported-locale>
+      <default-locale>en</default-locale>
+      <supported-locale>de</supported-locale>
       <supported-locale>it</supported-locale>
     </locale-config>
   </application>
@@ -21,32 +21,17 @@
 	<!-- chatterbotAdmin bean -->
   <managed-bean>
     <description>
+
     </description>
     <managed-bean-name>chatterbotAdminBean</managed-bean-name>
     <managed-bean-class>de.unikn.bib.chatterbotadmin.ChatterbotAdminBean</managed-bean-class>
-
     <managed-bean-scope>session</managed-bean-scope>
+    <!-- bean attributes -->
     <managed-property>
       <description>
 
       </description>
-      <property-name>bbcheckLearningInput</property-name>
-      <property-class>java.lang.String</property-class>
-      <value>no</value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
-      <property-name>bbcheckLearningSelected</property-name>
-      <property-class>java.lang.Boolean</property-class>
-      <value>FALSE</value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
-      <property-name>bbcheckLanguage</property-name>
+      <property-name>bbCheckLanguage</property-name>
       <property-class>java.lang.String</property-class>
       <value>EN</value>
     </managed-property>
@@ -54,7 +39,24 @@
       <description>
 
       </description>
-      <property-name>bbResults</property-name>
+      <property-name>bbCheckLearningInput</property-name>
+      <property-class>java.lang.String</property-class>
+      <value>no</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bbCheckLearningSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bbCheckResults</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
@@ -62,7 +64,7 @@
       <description>
 
       </description>
-      <property-name>qFormat</property-name>
+      <property-name>qCheckFormat</property-name>
       <property-class>java.lang.String</property-class>
       <value>tt</value>
     </managed-property>
@@ -70,7 +72,7 @@
       <description>
 
       </description>
-      <property-name>qcheckRegularExpression</property-name>
+      <property-name>qCheckRegularExpression</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
@@ -78,7 +80,7 @@
       <description>
 
       </description>
-      <property-name>qcheckUserQuestion</property-name>
+      <property-name>qCheckUserQuestion</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
@@ -86,13 +88,15 @@
       <description>
 
       </description>
-      <property-name>qResults</property-name>
+      <property-name>qCheckResults</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
-      <property-name>ttResults</property-name>
+      <description>
+
+      </description>
+      <property-name>ttCheckResults</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
@@ -121,9 +125,19 @@
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
       <property-name>topicTreeFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>topicTreeFilename</property-name>
+      <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
@@ -133,9 +147,25 @@
       <value/>
     </managed-property>
     <managed-property>
+      <description>
+
+      </description>
+      <property-name>macrosFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
       <description></description>
       <property-name>macrosENFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>macrosENFilename</property-name>
+      <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
@@ -145,21 +175,59 @@
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>macrosDEFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>macrosITFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>macrosITFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>textCorpusFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>textCorpusFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>textCorpusENFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>textCorpusENFilename</property-name>
+      <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
@@ -169,21 +237,59 @@
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>textCorpusDEFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>textCorpusITFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>textCorpusITFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>rngFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+
+      </description>
+      <property-name>rngFilename</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>testQuestionsFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>testQuestionsFilename</property-name>
+      <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
@@ -199,7 +305,7 @@
       <description>
              This Boolean object indicates if bbcheck application is selected.
       </description>
-      <property-name>bbcheckSelected</property-name>
+      <property-name>bbCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>TRUE</value>
     </managed-property>
@@ -207,7 +313,7 @@
       <description>
              This Boolean object indicates if qcheck application is selected.
       </description>
-      <property-name>qcheckSelected</property-name>
+      <property-name>qCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>
@@ -215,7 +321,7 @@
       <description>
              This Boolean object indicates if ttcheck application is selected.
       </description>
-      <property-name>ttcheckSelected</property-name>
+      <property-name>ttCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>

@@ -48,7 +48,7 @@
                      if user has selected bbcheck application on menu page
           -->
           <h:panelGrid
-            rendered="#{chatterbotAdminBean.bbcheckSelected}"
+            rendered="#{chatterbotAdminBean.bbCheckSelected}"
             columns="1">
             <jsp:include
               page="bbcheck.jspx" />
@@ -58,7 +58,7 @@
                        if user has selected qcheck application on menu page
           -->
           <h:panelGrid
-            rendered="#{chatterbotAdminBean.qcheckSelected}"
+            rendered="#{chatterbotAdminBean.qCheckSelected}"
             columns="1">
             <jsp:include
               page="qcheck.jspx" />
@@ -68,7 +68,7 @@
                        if user has selected ttcheck application on menu page
           -->
           <h:panelGrid
-            rendered="#{chatterbotAdminBean.ttcheckSelected}"
+            rendered="#{chatterbotAdminBean.ttCheckSelected}"
             columns="1">
             <jsp:include
               page="ttcheck.jspx" />

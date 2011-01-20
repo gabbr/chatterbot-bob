@@ -107,7 +107,7 @@
       <t:selectOneRadio
         styleClass="chatterbotAdminSelectArea"
         layout="pageDirection"
-        value="#{chatterbotAdminBean.qFormat}"
+        value="#{chatterbotAdminBean.qCheckFormat}"
         immediate="true">
         <f:selectItem
           itemLabel="#{message.qcheck_format_topictree}"
@@ -153,7 +153,7 @@
           readonly="false"
           rows="5"
           cols="10"
-          value="#{chatterbotAdminBean.qcheckRegularExpression}" />
+          value="#{chatterbotAdminBean.qCheckRegularExpression}" />
       </t:panelGrid>
       <t:panelGrid
         columns="1">
@@ -164,7 +164,7 @@
           readonly="false"
           rows="5"
           cols="10"
-          value="#{chatterbotAdminBean.qcheckUserQuestion}" />
+          value="#{chatterbotAdminBean.qCheckUserQuestion}" />
       </t:panelGrid>
       <t:panelGrid
         columns="2"
@@ -192,6 +192,6 @@
       readonly="true"
       rows="20"
       cols="100"
-      value="#{chatterbotAdminBean.qResults}" />
+      value="#{chatterbotAdminBean.qCheckResults}" />
   </t:panelGrid>
 </jsp:root>
