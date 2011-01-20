@@ -21,6 +21,8 @@ import org.w3c.dom.NodeList;
 
 import com.mallardsoft.tuple.Quadruple;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @version $Id$

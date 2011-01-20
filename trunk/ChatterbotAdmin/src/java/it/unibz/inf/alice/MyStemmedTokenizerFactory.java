@@ -31,66 +31,71 @@ import com.aliasi.util.Compilable;
  * @version $Id$
  */
 public class MyStemmedTokenizerFactory implements Compilable, TokenizerFactory,
-		Serializable {
+        Serializable
+{
 
-	private static final long serialVersionUID = -6920267163317533680L;
+  private static final long serialVersionUID = -6920267163317533680L;
 
-	/**
-	 * An instance of a tokenizer factory.
-	 */
-	public static final TokenizerFactory FACTORY = new MyStemmedTokenizerFactory();
+  /**
+   * An instance of a tokenizer factory.
+   */
+  public static final TokenizerFactory FACTORY = new MyStemmedTokenizerFactory();
 
-	public MyStemmedTokenizerFactory() {
-	}
+  /**
+   * Returns a tokenizer for the specified subsequence of characters.
+   *
+   * @param ch
+   *            Characters to tokenize.
+   * @param start
+   *            Index of first character to tokenize.
+   * @param length
+   *            Number of characters to tokenize.
+   */
+  public Tokenizer tokenizer(char[] ch, int start, int length)
+  {
 
-	/**
-	 * Returns a tokenizer for the specified subsequence of characters.
-	 * 
-	 * @param ch
-	 *            Characters to tokenize.
-	 * @param start
-	 *            Index of first character to tokenize.
-	 * @param length
-	 *            Number of characters to tokenize.
-	 */
-	public Tokenizer tokenizer(char[] ch, int start, int length) {
+    Tokenizer tokenizer = IndoEuropeanTokenizerFactory.FACTORY.tokenizer(
+            ch, start, length);
+    tokenizer = new LowerCaseFilterTokenizer(tokenizer);
+    tokenizer = new EnglishStopListFilterTokenizer(tokenizer);
+    tokenizer = new PorterStemmerFilterTokenizer(tokenizer);
+    return tokenizer;
+  }
 
-		Tokenizer tokenizer = IndoEuropeanTokenizerFactory.FACTORY.tokenizer(
-				ch, start, length);
-		tokenizer = new LowerCaseFilterTokenizer(tokenizer);
-		tokenizer = new EnglishStopListFilterTokenizer(tokenizer);
-		tokenizer = new PorterStemmerFilterTokenizer(tokenizer);
-		return tokenizer;
-	}
+  /**
+   * Compiles this tokenizer factory to the specified object output. The
+   * tokenizer factory read back in is reference identical to the static
+   * constant {@link #FACTORY}.
+   *
+   * @param objOut
+   *            Object output to which this tokenizer factory is compiled.
+   * @throws IOException
+   *             If there is an I/O error during the write.
+   */
+  public void compileTo(ObjectOutput objOut) throws IOException
+  {
+    objOut.writeObject(new Externalizer());
+  }
 
-	/**
-	 * Compiles this tokenizer factory to the specified object output. The
-	 * tokenizer factory read back in is reference identical to the static
-	 * constant {@link #FACTORY}.
-	 * 
-	 * @param objOut
-	 *            Object output to which this tokenizer factory is compiled.
-	 * @throws IOException
-	 *             If there is an I/O error during the write.
-	 */
-	public void compileTo(ObjectOutput objOut) throws IOException {
-		objOut.writeObject(new Externalizer());
-	}
+  private static class Externalizer extends AbstractExternalizable
+  {
+    static final long serialVersionUID = 3826670589236636230L;
 
-	private static class Externalizer extends AbstractExternalizable {
-		static final long serialVersionUID = 3826670589236636230L;
+    public Externalizer()
+    {
+      /* do nothing */
+    }
 
-		public Externalizer() {
-			/* do nothing */
-		}
+    @Override
+    public void writeExternal(ObjectOutput objOut)
+    {
+      /* do nothing */
+    }
 
-		public void writeExternal(ObjectOutput objOut) {
-			/* do nothing */
-		}
-
-		public Object read(ObjectInput objIn) {
-			return FACTORY;
-		}
-	}
-
+    @Override
+    public Object read(ObjectInput objIn)
+    {
+      return FACTORY;
+    }
+  }
 }

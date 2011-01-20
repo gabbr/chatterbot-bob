@@ -2,7 +2,6 @@ package it.unibz.lib.bob.check;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,11 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.CharBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -30,6 +24,8 @@ import antlr.collections.AST;
 import it.unibz.lib.bob.macroparser.macroParser_Lexer;
 import it.unibz.lib.bob.macroparser.macroParser_LexerTokenTypes;
 import it.unibz.lib.bob.macroparser.macroParser_Parser;
+
+import org.apache.log4j.Logger;
 
 /**
  * ChatterbotHelper is another modified version of BobHelper class,

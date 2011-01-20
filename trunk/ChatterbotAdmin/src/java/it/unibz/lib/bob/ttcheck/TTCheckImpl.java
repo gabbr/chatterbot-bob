@@ -1,8 +1,6 @@
 package it.unibz.lib.bob.ttcheck;
 
 import java.io.File;
-import java.util.logging.Level;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
@@ -11,7 +9,6 @@ import org.codehaus.stax2.XMLStreamReader2;
 import org.codehaus.stax2.validation.XMLValidationSchema;
 import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
 
-// logging context
 import org.apache.log4j.Logger;
 
 /**

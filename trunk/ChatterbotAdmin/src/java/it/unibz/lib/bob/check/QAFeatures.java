@@ -1,5 +1,7 @@
 package it.unibz.lib.bob.check;
 
+import org.apache.log4j.Logger;
+
 /**
  * Representation of the features we use to rerank first questions.
  * 

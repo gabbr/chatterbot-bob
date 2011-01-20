@@ -19,6 +19,8 @@ import antlr.TokenStream;
 import antlr.LexerSharedInputState;
 import antlr.collections.impl.BitSet;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @version $Id$

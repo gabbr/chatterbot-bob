@@ -1,18 +1,17 @@
 package it.unibz.lib.bob.bbcheck;
 
-import it.unibz.lib.bob.check.DialogueManager;
-import it.unibz.lib.bob.check.QAFeatures;
-
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Vector;
 
 import com.mallardsoft.tuple.Quadruple;
 import com.mallardsoft.tuple.Tuple;
 
-// logging context
 import it.unibz.lib.bob.check.QAMatchingBob;
 import it.unibz.lib.bob.check.TopicTree;
-import java.util.Vector;
+import it.unibz.lib.bob.check.DialogueManager;
+import it.unibz.lib.bob.check.QAFeatures;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -143,61 +142,15 @@ public class BBCheckImpl implements BBCheck
     int reranked_DtoE = 0;
     int reranked_EtoD = 0;
 
-    // TODO: should we also train on Q/A ?
-    /**
-     * // determine correct answers, and add them to the
-     * ErrorReportSpreadSheet Vector<String> answers = new Vector<String>();
-     * for (String i : infile.ids) {
-     * answers.add(dm.getAnswerFromTopicID(i)); }
-     *
-     * if (infile.ids.size() != answers.size()) { System.err
-     * .println("ERROR: answers vector length != IDs vector length!"); }
-     */
-    // QAMatchingBob qamb = null;
-    // try {
-    // qamb = new QAMatchingBob(new File(ae).toURL(),
-    // new File(ad).toURL(), new File(ai).toURL());
-    // } catch (MalformedURLException e1) {
-    // e1.printStackTrace();
-    // }
-    // TODO: should we also train on Q/A ?
-    // qamb.trainIDF(answers);
-    // qamb.trainIDF(infile.questions);
-		/*
-     * if (!trainingMode && idf != null) { ReadIn readin = new
-     * ReadIn("ISO-8859-1", idf); int lcount = 0;
-     *
-     * results = result +  + "training@@@");
-     *
-     * for (String line; (line = readin.readLine()) != null;) {
-     * qamb.trainIDF(line); lcount++; if (lcount % 10000 == 0) {
-     * System.err.print("+");
-     *
-     * monitor.setCurrent("Training IDF scores: " + lcount / 1000 + "k of "
-     * + readIdfLines / 1000 + "k sentences", lcount / 10000); } // stop
-     * after x lines of training data if (lcount == readIdfLines) break; }
-     *
-     * }
-     */
-    // qamb.printIDFStats();
     try
     {
       if (dm != null)
       {
         for (int i = 0; i < infile.questions.size(); i++)
         {
-          //testResults = testResults + "Checking " + (i + 1) + " of "
-          //        + infile.questions.size() + " questions. \n";
-
-          Timer timer = new Timer();
           Vector<Quadruple<String, String, String, String>> vresp =
                   dm.getAllPossibleNormalResponses(infile.questions.get(i),
                   language.toUpperCase());
-          /*
-          testResults = testResults + "Elapsed time for getting all responses "
-          + "from DM for " + i + "th test question ("
-          + infile.questions.get(i) + "): " + timer.elapsed() + "\n";
-           */
 
           // do the eval
 
@@ -311,8 +264,8 @@ public class BBCheckImpl implements BBCheck
               Vector<String> wronglyMatchedIDs = new Vector<String>();
               // we skip the last match (i.e., the
               // "no pattern matched" topic)
-              if ((textCorpusENFilename == null && textCorpusDEFilename == null && textCorpusITFilename != null)
-                      || trainingMode)
+              if ((textCorpusENFilename == null && textCorpusDEFilename == null
+                      && textCorpusITFilename != null) || trainingMode)
               {
                 for (int k = 0; k < vresp.size() - 1; k++)
                 {
@@ -497,8 +450,7 @@ public class BBCheckImpl implements BBCheck
             }
           }
         }
-        testResults = testResults + "\n********************\n";
-
+        
         if (!trainingMode && (textCorpusENFilename != null
                 || textCorpusDEFilename != null || textCorpusITFilename != null))
         {
@@ -545,19 +497,10 @@ public class BBCheckImpl implements BBCheck
     }
     finally
     {
-      // to ensure that progress dlg is closed in case of any exception
-      /*
-      if (monitor.getCurrent() != monitor.getTotal())
-      {
-      monitor.setCurrent(null, monitor.getTotal());
-      }
-       */
-
       // generate output files
       outfile.writeSheet(outfilePath);
       testResults = testResults + "Report .xls generated: " + outfile.getFilename();
-      testResults = testResults + "\nPlease restart checkbob if you want to run a new test!";
-
+      
       if (trainingMode)
       {
         trainingCsv_out.close();
