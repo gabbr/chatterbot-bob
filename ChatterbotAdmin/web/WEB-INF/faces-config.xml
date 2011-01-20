@@ -23,7 +23,8 @@
     <description>
     </description>
     <managed-bean-name>chatterbotAdminBean</managed-bean-name>
-    <managed-bean-class>de.unikn.bib.chatterbotadmin.jsf.ChatterbotAdminBean</managed-bean-class>
+    <managed-bean-class>de.unikn.bib.chatterbotadmin.ChatterbotAdminBean</managed-bean-class>
+
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <description>
@@ -225,8 +226,7 @@
       <property-name>chatterbotSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
-    </managed-property>
-  </managed-bean>
+    </managed-property></managed-bean>
 
   <!-- navigation rules -->
   <navigation-rule>
