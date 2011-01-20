@@ -14,15 +14,32 @@ import org.apache.log4j.Logger;
  */
 public class OpacQueryQuestionParser
 {
+  /**
+   * <p>
+   * Logging of this class uses four different log levels:
+   * </p>
+   * <ul>
+   * <li><b>DEBUG</b> to reproduce complete program flow</li>
+   * <li><b>INFO</b> to reproduce system activities</li>
+   * <li><b>WARN</b> to reproduce system warnings</li>
+   * <li><b>ERROR</b> to reproduce system failures</li>
+   * <li><b>FATAL</b> to reproduce fatal system failures</li>
+   * </ul>
+   * <p>
+   * The corresponding <tt>log4j.properties</tt> file is located in the
+   * <tt>WEB-INF/classes</tt> directory of this web application.
+   * </p>
+   */
+  private static Logger log = Logger.getLogger(OpacQueryQuestionParser.class);
 
   /*
    * Keyword questions
    */
   static class KeywordQuestion
   {
-    private static String about_EN = "(?:of|on|by|about)";
+    private static final String about_EN = "(?:of|on|by|about)";
 
-    private static String question_EN = ".*\\b" + about_EN
+    private static final String question_EN = ".*\\b" + about_EN
             + "\\b ?([ \\w]*).*";
 
     // private static String keywordQuestion_EN = ".*(.*).*";
@@ -30,18 +47,18 @@ public class OpacQueryQuestionParser
             Pattern.CASE_INSENSITIVE | Pattern.CANON_EQ
             | Pattern.UNICODE_CASE);
 
-    private static String about_DE = "(?:[üu]ber|von)";
+    private static final String about_DE = "(?:[üu]ber|von)";
 
-    private static String question_DE = ".*\\b" + about_DE
+    private static final String question_DE = ".*\\b" + about_DE
             + "\\b ?([ \\w]*).*";
 
     static Pattern question_DE_pattern = Pattern.compile(question_DE,
             Pattern.CASE_INSENSITIVE | Pattern.CANON_EQ
             | Pattern.UNICODE_CASE);
 
-    private static String about_IT = "(?:su|di|da)";
+    private static final String about_IT = "(?:su|di|da)";
 
-    private static String question_IT = ".*\\b" + about_IT
+    private static final String question_IT = ".*\\b" + about_IT
             + "\\b ?([ \\w]*).*";
 
     static Pattern question_IT_pattern = Pattern.compile("(?i)"
@@ -58,6 +75,7 @@ public class OpacQueryQuestionParser
     public static String getQueryTerms(String str, String language)
     {
       Matcher matcher = null;
+      
       if (language.equals("EN"))
       {
         matcher = KeywordQuestion.question_EN_pattern.matcher(str);
@@ -72,9 +90,11 @@ public class OpacQueryQuestionParser
       }
       else
       {
-        System.err.println("Illegal language!");
+        log.error("Illegal language!");
       }
+
       boolean matchFound = matcher.find();
+
       if (matchFound)
       {
         return matcher.group(1);
@@ -84,22 +104,5 @@ public class OpacQueryQuestionParser
         return "";
       }
     }
-  }
-
-  public static void main(String[] args)
-  {
-    String input = "do you have books about Noam chomsky. thanks!";
-    System.out.println("EN "
-            + OpacQueryQuestionParser.KeywordQuestion.getQueryTerms(input,
-            "EN"));
-    input = "buecher über Noam chomsky.";
-    System.out.println("DE "
-            + OpacQueryQuestionParser.KeywordQuestion.getQueryTerms(input,
-            "DE"));
-    input = "libri da Noam chomsky";
-    System.out.println("IT "
-            + OpacQueryQuestionParser.KeywordQuestion.getQueryTerms(input,
-            "IT"));
-
   }
 }

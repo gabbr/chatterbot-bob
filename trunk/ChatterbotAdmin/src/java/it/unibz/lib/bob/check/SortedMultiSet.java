@@ -32,7 +32,7 @@ import java.util.SortedSet;
  *         href="mailto:geoffw@cis.upenn.edu">geoffw@cis.upenn.edu</a>&gt;
  * @version $Id$
  */
-public class SortedMultiSet extends LinkedList implements SortedSet
+public final class SortedMultiSet extends LinkedList implements SortedSet
 {
   private Comparator comparator = null;
 
@@ -60,6 +60,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     }
   }
 
+  @Override
   public boolean add(Object o1)
   {
     if (contains(o1))
@@ -94,6 +95,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     }
   }
 
+  @Override
   public boolean addAll(Collection c)
   {
     Iterator it = c.iterator();
@@ -113,6 +115,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     }
   }
 
+  @Override
   public boolean containsAll(Collection c)
   {
     Iterator it = c.iterator();
@@ -126,21 +129,25 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     return true;
   }
 
+  @Override
   public Comparator comparator()
   {
     return comparator;
   }
 
+  @Override
   public Object first()
   {
     return getFirst();
   }
 
+  @Override
   public Object last()
   {
     return getLast();
   }
 
+  @Override
   public SortedSet headSet(Object toElement)
   {
     Iterator it = iterator();
@@ -166,6 +173,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     return newSet;
   }
 
+  @Override
   public SortedSet subSet(Object fromElement, Object toElement)
   {
     Iterator it = iterator();
@@ -194,6 +202,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     return newSet;
   }
 
+  @Override
   public SortedSet tailSet(Object fromElement)
   {
     Iterator it = iterator();
@@ -219,6 +228,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     return newSet;
   }
 
+  @Override
   public boolean removeAll(Collection c)
   {
     Iterator it = c.iterator();
@@ -230,6 +240,7 @@ public class SortedMultiSet extends LinkedList implements SortedSet
     return result;
   }
 
+  @Override
   public boolean retainAll(Collection c)
   {
     Iterator it = iterator();

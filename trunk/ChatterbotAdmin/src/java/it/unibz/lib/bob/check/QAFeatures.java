@@ -14,14 +14,13 @@ public class QAFeatures {
 	/**
 	 * The header line for the CSV file, containing one line for each feature
 	 */
-	public static final String csvHeader = new String("\"regexmatch\","
+	public static final String csvHeader = "\"regexmatch\","
 			+ "\"regexmatchLen\"," + "\"regexmatchLetterLen\","
 			+ "\"regexmatchPipeLen\"," + "\"regexmatchLetterOverPipe\","
-			+ "\"tfIdfSimilarity\"," + "\"treeSearchRank\"," +
-
-			"\"nAND\"," + "\"nOR\"," + "\"nANDoverOR\"," + "\"topicID\","
+			+ "\"tfIdfSimilarity\"," + "\"treeSearchRank\"," 
+      + "\"nAND\"," + "\"nOR\"," + "\"nANDoverOR\"," + "\"topicID\","
 			+ "\"rankOverTopicID\"," + "\"treeSearchProminence\","
-			+ "\"heuristicAnswerScore\"," + "\"answerCorrectness\"");
+			+ "\"heuristicAnswerScore\"," + "\"answerCorrectness\"";
 
 	public QAFeatures(boolean regexmatch, double regexmatchLen,
 			double regexmatchLetterLen, double regexmatchPipeLen,

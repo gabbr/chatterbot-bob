@@ -19,14 +19,13 @@ import antlr.TokenStream;
 import antlr.LexerSharedInputState;
 import antlr.collections.impl.BitSet;
 
-import org.apache.log4j.Logger;
-
 /**
  *
  * @version $Id$
  */
 public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes, TokenStream
 {
+  
   public Bob_Lexer(InputStream in)
   {
     this(new ByteBuffer(in));
