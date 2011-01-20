@@ -1,6 +1,5 @@
 package it.unibz.lib.bob.bbcheck;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,6 +8,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -39,16 +39,23 @@ public class ErrorReportSpreadSheet
 
   private boolean ml;
 
-  public String getFilename()
-  {
-    return filename;
-  }
-
-  @SuppressWarnings("unused")
-  private ErrorReportSpreadSheet()
-  {
-    // nop
-  }
+  /**
+   * <p>
+   * Logging of this class uses four different log levels:
+   * </p>
+   * <ul>
+   * <li><b>DEBUG</b> to reproduce complete program flow</li>
+   * <li><b>INFO</b> to reproduce system activities</li>
+   * <li><b>WARN</b> to reproduce system warnings</li>
+   * <li><b>ERROR</b> to reproduce system failures</li>
+   * <li><b>FATAL</b> to reproduce fatal system failures</li>
+   * </ul>
+   * <p>
+   * The corresponding <tt>log4j.properties</tt> file is located in the
+   * <tt>WEB-INF/classes</tt> directory of this web application.
+   * </p>
+   */
+  private Logger log = Logger.getLogger(ErrorReportSpreadSheet.class);
 
   /**
    *
@@ -274,7 +281,12 @@ public class ErrorReportSpreadSheet
     }
     catch (IOException e)
     {
-      e.printStackTrace();
+      log.error("Error: " + e.getMessage());
     }
+  }
+
+  public String getFilename()
+  {
+    return filename;
   }
 }

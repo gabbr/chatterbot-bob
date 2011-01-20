@@ -36,6 +36,8 @@ import it.unibz.lib.bob.macroparser.macroParser_Lexer;
 import it.unibz.lib.bob.macroparser.macroParser_LexerTokenTypes;
 import it.unibz.lib.bob.macroparser.macroParser_Parser;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author kirschner

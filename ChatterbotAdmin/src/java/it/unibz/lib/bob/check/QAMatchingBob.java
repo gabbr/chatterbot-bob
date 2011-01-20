@@ -7,13 +7,14 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.Vector;
 
-
 import com.aliasi.spell.TfIdfDistance;
 import com.aliasi.tokenizer.Tokenizer;
 import com.aliasi.tokenizer.TokenizerFactory;
 
 import com.mallardsoft.tuple.Quadruple;
 import com.mallardsoft.tuple.Tuple;
+
+import org.apache.log4j.Logger;
 
 
 /**

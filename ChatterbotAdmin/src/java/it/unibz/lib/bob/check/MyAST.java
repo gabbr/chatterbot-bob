@@ -5,22 +5,24 @@ package it.unibz.lib.bob.check;
 
 import antlr.CommonAST;
 import antlr.Token;
+import java.io.Serializable;
 
 /**
  *
  * @version $Id$
  */
-@SuppressWarnings("serial")
-public class MyAST extends CommonAST
+public class MyAST extends CommonAST implements Serializable
 {
   private Token token;
 
+  @Override
   public void initialize(Token tok)
   {
     token = tok;
     super.initialize(tok);
   }
 
+  @Override
   public int getLine()
   {
     if (token != null)
@@ -33,6 +35,7 @@ public class MyAST extends CommonAST
     }
   }
 
+  @Override
   public String getText()
   {
     if (token != null)
@@ -45,6 +48,7 @@ public class MyAST extends CommonAST
     }
   }
 
+  @Override
   public int getColumn()
   {
     if (token != null)

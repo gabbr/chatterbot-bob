@@ -1,8 +1,7 @@
 // $ANTLR : "Bob.g" -> "Bob_Parser.java"$
 package it.unibz.lib.bob.check;
 
-import org.apache.oro.text.perl.Perl5Util;
-import org.apache.oro.text.MalformedCachePatternException;
+import org.apache.log4j.Logger;
 
 /**
  *

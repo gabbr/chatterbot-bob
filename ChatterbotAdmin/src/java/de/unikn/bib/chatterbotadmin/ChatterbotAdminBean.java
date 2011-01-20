@@ -345,56 +345,10 @@ public class ChatterbotAdminBean implements Serializable
     uploadFile(rngFile, rngFilename);
   }
 
-  public void uploadTestQuestionsFile(UploadedFile testQuestionsFile)
+  public void uploadTestQuestionsFile()
   {
     testQuestionsFilename = sharedFilesPath + "/" + testQuestionsFile.getName();
     uploadFile(testQuestionsFile, testQuestionsFilename);
-  }
-
-  public String performBBCheck(String language)
-  {
-    return bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
-            macrosENFilename, macrosDEFilename, macrosITFilename,
-            textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
-            language, Boolean.FALSE, sharedFilesPath);
-  }
-
-  public String performQCheck()
-  {
-    log.debug("Perform qcheck.");
-
-    qCheckResults = qCheck.performQCheck(macrosFilename, qCheckRegularExpression,
-            qCheckUserQuestion, qCheckFormat);
-
-    if (qCheckResults.isEmpty() || qCheckResults == null)
-    {
-      log.warn("No test results for qCheck received.");
-
-      return FAILED;
-    }
-
-    log.debug("Test results for qCheck received.");
-
-    return SUCCESS;
-  }
-
-  public String performTTCheck()
-  {
-    log.debug("Perform ttcheck.");
-
-    ttCheckResults = ttCheck.performTTCheck(topicTreeFilename, rngFilename,
-            macrosDEFilename, macrosENFilename, macrosITFilename);
-
-    if (ttCheckResults.isEmpty() || ttCheckResults == null)
-    {
-      log.warn("No test results for ttCheck received.");
-
-      return FAILED;
-    }
-
-    log.debug("Test results for ttCheck received.");
-
-    return SUCCESS;
   }
 
   public String selectBcheckLearning()
@@ -432,9 +386,12 @@ public class ChatterbotAdminBean implements Serializable
 
   public String performBBCheck()
   {
-    log.debug("Perform bcheck.");
+    log.debug("Perform bbCheck.");
 
-    bbCheckResults = performBBCheck(bbCheckLanguage);
+    bbCheckResults =  bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
+            macrosENFilename, macrosDEFilename, macrosITFilename,
+            textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
+            bbCheckLanguage, Boolean.FALSE, sharedFilesPath);
 
     if (bbCheckResults.isEmpty() || bbCheckResults == null)
     {
@@ -513,6 +470,44 @@ public class ChatterbotAdminBean implements Serializable
       // report exception for JSF navigation rules
       return FAILED;
     }
+  }
+
+  public String performQCheck()
+  {
+    log.debug("Perform qcheck.");
+
+    qCheckResults = qCheck.performQCheck(macrosFilename, qCheckRegularExpression,
+            qCheckUserQuestion, qCheckFormat);
+
+    if (qCheckResults.isEmpty() || qCheckResults == null)
+    {
+      log.warn("No test results for qCheck received.");
+
+      return FAILED;
+    }
+
+    log.debug("Test results for qCheck received.");
+
+    return SUCCESS;
+  }
+
+  public String performTTCheck()
+  {
+    log.debug("Perform ttcheck.");
+
+    ttCheckResults = ttCheck.performTTCheck(topicTreeFilename, rngFilename,
+            macrosDEFilename, macrosENFilename, macrosITFilename);
+
+    if (ttCheckResults.isEmpty() || ttCheckResults == null)
+    {
+      log.warn("No test results for ttCheck received.");
+
+      return FAILED;
+    }
+
+    log.debug("Test results for ttCheck received.");
+
+    return SUCCESS;
   }
 
   public String chat()

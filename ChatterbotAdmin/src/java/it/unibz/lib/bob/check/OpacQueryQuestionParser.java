@@ -3,6 +3,8 @@ package it.unibz.lib.bob.check;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 /**
  * Parses a user question that had been identified to contain an OPAC query, and returns the contained query terms
  *

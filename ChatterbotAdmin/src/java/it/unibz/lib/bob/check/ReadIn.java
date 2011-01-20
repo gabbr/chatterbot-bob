@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @version $Id$
