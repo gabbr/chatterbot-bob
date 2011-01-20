@@ -6,9 +6,10 @@ import java.io.StringReader;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.Locator; //import org.xml.sax.SAXException;
+import org.xml.sax.Locator; 
 import org.xml.sax.helpers.DefaultHandler;
 
 import antlr.ANTLRException;
@@ -18,11 +19,10 @@ import antlr.TokenStreamException;
 import it.unibz.lib.bob.check.Bob_Lexer;
 import it.unibz.lib.bob.check.Bob_Parser;
 import it.unibz.lib.bob.check.Bob_TreeParser;
-
 import it.unibz.lib.bob.check.MyAST;
 import it.unibz.lib.bob.check.BobHelper;
 import it.unibz.lib.bob.check.BobHelper.Pair;
-import javax.xml.parsers.ParserConfigurationException;
+
 
 /**
  *

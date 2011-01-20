@@ -1,4 +1,4 @@
-package it.unibz.lib.bob.chatterbot;
+package it.unibz.lib.bob.check;
 
 
 import java.net.URLEncoder;

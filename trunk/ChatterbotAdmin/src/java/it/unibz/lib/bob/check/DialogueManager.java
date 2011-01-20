@@ -367,7 +367,7 @@ public class DialogueManager
     String opacLinkUrl = "http://pro.unibz.it/opacuni/index.asp?SEARCH=TRUE&bSWIN=TRUE&lang=__LANGCODE__&WITHTHESIS=false&STICHWORT=__QUERY__";
     opacLinkUrl = opacLinkUrl.replaceFirst("__LANGCODE__", opacLanguageCode);
 
-    String possibleOpacQuery_escaped = it.unibz.lib.bob.chatterbot.EscapeChars.forHrefAmpersand(it.unibz.lib.bob.chatterbot.EscapeChars.forURL(possibleOpacQuery != null ? possibleOpacQuery
+    String possibleOpacQuery_escaped = it.unibz.lib.bob.check.EscapeChars.forHrefAmpersand(it.unibz.lib.bob.check.EscapeChars.forURL(possibleOpacQuery != null ? possibleOpacQuery
             : ""));
 
     opacLinkUrl = opacLinkUrl.replaceFirst("__QUERY__",
