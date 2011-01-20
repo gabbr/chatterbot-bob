@@ -61,37 +61,37 @@
       styleClass="chatterbotAdminMenu">
       <h:commandButton
         id="bcheck_not_selected"
-        rendered="#{!chatterbotAdminBean.bbcheckSelected}"
-        value="#{message.menu_bcheck}"
-        action="#{chatterbotAdminBean.selectBCheck}"
+        rendered="#{!chatterbotAdminBean.bbCheckSelected}"
+        value="#{message.menu_bbcheck}"
+        action="#{chatterbotAdminBean.selectBBCheck}"
         styleClass="chatterbotAdminMenuButton" />
       <h:commandButton
         id="bcheck_selected"
-        rendered="#{chatterbotAdminBean.bbcheckSelected}"
-        value="#{message.menu_bcheck}"
-        action="#{chatterbotAdminBean.selectBCheck}"
+        rendered="#{chatterbotAdminBean.bbCheckSelected}"
+        value="#{message.menu_bbcheck}"
+        action="#{chatterbotAdminBean.selectBBCheck}"
         styleClass="chatterbotAdminMenuButtonSelected" />
       <h:commandButton
-        id="qcheck_not_selected"
-        rendered="#{!chatterbotAdminBean.qcheckSelected}"
+        id="qCheck_not_selected"
+        rendered="#{!chatterbotAdminBean.qCheckSelected}"
         value="#{message.menu_qcheck}"
         action="#{chatterbotAdminBean.selectQCheck}"
         styleClass="chatterbotAdminMenuButton" />
       <h:commandButton
-        id="qcheck_selected"
-        rendered="#{chatterbotAdminBean.qcheckSelected}"
+        id="qCheck_selected"
+        rendered="#{chatterbotAdminBean.qCheckSelected}"
         value="#{message.menu_qcheck}"
         action="#{chatterbotAdminBean.selectQCheck}"
         styleClass="chatterbotAdminMenuButtonSelected" />
       <h:commandButton
-        id="ttcheck_not_selected"
-        rendered="#{!chatterbotAdminBean.ttcheckSelected}"
+        id="ttCheck_not_selected"
+        rendered="#{!chatterbotAdminBean.ttCheckSelected}"
         value="#{message.menu_ttcheck}"
         action="#{chatterbotAdminBean.selectTTCheck}"
         styleClass="chatterbotAdminMenuButton" />
       <h:commandButton
-        id="ttcheck_selected"
-        rendered="#{chatterbotAdminBean.ttcheckSelected}"
+        id="ttCheck_selected"
+        rendered="#{chatterbotAdminBean.ttCheckSelected}"
         value="#{message.menu_ttcheck}"
         action="#{chatterbotAdminBean.selectTTCheck}"
         styleClass="chatterbotAdminMenuButtonSelected" />

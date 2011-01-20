@@ -1,11 +1,10 @@
 package de.unikn.bib.chatterbotadmin;
 
-import it.unibz.lib.bob.bbCheck.bbCheck;
-import it.unibz.lib.bob.bbCheck.bbCheckImpl;
+
+import it.unibz.lib.bob.bbcheck.BBCheck;
+import it.unibz.lib.bob.bbcheck.BBCheckImpl;
 import it.unibz.lib.bob.chatterbot.Chatterbot;
 import it.unibz.lib.bob.chatterbot.ChatterbotImpl;
-import it.unibz.lib.bob.macroparser.Macroparser;
-import it.unibz.lib.bob.macroparser.MacroparserImpl;
 import it.unibz.lib.bob.qcheck.QCheck;
 import it.unibz.lib.bob.qcheck.QCheckImpl;
 import it.unibz.lib.bob.ttcheck.TTCheck;
@@ -36,7 +35,13 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
  */
 public class ChatterbotAdminBean implements Serializable
 {
-  private bbCheck bbCheck;
+  private BBCheck bbCheck;
+  
+  private QCheck qCheck;
+
+  private TTCheck ttCheck;
+
+  private Chatterbot chatterbot;
 
   private String bbCheckLanguage;
 
@@ -52,8 +57,6 @@ public class ChatterbotAdminBean implements Serializable
 
   private String bbCheckReportFileContentType;
 
-  private QCheck qCheck;
-
   private String qCheckFormat;
 
   private String qCheckRegularExpression;
@@ -62,11 +65,7 @@ public class ChatterbotAdminBean implements Serializable
 
   private String qCheckResults;
 
-  private TTCheck ttCheck;
-
   private String ttCheckResults;
-
-  private Chatterbot chatterbot;
 
   private String chatterbotLanguage;
 
@@ -112,7 +111,7 @@ public class ChatterbotAdminBean implements Serializable
 
   private UploadedFile rngFile;
 
-  private String rngFileName;
+  private String rngFilename;
 
   private UploadedFile testQuestionsFile;
 
@@ -130,7 +129,7 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This Boolean object indicates if bcheck application is selected.
+   * This Boolean object indicates if bbcheck application is selected.
    * </p>
    */
   private Boolean bbCheckSelected;
@@ -140,14 +139,14 @@ public class ChatterbotAdminBean implements Serializable
    * This Boolean object indicates if qcheck application is selected.
    * </p>
    */
-  private Boolean qcheckSelected;
+  private Boolean qCheckSelected;
 
   /**
    * <p>
    * This Boolean object indicates if ttcheck application is selected.
    * </p>
    */
-  private Boolean ttcheckSelected;
+  private Boolean ttCheckSelected;
 
   /**
    * <p>
@@ -165,6 +164,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String SUCCESS = "success";
+  
+
   private String FAILED = "failed";
 
   /**
@@ -187,10 +188,9 @@ public class ChatterbotAdminBean implements Serializable
 
   public ChatterbotAdminBean()
   {
-    bbCheck = new bbCheckImpl();
+    bbCheck = new BBCheckImpl();
     qCheck = new QCheckImpl();
     ttCheck = new TTCheckImpl();
-    macroparser = new MacroparserImpl();
     chatterbot = new ChatterbotImpl();
 
     FacesContext fcontext = FacesContext.getCurrentInstance();
@@ -285,61 +285,61 @@ public class ChatterbotAdminBean implements Serializable
     }
   }
 
-  public void uploadTopicTreeFile(UploadedFile topicTreeFile)
+  public void uploadTopicTreeFile()
   {
     topicTreeFilename = sharedFilesPath + "/" + topicTreeFile.getName();
     uploadFile(topicTreeFile, topicTreeFilename);
   }
 
-  public void uploadMacrosFile(UploadedFile macrosFile)
+  public void uploadMacrosFile()
   {
     macrosFilename = sharedFilesPath + "/" + macrosFile.getName();
     uploadFile(macrosFile, macrosFilename);
   }
 
-  public void uploadMacrosENFile(UploadedFile macrosENFile)
+  public void uploadMacrosENFile()
   {
     macrosENFilename = sharedFilesPath + "/" + macrosENFile.getName();
     uploadFile(macrosENFile, macrosENFilename);
   }
 
-  public void uploadMacrosDEFile(UploadedFile macrosDEFile)
+  public void uploadMacrosDEFile()
   {
     macrosDEFilename = sharedFilesPath + "/" + macrosDEFile.getName();
     uploadFile(macrosDEFile, macrosDEFilename);
   }
 
-  public void uploadMacrosITFile(UploadedFile macrosITFile)
+  public void uploadMacrosITFile()
   {
     macrosITFilename = sharedFilesPath + "/" + macrosITFile.getName();
     uploadFile(macrosITFile, macrosITFilename);
   }
 
-  public void uploadTextCorpusFile(UploadedFile textCorpusFile)
+  public void uploadTextCorpusFile()
   {
     textCorpusFilename = sharedFilesPath + "/" + textCorpusFile.getName();
     uploadFile(textCorpusFile, textCorpusFilename);
   }
 
-  public void uploadTextCorpusENFile(UploadedFile textCorpusENFile)
+  public void uploadTextCorpusENFile()
   {
     textCorpusENFilename = sharedFilesPath + "/" + textCorpusENFile.getName();
     uploadFile(textCorpusENFile, textCorpusENFilename);
   }
 
-  public void uploadTextCorpusDEFile(UploadedFile textCorpusDEFile)
+  public void uploadTextCorpusDEFile()
   {
     textCorpusDEFilename = sharedFilesPath + "/" + textCorpusDEFile.getName();
     uploadFile(textCorpusDEFile, textCorpusDEFilename);
   }
 
-  public void uploadTextCorpusITFile(UploadedFile textCorpusITFile)
+  public void uploadTextCorpusITFile()
   {
     textCorpusITFilename = sharedFilesPath + "/" + textCorpusITFile.getName();
     uploadFile(textCorpusITFile, textCorpusITFilename);
   }
 
-  public void uploadRngFile(UploadedFile rngFile)
+  public void uploadRngFile()
   {
     rngFilename = sharedFilesPath + "/" + rngFile.getName();
     uploadFile(rngFile, rngFilename);
@@ -351,260 +351,29 @@ public class ChatterbotAdminBean implements Serializable
     uploadFile(testQuestionsFile, testQuestionsFilename);
   }
 
-  public String performbbCheck(String language)
+  public String performBBCheck(String language)
   {
-    return bbCheck.performbbCheck(testQuestionsFilename, topicTreeFilename,
+    return bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
             macrosENFilename, macrosDEFilename, macrosITFilename,
             textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
             language, Boolean.FALSE, sharedFilesPath);
-  }
-
-  public String getbbCheckTestReportFile()
-  {
-    return bbCheck.getbbCheckTestReportFile();
-  }
-
-  public String performQCheck(String regularExpression, String userQuestion,
-          String format)
-  {
-    return qCheck.performQCheck(macrosFilename, regularExpression, userQuestion,
-            format);
-  }
-
-  public String performTTCheck()
-  {
-    return ttCheck.performTTCheck(topicTreeFilename, rngFilename,
-            macrosDEFilename, macrosENFilename, macrosITFilename);
-  }
-
-  public String chat(String question, String language)
-  {
-  }
-
-  public String uploadTopicTreeFile()
-  {
-    log.debug("test");
-    chatterbotAdmin.uploadTopicTreeFile(getTopicTreeFile());
-    log.debug("Upload of file " + getTopicTreeFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadMacrosFile()
-  {
-    chatterbotAdmin.uploadMacrosFile(getMacrosFile());
-    log.debug("Upload of file " + getMacrosFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadMacrosENFile()
-  {
-    chatterbotAdmin.uploadMacrosENFile(getMacrosENFile());
-    log.debug("Upload of file " + getMacrosENFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadMacrosDEFile()
-  {
-    chatterbotAdmin.uploadMacrosDEFile(getMacrosDEFile());
-    log.debug("Upload of file " + getMacrosDEFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadMacrosITFile()
-  {
-    chatterbotAdmin.uploadMacrosITFile(getMacrosITFile());
-    log.debug("Upload of file " + getMacrosITFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadTextCorpusFile()
-  {
-    chatterbotAdmin.uploadTextCorpusFile(getTextCorpusFile());
-    log.debug("Upload of file " + getTextCorpusFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadTextCorpusENFile()
-  {
-    chatterbotAdmin.uploadTextCorpusENFile(getTextCorpusENFile());
-    log.debug("Upload of file " + getTextCorpusENFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadTextCorpusDEFile()
-  {
-    chatterbotAdmin.uploadTextCorpusDEFile(getTextCorpusDEFile());
-    log.debug("Upload of file " + getTextCorpusDEFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadTextCorpusITFile()
-  {
-    chatterbotAdmin.uploadTextCorpusITFile(getTextCorpusITFile());
-    log.debug("Upload of file " + getTextCorpusITFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadRngFile()
-  {
-    chatterbotAdmin.uploadRngFile(getRngFile());
-    log.debug("Upload of file " + getRngFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String uploadTestQuestionsFile()
-  {
-    chatterbotAdmin.uploadTestQuestionsFile(getTestQuestionsFile());
-    log.debug("Upload of file " + getTestQuestionsFile().getName() + " has succeeded.");
-
-    return SUCCESS;
-  }
-
-  public String selectBcheckLearning()
-  {
-    log.debug("Machine learning mode: " + getbbCheckLearningInput());
-
-    if (getbbCheckLearningInput() != null)
-    {
-      if (getbbCheckLearningInput().equals("yes"))
-      {
-        setbbCheckLearningSelected(Boolean.TRUE);
-
-        log.debug("Machine learning mode has been enabled: "
-                + getbbCheckLearningInput());
-      }
-      else
-      {
-        setbbCheckLearningSelected(Boolean.FALSE);
-
-        log.debug("Machine learning mode has been disabled: "
-                + getbbCheckLearningInput());
-      }
-    }
-    else
-    {
-      setbbCheckLearningInput("no");
-      setbbCheckLearningSelected(Boolean.FALSE);
-
-      log.debug("Machine learning mode has been disabled: "
-              + getbbCheckLearningInput());
-    }
-
-    return SUCCESS;
-  }
-
-  public String performbbCheck()
-  {
-    log.debug("Perform bcheck.");
-
-    setBbResults(new String());
-
-    setBbResults(chatterbotAdmin.performbbCheck(getbbCheckLanguage()));
-
-    if (getBbResults().isEmpty() || getBbResults() == null)
-    {
-      log.warn("No test results for bcheck received.");
-
-      return FAILED;
-    }
-
-    log.debug("Test results for bcheck received.");
-
-    return SUCCESS;
-  }
-
-  public String downloadbbCheckReport()
-  {
-
-    try
-    {
-      // set content type
-      bbReportFileContentType = "application/octet-stream";
-
-      // content type set
-      log.debug("Content type set: " + bbReportFileContentType);
-
-      // read filename of test report file from manager object
-      bbReportFilename = chatterbotAdmin.getbbCheckTestReportFile();
-
-      // filename of test report file read from manager object
-      log.debug("Filename of test report file read from manager "
-              + "object: " + bbReportFilename);
-
-      // create URL
-      bbReportFileURL = "file://" + sharedFilesPath + "/" + bbReportFilename;
-
-      // url of test report file created
-      log.debug("URL of test report file created: " + bbReportFileURL);
-
-      // get JSF context is used to access HttpServlerResponse
-      // objects from Java EE context.
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-
-      // get HttpServletResponse object to add file name to the header of HTTP
-      // response.
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-
-      // set content type and add filename of vpn profile
-      // to header of HTTP response
-      response.setContentType(bbReportFileContentType);
-      response.setHeader("Content-Disposition", "attachment;filename=\""
-              + bbReportFilename + "\"");
-
-      // get ServletOutputStream object to flush file content for download
-      ServletOutputStream outputStream = response.getOutputStream();
-
-      // flush content of certification chain by retrieving file
-      // specified URL from
-      downloadStream(bbReportFileURL, outputStream);
-      outputStream.flush();
-
-      // complete response
-      facesContext.responseComplete();
-
-      // certificate chain has been downloaded
-      log.info("Certificate chain has been downloaded.");
-
-      // report success for JSF navigation rules
-      return SUCCESS;
-    }
-    catch (IOException e)
-    {
-      // download of VPN profile has failed
-      log.error("Download of VPN profile has failed: " + e.getMessage());
-
-      // report exception for JSF navigation rules
-      return FAILED;
-    }
   }
 
   public String performQCheck()
   {
     log.debug("Perform qcheck.");
 
-    setqResults(new String());
+    qCheckResults = qCheck.performQCheck(macrosFilename, qCheckRegularExpression,
+            qCheckUserQuestion, qCheckFormat);
 
-    setqResults(chatterbotAdmin.performQCheck(qcheckRegularExpression,
-            qcheckUserQuestion, qFormat));
-
-    if (getqResults().isEmpty() || getqResults() == null)
+    if (qCheckResults.isEmpty() || qCheckResults == null)
     {
-      log.warn("No test results for qcheck received.");
+      log.warn("No test results for qCheck received.");
 
       return FAILED;
     }
 
-    log.debug("Test results for qcheck received.");
+    log.debug("Test results for qCheck received.");
 
     return SUCCESS;
   }
@@ -613,20 +382,137 @@ public class ChatterbotAdminBean implements Serializable
   {
     log.debug("Perform ttcheck.");
 
-    setTtResults(new String());
+    ttCheckResults = ttCheck.performTTCheck(topicTreeFilename, rngFilename,
+            macrosDEFilename, macrosENFilename, macrosITFilename);
 
-    setTtResults(chatterbotAdmin.performTTCheck());
-
-    if (getTtResults().isEmpty() || getTtResults() == null)
+    if (ttCheckResults.isEmpty() || ttCheckResults == null)
     {
-      log.warn("No test results for ttcheck received.");
+      log.warn("No test results for ttCheck received.");
 
       return FAILED;
     }
 
-    log.debug("Test results for ttcheck received.");
+    log.debug("Test results for ttCheck received.");
 
     return SUCCESS;
+  }
+
+  public String selectBcheckLearning()
+  {
+    log.debug("Machine learning mode: " + bbCheckLearningInput);
+
+    if (bbCheckLearningInput != null)
+    {
+      if (bbCheckLearningInput.equals("yes"))
+      {
+        bbCheckLearningSelected = Boolean.TRUE;
+
+        log.debug("Machine learning mode has been enabled: "
+                + bbCheckLearningInput);
+      }
+      else
+      {
+        bbCheckLearningSelected = Boolean.FALSE;
+
+        log.debug("Machine learning mode has been disabled: "
+                + bbCheckLearningInput);
+      }
+    }
+    else
+    {
+      bbCheckLearningInput = "no";
+      bbCheckLearningSelected = Boolean.FALSE;
+
+      log.debug("Machine learning mode has been disabled: "
+              + bbCheckLearningInput);
+    }
+
+    return SUCCESS;
+  }
+
+  public String performBBCheck()
+  {
+    log.debug("Perform bcheck.");
+
+    bbCheckResults = performBBCheck(bbCheckLanguage);
+
+    if (bbCheckResults.isEmpty() || bbCheckResults == null)
+    {
+      log.warn("No test results for bbcheck received.");
+
+      return FAILED;
+    }
+
+    log.debug("Test results for bbcheck received.");
+
+    return SUCCESS;
+  }
+
+  public String downloadBBCheckReport()
+  {
+
+    try
+    {
+      // set content type
+      bbCheckReportFileContentType = "application/octet-stream";
+
+      // content type set
+      log.debug("Content type set: " + bbCheckReportFileContentType);
+
+      // read filename of test report file from manager object
+      bbCheckReportFilename = ""; //bbCheckReportFile.getName();
+
+      // filename of test report file read from manager object
+      log.debug("Filename of test report file read from manager "
+              + "object: " + bbCheckReportFilename);
+
+      // create URL
+      bbCheckReportFileURL = "file://" + sharedFilesPath + "/"
+              + bbCheckReportFilename;
+
+      // url of test report file created
+      log.debug("URL of test report file created: " + bbCheckReportFileURL);
+
+      // get JSF context is used to access HttpServlerResponse
+      // objects from Java EE context.
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+
+      // get HttpServletResponse object to add file name to the header of HTTP
+      // response.
+      HttpServletResponse response
+              = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+
+      // set content type and add filename of vpn profile
+      // to header of HTTP response
+      response.setContentType(bbCheckReportFileContentType);
+      response.setHeader("Content-Disposition", "attachment;filename=\""
+              + bbCheckReportFilename + "\"");
+
+      // get ServletOutputStream object to flush file content for download
+      ServletOutputStream outputStream = response.getOutputStream();
+
+      // flush content of certification chain by retrieving file
+      // specified URL from
+      downloadStream(bbCheckReportFileURL, outputStream);
+      outputStream.flush();
+
+      // complete response
+      facesContext.responseComplete();
+
+      // bbCheck test report has been downloaded
+      log.info("BBCheck test report has been downloaded.");
+
+      // report success for JSF navigation rules
+      return SUCCESS;
+    }
+    catch (IOException e)
+    {
+      // download bbCheck test report has failed
+      log.error("Download bbCheck test report has failed: " + e.getMessage());
+
+      // report exception for JSF navigation rules
+      return FAILED;
+    }
   }
 
   public String chat()
@@ -642,12 +528,10 @@ public class ChatterbotAdminBean implements Serializable
     {
       log.warn("No answer received.");
 
-      setChatterbotAnswer("Error");
+      chatterbotAnswer = "Error";
 
       return FAILED;
     }
-
-    setChatterbotAnswer(answer);
 
     log.debug("Bob's answer has been received.");
 
@@ -656,39 +540,39 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This method is used to select bcheck application by setting the
+   * This method is used to select bbcheck application by setting the
    * corresponding Boolean value that determines which Java Server Page
-   * has to become included in <tt>chatterbotadmin.jsp<tt>. This method
+   * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
    */
-  public void selectBCheck()
+  public void selectBBCheck()
   {
-    // enable bcheck application, disable other applications
-    setbbCheckSelected(Boolean.TRUE);
-    setQcheckSelected(Boolean.FALSE);
-    setTtcheckSelected(Boolean.FALSE);
-    setChatterbotSelected(Boolean.FALSE);
+    // enable bbcheck application, disable other applications
+    bbCheckSelected = Boolean.TRUE;
+    qCheckSelected = Boolean.FALSE;
+    ttCheckSelected = Boolean.FALSE;
+    chatterbotSelected = Boolean.FALSE;
 
-    // bcheck application has been selected
-    log.info("BCheck application has been selected.");
+    // bbcheck application has been selected
+    log.info("BBCheck application has been selected.");
   }
 
   /**
    * <p>
    * This method is used to select qcheck application by setting the
    * corresponding Boolean value that determines which Java Server Page
-   * has to become included in <tt>chatterbotadmin.jsp<tt>. This method
+   * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
    */
   public void selectQCheck()
   {
     // enable qcheck application, disable other applications
-    setbbCheckSelected(Boolean.FALSE);
-    setQcheckSelected(Boolean.TRUE);
-    setTtcheckSelected(Boolean.FALSE);
-    setChatterbotSelected(Boolean.FALSE);
+    bbCheckSelected = Boolean.FALSE;
+    qCheckSelected = Boolean.TRUE;
+    ttCheckSelected = Boolean.FALSE;
+    chatterbotSelected = Boolean.FALSE;
 
     // qcheck application has been selected
     log.info("QCheck application has been selected.");
@@ -698,17 +582,17 @@ public class ChatterbotAdminBean implements Serializable
    * <p>
    * This method is used to select ttcheck application by setting the
    * corresponding Boolean value that determines which Java Server Page
-   * has to become included in <tt>chatterbotadmin.jsp<tt>. This method
+   * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
    */
   public void selectTTCheck()
   {
     // enable qcheck application, disable other applications
-    setbbCheckSelected(Boolean.FALSE);
-    setQcheckSelected(Boolean.FALSE);
-    setTtcheckSelected(Boolean.TRUE);
-    setChatterbotSelected(Boolean.FALSE);
+    bbCheckSelected = Boolean.FALSE;
+    qCheckSelected = Boolean.FALSE;
+    ttCheckSelected = Boolean.TRUE;
+    chatterbotSelected = Boolean.FALSE;
 
     // ttcheck application has been selected
     log.info("TTCheck application has been selected.");
@@ -718,21 +602,771 @@ public class ChatterbotAdminBean implements Serializable
    * <p>
    * This method is used to select chatterbot application by setting the
    * corresponding Boolean value that determines which Java Server Page
-   * has to become included in <tt>chatterbotadmin.jsp<tt>. This method
+   * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
    */
   public void selectChatterbot()
   {
     // enable chatterbot application, disable other applications
-    setbbCheckSelected(Boolean.FALSE);
-    setQcheckSelected(Boolean.FALSE);
-    setTtcheckSelected(Boolean.FALSE);
-    setChatterbotSelected(Boolean.TRUE);
+    bbCheckSelected = Boolean.FALSE;
+    qCheckSelected = Boolean.FALSE;
+    ttCheckSelected = Boolean.FALSE;
+    chatterbotSelected = Boolean.TRUE;
 
     // chatterbot application has been selected
     log.info("Chatterbot application has been selected.");
   }
 
-  
+  /**
+   * @return the bbCheck
+   */
+  public BBCheck getBbCheck()
+  {
+    return bbCheck;
+  }
+
+  /**
+   * @param bbCheck the bbCheck to set
+   */
+  public void setBbCheck(BBCheck bbCheck)
+  {
+    this.bbCheck = bbCheck;
+  }
+
+  /**
+   * @return the bbCheckLanguage
+   */
+  public String getBbCheckLanguage()
+  {
+    return bbCheckLanguage;
+  }
+
+  /**
+   * @param bbCheckLanguage the bbCheckLanguage to set
+   */
+  public void setBbCheckLanguage(String bbCheckLanguage)
+  {
+    this.bbCheckLanguage = bbCheckLanguage;
+  }
+
+  /**
+   * @return the bbCheckLearningInput
+   */
+  public String getBbCheckLearningInput()
+  {
+    return bbCheckLearningInput;
+  }
+
+  /**
+   * @param bbCheckLearningInput the bbCheckLearningInput to set
+   */
+  public void setBbCheckLearningInput(String bbCheckLearningInput)
+  {
+    this.bbCheckLearningInput = bbCheckLearningInput;
+  }
+
+  /**
+   * @return the bbCheckLearningSelected
+   */
+  public Boolean getBbCheckLearningSelected()
+  {
+    return bbCheckLearningSelected;
+  }
+
+  /**
+   * @param bbCheckLearningSelected the bbCheckLearningSelected to set
+   */
+  public void setBbCheckLearningSelected(Boolean bbCheckLearningSelected)
+  {
+    this.bbCheckLearningSelected = bbCheckLearningSelected;
+  }
+
+  /**
+   * @return the bbCheckResults
+   */
+  public String getBbCheckResults()
+  {
+    return bbCheckResults;
+  }
+
+  /**
+   * @param bbCheckResults the bbCheckResults to set
+   */
+  public void setBbCheckResults(String bbCheckResults)
+  {
+    this.bbCheckResults = bbCheckResults;
+  }
+
+  /**
+   * @return the bbCheckReportFileURL
+   */
+  public String getBbCheckReportFileURL()
+  {
+    return bbCheckReportFileURL;
+  }
+
+  /**
+   * @param bbCheckReportFileURL the bbCheckReportFileURL to set
+   */
+  public void setBbCheckReportFileURL(String bbCheckReportFileURL)
+  {
+    this.bbCheckReportFileURL = bbCheckReportFileURL;
+  }
+
+  /**
+   * @return the bbCheckReportFilename
+   */
+  public String getBbCheckReportFilename()
+  {
+    return bbCheckReportFilename;
+  }
+
+  /**
+   * @param bbCheckReportFilename the bbCheckReportFilename to set
+   */
+  public void setBbCheckReportFilename(String bbCheckReportFilename)
+  {
+    this.bbCheckReportFilename = bbCheckReportFilename;
+  }
+
+  /**
+   * @return the bbCheckReportFileContentType
+   */
+  public String getBbCheckReportFileContentType()
+  {
+    return bbCheckReportFileContentType;
+  }
+
+  /**
+   * @param bbCheckReportFileContentType the bbCheckReportFileContentType to set
+   */
+  public void setBbCheckReportFileContentType(String bbCheckReportFileContentType)
+  {
+    this.bbCheckReportFileContentType = bbCheckReportFileContentType;
+  }
+
+  /**
+   * @return the qCheckFormat
+   */
+  public String getqCheckFormat()
+  {
+    return qCheckFormat;
+  }
+
+  /**
+   * @param qCheckFormat the qCheckFormat to set
+   */
+  public void setqCheckFormat(String qCheckFormat)
+  {
+    this.qCheckFormat = qCheckFormat;
+  }
+
+  /**
+   * @return the qCheckRegularExpression
+   */
+  public String getqCheckRegularExpression()
+  {
+    return qCheckRegularExpression;
+  }
+
+  /**
+   * @param qCheckRegularExpression the qCheckRegularExpression to set
+   */
+  public void setqCheckRegularExpression(String qCheckRegularExpression)
+  {
+    this.qCheckRegularExpression = qCheckRegularExpression;
+  }
+
+  /**
+   * @return the qCheckUserQuestion
+   */
+  public String getqCheckUserQuestion()
+  {
+    return qCheckUserQuestion;
+  }
+
+  /**
+   * @param qCheckUserQuestion the qCheckUserQuestion to set
+   */
+  public void setqCheckUserQuestion(String qCheckUserQuestion)
+  {
+    this.qCheckUserQuestion = qCheckUserQuestion;
+  }
+
+  /**
+   * @return the qCheckResults
+   */
+  public String getqCheckResults()
+  {
+    return qCheckResults;
+  }
+
+  /**
+   * @param qCheckResults the qCheckResults to set
+   */
+  public void setqCheckResults(String qCheckResults)
+  {
+    this.qCheckResults = qCheckResults;
+  }
+
+  /**
+   * @return the ttCheckResults
+   */
+  public String getTtCheckResults()
+  {
+    return ttCheckResults;
+  }
+
+  /**
+   * @param ttCheckResults the ttCheckResults to set
+   */
+  public void setTtCheckResults(String ttCheckResults)
+  {
+    this.ttCheckResults = ttCheckResults;
+  }
+
+  /**
+   * @return the chatterbotLanguage
+   */
+  public String getChatterbotLanguage()
+  {
+    return chatterbotLanguage;
+  }
+
+  /**
+   * @param chatterbotLanguage the chatterbotLanguage to set
+   */
+  public void setChatterbotLanguage(String chatterbotLanguage)
+  {
+    this.chatterbotLanguage = chatterbotLanguage;
+  }
+
+  /**
+   * @return the chatterbotAnswer
+   */
+  public String getChatterbotAnswer()
+  {
+    return chatterbotAnswer;
+  }
+
+  /**
+   * @param chatterbotAnswer the chatterbotAnswer to set
+   */
+  public void setChatterbotAnswer(String chatterbotAnswer)
+  {
+    this.chatterbotAnswer = chatterbotAnswer;
+  }
+
+  /**
+   * @return the chatterbotQuestion
+   */
+  public String getChatterbotQuestion()
+  {
+    return chatterbotQuestion;
+  }
+
+  /**
+   * @param chatterbotQuestion the chatterbotQuestion to set
+   */
+  public void setChatterbotQuestion(String chatterbotQuestion)
+  {
+    this.chatterbotQuestion = chatterbotQuestion;
+  }
+
+  /**
+   * @return the topicTreeFile
+   */
+  public UploadedFile getTopicTreeFile()
+  {
+    return topicTreeFile;
+  }
+
+  /**
+   * @param topicTreeFile the topicTreeFile to set
+   */
+  public void setTopicTreeFile(UploadedFile topicTreeFile)
+  {
+    this.topicTreeFile = topicTreeFile;
+  }
+
+  /**
+   * @return the topicTreeFilename
+   */
+  public String getTopicTreeFilename()
+  {
+    return topicTreeFilename;
+  }
+
+  /**
+   * @param topicTreeFilename the topicTreeFilename to set
+   */
+  public void setTopicTreeFilename(String topicTreeFilename)
+  {
+    this.topicTreeFilename = topicTreeFilename;
+  }
+
+  /**
+   * @return the macrosFile
+   */
+  public UploadedFile getMacrosFile()
+  {
+    return macrosFile;
+  }
+
+  /**
+   * @param macrosFile the macrosFile to set
+   */
+  public void setMacrosFile(UploadedFile macrosFile)
+  {
+    this.macrosFile = macrosFile;
+  }
+
+  /**
+   * @return the macrosFilename
+   */
+  public String getMacrosFilename()
+  {
+    return macrosFilename;
+  }
+
+  /**
+   * @param macrosFilename the macrosFilename to set
+   */
+  public void setMacrosFilename(String macrosFilename)
+  {
+    this.macrosFilename = macrosFilename;
+  }
+
+  /**
+   * @return the macrosENFile
+   */
+  public UploadedFile getMacrosENFile()
+  {
+    return macrosENFile;
+  }
+
+  /**
+   * @param macrosENFile the macrosENFile to set
+   */
+  public void setMacrosENFile(UploadedFile macrosENFile)
+  {
+    this.macrosENFile = macrosENFile;
+  }
+
+  /**
+   * @return the macrosENFilename
+   */
+  public String getMacrosENFilename()
+  {
+    return macrosENFilename;
+  }
+
+  /**
+   * @param macrosENFilename the macrosENFilename to set
+   */
+  public void setMacrosENFilename(String macrosENFilename)
+  {
+    this.macrosENFilename = macrosENFilename;
+  }
+
+  /**
+   * @return the macrosDEFile
+   */
+  public UploadedFile getMacrosDEFile()
+  {
+    return macrosDEFile;
+  }
+
+  /**
+   * @param macrosDEFile the macrosDEFile to set
+   */
+  public void setMacrosDEFile(UploadedFile macrosDEFile)
+  {
+    this.macrosDEFile = macrosDEFile;
+  }
+
+  /**
+   * @return the macrosDEFilename
+   */
+  public String getMacrosDEFilename()
+  {
+    return macrosDEFilename;
+  }
+
+  /**
+   * @param macrosDEFilename the macrosDEFilename to set
+   */
+  public void setMacrosDEFilename(String macrosDEFilename)
+  {
+    this.macrosDEFilename = macrosDEFilename;
+  }
+
+  /**
+   * @return the macrosITFile
+   */
+  public UploadedFile getMacrosITFile()
+  {
+    return macrosITFile;
+  }
+
+  /**
+   * @param macrosITFile the macrosITFile to set
+   */
+  public void setMacrosITFile(UploadedFile macrosITFile)
+  {
+    this.macrosITFile = macrosITFile;
+  }
+
+  /**
+   * @return the macrosITFilename
+   */
+  public String getMacrosITFilename()
+  {
+    return macrosITFilename;
+  }
+
+  /**
+   * @param macrosITFilename the macrosITFilename to set
+   */
+  public void setMacrosITFilename(String macrosITFilename)
+  {
+    this.macrosITFilename = macrosITFilename;
+  }
+
+  /**
+   * @return the textCorpusFile
+   */
+  public UploadedFile getTextCorpusFile()
+  {
+    return textCorpusFile;
+  }
+
+  /**
+   * @param textCorpusFile the textCorpusFile to set
+   */
+  public void setTextCorpusFile(UploadedFile textCorpusFile)
+  {
+    this.textCorpusFile = textCorpusFile;
+  }
+
+  /**
+   * @return the textCorpusFilename
+   */
+  public String getTextCorpusFilename()
+  {
+    return textCorpusFilename;
+  }
+
+  /**
+   * @param textCorpusFilename the textCorpusFilename to set
+   */
+  public void setTextCorpusFilename(String textCorpusFilename)
+  {
+    this.textCorpusFilename = textCorpusFilename;
+  }
+
+  /**
+   * @return the textCorpusENFile
+   */
+  public UploadedFile getTextCorpusENFile()
+  {
+    return textCorpusENFile;
+  }
+
+  /**
+   * @param textCorpusENFile the textCorpusENFile to set
+   */
+  public void setTextCorpusENFile(UploadedFile textCorpusENFile)
+  {
+    this.textCorpusENFile = textCorpusENFile;
+  }
+
+  /**
+   * @return the textCorpusENFilename
+   */
+  public String getTextCorpusENFilename()
+  {
+    return textCorpusENFilename;
+  }
+
+  /**
+   * @param textCorpusENFilename the textCorpusENFilename to set
+   */
+  public void setTextCorpusENFilename(String textCorpusENFilename)
+  {
+    this.textCorpusENFilename = textCorpusENFilename;
+  }
+
+  /**
+   * @return the textCorpusDEFile
+   */
+  public UploadedFile getTextCorpusDEFile()
+  {
+    return textCorpusDEFile;
+  }
+
+  /**
+   * @param textCorpusDEFile the textCorpusDEFile to set
+   */
+  public void setTextCorpusDEFile(UploadedFile textCorpusDEFile)
+  {
+    this.textCorpusDEFile = textCorpusDEFile;
+  }
+
+  /**
+   * @return the textCorpusDEFilename
+   */
+  public String getTextCorpusDEFilename()
+  {
+    return textCorpusDEFilename;
+  }
+
+  /**
+   * @param textCorpusDEFilename the textCorpusDEFilename to set
+   */
+  public void setTextCorpusDEFilename(String textCorpusDEFilename)
+  {
+    this.textCorpusDEFilename = textCorpusDEFilename;
+  }
+
+  /**
+   * @return the textCorpusITFile
+   */
+  public UploadedFile getTextCorpusITFile()
+  {
+    return textCorpusITFile;
+  }
+
+  /**
+   * @param textCorpusITFile the textCorpusITFile to set
+   */
+  public void setTextCorpusITFile(UploadedFile textCorpusITFile)
+  {
+    this.textCorpusITFile = textCorpusITFile;
+  }
+
+  /**
+   * @return the textCorpusITFilename
+   */
+  public String getTextCorpusITFilename()
+  {
+    return textCorpusITFilename;
+  }
+
+  /**
+   * @param textCorpusITFilename the textCorpusITFilename to set
+   */
+  public void setTextCorpusITFilename(String textCorpusITFilename)
+  {
+    this.textCorpusITFilename = textCorpusITFilename;
+  }
+
+  /**
+   * @return the rngFile
+   */
+  public UploadedFile getRngFile()
+  {
+    return rngFile;
+  }
+
+  /**
+   * @param rngFile the rngFile to set
+   */
+  public void setRngFile(UploadedFile rngFile)
+  {
+    this.rngFile = rngFile;
+  }
+
+  /**
+   * @return the rngFilename
+   */
+  public String getRngFilename()
+  {
+    return rngFilename;
+  }
+
+  /**
+   * @param rngFilename the rngFilename to set
+   */
+  public void setRngFilename(String rngFilename)
+  {
+    this.rngFilename = rngFilename;
+  }
+
+  /**
+   * @return the testQuestionsFile
+   */
+  public UploadedFile getTestQuestionsFile()
+  {
+    return testQuestionsFile;
+  }
+
+  /**
+   * @param testQuestionsFile the testQuestionsFile to set
+   */
+  public void setTestQuestionsFile(UploadedFile testQuestionsFile)
+  {
+    this.testQuestionsFile = testQuestionsFile;
+  }
+
+  /**
+   * @return the testQuestionsFilename
+   */
+  public String getTestQuestionsFilename()
+  {
+    return testQuestionsFilename;
+  }
+
+  /**
+   * @param testQuestionsFilename the testQuestionsFilename to set
+   */
+  public void setTestQuestionsFilename(String testQuestionsFilename)
+  {
+    this.testQuestionsFilename = testQuestionsFilename;
+  }
+
+  /**
+   * @return the sharedFilesPath
+   */
+  public String getSharedFilesPath()
+  {
+    return sharedFilesPath;
+  }
+
+  /**
+   * @param sharedFilesPath the sharedFilesPath to set
+   */
+  public void setSharedFilesPath(String sharedFilesPath)
+  {
+    this.sharedFilesPath = sharedFilesPath;
+  }
+
+  /**
+   * @return the locale
+   */
+  public String getLocale()
+  {
+    return locale;
+  }
+
+  /**
+   * @param locale the locale to set
+   */
+  public void setLocale(String locale)
+  {
+    this.locale = locale;
+  }
+
+  /**
+   * @return the bbCheckSelected
+   */
+  public Boolean getBbCheckSelected()
+  {
+    return bbCheckSelected;
+  }
+
+  /**
+   * @param bbCheckSelected the bbCheckSelected to set
+   */
+  public void setBbCheckSelected(Boolean bbCheckSelected)
+  {
+    this.bbCheckSelected = bbCheckSelected;
+  }
+
+  /**
+   * @return the qCheckSelected
+   */
+  public Boolean getqCheckSelected()
+  {
+    return qCheckSelected;
+  }
+
+  /**
+   * @param qCheckSelected the qCheckSelected to set
+   */
+  public void setqCheckSelected(Boolean qCheckSelected)
+  {
+    this.qCheckSelected = qCheckSelected;
+  }
+
+  /**
+   * @return the ttCheckSelected
+   */
+  public Boolean getTtCheckSelected()
+  {
+    return ttCheckSelected;
+  }
+
+  /**
+   * @param ttCheckSelected the ttCheckSelected to set
+   */
+  public void setTtCheckSelected(Boolean ttCheckSelected)
+  {
+    this.ttCheckSelected = ttCheckSelected;
+  }
+
+  /**
+   * @return the chatterbotSelected
+   */
+  public Boolean getChatterbotSelected()
+  {
+    return chatterbotSelected;
+  }
+
+  /**
+   * @param chatterbotSelected the chatterbotSelected to set
+   */
+  public void setChatterbotSelected(Boolean chatterbotSelected)
+  {
+    this.chatterbotSelected = chatterbotSelected;
+  }
+
+  /**
+   * @return the SUCCESS
+   */
+  public String getSUCCESS()
+  {
+    return SUCCESS;
+  }
+
+  /**
+   * @param SUCCESS the SUCCESS to set
+   */
+  public void setSUCCESS(String SUCCESS)
+  {
+    this.SUCCESS = SUCCESS;
+  }
+
+  /**
+   * @return the FAILED
+   */
+  public String getFAILED()
+  {
+    return FAILED;
+  }
+
+  /**
+   * @param FAILED the FAILED to set
+   */
+  public void setFAILED(String FAILED)
+  {
+    this.FAILED = FAILED;
+  }
+
+  /**
+   * @return the log
+   */
+  public Logger getLog()
+  {
+    return log;
+  }
+
+  /**
+   * @param log the log to set
+   */
+  public void setLog(Logger log)
+  {
+    this.log = log;
+  }
 }

@@ -225,7 +225,7 @@
       <t:selectOneRadio
         styleClass="chatterbotAdminSelect"
         layout="pageDirection"
-        value="#{chatterbotAdminBean.bbcheckLearningInput}"
+        value="#{chatterbotAdminBean.bbCheckLearningInput}"
         immediate="true">
         <f:selectItem
           itemLabel="#{message.bbcheck_learning_yes}"
@@ -237,7 +237,7 @@
       <t:commandButton
         style="float: right;"
         value="#{message.bbcheck_learning_select_button_text}"
-        action="#{chatterbotAdminBean.selectBbcheckLearning}" />
+        action="#{chatterbotAdminBean.selectBBCheckLearning}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -246,7 +246,7 @@
   -->
   <h:form enctype="multipart/form-data">
     <t:panelGrid
-      rendered="#{chatterbotAdminBean.bbcheckLearningSelected}"
+      rendered="#{chatterbotAdminBean.bbCheckLearningSelected}"
       styleClass="chatterbotAdminInput"
       columns="1">
       <f:verbatim>
@@ -309,7 +309,7 @@
       <t:selectOneRadio
         styleClass="chatterbotAdminSelectArea"
         layout="pageDirection"
-        value="#{chatterbotAdminBean.bbcheckLanguage}"
+        value="#{chatterbotAdminBean.bbCheckLanguage}"
         immediate="true">
         <f:selectItem
           itemLabel="#{message.bbcheck_language_de}"
@@ -367,7 +367,7 @@
         readonly="true"
         rows="20"
         cols="100"
-        value="#{chatterbotAdminBean.bbResults}" />
+        value="#{chatterbotAdminBean.bbCheckResults}" />
     </t:panelGrid>
   </h:form>
   <!--

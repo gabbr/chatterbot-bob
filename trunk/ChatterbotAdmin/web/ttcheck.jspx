@@ -235,7 +235,7 @@
         styleClass="chatterbotAdminTextArea"
         readonly="true"
         rows="20"
-        value="#{chatterbotAdminBean.ttResults}" />
+        value="#{chatterbotAdminBean.ttCheckResults}" />
     </t:panelGrid>
   </h:form>
 </jsp:root>
