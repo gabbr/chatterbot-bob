@@ -3,8 +3,6 @@ package it.unibz.lib.bob.check;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
-import org.apache.log4j.Logger;
-
 /**
  *
  * @version $Id$

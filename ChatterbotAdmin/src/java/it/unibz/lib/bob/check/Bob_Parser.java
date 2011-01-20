@@ -11,8 +11,6 @@ import antlr.ParserSharedInputState;
 import antlr.ASTFactory;
 import antlr.ASTPair;
 
-import org.apache.log4j.Logger;
-
 /**
  *
  * @version $Id$

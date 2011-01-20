@@ -45,56 +45,28 @@ import org.apache.log4j.Logger;
  */
 public class BobHelper implements macroParser_LexerTokenTypes
 {
-  public static void main(String args[])
-  {
-
-    BobHelper helper = null;
-
-    try
-    {
-      helper = new BobHelper(
-              new URL(
-              "file:///home/kirschner/workspace/libexperts/bob_macros_DE.txt"),
-              "DE");
-    }
-    catch (MalformedURLException e)
-    {
-      e.printStackTrace();
-    }
-
-    String test_regex = "((\"(.*)\")&&!(\"#ST_AUSLEIHEN#|#ST_BESTELLEN#|mir eine geschichte|#DEUTSCHE_STAEDTE#|#SCHIMPFWORTE#|#ST_SIGNATUR#|#ST_ABHOLEN#|#ST_AUSGEBEN#|#V_ZURUECKGEBEN#|�ber #DICH#|#ST_KATALOG#|#ST_CAMPUSKATALOG#|ausserhalb|#ST_ABHOLEN#|#ST_FACHBIBLIOTHEK#|#ST_VIFAS#|ge�ffnet|#ST_STUDENT#|#ST_STABI#|entleihbar|#ST_BILDERBUCH#|kind(er)?|#DU# #BIST#|#ST_FERNLEIHE#|#V_SCHICKEN#|#LIEFERN#|#ST_PASSWORT#|#AKTUELL#|#ST_BUCH_ALT#|#ST_BUECHERTURM#|#ST_NACHSCHLAGEWERK#|#ST_AUSWEIS#|#ST_GEBAEUDE#|#ST_OEFFNUNGSZEIT#|_webis_|#EXIT#|(aus|ab)(schalte[nr]|blenden)|#V_FINDEN# .*#NICHT#|#NICHT# .*(#V_FINDEN#|da|vorhanden)|(worum|um was) .*geht|#ST_FREISCHALTEN#|#ST_ZEITSCHRIFTENTITEL#|#ST_KONTAKT#|#ST_NUMMER#|#ST_EMEDIEN_ZUGANG#|#ST_BEREITSTELLUNG#|#ST_MATERIALART#|#ST_WIWI#|#ST_INFORMATIK#\"))";
-
-    // System.out.println(sh.replaceMacros(test_regex));
-
-    try
-    {
-      BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
-              new FileOutputStream("/home/kirschner/out.tmp"),
-              "ISO-8859-1"));
-      out.write("print if "
-              + helper.replaceMacros(test_regex, "").replaceAll("\"", "/"));
-      out.close();
-    }
-    catch (IOException e)
-    {
-      System.err.println(e.getMessage());
-    }
-
-  }
-
-  public static String simplifyAlphabet(String regex)
-  {
-    return regex.toLowerCase(Locale.GERMAN);
-  }
-
   HashMap<String, String> macroMap;
 
   HashMap<String, String> macroMapSubsetUsedByCurrentPattern = new HashMap<String, String>();
 
-  @SuppressWarnings("unused")
-  private BobHelper()
-  {
-  }
+  /**
+   * <p>
+   * Logging of this class uses four different log levels:
+   * </p>
+   * <ul>
+   * <li><b>DEBUG</b> to reproduce complete program flow</li>
+   * <li><b>INFO</b> to reproduce system activities</li>
+   * <li><b>WARN</b> to reproduce system warnings</li>
+   * <li><b>ERROR</b> to reproduce system failures</li>
+   * <li><b>FATAL</b> to reproduce fatal system failures</li>
+   * </ul>
+   * <p>
+   * The corresponding <tt>log4j.properties</tt> file is located in the
+   * <tt>WEB-INF/classes</tt> directory of this web application.
+   * </p>
+   */
+  private Logger log = Logger.getLogger(BobHelper.class);
+
 
   /**
    *
@@ -119,6 +91,11 @@ public class BobHelper implements macroParser_LexerTokenTypes
     expandMacroMap(lang);
   }
 
+  public static String simplifyAlphabet(String regex)
+  {
+    return regex.toLowerCase(Locale.GERMAN);
+  }
+
   /**
    * Expands the macroMap by iteratively applying the expansions on the map's
    * values. Also, $ signs are escaped with a \
@@ -136,6 +113,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
     Matcher matcher;
     boolean somethingChanged;
     int temp = 0;
+
     do
     {
       somethingChanged = false;
@@ -144,11 +122,11 @@ public class BobHelper implements macroParser_LexerTokenTypes
       {
 
         String key = entry.getKey();
-        // System.err.println("initial expansion of macro " + key);
         String value = entry.getValue();
+
         // Ignore macro FUNCTION syntax:
         value = value.replaceAll("\\$1\\$", "foobar");
-        matcher =macro.matcher(value);
+        matcher = macro.matcher(value);
 
         if (matcher.find())
         {
@@ -157,30 +135,14 @@ public class BobHelper implements macroParser_LexerTokenTypes
           somethingChanged = true;
         }
       }
-      // System.err.println("expandMacroMap(): expanded one level of
-      // Macros.");
     }
-
     while (somethingChanged);
 
-    System.err.println("Number of macro expansion iterations needed: "
-            + temp);
+    log.debug("Number of macro expansion iterations needed: " + temp);
 
     return somethingChanged;
   }
 
-  /*
-   * public static String _replaceShortcuts(String regex, Map<String, String>
-   * ruleRegexMap) {
-   *
-   * String result = regex; for (int i = 0; i < regex.length(); i++) { if
-   * (regex.charAt(i) == '#') { String variable = ""; i++; do { variable +=
-   * regex.charAt(i); i++; } while (regex.charAt(i) != '#'); String
-   * replacement = ruleRegexMap.get(variable); if (replacement == null) {
-   * System.err.println("No variable definition entry for " + variable); }
-   * else { result.replaceAll('#' + variable + '#', replacement); } } }
-   * System.out.println(result); return result; }
-   */
   /**
    * Extract all Shortcuts and RegEx patterns from the Shortcut definition
    * file MUST NOT have blank lines!
@@ -199,11 +161,10 @@ public class BobHelper implements macroParser_LexerTokenTypes
     try
     {
       abkuerzungen = new URL(urlString);
-      // "file:///home/kirschner/workspace/BoB_STELLA/topictree.small.xml"));
     }
     catch (MalformedURLException e)
     {
-      e.printStackTrace();
+      log.error("Error: " + e.getMessage());
     }
 
     InputStream inputStream = null;
@@ -214,7 +175,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
     }
     catch (IOException e)
     {
-      e.printStackTrace();
+      log.error("Error: " + e.getMessage());
     }
 
     BufferedReader in =
@@ -237,7 +198,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
     }
     catch (IOException e)
     {
-      e.printStackTrace();
+      log.error("Error: " + e.getMessage());
     }
 
     String filecontent = buffer.toString();
@@ -257,18 +218,12 @@ public class BobHelper implements macroParser_LexerTokenTypes
         while (matcher.find())
         {
           n_macros++;
-          String value = matcher.group(2).replaceAll("\\$",
-                  "&dollar;");
+          String value = matcher.group(2).replaceAll("\\$","&dollar;");
           value = value.replaceAll("\\\\", "&backslash;");
-          // System.err.println("adding to MACRO map: " +
-          // matcher.group(1) + " -> " + value);
           stringMap.put(matcher.group(1), value);
-          // System.err.println("Adding Macro definition for: " +
-          // matcher.group(1));
         }
 
-        System.err.println("Number of macro definitions loaded: "
-                + n_macros);
+        log.error("Number of macro definitions loaded: " + n_macros);
       }
     }
 
@@ -294,8 +249,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
     }
     catch (IOException e)
     {
-      System.err.println("Konnte Abkuerzungsdatei " + fileName
-              + " nicht lesen!");
+      log.error("Failed to read file: " + fileName);
       System.exit(1);
     }
 
@@ -308,6 +262,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
       String patternRegex = "^([^=]*)(?: )=(?: )(.*)$";
       Pattern pattern = Pattern.compile(patternRegex, Pattern.MULTILINE);
       Matcher matcher = pattern.matcher(filecontent);
+
       if (matcher != null)
       {
         int n_macros = 0;
@@ -315,17 +270,12 @@ public class BobHelper implements macroParser_LexerTokenTypes
         while (matcher.find())
         {
           n_macros++;
-          String value = matcher.group(2).replaceAll("\\$",
-                  "&dollar;");
+          String value = matcher.group(2).replaceAll("\\$", "&dollar;");
           value = value.replaceAll("\\\\", "&backslash;");
-          // System.err.println("adding to MACRO map: " +
-          // matcher.group(1) + " -> " + value);
           stringMap.put(matcher.group(1), value);
-          // System.err.println("Adding Macro definition for: " +
-          // matcher.group(1));
         }
-        System.err.println("Number of macro definitions loaded: "
-                + n_macros);
+
+        log.debug("Number of macro definitions loaded: " + n_macros);
       }
     }
     return stringMap;
@@ -347,18 +297,17 @@ public class BobHelper implements macroParser_LexerTokenTypes
         out.write(key + " = " + value + "\n");
       }
 
-      out.flush(); 
+      out.flush();
       out.close();
     }
     catch (UnsupportedEncodingException e)
     {
-      System.out.println("This VM does not support the UTF-8 character set.");
+      log.error("This VM does not support the UTF-8 character set.");
     }
     catch (IOException e)
     {
-      System.out.println(e.getMessage());
+      log.error(e.getMessage());
     }
-
   }
 
   public class Pair
@@ -454,7 +403,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return result;
   }
 
-  public boolean checkAllRegexesInMacroMap()
+  public boolean checkAllRegexesInMacroMap() 
   {
     boolean result = true;
     for (Map.Entry<String, String> entry : macroMap.entrySet())
@@ -468,20 +417,20 @@ public class BobHelper implements macroParser_LexerTokenTypes
       {
         if (!hasBalancedParentheses(value))
         {
-          throw new Exception("Unmatched parentheses in abbreviation " + key);
+          log.error("Unmatched parentheses in abbreviation: " + key);
+          throw new Exception();
         }
-
       }
-      catch (MalformedCachePatternException me)
+      catch (MalformedCachePatternException e)
       {
-        System.err.println("Caught other (non-round-parentheses) regex error "
-                + "for abbreviation "+ key);
-        // + "\n\t" + value);
+        log.error("Caught other (non-round-parentheses) regex error "
+                + "for abbreviation " + key + ": " + e.getMessage());
+
         result = false;
       }
       catch (Exception e)
       {
-        System.err.println(e.toString());
+        log.error(e.toString() + ": " + e.getMessage());
         result = false;
       }
 
@@ -505,22 +454,22 @@ public class BobHelper implements macroParser_LexerTokenTypes
       }
       catch (RecognitionException e)
       {
-        System.err.println("In abbreviation definition " + key
+        log.error("In abbreviation definition " + key
                 + ": TreeParser threw RecognitionException. "
-                + e.toString());
+                + e.toString() + ": " + e.getMessage());
         result = false;
       }
       catch (TokenStreamException e)
       {
-        System.err.println("In abbreviation definition " + key
+        log.error("In abbreviation definition " + key
                 + ": TreeParser threw TokenStreamException. "
-                + e.toString());
+                + e.toString() + ": " + e.getMessage());
         result = false;
       }
       catch (Exception e)
       {
-        System.err.println("In abbreviation definition " + key
-                + ": TreeParser threw Exception. " + e.toString());
+        log.error("In abbreviation definition " + key
+                + ": TreeParser threw Exception. " + e.toString() + ": " + e.getMessage());
         result = false;
       }
 
@@ -541,9 +490,9 @@ public class BobHelper implements macroParser_LexerTokenTypes
   public String replaceMacros(String s, String lang)
   {
     String result = s;
-    // System.out.println("+++ " + result);
+    // log.debug("+++ " + result);
     result = replaceMacrosMasked(s, lang);
-    // System.out.println("*** " + result);
+    // log.debug("*** " + result);
     result = result.replaceAll("_", "\\\\b");
     result = result.replaceAll("&backslash;", "\\\\");
     result = result.replaceAll("&dollar;", "\\$");
@@ -614,13 +563,9 @@ public class BobHelper implements macroParser_LexerTokenTypes
           {
             result += ("----MacroNotFound-"
                     + key.substring(1, key.length() - 1) + "----");
-            // deactivated WARNINGS for now, until all errors are
-            // removed
-            System.out.println("WARNING "
-                    + lang
-                    + "::"
-                    + key
-                    + " . This macro is undefined for the specified language.");
+            // deactivated WARNINGS for now, until all errors are removed
+            log.warn("This macro is undefined for the specified "
+                    + "language: " + lang + "::"+ key);
           }
         }
         else if (firstchild.getType() == NON_MACRO)
@@ -632,29 +577,14 @@ public class BobHelper implements macroParser_LexerTokenTypes
     }
     catch (RecognitionException e)
     {
-      System.err.println(e.toString());
+      log.error(e.toString() + ": " + e.getMessage());
     }
     catch (TokenStreamException e)
     {
-      System.err.println(e.toString());
+      log.error(e.toString() + ": " + e.getMessage());
     }
 
     return result;
-    /*
-     * Pattern MACRO = Pattern.compile("#([^#]+)#"); StringBuffer result =
-     * new StringBuffer(); Matcher matcher = MACRO.matcher(s); try { while
-     * (matcher.find()) { if (macroMap.get(matcher.group(1)) != null) {
-     * matcher.appendReplacement(result, macroMap.get(matcher .group(1))); }
-     * else { // System.err .println("ERROR: Reference to a macro name //
-     * that is undefined in the macro definition file"); // + s + "\n" +
-     * result.toString()); matcher.appendReplacement(result,
-     * "MacroNotFound"); } } } catch (Exception e) {
-     * System.err.println("ERROR: Unknown macro error on line:\n" + s + "\n" +
-     * e.getMessage()); Runtime.getRuntime().exit(1); }
-     *
-     * matcher.appendTail(result); String res_str; res_str =
-     * result.toString(); return res_str;
-     */
   }
 
   public static boolean hasBalancedParentheses(String str)

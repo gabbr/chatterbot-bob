@@ -106,18 +106,6 @@ public class QCheckImpl implements QCheck
         parser.bExpression();
         MyAST tree = (MyAST) parser.getAST();
 
-        /*
-        if (astFrame != null)
-        {
-          astFrame.removeAll();
-          astFrame.setVisible(false);
-        }
-
-        astFrame = new ASTFrame("Regular Expression", tree);
-        astFrame.setVisible(true);
-
-        */
-
         if (treeparser.bExpression(tree, stringToMatch) == true)
         {
           testResults = testResults + "Test succeeded, user question is ok.\n";

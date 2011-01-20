@@ -15,7 +15,25 @@ import org.apache.log4j.Logger;
  */
 public class MapValueSort
 {
-  /** inner class to do scoring of the map **/
+  /**
+   * <p>
+   * Logging of this class uses four different log levels:
+   * </p>
+   * <ul>
+   * <li><b>DEBUG</b> to reproduce complete program flow</li>
+   * <li><b>INFO</b> to reproduce system activities</li>
+   * <li><b>WARN</b> to reproduce system warnings</li>
+   * <li><b>ERROR</b> to reproduce system failures</li>
+   * <li><b>FATAL</b> to reproduce fatal system failures</li>
+   * </ul>
+   * <p>
+   * The corresponding <tt>log4j.properties</tt> file is located in the
+   * <tt>WEB-INF/classes</tt> directory of this web application.
+   * </p>
+   */
+  private static Logger log = Logger.getLogger(MapValueSort.class);
+
+  /* inner class to do scoring of the map */
   public static class ValueComparer implements Comparator<Object>
   {
     private Map<String, String> _data = null;
@@ -40,31 +58,12 @@ public class MapValueSort
     }
   }
 
-  public static void main(String[] args)
-  {
-
-    Map<String, String> unsortedData = new HashMap<String, String>();
-    unsortedData.put("2", "DEF");
-    unsortedData.put("1", "ABC");
-    unsortedData.put("4", "ZXY");
-    unsortedData.put("3", "BCD");
-
-    SortedMap<String, String> sortedData = new TreeMap<String, String>(new MapValueSort.ValueComparer(
-            unsortedData));
-
-    printMap(unsortedData);
-
-    sortedData.putAll(unsortedData);
-    System.out.println();
-    printMap(sortedData);
-  }
-
   private static void printMap(Map<String, String> data)
   {
     for (Iterator<String> iter = data.keySet().iterator(); iter.hasNext();)
     {
       String key = (String) iter.next();
-      System.out.println("Value/key:" + data.get(key) + "/" + key);
+      log.debug("Value/key:" + data.get(key) + "/" + key);
     }
   }
 }
