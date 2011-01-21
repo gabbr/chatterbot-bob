@@ -150,6 +150,8 @@ public class QAMatchingBob
           break;
         }
       }
+    } else {
+         log.warn("*** No English IDF training data specified/loaded.");
     }
   }
 
@@ -183,6 +185,8 @@ public class QAMatchingBob
           break;
         }
       }
+    } else {
+         log.warn("*** No German IDF training data specified/loaded.");
     }
   }
 
@@ -216,6 +220,8 @@ public class QAMatchingBob
           break;
         }
       }
+    } else {
+         log.warn("*** No Italian IDF training data specified/loaded.");
     }
   }
 
