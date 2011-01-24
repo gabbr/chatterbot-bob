@@ -29,56 +29,6 @@
       value="#{message.chatterbot_info}" />
   </t:panelGrid>
   <!--
-       display title of language selection
-  -->
-  <t:panelGrid
-    columns="1"
-    styleClass="chatterbotAdminTitle">
-    <t:outputText
-      style="float:left"
-      value="#{message.chatterbot_language_title}" />
-  </t:panelGrid>
-  <!--
-       display info of language selection
-  -->
-  <t:panelGrid
-    columns="1"
-    styleClass="chatterbotAdminInfo">
-    <t:outputText
-      value="#{message.chatterbot_language_info}" />
-  </t:panelGrid>
-  <!--
-     display text and radio buttons of language selection
-  -->
-  <h:form>
-    <t:panelGrid
-      columns="1"
-      styleClass="chatterbotAdminInput">
-      <t:outputText
-        value="#{message.chatterbot_language_selection_text}" />
-      <t:selectOneRadio
-        styleClass="chatterbotAdminSelectArea"
-        layout="pageDirection"
-        value="#{chatterbotAdminBean.chatterbotLanguage}"
-        immediate="true">
-        <f:selectItem
-          itemLabel="#{message.chatterbot_language_de}"
-          itemValue="DE" />
-        <f:selectItem
-          itemLabel="#{message.chatterbot_language_en}"
-          itemValue="EN" />
-        <f:selectItem
-          itemLabel="#{message.chatterbot_language_it}"
-          itemValue="IT" />
-      </t:selectOneRadio>
-      <h:commandButton
-        id="chatterbot_select_language"
-        style="float: right;"
-        value="#{message.chatterbot_language_select_button_text}"
-        action="#{chatterbotAdminBean.selectChatterbotLanguage}" />
-    </t:panelGrid>
-  </h:form>
-  <!--
        display title of file upload chatterbot application
   -->
   <t:panelGrid
@@ -129,9 +79,7 @@
   <!--
         file upload for file bob_macros_EN.txt
   -->
-  <h:form 
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageENSelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -160,9 +108,7 @@
   <!--
         file upload for file bob_macros_DE.txt
   -->
-  <h:form
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageDESelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -191,9 +137,7 @@
   <!--
         file upload for file bob_macros_IT.txt
   -->
-  <h:form
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageITSelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -222,9 +166,7 @@
   <!--
         file upload for text corpus file EN
   -->
-  <h:form
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageENSelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -253,9 +195,7 @@
   <!--
         file upload for text corpus file DE
   -->
-  <h:form
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageDESelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -284,9 +224,7 @@
   <!--
         file upload for text corpus file IT
   -->
-  <h:form
-    enctype="multipart/form-data"
-    rendered="#{chatterbotAdminBean.chatterbotLanguageITSelected}">
+  <h:form enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -343,6 +281,25 @@
         readonly="true"
         rows="20"
         value="#{chatterbotAdminBean.chatterbotAnswer}" />
+      <t:panelGrid
+        columns="1"
+        styleClass="chatterbotAdminInput">
+        <t:selectOneRadio
+          style="width: 30%; margin: 0 auto;"
+          layout="lineDirection"
+          value="#{chatterbotAdminBean.chatterbotLanguage}"
+          immediate="true">
+          <f:selectItem
+            itemLabel="#{message.chatterbot_language_de}"
+            itemValue="DE" />
+          <f:selectItem
+            itemLabel="#{message.chatterbot_language_en}"
+            itemValue="EN" />
+          <f:selectItem
+            itemLabel="#{message.chatterbot_language_it}"
+            itemValue="IT" />
+        </t:selectOneRadio>
+      </t:panelGrid>
       <t:panelGrid
         styleClass="chatterbotAdminChatArea"
         columns="2">

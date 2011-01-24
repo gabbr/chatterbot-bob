@@ -37,6 +37,8 @@ public class ChatterbotImpl implements Chatterbot
           String textCorpusDEFilename, String textCorpusITFilename)
   {
 
+    log.debug("Language set to: " + language);
+
     String answer = new String();
 
     String idfUrlEN = null;
