@@ -220,6 +220,7 @@ public class BBCheckImpl implements BBCheck
             // enter BoB MarLey, the answer reranker
             if (!trainingMode)
             {
+                /**
               testResults = testResults + "###\n";
 
               for (int m = 0; m < vresp.size(); m++)
@@ -227,6 +228,7 @@ public class BBCheckImpl implements BBCheck
                 testResults = testResults + "original " + m + " "
                         + Tuple.get1(vresp.get(m)) + "\n";
               }
+                 **/
 
               if (textCorpusENFilename != null || textCorpusDEFilename != null
                       || textCorpusITFilename != null)
