@@ -74,12 +74,6 @@ public class ChatterbotAdminBean implements Serializable
 
   private String chatterbotLanguage;
 
-  private Boolean chatterbotLanguageENSelected;
-
-  private Boolean chatterbotLanguageDESelected;
-
-  private Boolean chatterbotLanguageITSelected;
-
   private String chatterbotAnswer;
 
   private String chatterbotQuestion;
@@ -545,35 +539,9 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
-  public String selectChatterbotLanguage()
-  {
-    log.debug("Chatterbot language set to: " + chatterbotLanguage);
-
-    if (chatterbotLanguage.equals("DE"))
-    {
-      chatterbotLanguageENSelected = Boolean.FALSE;
-      chatterbotLanguageDESelected = Boolean.TRUE;
-      chatterbotLanguageITSelected = Boolean.FALSE;
-    }
-    else if (chatterbotLanguage.equals("IT"))
-    {
-      chatterbotLanguageENSelected = Boolean.FALSE;
-      chatterbotLanguageDESelected = Boolean.FALSE;
-      chatterbotLanguageITSelected = Boolean.TRUE;
-    }
-    else
-    {
-      chatterbotLanguageENSelected = Boolean.TRUE;
-      chatterbotLanguageDESelected = Boolean.FALSE;
-      chatterbotLanguageITSelected = Boolean.FALSE;
-    }
-
-    return SUCCESS;
-  }
-
   public String chat()
   {
-    log.debug("Perform chatterbot.");
+    log.debug("Perform chatterbot question with language: " + chatterbotLanguage);
 
     chatterbotAnswer = chatterbot.chat(chatterbotQuestion, chatterbotLanguage,
             topicTreeFilename, macrosENFilename, macrosDEFilename,
@@ -992,54 +960,6 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotLanguage(String chatterbotLanguage)
   {
     this.chatterbotLanguage = chatterbotLanguage;
-  }
-
-  /**
-   * @return the chatterbotLanguageENSelected
-   */
-  public Boolean getChatterbotLanguageENSelected()
-  {
-    return chatterbotLanguageENSelected;
-  }
-
-  /**
-   * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
-   */
-  public void setChatterbotLanguageENSelected(Boolean chatterbotLanguageENSelected)
-  {
-    this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
-  }
-
-  /**
-   * @return the chatterbotLanguageDESelected
-   */
-  public Boolean getChatterbotLanguageDESelected()
-  {
-    return chatterbotLanguageDESelected;
-  }
-
-  /**
-   * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
-   */
-  public void setChatterbotLanguageDESelected(Boolean chatterbotLanguageDESelected)
-  {
-    this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
-  }
-
-  /**
-   * @return the chatterbotLanguageITSelected
-   */
-  public Boolean getChatterbotLanguageITSelected()
-  {
-    return chatterbotLanguageITSelected;
-  }
-
-  /**
-   * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
-   */
-  public void setChatterbotLanguageITSelected(Boolean chatterbotLanguageITSelected)
-  {
-    this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
   }
 
   /**
