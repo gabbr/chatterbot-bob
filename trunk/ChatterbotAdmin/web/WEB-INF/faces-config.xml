@@ -39,6 +39,30 @@
       <description>
 
       </description>
+      <property-name>bbCheckLanguageENSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>TRUE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bbCheckLanguageDESelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>bbCheckLanguageITSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
       <property-name>bbCheckLearningInput</property-name>
       <property-class>java.lang.String</property-class>
       <value>no</value>
@@ -107,6 +131,30 @@
       <property-name>chatterbotLanguage</property-name>
       <property-class>java.lang.String</property-class>
       <value>EN</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotLanguageENSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>TRUE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotLanguageDESelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+
+      </description>
+      <property-name>chatterbotLanguageITSelected</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
     </managed-property>
     <managed-property>
       <description>
@@ -332,7 +380,8 @@
       <property-name>chatterbotSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
-    </managed-property></managed-bean>
+    </managed-property>
+  </managed-bean>
 
   <!-- navigation rules -->
   <navigation-rule>
