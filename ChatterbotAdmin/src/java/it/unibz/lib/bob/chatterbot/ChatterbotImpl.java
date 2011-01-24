@@ -41,6 +41,55 @@ public class ChatterbotImpl implements Chatterbot
 
     String answer = new String();
 
+
+
+       String macrosENURLName = null;
+
+    if (macrosENFilename != null)
+    {
+      try
+      {
+        macrosENURLName = new File(macrosENFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+     String macrosDEURLName = null;
+
+    if (macrosDEFilename != null)
+    {
+      try
+      {
+        macrosDEURLName = new File(macrosDEFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+
+      String macrosITURLName = null;
+
+    if (macrosITFilename != null)
+    {
+      try
+      {
+        macrosITURLName = new File(macrosITFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+
+
+
+
+
+
+
     String idfUrlEN = null;
 
     if (textCorpusENFilename != null)
@@ -57,11 +106,11 @@ public class ChatterbotImpl implements Chatterbot
 
     String idfUrlDE = null;
 
-    if (textCorpusENFilename != null)
+    if (textCorpusDEFilename != null)
     {
       try
       {
-        idfUrlDE = new File(textCorpusENFilename).toURL().toString();
+        idfUrlDE = new File(textCorpusDEFilename).toURL().toString();
       }
       catch (MalformedURLException e)
       {
@@ -71,11 +120,11 @@ public class ChatterbotImpl implements Chatterbot
 
     String idfUrlIT = null;
 
-    if (textCorpusENFilename != null)
+    if (textCorpusITFilename != null)
     {
       try
       {
-        idfUrlIT = new File(textCorpusENFilename).toURL().toString();
+        idfUrlIT = new File(textCorpusITFilename).toURL().toString();
       }
       catch (MalformedURLException e)
       {
@@ -87,8 +136,8 @@ public class ChatterbotImpl implements Chatterbot
 
     try
     {
-      dm = new DialogueManager(topicTreeFilename, macrosENFilename,
-              macrosDEFilename, macrosITFilename, idfUrlEN, idfUrlDE,
+      dm = new DialogueManager(topicTreeFilename, macrosENURLName,
+              macrosDEURLName, macrosITURLName, idfUrlEN, idfUrlDE,
               idfUrlIT);
 
       answer = dm.getNextResponse(question, language);

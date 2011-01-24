@@ -829,11 +829,11 @@ public class ChatterbotAdminBean implements Serializable
             macrosITFilename, textCorpusENFilename, textCorpusDEFilename,
             textCorpusITFilename);
 
-    if (chatterbotAnswer.isEmpty() || chatterbotAnswer == null)
+    if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
     {
       log.warn("No answer received.");
 
-      chatterbotAnswer = "Error";
+      chatterbotAnswer = "Error: selected language was not initialized!";
 
       return FAILED;
     }
