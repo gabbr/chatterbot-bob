@@ -59,8 +59,8 @@ public class BBCheckImpl implements BBCheck
     infile.loadSheet();
 
     outfile = new ErrorReportSpreadSheet(language,
-            !trainingMode && (macrosENFilename != null || macrosENFilename != null
-            || macrosENFilename != null));
+            !trainingMode && (macrosENFilename != null || macrosDEFilename != null
+            || macrosITFilename != null));
 
     ResultFileWriter trainingCsv_out = null;
 
@@ -70,14 +70,27 @@ public class BBCheckImpl implements BBCheck
       trainingCsv_out = new ResultFileWriter(rfilename);
       trainingCsv_out.println(QAFeatures.csvHeader);
     }
+    
+    String macrosENURLName = null;
 
-    String idfUrlEN = null;
-
-    if (textCorpusENFilename != null)
+    if (macrosENFilename != null)
     {
       try
       {
-        idfUrlEN = new File(textCorpusENFilename).toURL().toString();
+        macrosENURLName = new File(macrosENFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+     String macrosDEURLName = null;
+
+    if (macrosDEFilename != null)
+    {
+      try
+      {
+        macrosDEURLName = new File(macrosDEFilename).toURL().toString();
       }
       catch (MalformedURLException e)
       {
@@ -85,13 +98,13 @@ public class BBCheckImpl implements BBCheck
       }
     }
 
-    String idfUrlDE = null;
+      String macrosITURLName = null;
 
-    if (textCorpusENFilename != null)
+    if (macrosITFilename != null)
     {
       try
       {
-        idfUrlDE = new File(textCorpusENFilename).toURL().toString();
+        macrosITURLName = new File(macrosITFilename).toURL().toString();
       }
       catch (MalformedURLException e)
       {
@@ -99,27 +112,56 @@ public class BBCheckImpl implements BBCheck
       }
     }
 
-    String idfUrlIT = null;
+    String textCorpusENURLname = null;
 
     if (textCorpusENFilename != null)
     {
       try
       {
-        idfUrlIT = new File(textCorpusENFilename).toURL().toString();
+        textCorpusENURLname = new File(textCorpusENFilename).toURL().toString();
       }
       catch (MalformedURLException e)
       {
         log.error("Error: " + e.getMessage());
       }
     }
+
+    String textCorpusDEURLname = null;
+
+    if (textCorpusDEFilename != null)
+    {
+      try
+      {
+        textCorpusDEURLname = new File(textCorpusDEFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+
+    String textCorpusITURLname = null;
+
+    if (textCorpusITFilename != null)
+    {
+      try
+      {
+        textCorpusITURLname = new File(textCorpusITFilename).toURL().toString();
+      }
+      catch (MalformedURLException e)
+      {
+        log.error("Error: " + e.getMessage());
+      }
+    }
+
 
     DialogueManager dm = null;
 
     try
     {
-      dm = new DialogueManager(topicTreeFilename, macrosENFilename,
-              macrosDEFilename, macrosITFilename, idfUrlEN, idfUrlDE,
-              idfUrlIT);
+      dm = new DialogueManager(topicTreeFilename, macrosENURLName,
+              macrosDEURLName, macrosITURLName, textCorpusENURLname, textCorpusDEURLname,
+              textCorpusITURLname);
 
       // dm.setLanguage(lang.toUpperCase());
     }
@@ -211,8 +253,8 @@ public class BBCheckImpl implements BBCheck
             // use reranker?
             Vector<Quadruple<String, String, String, String>> reranked = null;
 
-            if ((textCorpusENFilename != null || textCorpusDEFilename != null
-                    || textCorpusITFilename != null) || trainingMode)
+            if ((textCorpusENURLname != null || textCorpusDEURLname != null
+                    || textCorpusITURLname != null) || trainingMode)
             {
               reranked = new Vector<Quadruple<String, String, String, String>>();
             }
@@ -230,8 +272,8 @@ public class BBCheckImpl implements BBCheck
               }
                  **/
 
-              if (textCorpusENFilename != null || textCorpusDEFilename != null
-                      || textCorpusITFilename != null)
+              if (textCorpusENURLname != null || textCorpusDEURLname != null
+                      || textCorpusITURLname != null)
               {
                 reranked = dm.getTT().getQAMB().rerankAnswers(
                         infile.questions.get(i), vresp, language);
@@ -241,13 +283,13 @@ public class BBCheckImpl implements BBCheck
 
             Quadruple<String, String, String, String> firstMatch = null;
 
-            if (trainingMode || (textCorpusENFilename == null
-                    && textCorpusDEFilename == null && textCorpusITFilename == null))
+            if (trainingMode || (textCorpusENURLname == null
+                    && textCorpusDEURLname == null && textCorpusITURLname == null))
             {
               firstMatch = vresp.get(0);
             }
-            else if (textCorpusENFilename != null || textCorpusDEFilename != null
-                    || textCorpusITFilename != null)
+            else if (textCorpusENURLname != null || textCorpusDEURLname != null
+                    || textCorpusITURLname != null)
             {
               // reranker reverses order of answers :-(
               firstMatch = reranked.get(reranked.size() - 1);
@@ -266,8 +308,8 @@ public class BBCheckImpl implements BBCheck
               Vector<String> wronglyMatchedIDs = new Vector<String>();
               // we skip the last match (i.e., the
               // "no pattern matched" topic)
-              if ((textCorpusENFilename == null && textCorpusDEFilename == null
-                      && textCorpusITFilename != null) || trainingMode)
+              if ((textCorpusENURLname == null && textCorpusDEURLname == null
+                      && textCorpusITURLname != null) || trainingMode)
               {
                 for (int k = 0; k < vresp.size() - 1; k++)
                 {
@@ -284,8 +326,8 @@ public class BBCheckImpl implements BBCheck
                   }
                 }
               }
-              else if (textCorpusENFilename != null || textCorpusDEFilename != null
-                      || textCorpusITFilename != null)
+              else if (textCorpusENURLname != null || textCorpusDEURLname != null
+                      || textCorpusITURLname != null)
               {
                 // reranker reverses order of answers :-(
                 // "no pattern matched" topic already dropped by
@@ -328,7 +370,7 @@ public class BBCheckImpl implements BBCheck
 
                 trainingCsv_out.append(quan.getTrainingData(
                         infile.questions.get(i), infile.ids.get(i), vresp, language));
-                if (textCorpusENFilename != null || textCorpusDEFilename != null)
+                if (textCorpusENURLname != null || textCorpusDEURLname != null)
                 {
                   if (!dm.getTT().getQAMB().afterRerankingFirstCorrect(
                           infile.questions.get(i),
@@ -347,7 +389,7 @@ public class BBCheckImpl implements BBCheck
               int rankOfCorrectAnswer = -1;
               Vector<String> wrongIDs = new Vector<String>();
 
-              if ((textCorpusENFilename == null && textCorpusDEFilename == null && textCorpusITFilename == null)
+              if ((textCorpusENURLname == null && textCorpusDEURLname == null && textCorpusITURLname == null)
                       || trainingMode)
               {
                 for (int k = 0; k < vresp.size() - 1; k++)
@@ -372,8 +414,8 @@ public class BBCheckImpl implements BBCheck
                   }
                 }
               }
-              else if (textCorpusENFilename != null || textCorpusDEFilename != null
-                      || textCorpusITFilename != null)
+              else if (textCorpusENURLname != null || textCorpusDEURLname != null
+                      || textCorpusITURLname != null)
               { // reranker
                 // mode
                 // "no pattern matched" topic already dropped by
@@ -412,8 +454,8 @@ public class BBCheckImpl implements BBCheck
 
                 if (trainingMode)
                 {
-                  if (textCorpusENFilename != null || textCorpusDEFilename != null
-                          || textCorpusITFilename != null)
+                  if (textCorpusENURLname != null || textCorpusDEURLname != null
+                          || textCorpusITURLname != null)
                   {
                     if (dm.getTT().getQAMB().afterRerankingFirstCorrect(
                             infile.questions.get(i),
@@ -453,8 +495,8 @@ public class BBCheckImpl implements BBCheck
           }
         }
         
-        if (!trainingMode && (textCorpusENFilename != null
-                || textCorpusDEFilename != null || textCorpusITFilename != null))
+        if (!trainingMode && (textCorpusENURLname != null
+                || textCorpusDEURLname != null || textCorpusITURLname != null))
         {
           testResults = testResults + "Answer Reranker enabled.\n";
         }
@@ -485,8 +527,8 @@ public class BBCheckImpl implements BBCheck
         testResults = testResults + "F - !!! wrong match, many solutions, all wrong: "
                 + countWrongMultisol_allBad + "\n";
 
-        if (trainingMode && (textCorpusENFilename != null
-                || textCorpusDEFilename != null || textCorpusITFilename != null))
+        if (trainingMode && (textCorpusENURLname != null
+                || textCorpusDEURLname != null || textCorpusITURLname != null))
         {
           testResults = testResults + "****** How the answer reranker WOULD have done here: \n";
           testResults = testResults + "D->E - !!! after machine learning reranker: "
