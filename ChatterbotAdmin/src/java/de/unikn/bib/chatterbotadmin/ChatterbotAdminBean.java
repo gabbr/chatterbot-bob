@@ -1,6 +1,5 @@
 package de.unikn.bib.chatterbotadmin;
 
-
 import it.unibz.lib.bob.bbcheck.BBCheck;
 import it.unibz.lib.bob.bbcheck.BBCheckImpl;
 import it.unibz.lib.bob.chatterbot.Chatterbot;
@@ -36,7 +35,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 public class ChatterbotAdminBean implements Serializable
 {
   private BBCheck bbCheck;
-  
+
   private QCheck qCheck;
 
   private TTCheck ttCheck;
@@ -44,6 +43,12 @@ public class ChatterbotAdminBean implements Serializable
   private Chatterbot chatterbot;
 
   private String bbCheckLanguage;
+
+  private Boolean bbCheckLanguageENSelected;
+
+  private Boolean bbCheckLanguageDESelected;
+
+  private Boolean bbCheckLanguageITSelected;
 
   private String bbCheckLearningInput;
 
@@ -68,6 +73,12 @@ public class ChatterbotAdminBean implements Serializable
   private String ttCheckResults;
 
   private String chatterbotLanguage;
+
+  private Boolean chatterbotLanguageENSelected;
+
+  private Boolean chatterbotLanguageDESelected;
+
+  private Boolean chatterbotLanguageITSelected;
 
   private String chatterbotAnswer;
 
@@ -164,7 +175,6 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String SUCCESS = "success";
-  
 
   private String FAILED = "failed";
 
@@ -351,6 +361,32 @@ public class ChatterbotAdminBean implements Serializable
     uploadFile(testQuestionsFile, testQuestionsFilename);
   }
 
+  public String selectBBCheckLanguage()
+  {
+    log.debug("BBCheck language set to: " + bbCheckLanguage);
+
+    if (bbCheckLanguage.equals("DE"))
+    {
+      bbCheckLanguageENSelected = Boolean.FALSE;
+      bbCheckLanguageDESelected = Boolean.TRUE;
+      bbCheckLanguageITSelected = Boolean.FALSE;
+    }
+    else if (bbCheckLanguage.equals("IT"))
+    {
+      bbCheckLanguageENSelected = Boolean.FALSE;
+      bbCheckLanguageDESelected = Boolean.FALSE;
+      bbCheckLanguageITSelected = Boolean.TRUE;
+    }
+    else
+    {
+      bbCheckLanguageENSelected = Boolean.TRUE;
+      bbCheckLanguageDESelected = Boolean.FALSE;
+      bbCheckLanguageITSelected = Boolean.FALSE;
+    }
+
+    return SUCCESS;
+  }
+
   public String selectBcheckLearning()
   {
     log.debug("Machine learning mode: " + bbCheckLearningInput);
@@ -388,7 +424,7 @@ public class ChatterbotAdminBean implements Serializable
   {
     log.debug("Perform bbCheck.");
 
-    bbCheckResults =  bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
+    bbCheckResults = bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
             macrosENFilename, macrosDEFilename, macrosITFilename,
             textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
             bbCheckLanguage, Boolean.FALSE, sharedFilesPath);
@@ -436,8 +472,7 @@ public class ChatterbotAdminBean implements Serializable
 
       // get HttpServletResponse object to add file name to the header of HTTP
       // response.
-      HttpServletResponse response
-              = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 
       // set content type and add filename of vpn profile
       // to header of HTTP response
@@ -506,6 +541,32 @@ public class ChatterbotAdminBean implements Serializable
     }
 
     log.debug("Test results for ttCheck received.");
+
+    return SUCCESS;
+  }
+
+  public String selectChatterbotLanguage()
+  {
+    log.debug("Chatterbot language set to: " + chatterbotLanguage);
+
+    if (chatterbotLanguage.equals("DE"))
+    {
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.TRUE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.TRUE;
+    }
+    else
+    {
+      chatterbotLanguageENSelected = Boolean.TRUE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+    }
 
     return SUCCESS;
   }
@@ -630,6 +691,54 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the qCheck
+   */
+  public QCheck getqCheck()
+  {
+    return qCheck;
+  }
+
+  /**
+   * @param qCheck the qCheck to set
+   */
+  public void setqCheck(QCheck qCheck)
+  {
+    this.qCheck = qCheck;
+  }
+
+  /**
+   * @return the ttCheck
+   */
+  public TTCheck getTtCheck()
+  {
+    return ttCheck;
+  }
+
+  /**
+   * @param ttCheck the ttCheck to set
+   */
+  public void setTtCheck(TTCheck ttCheck)
+  {
+    this.ttCheck = ttCheck;
+  }
+
+  /**
+   * @return the chatterbot
+   */
+  public Chatterbot getChatterbot()
+  {
+    return chatterbot;
+  }
+
+  /**
+   * @param chatterbot the chatterbot to set
+   */
+  public void setChatterbot(Chatterbot chatterbot)
+  {
+    this.chatterbot = chatterbot;
+  }
+
+  /**
    * @return the bbCheckLanguage
    */
   public String getBbCheckLanguage()
@@ -643,6 +752,54 @@ public class ChatterbotAdminBean implements Serializable
   public void setBbCheckLanguage(String bbCheckLanguage)
   {
     this.bbCheckLanguage = bbCheckLanguage;
+  }
+
+  /**
+   * @return the bbCheckLanguageENSelected
+   */
+  public Boolean getBbCheckLanguageENSelected()
+  {
+    return bbCheckLanguageENSelected;
+  }
+
+  /**
+   * @param bbCheckLanguageENSelected the bbCheckLanguageENSelected to set
+   */
+  public void setBbCheckLanguageENSelected(Boolean bbCheckLanguageENSelected)
+  {
+    this.bbCheckLanguageENSelected = bbCheckLanguageENSelected;
+  }
+
+  /**
+   * @return the bbCheckLanguageDESelected
+   */
+  public Boolean getBbCheckLanguageDESelected()
+  {
+    return bbCheckLanguageDESelected;
+  }
+
+  /**
+   * @param bbCheckLanguageDESelected the bbCheckLanguageDESelected to set
+   */
+  public void setBbCheckLanguageDESelected(Boolean bbCheckLanguageDESelected)
+  {
+    this.bbCheckLanguageDESelected = bbCheckLanguageDESelected;
+  }
+
+  /**
+   * @return the bbCheckLanguageITSelected
+   */
+  public Boolean getBbCheckLanguageITSelected()
+  {
+    return bbCheckLanguageITSelected;
+  }
+
+  /**
+   * @param bbCheckLanguageITSelected the bbCheckLanguageITSelected to set
+   */
+  public void setBbCheckLanguageITSelected(Boolean bbCheckLanguageITSelected)
+  {
+    this.bbCheckLanguageITSelected = bbCheckLanguageITSelected;
   }
 
   /**
@@ -835,6 +992,54 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotLanguage(String chatterbotLanguage)
   {
     this.chatterbotLanguage = chatterbotLanguage;
+  }
+
+  /**
+   * @return the chatterbotLanguageENSelected
+   */
+  public Boolean getChatterbotLanguageENSelected()
+  {
+    return chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
+   */
+  public void setChatterbotLanguageENSelected(Boolean chatterbotLanguageENSelected)
+  {
+    this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageDESelected
+   */
+  public Boolean getChatterbotLanguageDESelected()
+  {
+    return chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
+   */
+  public void setChatterbotLanguageDESelected(Boolean chatterbotLanguageDESelected)
+  {
+    this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageITSelected
+   */
+  public Boolean getChatterbotLanguageITSelected()
+  {
+    return chatterbotLanguageITSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
+   */
+  public void setChatterbotLanguageITSelected(Boolean chatterbotLanguageITSelected)
+  {
+    this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
   }
 
   /**
@@ -1364,4 +1569,6 @@ public class ChatterbotAdminBean implements Serializable
   {
     this.log = log;
   }
+
+  
 }

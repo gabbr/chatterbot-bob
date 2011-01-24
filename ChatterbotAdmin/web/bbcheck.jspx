@@ -29,6 +29,56 @@
       value="#{message.bbcheck_info}" />
   </t:panelGrid>
   <!--
+       display title of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.bbcheck_language_title}" />
+  </t:panelGrid>
+  <!--
+       display info of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.bbcheck_language_info}" />
+  </t:panelGrid>
+  <!--
+       display text and radio buttons of language selection
+  -->
+  <h:form>
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:outputText
+        value="#{message.bbcheck_language_selection}" />
+      <t:selectOneRadio
+        styleClass="chatterbotAdminSelectArea"
+        layout="pageDirection"
+        value="#{chatterbotAdminBean.bbCheckLanguage}"
+        immediate="true">
+        <f:selectItem
+          itemLabel="#{message.bbcheck_language_de}"
+          itemValue="DE" />
+        <f:selectItem
+          itemLabel="#{message.bbcheck_language_en}"
+          itemValue="EN" />
+        <f:selectItem
+          itemLabel="#{message.bbcheck_language_it}"
+          itemValue="IT" />
+      </t:selectOneRadio>
+      <h:commandButton
+        id="bbcheck_select_language"
+        style="float: right;"
+        value="#{message.bbcheck_language_select_button_text}"
+        action="#{chatterbotAdminBean.selectBBCheckLanguage}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
        display title of file upload bbcheck application
   -->
   <t:panelGrid
@@ -70,17 +120,18 @@
           maxlength="20000"/>
       </t:panelGrid>
       <h:commandButton
-        id="bcheck_upload_topictree_file"
+        id="bbcheck_upload_topictree_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
-
     </t:panelGrid>
   </h:form>
   <!--
         file upload for file bob_macros_EN.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    enctype="multipart/form-data"
+    rendered="#{chatterbotAdminBean.bbCheckLanguageENSelected}">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -100,7 +151,7 @@
           maxlength="20000"/>
       </t:panelGrid>
       <t:commandButton
-        id="bcheck_upload_macros_en_file"
+        id="bbcheck_upload_macros_en_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosENFile}" />
@@ -110,7 +161,9 @@
   <!--
         file upload for file bob_macros_DE.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    enctype="multipart/form-data"
+    rendered="#{chatterbotAdminBean.bbCheckLanguageDESelected}">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -130,7 +183,7 @@
           maxlength="20000"/>
       </t:panelGrid>
       <t:commandButton
-        id="bcheck_upload_macros_de_file"
+        id="bbcheck_upload_macros_de_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
@@ -139,7 +192,9 @@
   <!--
         file upload for file bob_macros_IT.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    enctype="multipart/form-data"
+    rendered="#{chatterbotAdminBean.bbCheckLanguageITSelected}">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -159,7 +214,7 @@
           maxlength="20000"/>
       </t:panelGrid>
       <t:commandButton
-        id="bcheck_upload_macros_it_file"
+        id="bbcheck_upload_macros_it_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosITFile}" />
@@ -188,7 +243,7 @@
           maxlength="20000"/>
       </t:panelGrid>
       <t:commandButton
-        id="bcheck_upload_test_questions_file"
+        id="bbcheck_upload_test_questions_file"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTestQuestionsFile}" />
@@ -271,56 +326,11 @@
             maxlength="20000"/>
         </t:panelGrid>
         <t:commandButton
-          id="bcheck_upload_text_corpus_file"
+          id="bbcheck_upload_text_corpus_file"
           styleClass="chatterbotAdminUploadButton"
           value="#{message.bbcheck_learning_load_button_text}"
           action="#{chatterbotAdminBean.uploadTextCorpusFile}" />
       </t:panelGrid>
-    </t:panelGrid>
-  </h:form>
-  <!--
-       display title of language selection
-  -->
-  <t:panelGrid
-    columns="1"
-    styleClass="chatterbotAdminTitle">
-    <t:outputText
-      style="float:left"
-      value="#{message.bbcheck_language_title}" />
-  </t:panelGrid>
-  <!--
-       display info of language selection
-  -->
-  <t:panelGrid
-    columns="1"
-    styleClass="chatterbotAdminInfo">
-    <t:outputText
-      value="#{message.bbcheck_language_info}" />
-  </t:panelGrid>
-  <!--
-       display text and radio buttons of language selection
-  -->
-  <h:form>
-    <t:panelGrid
-      columns="1"
-      styleClass="chatterbotAdminInput">
-      <t:outputText
-        value="#{message.bbcheck_language_selection}" />
-      <t:selectOneRadio
-        styleClass="chatterbotAdminSelectArea"
-        layout="pageDirection"
-        value="#{chatterbotAdminBean.bbCheckLanguage}"
-        immediate="true">
-        <f:selectItem
-          itemLabel="#{message.bbcheck_language_de}"
-          itemValue="DE" />
-        <f:selectItem
-          itemLabel="#{message.bbcheck_language_en}"
-          itemValue="EN" />
-        <f:selectItem
-          itemLabel="#{message.bbcheck_language_it}"
-          itemValue="IT" />
-      </t:selectOneRadio>
     </t:panelGrid>
   </h:form>
   <!--
