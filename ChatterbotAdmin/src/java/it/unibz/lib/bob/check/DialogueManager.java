@@ -304,6 +304,9 @@ public class DialogueManager
     }
 
     String response = null;
+
+    log.info("User message received. Language: " + lang + ". Message: " + userUtt);
+
     C = getNextNode(removeAccents(userUtt), lang);
 
     // if topic ID is special OPAC query case, before getting answer from
