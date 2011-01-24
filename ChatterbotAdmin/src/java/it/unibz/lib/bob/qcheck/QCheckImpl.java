@@ -17,6 +17,9 @@ import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.log4j.Logger;
 
@@ -60,7 +63,22 @@ public class QCheckImpl implements QCheck
               + longestMacros[2].getLength() + "\n";
 
       String regexResolved = sh.replaceMacros(regularExpression, "");
-      testResults = testResults + regexResolved + "\n";
+      testResults = testResults + "Expanded question pattern:\n" + regexResolved + "\n";
+
+
+
+        //Iterate over all matches in a string
+        try {
+            Pattern regex = Pattern.compile("----MacroNotFound-([^-]+)----");
+            Matcher regexMatcher = regex.matcher(regexResolved);
+            while (regexMatcher.find()) {
+                testResults += "Error: unknown macro in question pattern: " +  regexMatcher.group(1) + "\n";
+            }
+        } catch (PatternSyntaxException ex) {
+            // Syntax error in the regular expression
+        }
+
+
 
       if (format.equals("macro"))
       {
@@ -86,7 +104,7 @@ public class QCheckImpl implements QCheck
       stringToMatch = DialogueManager.removeAccents(stringToMatch);
 
       // show replaced text in UI
-      testResults = testResults + stringToMatch + "\n";
+      testResults = testResults + "Question being processed: " + stringToMatch + "\n";
 
       Reader reader;
 
@@ -108,11 +126,11 @@ public class QCheckImpl implements QCheck
 
         if (treeparser.bExpression(tree, stringToMatch) == true)
         {
-          testResults = testResults + "Test succeeded, user question is ok.\n";
+          testResults = testResults + "Test succeeded, user question matches the question pattern.\n";
         }
         else
         {
-          testResults = testResults + "Test failed, user question is not ok.\n";
+          testResults = testResults + "Test failed, user question does not match the question pattern.\n";
         }
 
       }
