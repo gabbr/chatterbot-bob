@@ -447,7 +447,7 @@ public class ChatterbotAdminBean implements Serializable
       log.debug("Content type set: " + bbCheckReportFileContentType);
 
       // read filename of test report file from manager object
-      bbCheckReportFilename = ""; //bbCheckReportFile.getName();
+      bbCheckReportFilename = bbCheck.getBBCheckTestReportFile();
 
       // filename of test report file read from manager object
       log.debug("Filename of test report file read from manager "

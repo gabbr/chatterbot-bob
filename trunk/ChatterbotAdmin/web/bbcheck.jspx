@@ -399,7 +399,7 @@
     <t:outputText
       value="#{message.bbcheck_download_info}" />
   </t:panelGrid>
-  <h:form>
+  <h:form enctype="application/octet-stream">
     <t:panelGrid
       columns="1"
       styleClass="chatterbotAdminInput">
