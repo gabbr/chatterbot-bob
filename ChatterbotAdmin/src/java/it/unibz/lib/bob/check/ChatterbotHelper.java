@@ -47,11 +47,11 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
 
   private static URL urlAbbreviationsFileIT;
 
-  private static HashMap<String, String> macroMapEN;
+  private static HashMap<String, String> macroMapEN = null;
 
-  private static HashMap<String, String> macroMapDE;
+  private static HashMap<String, String> macroMapDE = null;
 
-  private static HashMap<String, String> macroMapIT;
+  private static HashMap<String, String> macroMapIT = null;
 
   // implementing the Singleton pattern
   private static ChatterbotHelper instance = null;
@@ -116,6 +116,8 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
 
   /**
    *
+   * Any of the arguments could be == null, disabling that language
+   *
    * @param urlAbbreviationsFileEN
    * @param urlAbbreviationsFileDE
    * @param urlAbbreviationsFileIT
@@ -124,9 +126,12 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
           URL urlAbbreviationsFileDE, URL urlAbbreviationsFileIT)
   {
     // macroMapEN = getMacroMap(urlAbbreviationsFileEN.toExternalForm());
-    macroMapEN = getMacroMap(urlAbbreviationsFileEN);
-    macroMapDE = getMacroMap(urlAbbreviationsFileDE);
-    macroMapIT = getMacroMap(urlAbbreviationsFileIT);
+    if (urlAbbreviationsFileEN != null)
+        macroMapEN = getMacroMap(urlAbbreviationsFileEN);
+    if (urlAbbreviationsFileDE != null)
+        macroMapDE = getMacroMap(urlAbbreviationsFileDE);
+    if (urlAbbreviationsFileIT != null)
+        macroMapIT = getMacroMap(urlAbbreviationsFileIT);
     expandMacroMaps();
   }
 
@@ -144,93 +149,98 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
     /*
      * EN
      */
-    temp = 0;
-    do
-    {
-      somethingChanged = false;
-      temp++;
-      for (Map.Entry<String, String> entry : macroMapEN.entrySet())
-      {
-        String key = entry.getKey();
-        String value = entry.getValue();
-
-        // Ignore macro FUNCTION syntax:
-        value = value.replaceAll("\\$1\\$", "foobar");
-        matcher = macro.matcher(value);
-
-        if (matcher.find())
+    if (macroMapEN != null) {
+        temp = 0;
+        do
         {
-          String replacementValue = replaceMacrosMasked(value, "EN");
-          macroMapEN.put(key, replacementValue);
-          somethingChanged = true;
-        }
-      }
-    }
-    while (somethingChanged);
+          somethingChanged = false;
+          temp++;
+          for (Map.Entry<String, String> entry : macroMapEN.entrySet())
+          {
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-    log.debug("Number of macro expansion iterations needed for EN: " + temp);
+            // Ignore macro FUNCTION syntax:
+            value = value.replaceAll("\\$1\\$", "foobar");
+            matcher = macro.matcher(value);
+
+            if (matcher.find())
+            {
+              String replacementValue = replaceMacrosMasked(value, "EN");
+              macroMapEN.put(key, replacementValue);
+              somethingChanged = true;
+            }
+          }
+        }
+        while (somethingChanged);
+
+        log.debug("Number of macro expansion iterations needed for EN: " + temp);
+    }
 
     /*
      * DE
      */
-    temp = 0;
-    do
-    {
-      somethingChanged = false;
-      temp++;
-
-      for (Map.Entry<String, String> entry : macroMapDE.entrySet())
-      {
-        String key = entry.getKey();
-        String value = entry.getValue();
-
-        // Ignore macro FUNCTION syntax:
-        value = value.replaceAll("\\$1\\$", "foobar");
-        matcher = macro.matcher(value);
-
-        if (matcher.find())
+    if (macroMapDE != null) {
+        temp = 0;
+        do
         {
-          String replacementValue = replaceMacrosMasked(value, "DE");
-          macroMapDE.put(key, replacementValue);
-          somethingChanged = true;
+          somethingChanged = false;
+          temp++;
+
+          for (Map.Entry<String, String> entry : macroMapDE.entrySet())
+          {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            // Ignore macro FUNCTION syntax:
+            value = value.replaceAll("\\$1\\$", "foobar");
+            matcher = macro.matcher(value);
+
+            if (matcher.find())
+            {
+              String replacementValue = replaceMacrosMasked(value, "DE");
+              macroMapDE.put(key, replacementValue);
+              somethingChanged = true;
+            }
+          }
         }
-      }
-    }
-    while (somethingChanged);
+        while (somethingChanged);
 
     log.debug("Number of macro expansion iterations needed for DE: " + temp);
-
+    }
     /*
      * IT
      */
-    temp = 0;
+    if (macroMapIT != null) {
+        temp = 0;
 
-    do
-    {
-      somethingChanged = false;
-      temp++;
-
-      for (Map.Entry<String, String> entry : macroMapIT.entrySet())
-      {
-        String key = entry.getKey();
-        String value = entry.getValue();
-
-        // Ignore macro FUNCTION syntax:
-        value = value.replaceAll("\\$1\\$", "foobar");
-        matcher = macro.matcher(value);
-
-        if (matcher.find())
+        do
         {
-          String replacementValue = replaceMacrosMasked(value, "IT");
-          macroMapIT.put(key, replacementValue);
-          somethingChanged = true;
+          somethingChanged = false;
+          temp++;
+
+          for (Map.Entry<String, String> entry : macroMapIT.entrySet())
+          {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            // Ignore macro FUNCTION syntax:
+            value = value.replaceAll("\\$1\\$", "foobar");
+            matcher = macro.matcher(value);
+
+            if (matcher.find())
+            {
+              String replacementValue = replaceMacrosMasked(value, "IT");
+              macroMapIT.put(key, replacementValue);
+              somethingChanged = true;
+            }
+          }
         }
-      }
+
+        while (somethingChanged);
+
+        log.debug("Number of macro expansion iterations needed for IT: " + temp);
     }
-
-    while (somethingChanged);
-
-    log.debug("Number of macro expansion iterations needed for IT: " + temp);
   }
 
   /**
@@ -400,7 +410,8 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
 
     if (macroMap == null)
     {
-      log.debug("AAAARGH!!!!");
+      log.fatal("Illegal macro map -- language " + lang + " was not initalized!");
+      throw new IllegalArgumentException("Language " + lang + " was not initialized!");
     }
 
     Reader reader;

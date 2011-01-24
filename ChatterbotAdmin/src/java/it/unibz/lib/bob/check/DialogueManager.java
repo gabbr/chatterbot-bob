@@ -141,17 +141,70 @@ public class DialogueManager
     try
     {
       urlTopicTreeStr = new File(tts).toURL().toString();
-      urlAbbrevFileENStr = new File(ae).toURL().toString();
-      urlAbbrevFileDEStr = new File(ad).toURL().toString();
-      urlAbbrevFileITStr = new File(ai).toURL().toString();
-      urlIDFtrainingDataENStr = idfEN;
-      urlIDFtrainingDataDEStr = idfDE;
-      urlIDFtrainingDataITStr = idfIT;
+      
     }
     catch (MalformedURLException e)
     {
       log.error("Could not convert File to URL string: " + e.getMessage());
     }
+
+    urlAbbrevFileENStr = ae;
+    urlAbbrevFileDEStr = ad;
+    urlAbbrevFileITStr = ai;
+    urlIDFtrainingDataENStr = idfEN;
+    urlIDFtrainingDataDEStr = idfDE;
+    urlIDFtrainingDataITStr = idfIT;
+
+
+    URL urlAbbrevFileEN = null;
+
+    if (urlAbbrevFileENStr != null)
+    {
+      try
+      {
+        urlAbbrevFileEN = new URL(urlAbbrevFileENStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+
+    URL urlAbbrevFileDE = null;
+
+    if (urlAbbrevFileDEStr != null)
+    {
+      try
+      {
+        urlAbbrevFileDE = new URL(urlAbbrevFileDEStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+    URL urlAbbrevFileIT = null;
+
+    if (urlAbbrevFileITStr != null)
+    {
+      try
+      {
+        urlAbbrevFileIT = new URL(urlAbbrevFileITStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+
+
+
+
+
+
 
     URL urlIDFtrainingDataEN = null;
 
@@ -198,11 +251,12 @@ public class DialogueManager
     {
       tt = TopicTree.getInstance(
               new URL(urlTopicTreeStr),
-              new URL(urlAbbrevFileENStr),
-              new URL(urlAbbrevFileDEStr),
-              new URL(urlAbbrevFileITStr),
+              urlAbbrevFileEN,
+              urlAbbrevFileDE,
+              urlAbbrevFileIT,
               urlIDFtrainingDataEN,
-              urlIDFtrainingDataDE, urlIDFtrainingDataIT);
+              urlIDFtrainingDataDE,
+              urlIDFtrainingDataIT);
     }
     catch (MalformedURLException e)
     {
@@ -219,6 +273,56 @@ public class DialogueManager
   public DialogueManager()
   {
     Authenticator.setDefault(new MyAuthenticator());
+
+
+      URL urlAbbrevFileEN = null;
+
+    if (urlAbbrevFileENStr != null)
+    {
+      try
+      {
+        urlAbbrevFileEN = new URL(urlAbbrevFileENStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+
+    URL urlAbbrevFileDE = null;
+
+    if (urlAbbrevFileDEStr != null)
+    {
+      try
+      {
+        urlAbbrevFileDE = new URL(urlAbbrevFileDEStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+    URL urlAbbrevFileIT = null;
+
+    if (urlAbbrevFileITStr != null)
+    {
+      try
+      {
+        urlAbbrevFileIT = new URL(urlAbbrevFileITStr);
+      }
+      catch (MalformedURLException e)
+      {
+        log.error(e.toString() + ": " + e.getMessage());
+      }
+    }
+
+
+
+
+
+
     URL urlIDFtrainingDataEN = null;
 
     if (urlIDFtrainingDataENStr != null)
@@ -265,9 +369,9 @@ public class DialogueManager
     {
       tt = TopicTree.getInstance(
               new URL(urlTopicTreeStr),
-              new URL(urlAbbrevFileENStr),
-              new URL(urlAbbrevFileDEStr),
-              new URL(urlAbbrevFileITStr),
+              urlAbbrevFileEN,
+              urlAbbrevFileDE,
+              urlAbbrevFileIT,
               urlIDFtrainingDataEN,
               urlIDFtrainingDataDE, urlIDFtrainingDataIT);
     }
@@ -1027,5 +1131,12 @@ public class DialogueManager
   public static void setUrlAbbrevFileIT(String initParameter)
   {
     urlAbbrevFileITStr = initParameter;
+  }
+
+  public static void main(String[] args) {
+       // test: initialize only German macros. 
+      DialogueManager dm = new DialogueManager("/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/topictree.xml", null, "file:///Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt", null, null, null, null);
+      System.out.println(dm.getNextResponse("test", "DE"));
+
   }
 }
