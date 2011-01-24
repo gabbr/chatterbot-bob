@@ -94,16 +94,33 @@ public class TopicTree
   private static Logger log = Logger.getLogger(TopicTree.class);
 
   /**
-   * Constructor that specifies TopicTree (the XML file) and the 3
-   * abbreviations files
+   * 
+   * @param lang
+   * @return true if this TopicTree was initialized with the corresponding 
+   * macro files for the language lang
+   */
+  public boolean understandsLanguage(String lang) {
+      if (lang.toUpperCase().equals("EN")) return urlAbbreviationsFileEN != null;
+      if (lang.toUpperCase().equals("DE")) return urlAbbreviationsFileDE != null;
+      else return urlAbbreviationsFileIT != null; //italian
+  }
+
+  /**
+   * Constructor that specifies TopicTree (the XML file), the 3
+   * macro/abbreviation files, and the 3 training data files.
    *
    * @param urlTopicTreeFile
    * @param urlAbbreviationsFileEN
    * @param urlAbbreviationsFileDE
    * @param urlAbbreviationsFileIT
+   * @param idftrainingdataEN
+   * @param idftrainingdataDE
+   * @param idftrainingdataIT
    *
-   *            language selection from the topicTree, either "DE" or "EN" or
-   *            "IT"
+   * Except for urlTopicTreeFile, any parameters can be == null. If abbrev files 
+   * are null, answering questions in that language is disabled. If training data 
+   * files are null, machine learning mode (the answer reranker) for that language 
+   * is disabled.
    */
   private TopicTree(URL urlTopicTreeFile, URL urlAbbreviationsFileEN,
           URL urlAbbreviationsFileDE, URL urlAbbreviationsFileIT,
@@ -464,6 +481,8 @@ public class TopicTree
   public synchronized String getNodeAnswer(Node node, String language,
           String sessionID, boolean appendPhrase)
   {
+    if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (node == null)
     {
       log.error(sessionID + ", called with null startnode!");
@@ -560,6 +579,8 @@ public class TopicTree
   public synchronized Vector<String> getNodeAllAnswers(Node node,
           String language, String sessionID, boolean appendPhrase)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (node == null)
     {
       log.error(sessionID + ", called with null startnode!");
@@ -723,6 +744,8 @@ public class TopicTree
   public synchronized boolean hasNodeSysResponse(Node node, String language,
           String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (node == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -790,6 +813,8 @@ public class TopicTree
   public synchronized Node searchSD(Node startNode, String query,
           String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (startNode == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -878,6 +903,8 @@ public class TopicTree
   public synchronized Queue<Node> searchRecursiveSiblings(Node startNode,
           String query, String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (startNode == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -950,6 +977,8 @@ public class TopicTree
   public synchronized Node searchLocalSiblings(Node startNode, String query,
           String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (startNode == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -1003,6 +1032,8 @@ public class TopicTree
           boolean matchSubDialogueRules, boolean matchNormalRules,
           String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (node == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -1111,6 +1142,8 @@ public class TopicTree
           boolean matchSubDialogueRules, boolean matchNormalRules,
           String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     if (node == null)
     {
       log.debug(sessionID + ", called with null startnode!");
@@ -1183,6 +1216,8 @@ public class TopicTree
   public boolean matchExtendedRegex(String regex, String query,
           String language, String sessionID)
   {
+      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+
     regex = ChatterbotHelper.replaceMacros(regex, language);
 
     Reader reader = new StringReader(regex);

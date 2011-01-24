@@ -66,15 +66,28 @@ public class QAMatchingBob
    */
   private Logger log = Logger.getLogger(QAMatchingBob.class);
 
+  private boolean understandsEN = false;
+  private boolean understandsDE = false;
+  private boolean understandsIT = false;
+
   public QAMatchingBob(URL ae, URL ad, URL ai, URL idftrainingdataEN,
           URL idftrainingdataDE, URL idftrainingdataIT)
   {
     // this should not do anything, since a static StellaHelper object
     // already exists...
     ChatterbotHelper.makeInstance(ae, ad, ai);
-    trainIDF_EN(idftrainingdataEN);
-    trainIDF_DE(idftrainingdataDE);
-    trainIDF_IT(idftrainingdataIT);
+    if (ae != null) {
+        trainIDF_EN(idftrainingdataEN);
+        understandsEN = true;
+      }
+    if (ad != null) {
+        trainIDF_DE(idftrainingdataDE);
+        understandsDE = true;
+      }
+    if (ai != null) {
+        trainIDF_IT(idftrainingdataIT);
+        understandsIT = true;
+      }
   }
 
   /**
@@ -82,11 +95,13 @@ public class QAMatchingBob
    */
   public void printIDFStatsEN()
   {
-    for (String term : tfIdfEN.termSet())
-    {
-      log.debug("Term:     " + term);
-      log.debug("Doc Freq: " + tfIdfEN.docFrequency(term));
-      log.debug("IDF:      " + tfIdfEN.idf(term));
+    if (understandsEN) {
+        for (String term : tfIdfEN.termSet())
+        {
+          log.debug("Term:     " + term);
+          log.debug("Doc Freq: " + tfIdfEN.docFrequency(term));
+          log.debug("IDF:      " + tfIdfEN.idf(term));
+        }
     }
   }
 
@@ -97,7 +112,8 @@ public class QAMatchingBob
    */
   private void trainIDFsingleDocEN(String s)
   {
-    tfIdfEN.trainIdf(s);
+    if (understandsEN)
+        tfIdfEN.trainIdf(s);
   }
 
   /**
@@ -106,8 +122,8 @@ public class QAMatchingBob
    * @param s
    */
   private void trainIDFsingleDocDE(String s)
-  {
-    tfIdfDE.trainIdf(s);
+  { if (understandsDE)
+        tfIdfDE.trainIdf(s);
   }
 
   /**
@@ -116,8 +132,8 @@ public class QAMatchingBob
    * @param s
    */
   private void trainIDFsingleDocIT(String s)
-  {
-    tfIdfIT.trainIdf(s);
+  { if (understandsIT)
+        tfIdfIT.trainIdf(s);
   }
 
   /**
@@ -127,32 +143,34 @@ public class QAMatchingBob
    */
   void trainIDF_EN(URL idftrainingdata)
   {
-    if (idftrainingdata != null)
-    {
-      log.debug("*** Reading in English IDF training data from URL: "
-              + idftrainingdata.toString());
-
-      ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-      int lcount = 0;
-
-      for (String line; (line = readin.readLine()) != null;)
-      {
-        trainIDFsingleDocEN(line);
-        lcount++;
-
-        if (lcount % 10000 == 0)
+    if (understandsEN) {
+        if (idftrainingdata != null)
         {
-          // log.debug(".");
-        }
+          log.debug("*** Reading in English IDF training data from URL: "
+                  + idftrainingdata.toString());
 
-        if (lcount == 100000)
-        {
-          break;
+          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+          int lcount = 0;
+
+          for (String line; (line = readin.readLine()) != null;)
+          {
+            trainIDFsingleDocEN(line);
+            lcount++;
+
+            if (lcount % 10000 == 0)
+            {
+              // log.debug(".");
+            }
+
+            if (lcount == 100000)
+            {
+              break;
+            }
+          }
+        } else {
+             log.warn("*** No English IDF training data specified/loaded.");
         }
-      }
-    } else {
-         log.warn("*** No English IDF training data specified/loaded.");
-    }
+     }
   }
 
   /**
@@ -162,32 +180,34 @@ public class QAMatchingBob
    */
   void trainIDF_DE(URL idftrainingdata)
   {
-    if (idftrainingdata != null)
-    {
-      log.debug("*** Reading in German IDF training data from URL: "
-              + idftrainingdata.toString());
-
-      ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-      int lcount = 0;
-
-      for (String line; (line = readin.readLine()) != null;)
-      {
-        trainIDFsingleDocDE(line);
-        lcount++;
-
-        if (lcount % 10000 == 0)
+    if (understandsDE) {
+        if (idftrainingdata != null)
         {
-          // log.debug(".");
-        }
+          log.debug("*** Reading in German IDF training data from URL: "
+                  + idftrainingdata.toString());
 
-        if (lcount == 100000)
-        {
-          break;
+          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+          int lcount = 0;
+
+          for (String line; (line = readin.readLine()) != null;)
+          {
+            trainIDFsingleDocDE(line);
+            lcount++;
+
+            if (lcount % 10000 == 0)
+            {
+              // log.debug(".");
+            }
+
+            if (lcount == 100000)
+            {
+              break;
+            }
+          }
+        } else {
+             log.warn("*** No German IDF training data specified/loaded.");
         }
       }
-    } else {
-         log.warn("*** No German IDF training data specified/loaded.");
-    }
   }
 
   /**
@@ -197,32 +217,34 @@ public class QAMatchingBob
    */
   void trainIDF_IT(URL idftrainingdata)
   {
-    if (idftrainingdata != null)
-    {
-      log.debug("*** Reading in Italian IDF training data from URL: "
-              + idftrainingdata.toString());
-
-      ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-      int lcount = 0;
-
-      for (String line; (line = readin.readLine()) != null;)
-      {
-        trainIDFsingleDocIT(line);
-        lcount++;
-
-        if (lcount % 10000 == 0)
+    if (understandsIT) {
+        if (idftrainingdata != null)
         {
-          // log.debug(".");
-        }
+          log.debug("*** Reading in Italian IDF training data from URL: "
+                  + idftrainingdata.toString());
 
-        if (lcount == 100000)
-        {
-          break;
+          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+          int lcount = 0;
+
+          for (String line; (line = readin.readLine()) != null;)
+          {
+            trainIDFsingleDocIT(line);
+            lcount++;
+
+            if (lcount % 10000 == 0)
+            {
+              // log.debug(".");
+            }
+
+            if (lcount == 100000)
+            {
+              break;
+            }
+          }
+        } else {
+             log.warn("*** No Italian IDF training data specified/loaded.");
         }
       }
-    } else {
-         log.warn("*** No Italian IDF training data specified/loaded.");
-    }
   }
 
   @SuppressWarnings("unused")
