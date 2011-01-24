@@ -268,7 +268,7 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
           stringMap.put(matcher.group(1), value);
         }
 
-        log.debug("Number of macro definitions loaded: " + n_macros);
+        log.info("Number of macro definitions loaded: " + n_macros);
       }
     }
 
