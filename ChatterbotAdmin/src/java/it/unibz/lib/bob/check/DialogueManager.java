@@ -199,13 +199,6 @@ public class DialogueManager
       }
     }
 
-
-
-
-
-
-
-
     URL urlIDFtrainingDataEN = null;
 
     if (urlIDFtrainingDataENStr != null)
@@ -317,11 +310,6 @@ public class DialogueManager
         log.error(e.toString() + ": " + e.getMessage());
       }
     }
-
-
-
-
-
 
     URL urlIDFtrainingDataEN = null;
 

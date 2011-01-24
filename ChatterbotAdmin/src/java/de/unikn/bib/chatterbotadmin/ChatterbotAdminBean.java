@@ -28,100 +28,312 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 /**
+ * <p>
+ *  This class represents a Java Server Faces Bean class and contains the
+ *  application logic of ChatterbotAdmin web application. It aggregates
+ *  several tests applications (bbCheck, qCheck and ttCheck) and a chat
+ *  application (chatterbot) for testing purpose.
+ * </p>
+ * <p>
+ *  All attributes and their default values that are managed by the UI of
+ *  this application are also listed in faces-config.xml file.
+ * </p>
  *
  * @author markus.grandpre@uni-konstanz.de
  * @version $Id$
  */
 public class ChatterbotAdminBean implements Serializable
 {
+  /**
+   * <p>
+   * This reference provides access to bbCheck application.
+   * </p>
+   */
   private BBCheck bbCheck;
 
+  /**
+   * <p>
+   * This reference provides access to qCheck application.
+   * </p>
+   */
   private QCheck qCheck;
 
+  /**
+   * <p>
+   * This reference provides access to ttCheck application.
+   * </p>
+   */
   private TTCheck ttCheck;
 
+  /**
+   * <p>
+   * This reference provides access to chatterbot application.
+   * </p>
+   */
   private Chatterbot chatterbot;
 
+  /**
+   * <p>
+   * This String object represents the currently set language ("DE", "EN" and
+   * "IT") to perform bbCheck.
+   * </p>
+   */
   private String bbCheckLanguage;
 
+  /**
+   * <p>
+   * This Boolean object indicates if English language is currently set to
+   * perform bbCheck.
+   * </p>
+   */
   private Boolean bbCheckLanguageENSelected;
 
+  /**
+   * <p>
+   * This Boolean object indicates if German language is currently set to
+   * perform bbCheck.
+   * </p>
+   */
   private Boolean bbCheckLanguageDESelected;
 
+  /**
+   * <p>
+   * This Boolean object indicates if Italian language is currently set to
+   * perform bbCheck.
+   * </p>
+   */
   private Boolean bbCheckLanguageITSelected;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String bbCheckLearningInput;
 
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean bbCheckLearningSelected;
 
+  /**
+   * <p>
+   * This String object represents the test results after bbCheck test has
+   * finished.
+   * </p>
+   */
   private String bbCheckResults;
 
+  /**
+   * <p>
+   * This String object represents the URL ("file://") of the test report file
+   * of bbCheck application. Path of this file is usually determined by value
+   * of sharedFilePath attribute.
+   * </p>
+   */
   private String bbCheckReportFileURL;
 
+  /**
+   * <p>
+   * This String object represents the filename of the test report file
+   * of bbCheck application.
+   * </p>
+   */
   private String bbCheckReportFilename;
 
+  /**
+   * <p>
+   * This String object represents the content type of the test report file
+   * of bbCheck application. It is usually set
+   * </p>
+   */
   private String bbCheckReportFileContentType;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String qCheckFormat;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String qCheckRegularExpression;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String qCheckUserQuestion;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String qCheckResults;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String ttCheckResults;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String chatterbotLanguage;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String chatterbotAnswer;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String chatterbotQuestion;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile topicTreeFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String topicTreeFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile macrosFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String macrosFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile macrosENFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String macrosENFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile macrosDEFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String macrosDEFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile macrosITFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String macrosITFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile textCorpusFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String textCorpusFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile textCorpusENFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String textCorpusENFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile textCorpusDEFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String textCorpusDEFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile textCorpusITFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String textCorpusITFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile rngFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String rngFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
   private UploadedFile testQuestionsFile;
 
+  /**
+   * <p>
+   * </p>
+   */
   private String testQuestionsFilename;
 
+  /**
+   * <p>
+   * This String object represents
+   * </p>
+   */
   private String sharedFilesPath;
 
   /**
@@ -161,16 +373,33 @@ public class ChatterbotAdminBean implements Serializable
   private Boolean chatterbotSelected;
 
   /**
+   * This String object represents a constant value of a directory name
+   * where all uploaded files and all files that are supposed to be
+   * downloaded reside.
+   */
+  private final String SHARED_FILES_DIR_NAME = "/shared-files";
+
+  /**
    * <p>
-   * This String object contains a return value any use case operation that
-   * indicates if corresponding operation has succeeded. This return values is
-   * used for JSF navigation rule that is defined in the web application's
-   * <tt>faces-config.xml</tt> configuration file.
+   * This String object represents a constant return value any use case
+   * operation that indicates if corresponding operation has succeeded.
+   * This constant return values is used for JSF navigation rules that are
+   * defined in the web application's <tt>faces-config.xml</tt> configuration
+   * file.
    * </p>
    */
-  private String SUCCESS = "success";
+  private final String SUCCESS = "success";
 
-  private String FAILED = "failed";
+  /**
+   * <p>
+   * This String object represents a constant return value any use case
+   * operation that indicates if corresponding operation has failed.
+   * This constant return values is used for JSF navigation rules that are
+   * defined in the web application's <tt>faces-config.xml</tt> configuration
+   * file.
+   * </p>
+   */
+  private final String FAILED = "failed";
 
   /**
    * <p>
@@ -190,102 +419,154 @@ public class ChatterbotAdminBean implements Serializable
    */
   private Logger log = Logger.getLogger(ChatterbotAdminBean.class);
 
+  /**
+   * <p>
+   * </p>
+   */
   public ChatterbotAdminBean()
   {
+    // bean has been called from JSF framework
+    log.debug("About to start ChatterbotAdmin application.");
+
+    // initialize references to test applications
     bbCheck = new BBCheckImpl();
     qCheck = new QCheckImpl();
     ttCheck = new TTCheckImpl();
     chatterbot = new ChatterbotImpl();
 
+    // get faces context in order to retrieve
+    // root path of this web application
     FacesContext fcontext = FacesContext.getCurrentInstance();
     ServletContext scontext = (ServletContext) fcontext.getExternalContext().getContext();
-    sharedFilesPath = scontext.getRealPath("/shared-files");
 
+    // if root path is retrieved set path to specified
+    // directory where all uploaded files and all files
+    // that are suposed to be downloaded reside
+    sharedFilesPath = scontext.getRealPath(SHARED_FILES_DIR_NAME);
     log.debug("Shared files path is: " + sharedFilesPath);
+
+    // application has been initialized
+    log.debug("Application has been initialized.");
   }
 
-  private void uploadFile(UploadedFile uploadedFile, String file)
+  /**
+   * <p>
+   * This method is used to upload any file that becomes stored in
+   * shared file path under its filename for further processing by
+   * test applications.
+   * </p>
+   *
+   * @param uploadedFile content of uploaded file
+   * @param fileLocation path and filename of uploaded file
+   */
+  private void uploadFile(UploadedFile uploadedFile, String fileLocation)
   {
-    log.debug("Read file: " + uploadedFile.getName() + "(" + file + ")");
+    // start upload
+    log.debug("About to upload file: " + uploadedFile.getName());
 
     try
     {
+
+      // get data of uploaded file
       InputStream streamIn = uploadedFile.getInputStream();
       long size = uploadedFile.getSize();
       byte[] buffer = new byte[(int) size];
       streamIn.read(buffer, 0, (int) size);
 
-      File fileOut = new File(file);
+      // save data of uploaded file in new file
+      File fileOut = new File(fileLocation);
       FileOutputStream streamOut = new FileOutputStream(fileOut);
-
       streamOut.write(buffer);
 
+      // close stream and new file
       streamIn.close();
       streamOut.close();
 
-      log.debug("File has been uploaded: " + uploadedFile.getName());
+      // upload has succeeded
+      log.debug("File has been uploaded: " + uploadedFile.getName()
+              + " to " + fileLocation);
     }
     catch (FileNotFoundException e)
     {
+      // upload has failed
       log.error("Failed to upload file " + uploadedFile.getName()
               + ": " + e.getMessage());
     }
     catch (IOException e)
     {
+      // upload has failed
       log.error("Failed to upload file " + uploadedFile.getName()
               + ": " + e.getMessage());
     }
   }
 
-  private void downloadStream(String urlstr, ServletOutputStream outstr)
+  /**
+   * <p>
+   *  This method is used to provide a file content for download.
+   * </p>
+   *
+   * @param fileURL location of file in URL representation
+   * @param outputStream to provide file with HTTP response
+   * @throws IOException is thrown if downloaded file can not be created
+   */
+  private void downloadStream(String fileURL, ServletOutputStream outputStream)
           throws IOException
   {
+    // initialize streams to read and write file content
+    BufferedInputStream bis = null;
+    BufferedOutputStream bos = null;
+
+    // initialize URL string of file location to URL object
+    URL url = new URL(fileURL);
+
     try
     {
-      BufferedInputStream bis = null;
-      BufferedOutputStream bos = null;
+      URLConnection urlc = url.openConnection();
+      int length = urlc.getContentLength();
+      InputStream in = urlc.getInputStream();
 
-      try
-      {
-        URL url = new URL(urlstr);
-        URLConnection urlc = url.openConnection();
-        int length = urlc.getContentLength();
-        InputStream in = urlc.getInputStream();
-        bis = new BufferedInputStream(in);
-        bos = new BufferedOutputStream(outstr);
-        byte[] buff = new byte[length];
-        int bytesRead;
+      // set streams to read and write file content
+      bis = new BufferedInputStream(in);
+      bos = new BufferedOutputStream(outputStream);
 
-        while (-1 != (bytesRead = bis.read(buff, 0, buff.length)))
-        {
-          bos.write(buff, 0, bytesRead);
-        }
-      }
-      catch (IOException e)
+      // set buffer to store file content
+      byte[] buff = new byte[length];
+      int bytesRead;
+
+      // read file and write its content
+      // to download file
+      while (-1 != (bytesRead = bis.read(buff, 0, buff.length)))
       {
-        log.error("Failed to set download stream: " + e.getMessage());
-        throw e;
+        // write content
+        bos.write(buff, 0, bytesRead);
       }
-      finally
-      {
-        if (bis != null)
-        {
-          bis.close();
-        }
-        if (bos != null)
-        {
-          bos.close();
-        }
-        if (outstr != null)
-        {
-          outstr.flush();
-          outstr.close();
-        }
-      }
+
+      // download file successfully created
+      log.debug("Download file successfully created.");
     }
-    catch (Exception e)
+    catch (IOException e)
     {
-      log.error("Failed to get download stream: " + e.getMessage());
+      // failed to create file for download
+      log.error("Failed to create file for download: " + e.getMessage());
+
+      // report exception
+      throw e;
+    }
+    finally
+    {
+      if (bis != null)
+      {
+        bis.close();
+      }
+      if (bos != null)
+      {
+        bos.close();
+      }
+      if (outputStream != null)
+      {
+        outputStream.flush();
+        outputStream.close();
+      }
     }
   }
 
@@ -861,7 +1142,8 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param bbCheckReportFileContentType the bbCheckReportFileContentType to set
    */
-  public void setBbCheckReportFileContentType(String bbCheckReportFileContentType)
+  public void setBbCheckReportFileContentType(
+          String bbCheckReportFileContentType)
   {
     this.bbCheckReportFileContentType = bbCheckReportFileContentType;
   }
@@ -1441,54 +1723,4 @@ public class ChatterbotAdminBean implements Serializable
   {
     this.chatterbotSelected = chatterbotSelected;
   }
-
-  /**
-   * @return the SUCCESS
-   */
-  public String getSUCCESS()
-  {
-    return SUCCESS;
-  }
-
-  /**
-   * @param SUCCESS the SUCCESS to set
-   */
-  public void setSUCCESS(String SUCCESS)
-  {
-    this.SUCCESS = SUCCESS;
-  }
-
-  /**
-   * @return the FAILED
-   */
-  public String getFAILED()
-  {
-    return FAILED;
-  }
-
-  /**
-   * @param FAILED the FAILED to set
-   */
-  public void setFAILED(String FAILED)
-  {
-    this.FAILED = FAILED;
-  }
-
-  /**
-   * @return the log
-   */
-  public Logger getLog()
-  {
-    return log;
-  }
-
-  /**
-   * @param log the log to set
-   */
-  public void setLog(Logger log)
-  {
-    this.log = log;
-  }
-
-  
 }
