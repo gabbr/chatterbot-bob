@@ -98,7 +98,7 @@
       value="#{message.bbcheck_file_info}" />
   </t:panelGrid>
   <!--
-        file upload for file topictree.xml
+        file upload for file topic tree file
   -->
   <h:form enctype="multipart/form-data">
     <t:panelGrid
@@ -108,22 +108,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float: left;"
+          style="float:left; width: 200px"
           value="#{message.bbcheck_file_topictree}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.topicTreeFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.topicTreeFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.topicTreeFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.topicTreeFilename}" />
       </t:panelGrid>
       <h:commandButton
         id="bbcheck_upload_topictree_file"
+        rendered="#{!chatterbotAdminBean.topicTreeFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
+      <h:commandButton
+        id="bbcheck_topictree_file_uploaded"
+        rendered="#{chatterbotAdminBean.topicTreeFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bbcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTopicTreeFile}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -139,22 +151,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.bbcheck_file_bob_macros_EN}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosENFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosENFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosENFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosENFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="bbcheck_upload_macros_en_file"
+        rendered="#{!chatterbotAdminBean.macrosENFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosENFile}" />
+      <h:commandButton
+        id="bbcheck_macros_en_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosENFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bbcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosENFile}" />
     </t:panelGrid>
   </h:form>
 
@@ -171,22 +195,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.bbcheck_file_bob_macros_DE}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosDEFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosDEFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosDEFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosDEFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="bbcheck_upload_macros_de_file"
+        rendered="#{!chatterbotAdminBean.macrosDEFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
+      <h:commandButton
+        id="bbcheck_macros_de_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosDEFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bbcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosDEFile}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -202,22 +238,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.bbcheck_file_bob_macros_IT}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosITFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosITFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosITFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosITFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="bbcheck_upload_macros_it_file"
+        rendered="#{!chatterbotAdminBean.macrosITFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosITFile}" />
+      <h:commandButton
+        id="bbcheck_macros_it_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosITFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bbcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosITFile}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -231,22 +279,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.bbcheck_file_test_questions}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.testQuestionsFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.testQuestionsFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.testQuestionsFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.testQuestionsFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="bbcheck_upload_test_questions_file"
+        rendered="#{!chatterbotAdminBean.testQuestionsFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.bbcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTestQuestionsFile}" />
+      <h:commandButton
+        id="bbcheck_test_questions_file_uploaded"
+        rendered="#{chatterbotAdminBean.testQuestionsFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.bbcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTestQuestionsFile}" />
     </t:panelGrid>
   </h:form>
   <!--

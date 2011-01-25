@@ -69,13 +69,12 @@ a {
   margin-bottom: -6px;
   margin-left: -6px;
   /* border: 1px solid #000000; */
-  width: 600px;
+  width: 800px;
 }
 
 .chatterbotAdminUploadItem {
   color: #000000;
   background-color: #FFFFFF;
-  /* border: 1px solid #000000; */
   text-align: justify;
 }
 

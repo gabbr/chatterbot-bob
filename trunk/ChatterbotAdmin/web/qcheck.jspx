@@ -58,22 +58,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float: left;"
+          style="float:left; width: 200px"
           value="#{message.qcheck_file_macro_text}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosFilename}" />
       </t:panelGrid>
       <t:commandButton
-        id="qcheck_upload_macros_file"
+        id="qcheck_upload_macros_it_file"
+        rendered="#{!chatterbotAdminBean.macrosFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.qcheck_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosFile}" />
+      <h:commandButton
+        id="qcheck_macros_it_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.qcheck_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosFile}" />
     </t:panelGrid>
   </h:form>
   <!--
