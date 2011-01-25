@@ -29,6 +29,56 @@
       value="#{message.chatterbot_info}" />
   </t:panelGrid>
   <!--
+       display title of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminTitle">
+    <t:outputText
+      style="float:left"
+      value="#{message.chatterbot_language_title}" />
+  </t:panelGrid>
+  <!--
+       display info of language selection
+  -->
+  <t:panelGrid
+    columns="1"
+    styleClass="chatterbotAdminInfo">
+    <t:outputText
+      value="#{message.chatterbot_language_info}" />
+  </t:panelGrid>
+  <!--
+       display text and radio buttons of language selection
+  -->
+  <h:form>
+    <t:panelGrid
+      columns="1"
+      styleClass="chatterbotAdminInput">
+      <t:outputText
+        value="#{message.chatterbot_language_selection_text}" />
+      <t:selectOneRadio
+        styleClass="chatterbotAdminSelectArea"
+        layout="pageDirection"
+        value="#{chatterbotAdminBean.chatterbotLanguage}"
+        immediate="true">
+        <f:selectItem
+          itemLabel="#{message.chatterbot_language_de}"
+          itemValue="DE" />
+        <f:selectItem
+          itemLabel="#{message.chatterbot_language_en}"
+          itemValue="EN" />
+        <f:selectItem
+          itemLabel="#{message.chatterbot_language_it}"
+          itemValue="IT" />
+      </t:selectOneRadio>
+      <h:commandButton
+        id="chatterbot_select_language"
+        style="float: right;"
+        value="#{message.chatterbot_language_select_button_text}"
+        action="#{chatterbotAdminBean.selectChatterbotLanguage}" />
+    </t:panelGrid>
+  </h:form>
+  <!--
        display title of file upload chatterbot application
   -->
   <t:panelGrid
@@ -48,7 +98,7 @@
       value="#{message.chatterbot_file_info}" />
   </t:panelGrid>
   <!--
-             file upload for file topictree.xml
+       file upload for file topic tree file
   -->
   <h:form enctype="multipart/form-data">
     <t:panelGrid
@@ -58,28 +108,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float: left;"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_topictree}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.topicTreeFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.topicTreeFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.topicTreeFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.topicTreeFilename}" />
       </t:panelGrid>
-      <t:commandButton
-        id="chatterbot_upload_topic_tree_file"
+      <h:commandButton
+        id="chatterbot_upload_topictree_file"
+        rendered="#{!chatterbotAdminBean.topicTreeFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTopicTreeFile}" />
+      <h:commandButton
+        id="chatterbot_topictree_file_uploaded"
+        rendered="#{chatterbotAdminBean.topicTreeFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTopicTreeFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for file bob_macros_EN.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    rendered="#{chatterbotAdminBean.chatterbotLanguageENSelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -87,28 +151,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_bob_macros_EN}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosENFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosENFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosENFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosENFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="chatterbot_upload_macros_en_file"
+        rendered="#{!chatterbotAdminBean.macrosENFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosENFile}" />
+      <h:commandButton
+        id="chatterbot_macros_en_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosENFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosENFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for file bob_macros_DE.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    rendered="#{chatterbotAdminBean.chatterbotLanguageDESelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -116,28 +194,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_bob_macros_DE}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosDEFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosDEFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosDEFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosDEFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="chatterbot_upload_macros_de_file"
+        rendered="#{!chatterbotAdminBean.macrosDEFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosDEFile}" />
+      <h:commandButton
+        id="chatterbot_macros_de_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosDEFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosDEFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for file bob_macros_IT.txt
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form 
+    rendered="#{chatterbotAdminBean.chatterbotLanguageITSelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -145,28 +237,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_bob_macros_IT}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.macrosITFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.macrosITFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.macrosITFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.macrosITFilename}" />
       </t:panelGrid>
       <t:commandButton
         id="chatterbot_upload_macros_it_file"
+        rendered="#{!chatterbotAdminBean.macrosITFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadMacrosITFile}" />
+      <h:commandButton
+        id="chatterbot_macros_it_file_uploaded"
+        rendered="#{chatterbotAdminBean.macrosITFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewMacrosITFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for text corpus file EN
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form
+    rendered="#{chatterbotAdminBean.chatterbotLanguageENSelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -174,28 +280,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_UKWAC}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.textCorpusENFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.textCorpusENFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.textCorpusENFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.textCorpusENFilename}" />
       </t:panelGrid>
       <t:commandButton
-        id="chatterbot_upload_text_corpus_en_file"
+        id="chatterbot_upload_test_questions_file"
+        rendered="#{!chatterbotAdminBean.textCorpusENFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTextCorpusENFile}" />
+      <h:commandButton
+        id="chatterbot_test_questions_file_uploaded"
+        rendered="#{chatterbotAdminBean.textCorpusENFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTextCorpusENFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for text corpus file DE
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form
+    rendered="#{chatterbotAdminBean.chatterbotLanguageDESelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -203,28 +323,42 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_DEWAC}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.textCorpusDEFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.textCorpusDEFilename}" />
       </t:panelGrid>
       <t:commandButton
-        id="chatterbot_upload_text_corpus_de_file"
+        id="chatterbot_upload_test_questions_file"
+        rendered="#{!chatterbotAdminBean.textCorpusDEFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTextCorpusDEFile}" />
+      <h:commandButton
+        id="chatterbot_test_questions_file_uploaded"
+        rendered="#{chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTextCorpusDEFile}" />
     </t:panelGrid>
   </h:form>
   <!--
         file upload for text corpus file IT
   -->
-  <h:form enctype="multipart/form-data">
+  <h:form
+    rendered="#{chatterbotAdminBean.chatterbotLanguageITSelected}"
+    enctype="multipart/form-data">
     <t:panelGrid
       styleClass="chatterbotAdminUpload"
       columns="2">
@@ -232,22 +366,34 @@
         styleClass="chatterbotAdminUploadArea"
         columns="2">
         <t:outputText
-          style="float:left"
+          style="float:left; width: 200px"
           value="#{message.chatterbot_file_ITWAC}" />
         <t:inputFileUpload
-          size="40"
+          rendered="#{!chatterbotAdminBean.textCorpusITFileIsUploaded}"
+          size="60"
           style="float: right"
           styleClass="chatterbotAdminUploadItem"
           value="#{chatterbotAdminBean.textCorpusITFile}"
           storage="file"
           required="true"
           maxlength="20000"/>
+        <t:outputText
+          rendered="#{chatterbotAdminBean.textCorpusITFileIsUploaded}"
+          style="float: left"
+          value="#{chatterbotAdminBean.textCorpusITFilename}" />
       </t:panelGrid>
       <t:commandButton
-        id="chatterbot_upload_text_corpus_it_file"
+        id="chatterbot_upload_test_questions_file"
+        rendered="#{!chatterbotAdminBean.textCorpusITFileIsUploaded}"
         styleClass="chatterbotAdminUploadButton"
         value="#{message.chatterbot_file_load_button_text}"
         action="#{chatterbotAdminBean.uploadTextCorpusITFile}" />
+      <h:commandButton
+        id="chatterbot_test_questions_file_uploaded"
+        rendered="#{chatterbotAdminBean.textCorpusITFileIsUploaded}"
+        styleClass="chatterbotAdminUploadButton"
+        value="#{message.chatterbot_file_new_upload_button_text}"
+        action="#{chatterbotAdminBean.uploadNewTextCorpusITFile}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -281,25 +427,6 @@
         readonly="true"
         rows="20"
         value="#{chatterbotAdminBean.chatterbotAnswer}" />
-      <t:panelGrid
-        columns="1"
-        styleClass="chatterbotAdminInput">
-        <t:selectOneRadio
-          style="width: 30%; margin: 0 auto;"
-          layout="lineDirection"
-          value="#{chatterbotAdminBean.chatterbotLanguage}"
-          immediate="true">
-          <f:selectItem
-            itemLabel="#{message.chatterbot_language_de}"
-            itemValue="DE" />
-          <f:selectItem
-            itemLabel="#{message.chatterbot_language_en}"
-            itemValue="EN" />
-          <f:selectItem
-            itemLabel="#{message.chatterbot_language_it}"
-            itemValue="IT" />
-        </t:selectOneRadio>
-      </t:panelGrid>
       <t:panelGrid
         styleClass="chatterbotAdminChatArea"
         columns="2">

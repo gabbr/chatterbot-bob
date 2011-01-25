@@ -189,6 +189,24 @@ public class ChatterbotAdminBean implements Serializable
    * <p>
    * </p>
    */
+  private Boolean chatterbotLanguageENSelected;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private Boolean chatterbotLanguageDESelected;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private Boolean chatterbotLanguageITSelected;
+
+  /**
+   * <p>
+   * </p>
+   */
   private String chatterbotAnswer;
 
   /**
@@ -209,6 +227,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String topicTreeFilename;
 
+  private Boolean topicTreeFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -220,6 +240,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String macrosFilename;
+
+  private Boolean macrosFileIsUploaded;
 
   /**
    * <p>
@@ -233,6 +255,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosENFilename;
 
+  private Boolean macrosENFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -244,6 +268,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String macrosDEFilename;
+
+  private Boolean macrosDEFileIsUploaded;
 
   /**
    * <p>
@@ -257,6 +283,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosITFilename;
 
+  private Boolean macrosITFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -268,6 +296,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String textCorpusFilename;
+
+  private Boolean textCorpusFileIsUploaded;
 
   /**
    * <p>
@@ -281,6 +311,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusENFilename;
 
+  private Boolean textCorpusENFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -292,6 +324,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String textCorpusDEFilename;
+
+  private Boolean textCorpusDEFileIsUploaded;
 
   /**
    * <p>
@@ -305,6 +339,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusITFilename;
 
+  private Boolean textCorpusITFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -317,6 +353,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String rngFilename;
 
+  private Boolean rngFileIsUploaded;
+
   /**
    * <p>
    * </p>
@@ -328,6 +366,8 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String testQuestionsFilename;
+
+  private Boolean testQuestionsFileIsUploaded;
 
   /**
    * <p>
@@ -373,24 +413,6 @@ public class ChatterbotAdminBean implements Serializable
   private Boolean chatterbotSelected;
 
   /**
-   * This String object represents a constant value of a directory name
-   * where all uploaded files and all files that are supposed to be
-   * downloaded reside.
-   */
-  private final String SHARED_FILES_DIR_NAME = "/shared-files";
-
-  /**
-   * <p>
-   * This String object represents a constant return value any use case
-   * operation that indicates if corresponding operation has succeeded.
-   * This constant return values is used for JSF navigation rules that are
-   * defined in the web application's <tt>faces-config.xml</tt> configuration
-   * file.
-   * </p>
-   */
-  private final String SUCCESS = "success";
-
-  /**
    * <p>
    * This String object represents a constant return value any use case
    * operation that indicates if corresponding operation has failed.
@@ -399,7 +421,11 @@ public class ChatterbotAdminBean implements Serializable
    * file.
    * </p>
    */
-  private final String FAILED = "failed";
+  private String SHARED_FILES_DIR_NAME = "/shared-files";
+
+  private String SUCCESS = "success";
+
+  private String FAILED = "failed";
 
   /**
    * <p>
@@ -554,111 +580,405 @@ public class ChatterbotAdminBean implements Serializable
     }
     finally
     {
+      // check if input stream exists
       if (bis != null)
       {
+        // input stream exists
+
+        // close input stream
         bis.close();
       }
+
+      // check if output stream exists
       if (bos != null)
       {
+        // output stream exists
+
+        // close ouput stream
         bos.close();
       }
+
+      // check if servlet output stream exists
       if (outputStream != null)
       {
+        // servlet output stream exists
         outputStream.flush();
         outputStream.close();
       }
+
+      // download file successfully created
+      log.debug("Streams closed.");
     }
   }
 
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of topic tree file.
+   * </p>
+   */
   public void uploadTopicTreeFile()
   {
+    // disable further uploads
+    topicTreeFileIsUploaded = Boolean.TRUE;
+
+    // set file location of topic tree file
     topicTreeFilename = sharedFilesPath + "/" + topicTreeFile.getName();
+
+    // start upload
     uploadFile(topicTreeFile, topicTreeFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new topic tree file.
+   * </p>
+   */
+  public void uploadNewTopicTreeFile()
+  {
+    // enable new upload
+    topicTreeFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of any macro file.
+   * </p>
+   */
   public void uploadMacrosFile()
   {
+    // disable further uploads
+    macrosFileIsUploaded = Boolean.TRUE;
+
+    // set file location of macro file
     macrosFilename = sharedFilesPath + "/" + macrosFile.getName();
+
+    // start upload
     uploadFile(macrosFile, macrosFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new macros file.
+   * </p>
+   */
+  public void uploadNewMacrosFile()
+  {
+    // enable new upload
+    macrosFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of English macro file.
+   * </p>
+   */
   public void uploadMacrosENFile()
   {
+    // disable further uploads
+    macrosENFileIsUploaded = Boolean.TRUE;
+
+    // set file location of Englisch macro file
     macrosENFilename = sharedFilesPath + "/" + macrosENFile.getName();
+
+    // start upload
     uploadFile(macrosENFile, macrosENFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new English macros file.
+   * </p>
+   */
+  public void uploadNewMacrosENFile()
+  {
+    // enable new upload
+    macrosENFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of German macro file.
+   * </p>
+   */
   public void uploadMacrosDEFile()
   {
+    // disable further uploads
+    macrosDEFileIsUploaded = Boolean.TRUE;
+
+    // set file location of German macro file
     macrosDEFilename = sharedFilesPath + "/" + macrosDEFile.getName();
+
+    // start upload
     uploadFile(macrosDEFile, macrosDEFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new German macros file.
+   * </p>
+   */
+  public void uploadNewMacrosDEFile()
+  {
+    // enable new upload
+    macrosDEFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of Italian macro file.
+   * </p>
+   */
   public void uploadMacrosITFile()
   {
+    // disable further downloads
+    macrosITFileIsUploaded = Boolean.TRUE;
+
+    // set file location of Italian macro file
     macrosITFilename = sharedFilesPath + "/" + macrosITFile.getName();
+
+    // start upload
     uploadFile(macrosITFile, macrosITFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new Italian macros file.
+   * </p>
+   */
+  public void uploadNewMacrosITFile()
+  {
+    // enable new upload
+    macrosITFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of any text corpus file.
+   * </p>
+   */
   public void uploadTextCorpusFile()
   {
+    // disable further uploads
+    textCorpusFileIsUploaded = Boolean.TRUE;
+
+    // set file location of text corpus file
     textCorpusFilename = sharedFilesPath + "/" + textCorpusFile.getName();
+
+    // start upload
     uploadFile(textCorpusFile, textCorpusFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new text corpus file.
+   * </p>
+   */
+  public void uploadNewTextCorpusFile()
+  {
+    // enable new upload
+    textCorpusFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of English text corpus file.
+   * </p>
+   */
   public void uploadTextCorpusENFile()
   {
+    // disable further downloads
+    textCorpusENFileIsUploaded = Boolean.TRUE;
+
+    // set file location of English text corpus file
     textCorpusENFilename = sharedFilesPath + "/" + textCorpusENFile.getName();
+
+    // start upload
     uploadFile(textCorpusENFile, textCorpusENFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new English text corpus file.
+   * </p>
+   */
+  public void uploadNewTextCorpusENFile()
+  {
+    // enable new upload
+    textCorpusENFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of German text corpus file.
+   * </p>
+   */
   public void uploadTextCorpusDEFile()
   {
+    // disable further downloads
+    textCorpusDEFileIsUploaded = Boolean.TRUE;
+
+    // set file location of German text corpus file
     textCorpusDEFilename = sharedFilesPath + "/" + textCorpusDEFile.getName();
+
+    // start upload
     uploadFile(textCorpusDEFile, textCorpusDEFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new German text corpus file.
+   * </p>
+   */
+  public void uploadNewTextCorpusDEFile()
+  {
+    // enable new upload
+    textCorpusDEFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of Italian text corpus file.
+   * </p>
+   */
   public void uploadTextCorpusITFile()
   {
+    // disable further uploads
+    textCorpusDEFileIsUploaded = Boolean.TRUE;
+
+    // set file location of Italian text corpus file
     textCorpusITFilename = sharedFilesPath + "/" + textCorpusITFile.getName();
+
+    // start upload
     uploadFile(textCorpusITFile, textCorpusITFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new Italian text corpus file.
+   * </p>
+   */
+  public void uploadNewTextCorpusITFile()
+  {
+    // enable new upload
+    textCorpusDEFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of rng file.
+   * </p>
+   */
   public void uploadRngFile()
   {
+    // disable further uploads
+    rngFileIsUploaded = Boolean.TRUE;
+
+    // set file location of rng file
     rngFilename = sharedFilesPath + "/" + rngFile.getName();
+
+    // start upload
     uploadFile(rngFile, rngFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new rng file.
+   * </p>
+   */
+  public void uploadNewRngFile()
+  {
+    // enable new upload
+    rngFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to set appropriate file location and to trigger
+   * file upload of test questions file.
+   * </p>
+   */
   public void uploadTestQuestionsFile()
   {
+    // disable further uploads
+    testQuestionsFileIsUploaded = Boolean.TRUE;
+
+    // set file location of test questions file
     testQuestionsFilename = sharedFilesPath + "/" + testQuestionsFile.getName();
+
+    // start upload
     uploadFile(testQuestionsFile, testQuestionsFilename);
   }
 
+  /**
+   * <p>
+   * This method is used to enable the upload of a new test questions file.
+   * </p>
+   */
+  public void uploadNewTestQuestionsFile()
+  {
+    // enable new upload
+    testQuestionsFileIsUploaded = Boolean.FALSE;
+  }
+
+  /**
+   * <p>
+   * This method is used to select language for bbCheck application and
+   * to enable upload of language related files.
+   * </p>
+   *
+   * @return result string for JSF navigation rules
+   */
   public String selectBBCheckLanguage()
   {
+    // langauge is already set
     log.debug("BBCheck language set to: " + bbCheckLanguage);
 
+    // check if language is German
     if (bbCheckLanguage.equals("DE"))
     {
+      // language is set to German
+
+      // enable upload of files that are related
+      // to German language by setting appropriate
+      // Boolean values for view
       bbCheckLanguageENSelected = Boolean.FALSE;
       bbCheckLanguageDESelected = Boolean.TRUE;
       bbCheckLanguageITSelected = Boolean.FALSE;
     }
     else if (bbCheckLanguage.equals("IT"))
     {
+      // langauge is set to Italian
+
+      // enable upload of files that are related
+      // to Italian language by setting appropriate
+      // Boolean values for view
       bbCheckLanguageENSelected = Boolean.FALSE;
       bbCheckLanguageDESelected = Boolean.FALSE;
       bbCheckLanguageITSelected = Boolean.TRUE;
     }
     else
     {
+      // langauge is set to English (default)
+
+      // enable upload of files that are related
+      // to English language by setting appropriate
+      // Boolean values for view
       bbCheckLanguageENSelected = Boolean.TRUE;
       bbCheckLanguageDESelected = Boolean.FALSE;
       bbCheckLanguageITSelected = Boolean.FALSE;
     }
 
+    // does not fail
     return SUCCESS;
   }
 
@@ -817,6 +1137,58 @@ public class ChatterbotAdminBean implements Serializable
 
     log.debug("Test results for ttCheck received.");
 
+    return SUCCESS;
+  }
+
+  /**
+   * <p>
+   * This method is used to select language for chatterbot application and
+   * to enable upload of language related files.
+   * </p>
+   *
+   * @return result string for JSF navigation rules
+   */
+  public String selectChatterbotLanguage()
+  {
+    // langauge is already set
+    log.debug("chatterbot language set to: " + chatterbotLanguage);
+
+    // check if language is German
+    if (chatterbotLanguage.equals("DE"))
+    {
+      // language is set to German
+
+      // enable upload of files that are related
+      // to German language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.TRUE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      // langauge is set to Italian
+
+      // enable upload of files that are related
+      // to Italian language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.TRUE;
+    }
+    else
+    {
+      // langauge is set to English (default)
+
+      // enable upload of files that are related
+      // to English language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.TRUE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+    }
+
+    // does not fail
     return SUCCESS;
   }
 
@@ -1142,8 +1514,7 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param bbCheckReportFileContentType the bbCheckReportFileContentType to set
    */
-  public void setBbCheckReportFileContentType(
-          String bbCheckReportFileContentType)
+  public void setBbCheckReportFileContentType(String bbCheckReportFileContentType)
   {
     this.bbCheckReportFileContentType = bbCheckReportFileContentType;
   }
@@ -1245,6 +1616,54 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the chatterbotLanguageENSelected
+   */
+  public Boolean getChatterbotLanguageENSelected()
+  {
+    return chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
+   */
+  public void setChatterbotLanguageENSelected(Boolean chatterbotLanguageENSelected)
+  {
+    this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageDESelected
+   */
+  public Boolean getChatterbotLanguageDESelected()
+  {
+    return chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
+   */
+  public void setChatterbotLanguageDESelected(Boolean chatterbotLanguageDESelected)
+  {
+    this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageITSelected
+   */
+  public Boolean getChatterbotLanguageITSelected()
+  {
+    return chatterbotLanguageITSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
+   */
+  public void setChatterbotLanguageITSelected(Boolean chatterbotLanguageITSelected)
+  {
+    this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
+  }
+
+  /**
    * @return the chatterbotAnswer
    */
   public String getChatterbotAnswer()
@@ -1309,6 +1728,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the topicTreeFileIsUploaded
+   */
+  public Boolean getTopicTreeFileIsUploaded()
+  {
+    return topicTreeFileIsUploaded;
+  }
+
+  /**
+   * @param topicTreeFileIsUploaded the topicTreeFileIsUploaded to set
+   */
+  public void setTopicTreeFileIsUploaded(Boolean topicTreeFileIsUploaded)
+  {
+    this.topicTreeFileIsUploaded = topicTreeFileIsUploaded;
+  }
+
+  /**
    * @return the macrosFile
    */
   public UploadedFile getMacrosFile()
@@ -1338,6 +1773,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setMacrosFilename(String macrosFilename)
   {
     this.macrosFilename = macrosFilename;
+  }
+
+  /**
+   * @return the macrosFileIsUploaded
+   */
+  public Boolean getMacrosFileIsUploaded()
+  {
+    return macrosFileIsUploaded;
+  }
+
+  /**
+   * @param macrosFileIsUploaded the macrosFileIsUploaded to set
+   */
+  public void setMacrosFileIsUploaded(Boolean macrosFileIsUploaded)
+  {
+    this.macrosFileIsUploaded = macrosFileIsUploaded;
   }
 
   /**
@@ -1373,6 +1824,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the macrosENFileIsUploaded
+   */
+  public Boolean getMacrosENFileIsUploaded()
+  {
+    return macrosENFileIsUploaded;
+  }
+
+  /**
+   * @param macrosENFileIsUploaded the macrosENFileIsUploaded to set
+   */
+  public void setMacrosENFileIsUploaded(Boolean macrosENFileIsUploaded)
+  {
+    this.macrosENFileIsUploaded = macrosENFileIsUploaded;
+  }
+
+  /**
    * @return the macrosDEFile
    */
   public UploadedFile getMacrosDEFile()
@@ -1402,6 +1869,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setMacrosDEFilename(String macrosDEFilename)
   {
     this.macrosDEFilename = macrosDEFilename;
+  }
+
+  /**
+   * @return the macrosDEFileIsUploaded
+   */
+  public Boolean getMacrosDEFileIsUploaded()
+  {
+    return macrosDEFileIsUploaded;
+  }
+
+  /**
+   * @param macrosDEFileIsUploaded the macrosDEFileIsUploaded to set
+   */
+  public void setMacrosDEFileIsUploaded(Boolean macrosDEFileIsUploaded)
+  {
+    this.macrosDEFileIsUploaded = macrosDEFileIsUploaded;
   }
 
   /**
@@ -1437,6 +1920,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the macrosITFileIsUploaded
+   */
+  public Boolean getMacrosITFileIsUploaded()
+  {
+    return macrosITFileIsUploaded;
+  }
+
+  /**
+   * @param macrosITFileIsUploaded the macrosITFileIsUploaded to set
+   */
+  public void setMacrosITFileIsUploaded(Boolean macrosITFileIsUploaded)
+  {
+    this.macrosITFileIsUploaded = macrosITFileIsUploaded;
+  }
+
+  /**
    * @return the textCorpusFile
    */
   public UploadedFile getTextCorpusFile()
@@ -1466,6 +1965,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTextCorpusFilename(String textCorpusFilename)
   {
     this.textCorpusFilename = textCorpusFilename;
+  }
+
+  /**
+   * @return the textCorpusFileIsUploaded
+   */
+  public Boolean getTextCorpusFileIsUploaded()
+  {
+    return textCorpusFileIsUploaded;
+  }
+
+  /**
+   * @param textCorpusFileIsUploaded the textCorpusFileIsUploaded to set
+   */
+  public void setTextCorpusFileIsUploaded(Boolean textCorpusFileIsUploaded)
+  {
+    this.textCorpusFileIsUploaded = textCorpusFileIsUploaded;
   }
 
   /**
@@ -1501,6 +2016,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the textCorpusENFileIsUploaded
+   */
+  public Boolean getTextCorpusENFileIsUploaded()
+  {
+    return textCorpusENFileIsUploaded;
+  }
+
+  /**
+   * @param textCorpusENFileIsUploaded the textCorpusENFileIsUploaded to set
+   */
+  public void setTextCorpusENFileIsUploaded(Boolean textCorpusENFileIsUploaded)
+  {
+    this.textCorpusENFileIsUploaded = textCorpusENFileIsUploaded;
+  }
+
+  /**
    * @return the textCorpusDEFile
    */
   public UploadedFile getTextCorpusDEFile()
@@ -1530,6 +2061,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTextCorpusDEFilename(String textCorpusDEFilename)
   {
     this.textCorpusDEFilename = textCorpusDEFilename;
+  }
+
+  /**
+   * @return the textCorpusDEFileIsUploaded
+   */
+  public Boolean getTextCorpusDEFileIsUploaded()
+  {
+    return textCorpusDEFileIsUploaded;
+  }
+
+  /**
+   * @param textCorpusDEFileIsUploaded the textCorpusDEFileIsUploaded to set
+   */
+  public void setTextCorpusDEFileIsUploaded(Boolean textCorpusDEFileIsUploaded)
+  {
+    this.textCorpusDEFileIsUploaded = textCorpusDEFileIsUploaded;
   }
 
   /**
@@ -1565,6 +2112,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the textCorpusITFileIsUploaded
+   */
+  public Boolean getTextCorpusITFileIsUploaded()
+  {
+    return textCorpusITFileIsUploaded;
+  }
+
+  /**
+   * @param textCorpusITFileIsUploaded the textCorpusITFileIsUploaded to set
+   */
+  public void setTextCorpusITFileIsUploaded(Boolean textCorpusITFileIsUploaded)
+  {
+    this.textCorpusITFileIsUploaded = textCorpusITFileIsUploaded;
+  }
+
+  /**
    * @return the rngFile
    */
   public UploadedFile getRngFile()
@@ -1597,6 +2160,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the rngFileIsUploaded
+   */
+  public Boolean getRngFileIsUploaded()
+  {
+    return rngFileIsUploaded;
+  }
+
+  /**
+   * @param rngFileIsUploaded the rngFileIsUploaded to set
+   */
+  public void setRngFileIsUploaded(Boolean rngFileIsUploaded)
+  {
+    this.rngFileIsUploaded = rngFileIsUploaded;
+  }
+
+  /**
    * @return the testQuestionsFile
    */
   public UploadedFile getTestQuestionsFile()
@@ -1626,6 +2205,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTestQuestionsFilename(String testQuestionsFilename)
   {
     this.testQuestionsFilename = testQuestionsFilename;
+  }
+
+  /**
+   * @return the testQuestionsFileIsUploaded
+   */
+  public Boolean getTestQuestionsFileIsUploaded()
+  {
+    return testQuestionsFileIsUploaded;
+  }
+
+  /**
+   * @param testQuestionsFileIsUploaded the testQuestionsFileIsUploaded to set
+   */
+  public void setTestQuestionsFileIsUploaded(Boolean testQuestionsFileIsUploaded)
+  {
+    this.testQuestionsFileIsUploaded = testQuestionsFileIsUploaded;
   }
 
   /**
@@ -1722,5 +2317,69 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotSelected(Boolean chatterbotSelected)
   {
     this.chatterbotSelected = chatterbotSelected;
+  }
+
+  /**
+   * @return the SHARED_FILES_DIR_NAME
+   */
+  public String getSHARED_FILES_DIR_NAME()
+  {
+    return SHARED_FILES_DIR_NAME;
+  }
+
+  /**
+   * @param SHARED_FILES_DIR_NAME the SHARED_FILES_DIR_NAME to set
+   */
+  public void setSHARED_FILES_DIR_NAME(String SHARED_FILES_DIR_NAME)
+  {
+    this.SHARED_FILES_DIR_NAME = SHARED_FILES_DIR_NAME;
+  }
+
+  /**
+   * @return the SUCCESS
+   */
+  public String getSUCCESS()
+  {
+    return SUCCESS;
+  }
+
+  /**
+   * @param SUCCESS the SUCCESS to set
+   */
+  public void setSUCCESS(String SUCCESS)
+  {
+    this.SUCCESS = SUCCESS;
+  }
+
+  /**
+   * @return the FAILED
+   */
+  public String getFAILED()
+  {
+    return FAILED;
+  }
+
+  /**
+   * @param FAILED the FAILED to set
+   */
+  public void setFAILED(String FAILED)
+  {
+    this.FAILED = FAILED;
+  }
+
+  /**
+   * @return the log
+   */
+  public Logger getLog()
+  {
+    return log;
+  }
+
+  /**
+   * @param log the log to set
+   */
+  public void setLog(Logger log)
+  {
+    this.log = log;
   }
 }
