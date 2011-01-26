@@ -1385,7 +1385,7 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
-  public String selectBcheckLearning()
+  public String selectBBCheckLearningMode()
   {
     log.debug("Machine learning mode: " + bbCheckLearningInput);
 
@@ -1421,12 +1421,12 @@ public class ChatterbotAdminBean implements Serializable
   public String performBBCheck()
   {
     log.debug("Perform bbCheck.");
-
+    
     bbCheckResults = bbCheck.performBBCheck(bbCheckLanguage, topicTreeFileURL,
           macrosENFileURL, macrosDEFileURL, macrosITFileURL,
           textCorpusENFileURL, textCorpusDEFileURL,
           textCorpusITFileURL, testQuestionsFileURL,
-          Boolean.FALSE, sharedFilesPath);
+          bbCheckLearningSelected, sharedFilesPath);
 
     if (bbCheckResults.isEmpty() || bbCheckResults == null)
     {
