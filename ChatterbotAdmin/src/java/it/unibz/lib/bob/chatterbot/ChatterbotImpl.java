@@ -13,12 +13,6 @@ public class ChatterbotImpl implements Chatterbot
 {
   private DialogueManager dialogueManager;
 
-  private DialogueManager dialogueManagerEN;
-
-  private DialogueManager dialogueManagerDE;
-
-  private DialogueManager dialogueManagerIT;
-
   /**
    * <p>
    * Logging of this class uses four different log levels:
@@ -44,55 +38,21 @@ public class ChatterbotImpl implements Chatterbot
   public ChatterbotImpl()
   {
     dialogueManager = null;
-    dialogueManagerEN = null;
-    dialogueManagerDE = null;
-    dialogueManagerIT = null;
   }
 
   @Override
-  public void updateChatterbotSettings(String language, URL topicTreeFileURL,
-          URL macrosFileURL, URL textCorpusFileURL)
+  public void updateChatterbotSettings(URL topicTreeFileURL,
+          URL macrosENFileURL, URL textCorpusENFileURL, URL macrosDEFileURL,
+          URL textCorpusDEFileURL, URL macrosITFileURL, URL textCorpusITFileURL)
   {
-    log.debug("Update chatterbot settings: " + language);
-
-    if (language.equals("DE"))
+    if (dialogueManager == null)
     {
-      if (dialogueManagerDE == null)
-      {
-        dialogueManagerDE = new DialogueManager(language, topicTreeFileURL,
-                macrosFileURL, textCorpusFileURL);
+      dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
+              textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
+              macrosITFileURL, textCorpusITFileURL);
 
-        log.debug("dialogueManagerDE: " + dialogueManagerDE);
-      }
-
-      dialogueManager = dialogueManagerDE;
+      log.debug("New dialogue manager initialized.");
     }
-    else if (language.equals("IT"))
-    {
-      if (dialogueManagerIT == null)
-      {
-        dialogueManagerIT = new DialogueManager(language, topicTreeFileURL,
-                macrosFileURL, textCorpusFileURL);
-
-        log.debug("dialogueManagerIT: " + dialogueManagerIT);
-      }
-
-      dialogueManager = dialogueManagerIT;
-    }
-    else
-    {
-      if (dialogueManagerEN == null)
-      {
-        dialogueManagerEN = new DialogueManager(language, topicTreeFileURL,
-                macrosFileURL, textCorpusFileURL);
-
-        log.debug("dialogueManagerEN: " + dialogueManagerEN);
-      }
-
-      dialogueManager = dialogueManagerEN;
-    }
-
-    log.debug("Current dialogue manager: " + dialogueManager);
   }
 
   @Override
@@ -103,6 +63,7 @@ public class ChatterbotImpl implements Chatterbot
     try
     {
       answer = dialogueManager.getNextResponse(question, language);
+      log.debug("Bob's answer has been received: " + answer);
     }
     catch (Exception e)
     {

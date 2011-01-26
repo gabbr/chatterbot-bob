@@ -143,7 +143,9 @@ public class TopicTree
     TopicTree.idftrainingdataEN = idftrainingdataEN;
     TopicTree.idftrainingdataDE = idftrainingdataDE;
     TopicTree.idftrainingdataIT = idftrainingdataIT;
+
     initDOM();
+
     ChatterbotHelper.makeInstance(urlAbbreviationsFileEN,
             urlAbbreviationsFileDE, urlAbbreviationsFileIT);
 

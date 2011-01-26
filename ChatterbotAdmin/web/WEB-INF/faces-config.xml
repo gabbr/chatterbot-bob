@@ -135,30 +135,6 @@
       <description>
 
       </description>
-      <property-name>chatterbotLanguageENSelected</property-name>
-      <property-class>java.lang.Boolean</property-class>
-      <value>TRUE</value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
-      <property-name>chatterbotLanguageDESelected</property-name>
-      <property-class>java.lang.Boolean</property-class>
-      <value>FALSE</value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
-      <property-name>chatterbotLanguageITSelected</property-name>
-      <property-class>java.lang.Boolean</property-class>
-      <value>FALSE</value>
-    </managed-property>
-    <managed-property>
-      <description>
-
-      </description>
       <property-name>chatterbotAnswer</property-name>
       <property-class>java.lang.String</property-class>
       <value/>

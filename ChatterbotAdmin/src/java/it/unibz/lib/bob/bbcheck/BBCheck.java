@@ -1,19 +1,18 @@
 package it.unibz.lib.bob.bbcheck;
 
+import java.net.URL;
+
 /**
  *
  * @version $Id$
  */
 public interface BBCheck
 {
-  public String performBBCheck(String testQuestionsFilename,
-          String topicTreeFilename,
-          String macrosENFilename, String macrosDEFilename,
-          String macrosITFilename,
-          String textCorpusENFilename, String textCorpusDEFilename,
-          String textCorpusITFilename,
-          String language, Boolean trainingMode,
-          String outfilePath);
+  public String performBBCheck(String language, URL topicTreeFileURL,
+          URL macrosENFileURL, URL macrosDEFileURL, URL macrosITFileURL,
+          URL textCorpusENFileURL, URL textCorpusDEFileURL,
+          URL textCorpusITFileURL, URL testQuestionsFileURL,
+          Boolean trainingMode, String outfilePath);
 
   public String getBBCheckTestReportFile();
 }

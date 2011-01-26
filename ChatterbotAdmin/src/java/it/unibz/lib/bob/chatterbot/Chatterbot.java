@@ -8,8 +8,9 @@ import java.net.URL;
  */
 public interface Chatterbot
 {
-  public void updateChatterbotSettings(String language, URL topicTreeFileURL,
-          URL macrosFileURL, URL textCorpusFileURL);
-
+  public void updateChatterbotSettings(URL topicTreeFileURL,
+          URL macrosENFileURL, URL textCorpusENFileURL, URL macrosDEFileURL,
+          URL textCorpusDEFileURL, URL macrosITFileURL, URL textCorpusITFileURL);
+ 
   public String getChatterbotAnswer(String question, String language);
 }
