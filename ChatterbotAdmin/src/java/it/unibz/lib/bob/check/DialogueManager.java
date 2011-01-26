@@ -1,6 +1,5 @@
 package it.unibz.lib.bob.check;
 
-import java.io.File;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +18,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.mallardsoft.tuple.Quadruple;
+import java.io.File;
 
 import org.apache.log4j.Logger;
 
@@ -28,6 +28,8 @@ import org.apache.log4j.Logger;
  */
 public class DialogueManager
 {
+  private String language;
+
   /**
    * URL of the topic tree file
    */
@@ -116,6 +118,58 @@ public class DialogueManager
   private Logger log = Logger.getLogger(DialogueManager.class);
 
   /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param language
+   * @param topicTreeFileURL
+   * @param macrosFileURL
+   * @param textCorpusFileURL
+   */
+  public DialogueManager(String language, URL topicTreeFileURL,
+          URL macrosFileURL, URL textCorpusFileURL)
+  {
+    this.language = language;
+
+    log.debug("Language set to: " + language);
+    log.debug("Update topic tree instance with topic tree file: "
+            + topicTreeFileURL);
+    log.debug("Update topic tree instance with macros file: "
+            + macrosFileURL);
+    log.debug("Update topic tree instance with text corpus file: "
+            + textCorpusFileURL);
+
+    if (language.equals("DE"))
+    {
+      this.tt = TopicTree.getInstance(topicTreeFileURL, null, macrosFileURL,
+              null, null, textCorpusFileURL, null);
+
+      log.debug("Topic tree instance set: " + language);
+    }
+    else if (language.equals("IT"))
+    {
+      this.tt = TopicTree.getInstance(topicTreeFileURL, null, null, macrosFileURL,
+              null, null, textCorpusFileURL);
+
+      log.debug("Topic tree instance set: " + language);
+    }
+    else
+    {
+      this.tt = TopicTree.getInstance(topicTreeFileURL, macrosFileURL, null, null,
+              textCorpusFileURL, null, null);
+
+      log.debug("Topic tree instance set: " + language);
+    }
+
+    log.debug("Topic tree instance set.");
+
+    C = tt.getRootNode();
+
+    log.debug("Root node set: " + C.getNodeName());
+  }
+
+  /**
    * Non-Webapp Constructor: disables logging, takes all needed files directly
    * as parameters
    *
@@ -141,7 +195,7 @@ public class DialogueManager
     try
     {
       urlTopicTreeStr = new File(tts).toURL().toString();
-      
+
     }
     catch (MalformedURLException e)
     {
@@ -228,6 +282,7 @@ public class DialogueManager
     }
 
     URL urlIDFtrainingDataIT = null;
+
     if (urlIDFtrainingDataITStr != null)
     {
       try
@@ -259,120 +314,6 @@ public class DialogueManager
     C = tt.getRootNode();
   }
 
-  /**
-   * WebApp BoB constructor: topicTree and abbrev files have to be specified
-   * via WEB-INF/web.xml; logging is enabled for debugging output
-   */
-  public DialogueManager()
-  {
-    Authenticator.setDefault(new MyAuthenticator());
-
-
-      URL urlAbbrevFileEN = null;
-
-    if (urlAbbrevFileENStr != null)
-    {
-      try
-      {
-        urlAbbrevFileEN = new URL(urlAbbrevFileENStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-
-    URL urlAbbrevFileDE = null;
-
-    if (urlAbbrevFileDEStr != null)
-    {
-      try
-      {
-        urlAbbrevFileDE = new URL(urlAbbrevFileDEStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-    URL urlAbbrevFileIT = null;
-
-    if (urlAbbrevFileITStr != null)
-    {
-      try
-      {
-        urlAbbrevFileIT = new URL(urlAbbrevFileITStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-    URL urlIDFtrainingDataEN = null;
-
-    if (urlIDFtrainingDataENStr != null)
-    {
-      try
-      {
-        urlIDFtrainingDataEN = new URL(urlIDFtrainingDataENStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-    URL urlIDFtrainingDataDE = null;
-
-    if (urlIDFtrainingDataDEStr != null)
-    {
-      try
-      {
-        urlIDFtrainingDataDE = new URL(urlIDFtrainingDataDEStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-    URL urlIDFtrainingDataIT = null;
-
-    if (urlIDFtrainingDataITStr != null)
-    {
-      try
-      {
-        urlIDFtrainingDataIT = new URL(urlIDFtrainingDataITStr);
-      }
-      catch (MalformedURLException e)
-      {
-        log.error(e.toString() + ": " + e.getMessage());
-      }
-    }
-
-    try
-    {
-      tt = TopicTree.getInstance(
-              new URL(urlTopicTreeStr),
-              urlAbbrevFileEN,
-              urlAbbrevFileDE,
-              urlAbbrevFileIT,
-              urlIDFtrainingDataEN,
-              urlIDFtrainingDataDE, urlIDFtrainingDataIT);
-    }
-    catch (MalformedURLException e)
-    {
-      log.error(e.toString() + ": " + e.getMessage());
-    }
-
-    C = tt.getRootNode();
-
-    log.debug(sessionID + ", new DialogueManager created.");
-  }
-
   public void setSessionID(String id)
   {
     sessionID = id;
@@ -386,20 +327,15 @@ public class DialogueManager
    * @param userUtt
    * @return a String with the system response (or with an error message)
    */
-  public String getNextResponse(String userUtt, String lang)
+  public String getNextResponse(String userUtt)
   {
-    if (!(lang.toUpperCase().equals("EN") || lang.toUpperCase().equals("DE")
-            || lang.toUpperCase().equals("IT")))
-    {
-      log.error("ERROR in getNextResponse(): illegal language: "
-              + lang + "!");
-    }
-
     String response = null;
 
-    log.info("User message received. Language: " + lang + ". Message: " + userUtt);
+    log.debug("User message received. Language: " + language + ". Message: " + userUtt);
 
-    C = getNextNode(removeAccents(userUtt), lang);
+    C = getNextNode(removeAccents(userUtt), language);
+
+    log.debug("Next node: " + C.getNodeName());
 
     // if topic ID is special OPAC query case, before getting answer from
     // topicTree, extracted keywords from the user question to be inserted
@@ -407,15 +343,20 @@ public class DialogueManager
     if (tt.getNodeName(C, sessionID).equals("bob.90_OPAC_MESSAGES.11_KEYWORD_SEARCH"))
     {
       log.debug("OPAC question!");
-      possibleOpacQuery = OpacQueryQuestionParser.KeywordQuestion.getQueryTerms(userUtt, lang);
+      possibleOpacQuery = OpacQueryQuestionParser.KeywordQuestion.getQueryTerms(userUtt, language);
     }
 
     // get answer from TopicTree
-    response = tt.getNodeAnswer(C, lang, sessionID, true);
+    response = tt.getNodeAnswer(C, language, sessionID, true);
+
+    log.debug("Response is: " + response);
 
     if (C == null)
     {
       C = tt.getRootNode();
+
+      log.debug("New root node:" + C.getNodeName());
+
       sdMode = false;
       tt.reset();
     }
@@ -429,12 +370,12 @@ public class DialogueManager
 
     String opacLanguageCode = "1"; // german
 
-    if (lang.equals("EN"))
+    if (language.equals("EN"))
     {
       opacLanguageCode = "2";
     }
 
-    if (lang.equals("IT"))
+    if (language.equals("IT"))
     {
       opacLanguageCode = "3";
     }
@@ -451,6 +392,8 @@ public class DialogueManager
 
     opacLinkUrl = opacLinkUrl.replaceFirst("__QUERY__", possibleOpacQuery_escaped);
     response = response.replaceAll("__OPAC_LINK_URL__", opacLinkUrl);
+
+    log.debug("Response is: " + response);
 
     return response;
   }
@@ -1083,48 +1026,140 @@ public class DialogueManager
     }
   }
 
-  /*
-   * Setter methods for the InitServlet
-   */
-  public static void setUrlTopicTree(String initParameter)
+  public String getLanguage()
   {
-    urlTopicTreeStr = initParameter;
+    return this.language;
   }
 
-  public static void setUrlIDFtrainingDataEN(String initParameter)
+  public static void main(String[] args)
   {
-    urlIDFtrainingDataENStr = initParameter;
-  }
+    String[] languages =
+    {
+      "EN", "DE", "IT", "EN", "DE", "IT"
+    };
 
-  public static void setUrlIDFtrainingDataDE(String initParameter)
-  {
-    urlIDFtrainingDataDEStr = initParameter;
-  }
+    DialogueManager dm = null;
+    DialogueManager dmEN = null;
+    DialogueManager dmDE = null;
+    DialogueManager dmIT = null;
 
-  public static void setUrlIDFtrainingDataIT(String initParameter)
-  {
-    urlIDFtrainingDataITStr = initParameter;
-  }
+    URL ttFileURL = null;
+    URL macroFileURL = null;
+    URL textCorpusFileURL = null;
 
-  public static void setUrlAbbrevFileEN(String initParameter)
-  {
-    urlAbbrevFileENStr = initParameter;
-  }
+    String ttFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/topictree.xml";
 
-  public static void setUrlAbbrevFileDE(String initParameter)
-  {
-    urlAbbrevFileDEStr = initParameter;
-  }
+    String macroENFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/bob_macros_EN.txt";
 
-  public static void setUrlAbbrevFileIT(String initParameter)
-  {
-    urlAbbrevFileITStr = initParameter;
-  }
+    String macroDEFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/bob_macros_DE.txt";
 
-  public static void main(String[] args) {
-       // test: initialize only German macros. 
-      DialogueManager dm = new DialogueManager("/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/topictree.xml", null, "file:///Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt", null, null, null, null);
-      System.out.println(dm.getNextResponse("test", "DE"));
+    String macroITFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/bob_macros_IT.txt";
 
+    String textCorpusENFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/UKWAC-1.txt_sm";
+
+    String textCorpusDEFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/DEWAC-1.txt_sm";
+
+    String textCorpusITFile = "file:/home/markus/NetBeansProjects/ChatterbotAdmin/"
+            + "build/web/shared-files/ITWAC-1.txt_sm";
+
+    for (String language : languages)
+    {
+      if (language.equals("DE"))
+      {
+        if (dmDE == null)
+        {
+          try
+          {
+            ttFileURL = new URL(ttFile);
+            System.out.println("URL for tt file created: "
+                    + ttFileURL.toString());
+
+            macroFileURL = new URL(macroDEFile);
+            System.out.println("URL for macros de file created: "
+                    + macroFileURL.toString());
+
+            textCorpusFileURL = new URL(textCorpusDEFile);
+            System.out.println("URL for macros de file created: "
+                    + textCorpusFileURL.toString());
+          }
+          catch (MalformedURLException e)
+          {
+            System.err.println("Failed to create URL: " + e.getMessage());
+            System.exit(0);
+          }
+
+          dmDE = new DialogueManager(language, ttFileURL, macroFileURL, textCorpusFileURL);
+        }
+
+        dm = dmDE;
+      }
+      else if (language.equals("IT"))
+      {
+        if (dmIT == null)
+        {
+          try
+          {
+            ttFileURL = new URL(ttFile);
+            System.out.println("URL for tt file created: "
+                    + ttFileURL.toString());
+
+            macroFileURL = new URL(macroITFile);
+            System.out.println("URL for macros it file created: "
+                    + macroFileURL.toString());
+
+            textCorpusFileURL = new URL(textCorpusITFile);
+            System.out.println("URL for macros it file created: "
+                    + textCorpusFileURL.toString());
+          }
+          catch (MalformedURLException e)
+          {
+            System.err.println("Failed to create URL: " + e.getMessage());
+            System.exit(0);
+          }
+
+          dmIT = new DialogueManager(language, ttFileURL, macroFileURL, textCorpusFileURL);
+        }
+
+        dm = dmIT;
+      }
+      else
+      {
+        if (dmEN == null)
+        {
+          try
+          {
+            ttFileURL = new URL(ttFile);
+            System.out.println("URL for tt file created: "
+                    + ttFileURL.toString());
+
+            macroFileURL = new URL(macroENFile);
+            System.out.println("URL for macros en file created: "
+                    + macroFileURL.toString());
+
+            textCorpusFileURL = new URL(textCorpusENFile);
+            System.out.println("URL for macros en file created: "
+                    + textCorpusFileURL.toString());
+          }
+          catch (MalformedURLException e)
+          {
+            System.err.println("Failed to create URL: " + e.getMessage());
+            System.exit(0);
+          }
+
+          dmEN = new DialogueManager(language, ttFileURL, macroFileURL, textCorpusFileURL);
+        }
+
+        dm = dmEN;
+      }
+
+      System.out.println(dm.getNextResponse("test"));
+
+    }
   }
 }

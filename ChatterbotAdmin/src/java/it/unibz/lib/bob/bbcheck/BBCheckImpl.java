@@ -11,6 +11,7 @@ import it.unibz.lib.bob.check.QAMatchingBob;
 import it.unibz.lib.bob.check.TopicTree;
 import it.unibz.lib.bob.check.DialogueManager;
 import it.unibz.lib.bob.check.QAFeatures;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
 
@@ -20,6 +21,14 @@ import org.apache.log4j.Logger;
  */
 public class BBCheckImpl implements BBCheck
 {
+  private DialogueManager dialogueManager;
+
+  private DialogueManager dialogueManagerEN;
+
+  private DialogueManager dialogueManagerDE;
+
+  private DialogueManager dialogueManagerIT;
+
   private TestQuestionSpreadSheet infile;
 
   private ErrorReportSpreadSheet outfile;
@@ -41,6 +50,18 @@ public class BBCheckImpl implements BBCheck
    * </p>
    */
   private Logger log = Logger.getLogger(BBCheckImpl.class);
+
+  /**
+   * <p>
+   * </p>
+   */
+  public BBCheckImpl()
+  {
+    dialogueManager = null;
+    dialogueManagerEN = null;
+    dialogueManagerDE = null;
+    dialogueManagerIT = null;
+  }
 
   @Override
   public String performBBCheck(String testQuestionsFilename,
@@ -70,7 +91,7 @@ public class BBCheckImpl implements BBCheck
       trainingCsv_out = new ResultFileWriter(rfilename);
       trainingCsv_out.println(QAFeatures.csvHeader);
     }
-    
+
     String macrosENURLName = null;
 
     if (macrosENFilename != null)
@@ -494,7 +515,7 @@ public class BBCheckImpl implements BBCheck
             }
           }
         }
-        
+
         if (!trainingMode && (textCorpusENURLname != null
                 || textCorpusDEURLname != null || textCorpusITURLname != null))
         {
@@ -544,7 +565,7 @@ public class BBCheckImpl implements BBCheck
       // generate output files
       outfile.writeSheet(outfilePath);
       testResults = testResults + "Report .xls generated: " + outfile.getFilename();
-      
+
       if (trainingMode)
       {
         trainingCsv_out.close();
