@@ -190,24 +190,6 @@ public class ChatterbotAdminBean implements Serializable
    * <p>
    * </p>
    */
-  private Boolean chatterbotLanguageENSelected;
-
-  /**
-   * <p>
-   * </p>
-   */
-  private Boolean chatterbotLanguageDESelected;
-
-  /**
-   * <p>
-   * </p>
-   */
-  private Boolean chatterbotLanguageITSelected;
-
-  /**
-   * <p>
-   * </p>
-   */
   private String chatterbotAnswer;
 
   /**
@@ -1440,10 +1422,11 @@ public class ChatterbotAdminBean implements Serializable
   {
     log.debug("Perform bbCheck.");
 
-    bbCheckResults = bbCheck.performBBCheck(testQuestionsFilename, topicTreeFilename,
-            macrosENFilename, macrosDEFilename, macrosITFilename,
-            textCorpusENFilename, textCorpusDEFilename, textCorpusITFilename,
-            bbCheckLanguage, Boolean.FALSE, sharedFilesPath);
+    bbCheckResults = bbCheck.performBBCheck(bbCheckLanguage, topicTreeFileURL,
+          macrosENFileURL, macrosDEFileURL, macrosITFileURL,
+          textCorpusENFileURL, textCorpusDEFileURL,
+          textCorpusITFileURL, testQuestionsFileURL,
+          Boolean.FALSE, sharedFilesPath);
 
     if (bbCheckResults.isEmpty() || bbCheckResults == null)
     {
@@ -1561,94 +1544,15 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
-  /**
-   * <p>
-   * This method is used to select language for chatterbot application and
-   * to enable upload of language related files.
-   * </p>
-   *
-   * @return result string for JSF navigation rules
-   */
-  public String selectChatterbotLanguage()
-  {
-    // langauge is already set
-    log.debug("chatterbot language set to: " + chatterbotLanguage);
-
-    // check if language is German
-    if (chatterbotLanguage.equals("DE"))
-    {
-      // language is set to German
-
-      // enable upload of files that are related
-      // to German language by setting appropriate
-      // Boolean values for view
-      chatterbotLanguageENSelected = Boolean.FALSE;
-      chatterbotLanguageDESelected = Boolean.TRUE;
-      chatterbotLanguageITSelected = Boolean.FALSE;
-    }
-    else if (chatterbotLanguage.equals("IT"))
-    {
-      // langauge is set to Italian
-
-      // enable upload of files that are related
-      // to Italian language by setting appropriate
-      // Boolean values for view
-      chatterbotLanguageENSelected = Boolean.FALSE;
-      chatterbotLanguageDESelected = Boolean.FALSE;
-      chatterbotLanguageITSelected = Boolean.TRUE;
-    }
-    else
-    {
-      // langauge is set to English (default)
-
-      // enable upload of files that are related
-      // to English language by setting appropriate
-      // Boolean values for view
-      chatterbotLanguageENSelected = Boolean.TRUE;
-      chatterbotLanguageDESelected = Boolean.FALSE;
-      chatterbotLanguageITSelected = Boolean.FALSE;
-    }
-
-    // does not fail
-    return SUCCESS;
-  }
-
   public String chat()
   {
-    if (chatterbotLanguage.equals("DE"))
-    {
-      log.debug("Update chatterbot with language: " + chatterbotLanguage);
-      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
-      log.debug("Update chatterbot with macros file: " + macrosDEFileURL);
-      log.debug("Update chatterbot with text corpus file: " + textCorpusDEFileURL);
+    chatterbot.updateChatterbotSettings(topicTreeFileURL, macrosENFileURL, 
+            textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
+            macrosITFileURL, textCorpusITFileURL);
 
-      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
-              macrosDEFileURL, textCorpusDEFileURL);
-    }
-    else if (chatterbotLanguage.equals("IT"))
-    {
-      log.debug("Update chatterbot with language: " + chatterbotLanguage);
-      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
-      log.debug("Update chatterbot with macros file: " + macrosITFileURL);
-      log.debug("Update chatterbot with text corpus file: " + textCorpusITFileURL);
+    log.debug("Chatterbot settings updated. Language is st to " + chatterbotLanguage);
 
-      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
-              macrosITFileURL, textCorpusITFileURL);
-    }
-    else
-    {
-      log.debug("Update chatterbot with language: " + chatterbotLanguage);
-      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
-      log.debug("Update chatterbot with macros file: " + macrosENFileURL);
-      log.debug("Update chatterbot with text corpus file: " + textCorpusENFileURL);
-
-      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
-              macrosENFileURL, textCorpusENFileURL);
-    }
-
-    log.debug("Chatterbot settings updated.");
-
-    chatterbotAnswer 
+    chatterbotAnswer
             = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
 
     if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
@@ -2064,57 +1968,6 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotLanguage(String chatterbotLanguage)
   {
     this.chatterbotLanguage = chatterbotLanguage;
-  }
-
-  /**
-   * @return the chatterbotLanguageENSelected
-   */
-  public Boolean getChatterbotLanguageENSelected()
-  {
-    return chatterbotLanguageENSelected;
-  }
-
-  /**
-   * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
-   */
-  public void setChatterbotLanguageENSelected(
-          Boolean chatterbotLanguageENSelected)
-  {
-    this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
-  }
-
-  /**
-   * @return the chatterbotLanguageDESelected
-   */
-  public Boolean getChatterbotLanguageDESelected()
-  {
-    return chatterbotLanguageDESelected;
-  }
-
-  /**
-   * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
-   */
-  public void setChatterbotLanguageDESelected(
-          Boolean chatterbotLanguageDESelected)
-  {
-    this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
-  }
-
-  /**
-   * @return the chatterbotLanguageITSelected
-   */
-  public Boolean getChatterbotLanguageITSelected()
-  {
-    return chatterbotLanguageITSelected;
-  }
-
-  /**
-   * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
-   */
-  public void setChatterbotLanguageITSelected(
-          Boolean chatterbotLanguageITSelected)
-  {
-    this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
   }
 
   /**
