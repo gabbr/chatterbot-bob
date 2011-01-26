@@ -15,85 +15,93 @@ import org.apache.log4j.Logger;
  *
  * @version $Id$
  */
-public class TTCheckImpl implements TTCheck
-{
-  private XMLValidationSchemaFactory schemaFactory;
+public class TTCheckImpl implements TTCheck {
 
-  private XMLValidationSchema schema;
+    private XMLValidationSchemaFactory schemaFactory;
+    private XMLValidationSchema schema;
+    private XMLInputFactory2 inputFactory;
+    private XMLStreamReader2 streamReader;
+    private File schemaFile;
+    /**
+     * <p>
+     * Logging of this class uses four different log levels:
+     * </p>
+     * <ul>
+     * <li><b>DEBUG</b> to reproduce complete program flow</li>
+     * <li><b>INFO</b> to reproduce system activities</li>
+     * <li><b>WARN</b> to reproduce system warnings</li>
+     * <li><b>ERROR</b> to reproduce system failures</li>
+     * <li><b>FATAL</b> to reproduce fatal system failures</li>
+     * </ul>
+     * <p>
+     * The corresponding <tt>log4j.properties</tt> file is located in the
+     * <tt>WEB-INF/classes</tt> directory of this web application.
+     * </p>
+     */
+    private Logger log = Logger.getLogger(TTCheckImpl.class);
 
-  private XMLInputFactory2 inputFactory;
+    @Override
+    public String performTTCheck(String ttFile, String rngFile,
+            String macrosDEFile,
+            String macrosENFile, String macrosITFile) {
 
-  private XMLStreamReader2 streamReader;
+        String testResults = new String();
 
-  private File schemaFile;
+        XMLValidationSchemaFactory schemaFactory = XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_RELAXNG);
+        schemaFile = new File(rngFile);
+        XMLValidationSchema rng2 = null;
+        try {
+            rng2 = schemaFactory.createSchema(schemaFile);
+        } catch (XMLStreamException xe) {
+            testResults += "Could not load RNG file ('" + schemaFile + "'): \n\t" + xe.getMessage();
 
-  /**
-   * <p>
-   * Logging of this class uses four different log levels:
-   * </p>
-   * <ul>
-   * <li><b>DEBUG</b> to reproduce complete program flow</li>
-   * <li><b>INFO</b> to reproduce system activities</li>
-   * <li><b>WARN</b> to reproduce system warnings</li>
-   * <li><b>ERROR</b> to reproduce system failures</li>
-   * <li><b>FATAL</b> to reproduce fatal system failures</li>
-   * </ul>
-   * <p>
-   * The corresponding <tt>log4j.properties</tt> file is located in the
-   * <tt>WEB-INF/classes</tt> directory of this web application.
-   * </p>
-   */
-  private Logger log = Logger.getLogger(TTCheckImpl.class);
+        }
 
-  @Override
-  public String performTTCheck(String ttFile, String rngFile,
-          String macrosDEFile,
-          String macrosENFile, String macrosITFile)
-  {
 
-    String testResults = new String();
+        testResults = testResults + "Using RNG file for XML validation: "
+                + rngFile + "\n";
 
-    try
-    {
+        // document validation
+        File inputFile = new File(ttFile);
+        try {
+            inputFactory = (XMLInputFactory2) XMLInputFactory.newInstance();
+            streamReader = inputFactory.createXMLStreamReader(inputFile);
 
-      schemaFactory = XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_RELAXNG);
-      schemaFile = new File(rngFile);
-      XMLValidationSchema rng2 = null;
-      rng2 = schemaFactory.createSchema(schemaFile);
+            try {
+                streamReader.validateAgainst(rng2);
+                while (streamReader.hasNext()) {
+                    streamReader.next();
+                }
 
-      testResults = testResults + "Using RNG file for XML validation: "
-              + rngFile + "\n";
+                /**
+                 * Check all regex patterns in abbrev file and topic tree, using
+                 * abbreviations from the 3 abbrev files
+                 */
+                testResults += RegexCheckHelper.doRegexChecks(inputFile, macrosDEFile, macrosENFile, macrosITFile);
 
-      // document validation
-      File fileFocusTree = new File(ttFile);
-      inputFactory = (XMLInputFactory2) XMLInputFactory.newInstance();
-      streamReader = inputFactory.createXMLStreamReader(fileFocusTree);
+            } catch (Exception vex) {
+                testResults += "File '" + ttFile
+                        + "' did NOT pass validation: "
+                        + vex.getMessage();
 
-      testResults = testResults + "Validating topictree xml file: "
-              + ttFile + "\n";
 
-      streamReader.validateAgainst(rng2);
+            }
+            
+        } catch (XMLStreamException xse) {
+            testResults += "Could not read input file ('"
+                    + ttFile + "'): " + xse.getMessage();
 
-      while (streamReader.hasNext())
-      {
-        streamReader.next();
-      }
 
-      // Check all regex patterns in abbrev file and topic tree, using
-      // abbreviations from the 3 abbrev files
-      testResults = testResults + RegexCheckHelper.doRegexChecks(fileFocusTree, macrosDEFile, macrosENFile, macrosITFile);
+        }
+        return testResults;
     }
-    catch (XMLStreamException e)
-    {
-      log.error("Could not load file (" + schemaFile.getName() + "): "
-              + e.getMessage());
-    }
-    catch (Exception e)
-    {
-      log.error("Could not parse file (" + schemaFile.getName() + "): "
-              + e.getMessage());
-    }
 
-    return testResults;
-  }
+    public static void main(String[] args) {
+        TTCheckImpl tt = new TTCheckImpl();
+        System.out.println(tt.performTTCheck("/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/topictree.xml",
+                "/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/library_domain.rng",
+                "/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt",
+                "/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_EN.txt",
+                "/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_IT.txt"));
+    }
 }
