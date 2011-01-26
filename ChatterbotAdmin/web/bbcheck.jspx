@@ -352,21 +352,18 @@
       <t:commandButton
         style="float: right;"
         value="#{message.bbcheck_learning_select_button_text}"
-        action="#{chatterbotAdminBean.selectBBCheckLearning}" />
+        action="#{chatterbotAdminBean.selectBBCheckLearningMode}" />
     </t:panelGrid>
   </h:form>
   <!--
-        display upload section of text corpus file if
-        learning mode has been selected
+        file upload for text corpus file EN
   -->
-  <h:form enctype="multipart/form-data">
-    <t:panelGrid
-      rendered="#{chatterbotAdminBean.bbCheckLearningSelected}"
-      styleClass="chatterbotAdminInput"
-      columns="1">
-      <f:verbatim>
-        <br/>
-      </f:verbatim>
+  <f:subview 
+    id="bbcheck_learning_mode_selected"
+    rendered="#{chatterbotAdminBean.bbCheckLearningSelected}">
+    <h:form
+      rendered="#{chatterbotAdminBean.bbCheckLanguageENSelected}"
+      enctype="multipart/form-data">
       <t:panelGrid
         styleClass="chatterbotAdminUpload"
         columns="2">
@@ -374,25 +371,123 @@
           styleClass="chatterbotAdminUploadArea"
           columns="2">
           <t:outputText
-            style="float:left"
-            value="#{message.bbcheck_learning_file_text_corpus}" />
+            style="float:left; width: 200px"
+            value="#{message.bbcheck_learning_file_UKWAC}" />
           <t:inputFileUpload
-            size="40"
+            rendered="#{!chatterbotAdminBean.textCorpusENFileIsUploaded}"
+            size="60"
             style="float: right"
             styleClass="chatterbotAdminUploadItem"
-            value="#{chatterbotAdminBean.textCorpusFile}"
+            value="#{chatterbotAdminBean.textCorpusENFile}"
             storage="file"
             required="true"
             maxlength="20000"/>
+          <t:outputText
+            rendered="#{chatterbotAdminBean.textCorpusENFileIsUploaded}"
+            style="float: left"
+            value="#{chatterbotAdminBean.textCorpusENFilename}" />
         </t:panelGrid>
         <t:commandButton
-          id="bbcheck_upload_text_corpus_file"
+          id="bbcheck_upload_test_questions_file"
+          rendered="#{!chatterbotAdminBean.textCorpusENFileIsUploaded}"
           styleClass="chatterbotAdminUploadButton"
-          value="#{message.bbcheck_learning_load_button_text}"
-          action="#{chatterbotAdminBean.uploadTextCorpusFile}" />
+          value="#{message.bbcheck_learning_file_load_button_text}"
+          action="#{chatterbotAdminBean.uploadTextCorpusENFile}" />
+        <h:commandButton
+          id="bbcheck_test_questions_file_uploaded"
+          rendered="#{chatterbotAdminBean.textCorpusENFileIsUploaded}"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bbcheck_learning_file_new_upload_button_text}"
+          action="#{chatterbotAdminBean.uploadNewTextCorpusENFile}" />
       </t:panelGrid>
-    </t:panelGrid>
-  </h:form>
+    </h:form>
+    <!--
+          file upload for text corpus file DE
+    -->
+    <h:form
+      rendered="#{chatterbotAdminBean.bbCheckLanguageDESelected}"
+      enctype="multipart/form-data">
+      <t:panelGrid
+        styleClass="chatterbotAdminUpload"
+        columns="2">
+        <t:panelGrid
+          styleClass="chatterbotAdminUploadArea"
+          columns="2">
+          <t:outputText
+            style="float:left; width: 200px"
+            value="#{message.bbcheck_learning_file_DEWAC}" />
+          <t:inputFileUpload
+            rendered="#{!chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+            size="60"
+            style="float: right"
+            styleClass="chatterbotAdminUploadItem"
+            value="#{chatterbotAdminBean.textCorpusDEFile}"
+            storage="file"
+            required="true"
+            maxlength="20000"/>
+          <t:outputText
+            rendered="#{chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+            style="float: left"
+            value="#{chatterbotAdminBean.textCorpusDEFilename}" />
+        </t:panelGrid>
+        <t:commandButton
+          id="bbcheck_upload_test_questions_file"
+          rendered="#{!chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bbcheck_learning_file_load_button_text}"
+          action="#{chatterbotAdminBean.uploadTextCorpusDEFile}" />
+        <h:commandButton
+          id="bbcheck_test_questions_file_uploaded"
+          rendered="#{chatterbotAdminBean.textCorpusDEFileIsUploaded}"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bbcheck_learning_file_new_upload_button_text}"
+          action="#{chatterbotAdminBean.uploadNewTextCorpusDEFile}" />
+      </t:panelGrid>
+    </h:form>
+    <!--
+          file upload for text corpus file IT
+    -->
+    <h:form
+      rendered="#{chatterbotAdminBean.bbCheckLanguageITSelected}"
+      enctype="multipart/form-data">
+      <t:panelGrid
+        styleClass="chatterbotAdminUpload"
+        columns="2">
+        <t:panelGrid
+          styleClass="chatterbotAdminUploadArea"
+          columns="2">
+          <t:outputText
+            style="float:left; width: 200px"
+            value="#{message.bbcheck_learning_file_ITWAC}" />
+          <t:inputFileUpload
+            rendered="#{!chatterbotAdminBean.textCorpusITFileIsUploaded}"
+            size="60"
+            style="float: right"
+            styleClass="chatterbotAdminUploadItem"
+            value="#{chatterbotAdminBean.textCorpusITFile}"
+            storage="file"
+            required="true"
+            maxlength="20000"/>
+          <t:outputText
+            rendered="#{chatterbotAdminBean.textCorpusITFileIsUploaded}"
+            style="float: left"
+            value="#{chatterbotAdminBean.textCorpusITFilename}" />
+        </t:panelGrid>
+        <t:commandButton
+          id="bbcheck_upload_test_questions_file"
+          rendered="#{!chatterbotAdminBean.textCorpusITFileIsUploaded}"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bbcheck_learning_file_load_button_text}"
+          action="#{chatterbotAdminBean.uploadTextCorpusITFile}" />
+        <h:commandButton
+          id="bbcheck_test_questions_file_uploaded"
+          rendered="#{chatterbotAdminBean.textCorpusITFileIsUploaded}"
+          styleClass="chatterbotAdminUploadButton"
+          value="#{message.bbcheck_learning_file_new_upload_button_text}"
+          action="#{chatterbotAdminBean.uploadNewTextCorpusITFile}" />
+      </t:panelGrid>
+    </h:form>
+  </f:subview>
   <!--
        display title of test section
   -->
