@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import javax.faces.context.FacesContext;
@@ -227,6 +228,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String topicTreeFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL topicTreeFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean topicTreeFileIsUploaded;
 
   /**
@@ -241,6 +252,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL macrosFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean macrosFileIsUploaded;
 
   /**
@@ -255,6 +276,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosENFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL macrosENFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean macrosENFileIsUploaded;
 
   /**
@@ -269,6 +300,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosDEFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL macrosDEFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean macrosDEFileIsUploaded;
 
   /**
@@ -283,6 +324,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String macrosITFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL macrosITFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean macrosITFileIsUploaded;
 
   /**
@@ -297,6 +348,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL textCorpusFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean textCorpusFileIsUploaded;
 
   /**
@@ -311,6 +372,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusENFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL textCorpusENFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean textCorpusENFileIsUploaded;
 
   /**
@@ -325,6 +396,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusDEFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL textCorpusDEFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean textCorpusDEFileIsUploaded;
 
   /**
@@ -339,6 +420,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String textCorpusITFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL textCorpusITFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean textCorpusITFileIsUploaded;
 
   /**
@@ -353,6 +444,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String rngFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL rngFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean rngFileIsUploaded;
 
   /**
@@ -367,6 +468,16 @@ public class ChatterbotAdminBean implements Serializable
    */
   private String testQuestionsFilename;
 
+  /**
+   * <p>
+   * </p>
+   */
+  private URL testQuestionsFileURL;
+
+  /**
+   * <p>
+   * </p>
+   */
   private Boolean testQuestionsFileIsUploaded;
 
   /**
@@ -447,6 +558,7 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
+   *
    * </p>
    */
   public ChatterbotAdminBean()
@@ -616,8 +728,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of topic tree file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTopicTreeFile()
+  public String uploadTopicTreeFile()
   {
     // disable further uploads
     topicTreeFileIsUploaded = Boolean.TRUE;
@@ -625,19 +739,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of topic tree file
     topicTreeFilename = sharedFilesPath + "/" + topicTreeFile.getName();
 
+    try
+    {
+      // set file url
+      topicTreeFileURL = new File(topicTreeFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + topicTreeFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + topicTreeFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(topicTreeFile, topicTreeFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new topic tree file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTopicTreeFile()
+  public String uploadNewTopicTreeFile()
   {
     // enable new upload
     topicTreeFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -645,8 +785,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of any macro file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadMacrosFile()
+  public String uploadMacrosFile()
   {
     // disable further uploads
     macrosFileIsUploaded = Boolean.TRUE;
@@ -654,19 +796,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of macro file
     macrosFilename = sharedFilesPath + "/" + macrosFile.getName();
 
+    try
+    {
+      // set file url
+      macrosFileURL = new File(macrosFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + macrosFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + macrosFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(macrosFile, macrosFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new macros file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewMacrosFile()
+  public String uploadNewMacrosFile()
   {
     // enable new upload
     macrosFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -674,8 +842,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of English macro file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadMacrosENFile()
+  public String uploadMacrosENFile()
   {
     // disable further uploads
     macrosENFileIsUploaded = Boolean.TRUE;
@@ -683,19 +853,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of Englisch macro file
     macrosENFilename = sharedFilesPath + "/" + macrosENFile.getName();
 
+    try
+    {
+      // set file url
+      macrosENFileURL = new File(macrosENFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + macrosENFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + macrosENFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(macrosENFile, macrosENFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new English macros file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewMacrosENFile()
+  public String uploadNewMacrosENFile()
   {
     // enable new upload
     macrosENFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -703,8 +899,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of German macro file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadMacrosDEFile()
+  public String uploadMacrosDEFile()
   {
     // disable further uploads
     macrosDEFileIsUploaded = Boolean.TRUE;
@@ -712,19 +910,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of German macro file
     macrosDEFilename = sharedFilesPath + "/" + macrosDEFile.getName();
 
+    try
+    {
+      // set file url
+      macrosDEFileURL = new File(macrosDEFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + macrosDEFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + macrosDEFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(macrosDEFile, macrosDEFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new German macros file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewMacrosDEFile()
+  public String uploadNewMacrosDEFile()
   {
     // enable new upload
     macrosDEFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -732,8 +956,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of Italian macro file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadMacrosITFile()
+  public String uploadMacrosITFile()
   {
     // disable further downloads
     macrosITFileIsUploaded = Boolean.TRUE;
@@ -741,19 +967,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of Italian macro file
     macrosITFilename = sharedFilesPath + "/" + macrosITFile.getName();
 
+    try
+    {
+      // set file url
+      macrosITFileURL = new File(macrosITFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + macrosITFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + macrosITFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(macrosITFile, macrosITFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new Italian macros file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewMacrosITFile()
+  public String uploadNewMacrosITFile()
   {
     // enable new upload
     macrosITFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -761,8 +1013,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of any text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTextCorpusFile()
+  public String uploadTextCorpusFile()
   {
     // disable further uploads
     textCorpusFileIsUploaded = Boolean.TRUE;
@@ -770,19 +1024,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of text corpus file
     textCorpusFilename = sharedFilesPath + "/" + textCorpusFile.getName();
 
+    try
+    {
+      // set file url
+      textCorpusFileURL = new File(textCorpusFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + textCorpusFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + textCorpusFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(textCorpusFile, textCorpusFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTextCorpusFile()
+  public String uploadNewTextCorpusFile()
   {
     // enable new upload
     textCorpusFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -790,8 +1070,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of English text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTextCorpusENFile()
+  public String uploadTextCorpusENFile()
   {
     // disable further downloads
     textCorpusENFileIsUploaded = Boolean.TRUE;
@@ -799,19 +1081,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of English text corpus file
     textCorpusENFilename = sharedFilesPath + "/" + textCorpusENFile.getName();
 
+    try
+    {
+      // set file url
+      textCorpusENFileURL = new File(textCorpusENFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + textCorpusENFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + textCorpusENFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(textCorpusENFile, textCorpusENFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new English text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTextCorpusENFile()
+  public String uploadNewTextCorpusENFile()
   {
     // enable new upload
     textCorpusENFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -819,8 +1127,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of German text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTextCorpusDEFile()
+  public String uploadTextCorpusDEFile()
   {
     // disable further downloads
     textCorpusDEFileIsUploaded = Boolean.TRUE;
@@ -828,19 +1138,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of German text corpus file
     textCorpusDEFilename = sharedFilesPath + "/" + textCorpusDEFile.getName();
 
+    try
+    {
+      // set file url
+      textCorpusDEFileURL = new File(textCorpusDEFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + textCorpusDEFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + textCorpusDEFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(textCorpusDEFile, textCorpusDEFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new German text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTextCorpusDEFile()
+  public String uploadNewTextCorpusDEFile()
   {
     // enable new upload
     textCorpusDEFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -848,28 +1184,56 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of Italian text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTextCorpusITFile()
+  public String uploadTextCorpusITFile()
   {
     // disable further uploads
-    textCorpusDEFileIsUploaded = Boolean.TRUE;
+    textCorpusITFileIsUploaded = Boolean.TRUE;
 
     // set file location of Italian text corpus file
     textCorpusITFilename = sharedFilesPath + "/" + textCorpusITFile.getName();
 
+    try
+    {
+      // set file url
+      textCorpusITFileURL = new File(textCorpusITFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + textCorpusITFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + textCorpusITFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(textCorpusITFile, textCorpusITFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new Italian text corpus file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTextCorpusITFile()
+  public String uploadNewTextCorpusITFile()
   {
     // enable new upload
-    textCorpusDEFileIsUploaded = Boolean.FALSE;
+    textCorpusITFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -877,8 +1241,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of rng file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadRngFile()
+  public String uploadRngFile()
   {
     // disable further uploads
     rngFileIsUploaded = Boolean.TRUE;
@@ -886,19 +1252,45 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of rng file
     rngFilename = sharedFilesPath + "/" + rngFile.getName();
 
+    try
+    {
+      // set file url
+      rngFileURL = new File(rngFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + rngFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + rngFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
     // start upload
     uploadFile(rngFile, rngFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new rng file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewRngFile()
+  public String uploadNewRngFile()
   {
     // enable new upload
     rngFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -906,8 +1298,10 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to set appropriate file location and to trigger
    * file upload of test questions file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadTestQuestionsFile()
+  public String uploadTestQuestionsFile()
   {
     // disable further uploads
     testQuestionsFileIsUploaded = Boolean.TRUE;
@@ -915,19 +1309,46 @@ public class ChatterbotAdminBean implements Serializable
     // set file location of test questions file
     testQuestionsFilename = sharedFilesPath + "/" + testQuestionsFile.getName();
 
+    try
+    {
+      // set file url
+      testQuestionsFileURL = new File(testQuestionsFilename).toURI().toURL();
+
+      // file url set
+      log.debug("File url set to: " + testQuestionsFileURL);
+    }
+    catch (MalformedURLException e)
+    {
+      // failed to set url
+      log.error("Failed to set url for file " + testQuestionsFile.getName()
+              + ": " + e.getMessage());
+
+      // report exception to ui
+      return FAILED;
+    }
+
+
     // start upload
     uploadFile(testQuestionsFile, testQuestionsFilename);
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
    * <p>
    * This method is used to enable the upload of a new test questions file.
    * </p>
+   *
+   * @return report success or failure of this operation to ui
    */
-  public void uploadNewTestQuestionsFile()
+  public String uploadNewTestQuestionsFile()
   {
     // enable new upload
     testQuestionsFileIsUploaded = Boolean.FALSE;
+
+    // report success to ui
+    return SUCCESS;
   }
 
   /**
@@ -1194,16 +1615,45 @@ public class ChatterbotAdminBean implements Serializable
 
   public String chat()
   {
-    log.debug("Perform chatterbot question with language: " + chatterbotLanguage);
+    if (chatterbotLanguage.equals("DE"))
+    {
+      log.debug("Update chatterbot with language: " + chatterbotLanguage);
+      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
+      log.debug("Update chatterbot with macros file: " + macrosDEFileURL);
+      log.debug("Update chatterbot with text corpus file: " + textCorpusDEFileURL);
 
-    chatterbotAnswer = chatterbot.chat(chatterbotQuestion, chatterbotLanguage,
-            topicTreeFilename, macrosENFilename, macrosDEFilename,
-            macrosITFilename, textCorpusENFilename, textCorpusDEFilename,
-            textCorpusITFilename);
+      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
+              macrosDEFileURL, textCorpusDEFileURL);
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      log.debug("Update chatterbot with language: " + chatterbotLanguage);
+      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
+      log.debug("Update chatterbot with macros file: " + macrosITFileURL);
+      log.debug("Update chatterbot with text corpus file: " + textCorpusITFileURL);
+
+      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
+              macrosITFileURL, textCorpusITFileURL);
+    }
+    else
+    {
+      log.debug("Update chatterbot with language: " + chatterbotLanguage);
+      log.debug("Update chatterbot with topic tree file: " + topicTreeFileURL);
+      log.debug("Update chatterbot with macros file: " + macrosENFileURL);
+      log.debug("Update chatterbot with text corpus file: " + textCorpusENFileURL);
+
+      chatterbot.updateChatterbotSettings(chatterbotLanguage, topicTreeFileURL,
+              macrosENFileURL, textCorpusENFileURL);
+    }
+
+    log.debug("Chatterbot settings updated.");
+
+    chatterbotAnswer 
+            = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
 
     if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
     {
-      log.warn("No answer received.");
+      log.warn("No answer received from Bob.");
 
       chatterbotAnswer = "Error: selected language was not initialized!";
 
@@ -1514,7 +1964,8 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param bbCheckReportFileContentType the bbCheckReportFileContentType to set
    */
-  public void setBbCheckReportFileContentType(String bbCheckReportFileContentType)
+  public void setBbCheckReportFileContentType(
+          String bbCheckReportFileContentType)
   {
     this.bbCheckReportFileContentType = bbCheckReportFileContentType;
   }
@@ -1626,7 +2077,8 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
    */
-  public void setChatterbotLanguageENSelected(Boolean chatterbotLanguageENSelected)
+  public void setChatterbotLanguageENSelected(
+          Boolean chatterbotLanguageENSelected)
   {
     this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
   }
@@ -1642,7 +2094,8 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
    */
-  public void setChatterbotLanguageDESelected(Boolean chatterbotLanguageDESelected)
+  public void setChatterbotLanguageDESelected(
+          Boolean chatterbotLanguageDESelected)
   {
     this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
   }
@@ -1658,7 +2111,8 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
    */
-  public void setChatterbotLanguageITSelected(Boolean chatterbotLanguageITSelected)
+  public void setChatterbotLanguageITSelected(
+          Boolean chatterbotLanguageITSelected)
   {
     this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
   }

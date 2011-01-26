@@ -1,13 +1,15 @@
 package it.unibz.lib.bob.chatterbot;
 
+import java.net.URL;
+
 /**
  *
  * @version $Id$
  */
 public interface Chatterbot
 {
-  public String chat(String question, String language, String topicTreeFilename,
-          String macrosENFilename, String macrosDEFilename,
-          String macrosITFilename, String textCorpusENFilename,
-          String textCorpusDEFilename, String textCorpusITFilename);
+  public void updateChatterbotSettings(String language, URL topicTreeFileURL,
+          URL macrosFileURL, URL textCorpusFileURL);
+
+  public String getChatterbotAnswer(String question, String language);
 }

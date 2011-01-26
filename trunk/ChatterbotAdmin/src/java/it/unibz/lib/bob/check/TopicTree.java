@@ -99,10 +99,20 @@ public class TopicTree
    * @return true if this TopicTree was initialized with the corresponding 
    * macro files for the language lang
    */
-  public boolean understandsLanguage(String lang) {
-      if (lang.toUpperCase().equals("EN")) return urlAbbreviationsFileEN != null;
-      if (lang.toUpperCase().equals("DE")) return urlAbbreviationsFileDE != null;
-      else return urlAbbreviationsFileIT != null; //italian
+  public boolean understandsLanguage(String lang)
+  {
+    if (lang.toUpperCase().equals("EN"))
+    {
+      return urlAbbreviationsFileEN != null;
+    }
+    if (lang.toUpperCase().equals("DE"))
+    {
+      return urlAbbreviationsFileDE != null;
+    }
+    else
+    {
+      return urlAbbreviationsFileIT != null; //italian
+    }
   }
 
   /**
@@ -481,7 +491,10 @@ public class TopicTree
   public synchronized String getNodeAnswer(Node node, String language,
           String sessionID, boolean appendPhrase)
   {
-    if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (node == null)
     {
@@ -579,7 +592,10 @@ public class TopicTree
   public synchronized Vector<String> getNodeAllAnswers(Node node,
           String language, String sessionID, boolean appendPhrase)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (node == null)
     {
@@ -744,7 +760,10 @@ public class TopicTree
   public synchronized boolean hasNodeSysResponse(Node node, String language,
           String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (node == null)
     {
@@ -813,7 +832,10 @@ public class TopicTree
   public synchronized Node searchSD(Node startNode, String query,
           String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (startNode == null)
     {
@@ -903,7 +925,10 @@ public class TopicTree
   public synchronized Queue<Node> searchRecursiveSiblings(Node startNode,
           String query, String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (startNode == null)
     {
@@ -977,7 +1002,12 @@ public class TopicTree
   public synchronized Node searchLocalSiblings(Node startNode, String query,
           String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    System.out.println("Langauge: " + language);
+
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (startNode == null)
     {
@@ -1032,7 +1062,10 @@ public class TopicTree
           boolean matchSubDialogueRules, boolean matchNormalRules,
           String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (node == null)
     {
@@ -1142,7 +1175,10 @@ public class TopicTree
           boolean matchSubDialogueRules, boolean matchNormalRules,
           String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     if (node == null)
     {
@@ -1216,7 +1252,10 @@ public class TopicTree
   public boolean matchExtendedRegex(String regex, String query,
           String language, String sessionID)
   {
-      if (!understandsLanguage(language)) throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    if (!understandsLanguage(language))
+    {
+      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+    }
 
     regex = ChatterbotHelper.replaceMacros(regex, language);
 
