@@ -712,7 +712,7 @@ public class DialogueManager
     Authenticator.setDefault(new MyAuthenticator());
 
     TopicTree.reloadInstance();
-    log.debug(sessionID.substring(0, 8) + ", topic tree and macro files "
+    log.info(sessionID.substring(0, 8) + ", topic tree and macro files "
             + "reloaded and DialogueManager reset.");
 
     tt.reset();
@@ -722,6 +722,20 @@ public class DialogueManager
 
     log.debug(sessionID.substring(0, 8) + " : *****************************");
   }
+
+   /**
+   * reloads TT and abbrev files with new values
+   */
+  public void reloadTT(URL topicTreeFileURL, URL macrosENFileURL,
+              URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
+              URL macrosITFileURL, URL textCorpusITFileURL) {
+      tt.updateFiles(topicTreeFileURL, macrosENFileURL,
+              textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
+              macrosITFileURL, textCorpusITFileURL);
+      reloadTT();
+  }
+
+
 
   /**
    * Follow any remaining links from node, setting the sdMode class attribute

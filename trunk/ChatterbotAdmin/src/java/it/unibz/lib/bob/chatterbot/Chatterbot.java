@@ -13,4 +13,9 @@ public interface Chatterbot
           URL textCorpusDEFileURL, URL macrosITFileURL, URL textCorpusITFileURL);
  
   public String getChatterbotAnswer(String question, String language);
+
+  public boolean understandsLanguage(String lang);
+  
+  public boolean machineLearningEnabledLanguage(String lang);
+
 }

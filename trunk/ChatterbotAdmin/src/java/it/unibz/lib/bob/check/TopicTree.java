@@ -115,6 +115,27 @@ public class TopicTree
     }
   }
 
+   /**
+   *
+   * @param lang
+   * @return true if this TopicTree was initialized with the corresponding
+   * text corpus (for machine learning) files for the language lang
+   */
+  public boolean machineLearningEnabledLanguage(String lang) {
+    if (lang.toUpperCase().equals("EN"))
+    {
+      return getQAMB().getTfIdfEN().numDocuments() > 0;
+    }
+    if (lang.toUpperCase().equals("DE"))
+    {
+      return getQAMB().getTfIdfDE().numDocuments() > 0;
+    }
+    else
+    {
+      return getQAMB().getTfIdfIT().numDocuments() > 0; //italian
+    }
+  }
+
   /**
    * Constructor that specifies TopicTree (the XML file), the 3
    * macro/abbreviation files, and the 3 training data files.
@@ -155,6 +176,24 @@ public class TopicTree
 
     // setLanguage("EN");
     fillEquivalentTopicIDs("someSessionID");
+  }
+
+  /**
+   * Sets the filenames in TopicTree and ChatterbitHelper, so that reloadInstance() can be called
+   */
+  public void updateFiles(URL topicTreeFileURL, URL macrosENFileURL,
+              URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
+              URL macrosITFileURL, URL textCorpusITFileURL) {
+      this.urlTopicTreeFile = topicTreeFileURL;
+    TopicTree.urlAbbreviationsFileEN = macrosENFileURL;
+    TopicTree.urlAbbreviationsFileDE = macrosDEFileURL;
+    TopicTree.urlAbbreviationsFileIT = macrosITFileURL;
+    TopicTree.idftrainingdataEN = textCorpusENFileURL;
+    TopicTree.idftrainingdataDE = textCorpusDEFileURL;
+    TopicTree.idftrainingdataIT = textCorpusITFileURL;
+
+    ChatterbotHelper.updateFiles(macrosENFileURL, macrosDEFileURL, macrosITFileURL);
+
   }
 
   public static synchronized TopicTree getInstance(URL urlTopicTreeFile,
