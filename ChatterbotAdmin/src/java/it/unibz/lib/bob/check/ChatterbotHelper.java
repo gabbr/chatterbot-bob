@@ -98,6 +98,19 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
     return instance;
   }
 
+
+  /**
+   * update filenames, so that reloadInstance() can be called next
+   * @param urlAbbreviationsFileEN
+   * @param urlAbbreviationsFileDE
+   * @param urlAbbreviationsFileIT
+   */
+  public static void updateFiles(URL en, URL de, URL it) {
+      urlAbbreviationsFileEN = en;
+      urlAbbreviationsFileDE = de;
+      urlAbbreviationsFileIT = it;
+  }
+
   /**
    * reload abbrev files
    */

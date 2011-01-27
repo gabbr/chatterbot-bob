@@ -13,6 +13,32 @@ public class ChatterbotImpl implements Chatterbot
 {
   private DialogueManager dialogueManager;
 
+
+  public boolean understandsLanguage(String lang) {
+      return dialogueManager.getTT().understandsLanguage(lang);
+  }
+
+     /**
+   *
+   * @param lang
+   * @return true if this TopicTree was initialized with the corresponding
+   * text corpus (for machine learning) files for the language lang
+   */
+  public boolean machineLearningEnabledLanguage(String lang) {
+    if (lang.toUpperCase().equals("EN"))
+    {
+      return dialogueManager.getTT().getQAMB().getTfIdfEN().numDocuments() > 0;
+    }
+    if (lang.toUpperCase().equals("DE"))
+    {
+      return dialogueManager.getTT().getQAMB().getTfIdfDE().numDocuments() > 0;
+    }
+    else
+    {
+      return dialogueManager.getTT().getQAMB().getTfIdfIT().numDocuments() > 0; //italian
+    }
+  }
+
   /**
    * <p>
    * Logging of this class uses four different log levels:
@@ -45,14 +71,39 @@ public class ChatterbotImpl implements Chatterbot
           URL macrosENFileURL, URL textCorpusENFileURL, URL macrosDEFileURL,
           URL textCorpusDEFileURL, URL macrosITFileURL, URL textCorpusITFileURL)
   {
-    if (dialogueManager == null)
+    // create a new DialogueManager object if an additional language has been activated in the form
+    if (dialogueManager == null
+        || macrosENFileURL != null && !dialogueManager.getTT().understandsLanguage("EN")
+        || macrosDEFileURL != null && !dialogueManager.getTT().understandsLanguage("DE")
+        || macrosITFileURL != null && !dialogueManager.getTT().understandsLanguage("IT")
+        || textCorpusENFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("EN")
+        || textCorpusDEFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("DE")
+        || textCorpusITFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("IT")
+       )
     {
-      dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
+      if (dialogueManager == null) {
+        log.debug("dialogueManager was null. creating a new one.");
+        dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
               textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
               macrosITFileURL, textCorpusITFileURL);
-
-      log.debug("New dialogue manager initialized.");
+        
+        } else {
+          log.debug("dialogueManager was not null. reloading topictree.");
+          
+      dialogueManager.reloadTT(topicTreeFileURL, macrosENFileURL,
+              textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
+              macrosITFileURL, textCorpusITFileURL);
+        }
+      
+      log.info("New dialogue manager initialized with languages ["
+              + ((macrosENFileURL != null)? "EN " : "")
+              + ((macrosDEFileURL != null)? "DE " : "")
+              + ((macrosITFileURL != null)? "IT " : "" + "] and MachineLearning for ["
+              + ((textCorpusENFileURL != null)? "EN " : "")
+              + ((textCorpusDEFileURL != null)? "DE " : "")
+              + ((textCorpusITFileURL != null)? "IT " : "")) + "]");
     }
+
   }
 
   @Override

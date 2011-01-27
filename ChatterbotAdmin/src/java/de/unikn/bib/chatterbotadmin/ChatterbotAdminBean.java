@@ -1550,7 +1550,7 @@ public class ChatterbotAdminBean implements Serializable
             textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
             macrosITFileURL, textCorpusITFileURL);
 
-    log.debug("Chatterbot settings updated. Language is st to " + chatterbotLanguage);
+    //log.debug("Chatterbot settings updated. Language is st to " + chatterbotLanguage);
 
     chatterbotAnswer
             = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
