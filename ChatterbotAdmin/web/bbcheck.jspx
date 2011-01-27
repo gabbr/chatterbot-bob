@@ -52,13 +52,13 @@
   -->
   <h:form>
     <t:panelGrid
-      columns="1"
+      columns="3"
       styleClass="chatterbotAdminInput">
       <t:outputText
-        value="#{message.bbcheck_language_selection}" />
+        value="#{message.bbcheck_language_selection_text}" />
       <t:selectOneRadio
-        styleClass="chatterbotAdminSelectArea"
-        layout="pageDirection"
+        style="width: 60%; margin: 0 auto;"
+        layout="lineDirection"
         value="#{chatterbotAdminBean.bbCheckLanguage}"
         immediate="true">
         <f:selectItem
@@ -333,13 +333,13 @@
   -->
   <h:form>
     <t:panelGrid
-      columns="1"
+      columns="3"
       styleClass="chatterbotAdminInput">
       <t:outputText
         value="#{message.bbcheck_learning_selection}" />
       <t:selectOneRadio
-        styleClass="chatterbotAdminSelect"
-        layout="pageDirection"
+        style="width: 60%; margin: 0 auto;"
+        layout="lineDirection"
         value="#{chatterbotAdminBean.bbCheckLearningInput}"
         immediate="true">
         <f:selectItem

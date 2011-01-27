@@ -8,11 +8,13 @@ import java.net.URL;
  */
 public interface BBCheck
 {
-  public String performBBCheck(String language, URL topicTreeFileURL,
+  public void updateBBCheckSettings(String language, URL topicTreeFileURL,
           URL macrosENFileURL, URL macrosDEFileURL, URL macrosITFileURL,
           URL textCorpusENFileURL, URL textCorpusDEFileURL,
           URL textCorpusITFileURL, URL testQuestionsFileURL,
-          Boolean trainingMode, String outfilePath);
+          String outfilePath);
+
+  public String performBBCheck();
 
   public String getBBCheckTestReportFile();
 }

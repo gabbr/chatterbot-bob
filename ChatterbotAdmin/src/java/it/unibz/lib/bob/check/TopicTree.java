@@ -1043,8 +1043,6 @@ public class TopicTree
   public synchronized Node searchLocalSiblings(Node startNode, String query,
           String language, String sessionID)
   {
-    System.out.println("Langauge: " + language);
-
     if (!understandsLanguage(language))
     {
       throw new IllegalArgumentException("Language " + language + " was not initialized!");

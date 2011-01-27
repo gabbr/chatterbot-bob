@@ -112,13 +112,13 @@
   -->
   <h:form>
     <t:panelGrid
-      columns="1"
+      columns="3"
       styleClass="chatterbotAdminInput">
       <t:outputText
         value="#{message.qcheck_format_text}" />
       <t:selectOneRadio
-        styleClass="chatterbotAdminSelectArea"
-        layout="pageDirection"
+        style="width: 80%; margin: 0 auto;"
+        layout="lineDirection"
         value="#{chatterbotAdminBean.qCheckFormat}"
         immediate="true">
         <f:selectItem
@@ -128,6 +128,10 @@
           itemLabel="#{message.qcheck_format_macro}"
           itemValue="macro" />
       </t:selectOneRadio>
+      <t:commandButton
+        style="float: right;"
+        value="#{message.qcheck_format_select_button_text}"
+        action="#{chatterbotAdminBean.selectQCheckFormat}" />
     </t:panelGrid>
   </h:form>
   <!--
@@ -189,21 +193,18 @@
           value="#{message.qcheck_test_button_text}"
           action="#{chatterbotAdminBean.performQCheck}" />
       </t:panelGrid>
+      <t:panelGrid
+        columns="1"
+        styleClass="chatterbotAdminInput">
+        <t:outputText
+          value="#{message.qcheck_test_result}" />
+        <t:inputTextarea
+          styleClass="chatterbotAdminTextArea"
+          readonly="true"
+          rows="20"
+          cols="100"
+          value="#{chatterbotAdminBean.qCheckResults}" />
+      </t:panelGrid>
     </t:panelGrid>
   </h:form>
-  <!--
-     display text area of qcheck test results
-  -->
-  <t:panelGrid
-    columns="1"
-    styleClass="chatterbotAdminInput">
-    <t:outputText
-      value="#{message.qcheck_test_result}" />
-    <t:inputTextarea
-      styleClass="chatterbotAdminTextArea"
-      readonly="true"
-      rows="20"
-      cols="100"
-      value="#{chatterbotAdminBean.qCheckResults}" />
-  </t:panelGrid>
 </jsp:root>

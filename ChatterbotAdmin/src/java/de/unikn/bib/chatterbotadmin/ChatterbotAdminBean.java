@@ -188,6 +188,30 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
+   * This Boolean object indicates if English language is currently set to
+   * talk to bob.
+   * </p>
+   */
+  private Boolean chatterbotLanguageENSelected;
+
+  /**
+   * <p>
+   * This Boolean object indicates if German language is currently set to
+   * talk to bob.
+   * </p>
+   */
+  private Boolean chatterbotLanguageDESelected;
+
+  /**
+   * <p>
+   * This Boolean object indicates if Italian language is currently set to
+   * talk to bob.
+   * </p>
+   */
+  private Boolean chatterbotLanguageITSelected;
+
+  /**
+   * <p>
    * </p>
    */
   private String chatterbotAnswer;
@@ -197,6 +221,30 @@ public class ChatterbotAdminBean implements Serializable
    * </p>
    */
   private String chatterbotQuestion;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private String chatterbotChatText;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private String chatterbotChatTextEN;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private String chatterbotChatTextDE;
+
+  /**
+   * <p>
+   * </p>
+   */
+  private String chatterbotChatTextIT;
 
   /**
    * <p>
@@ -505,6 +553,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private Boolean chatterbotSelected;
 
+  private String SEPERATOR = "\n-------------------------\n";
+
   /**
    * <p>
    * This String object represents a constant return value any use case
@@ -553,6 +603,12 @@ public class ChatterbotAdminBean implements Serializable
     qCheck = new QCheckImpl();
     ttCheck = new TTCheckImpl();
     chatterbot = new ChatterbotImpl();
+
+    // initialize String objects for chat texts
+    chatterbotChatText = new String();
+    chatterbotChatTextEN = new String();
+    chatterbotChatTextDE = new String();
+    chatterbotChatTextIT = new String();
 
     // get faces context in order to retrieve
     // root path of this web application
@@ -1421,12 +1477,39 @@ public class ChatterbotAdminBean implements Serializable
   public String performBBCheck()
   {
     log.debug("Perform bbCheck.");
-    
-    bbCheckResults = bbCheck.performBBCheck(bbCheckLanguage, topicTreeFileURL,
-          macrosENFileURL, macrosDEFileURL, macrosITFileURL,
-          textCorpusENFileURL, textCorpusDEFileURL,
-          textCorpusITFileURL, testQuestionsFileURL,
-          bbCheckLearningSelected, sharedFilesPath);
+
+    if (bbCheckLanguage.equals("DE"))
+    {
+      bbCheck.updateBBCheckSettings(
+              bbCheckLanguage,
+              topicTreeFileURL,
+              null, macrosDEFileURL, null,
+              null, textCorpusDEFileURL, null,
+              testQuestionsFileURL,
+              sharedFilesPath);
+    }
+    else if (bbCheckLanguage.equals("IT"))
+    {
+      bbCheck.updateBBCheckSettings(
+              bbCheckLanguage,
+              topicTreeFileURL,
+              null, null, macrosITFileURL,
+              null, null, textCorpusITFileURL,
+              testQuestionsFileURL,
+              sharedFilesPath);
+    }
+    else
+    {
+      bbCheck.updateBBCheckSettings(
+              bbCheckLanguage,
+              topicTreeFileURL,
+              macrosENFileURL, null, null,
+              textCorpusENFileURL, null, null,
+              testQuestionsFileURL,
+              sharedFilesPath);
+    }
+
+    bbCheckResults = bbCheck.performBBCheck();
 
     if (bbCheckResults.isEmpty() || bbCheckResults == null)
     {
@@ -1506,6 +1589,21 @@ public class ChatterbotAdminBean implements Serializable
     }
   }
 
+  public String selectQCheckFormat()
+  {
+    if (this.qCheckFormat.equals("tt"))
+    {
+      log.debug("Topic tree format for qcheck selected: " + qCheckFormat);
+    }
+
+    if (this.qCheckFormat.equals("macro"))
+    {
+      log.debug("Macro format for qcheck selected: " + qCheckFormat);
+    }
+
+    return SUCCESS;
+  }
+
   public String performQCheck()
   {
     log.debug("Perform qcheck.");
@@ -1544,16 +1642,133 @@ public class ChatterbotAdminBean implements Serializable
     return SUCCESS;
   }
 
+  /**
+   * <p>
+   * This method is used to select language for bbCheck application and
+   * to enable upload of language related files.
+   * </p>
+   *
+   * @return result string for JSF navigation rules
+   */
+  public String selectChatterbotLanguage()
+  {
+    // language is already set
+    log.debug("Chatterbot language set to: " + chatterbotLanguage);
+
+    // check if language is German
+    if (chatterbotLanguage.equals("DE"))
+    {
+      // language is set to German
+
+      // enable upload of files that are related
+      // to German language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.TRUE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+
+      // update chat text
+      chatterbotChatText = chatterbotChatTextDE;
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      // language is set to Italian
+
+      // enable upload of files that are related
+      // to Italian language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.FALSE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.TRUE;
+
+      // update chat text
+      chatterbotChatText = chatterbotChatTextIT;
+    }
+    else
+    {
+      // language is set to English (default)
+
+      // enable upload of files that are related
+      // to English language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.TRUE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+
+      // update chat text
+      chatterbotChatText = chatterbotChatTextEN;
+    }
+
+    // does not fail
+    return SUCCESS;
+  }
+
   public String chat()
   {
-    chatterbot.updateChatterbotSettings(topicTreeFileURL, macrosENFileURL, 
-            textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
-            macrosITFileURL, textCorpusITFileURL);
+    log.debug("Language is set to " + chatterbotLanguage);
 
-    //log.debug("Chatterbot settings updated. Language is st to " + chatterbotLanguage);
+    if (chatterbotLanguage.equals("DE"))
+    {
+      chatterbot.updateChatterbotSettings(
+              topicTreeFileURL,
+              null, macrosDEFileURL, null,
+              null, textCorpusDEFileURL, null);
 
-    chatterbotAnswer
-            = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
+      if (chatterbotChatTextDE.isEmpty())
+      {
+        // update chat text
+        chatterbotChatTextDE = "Du: " + chatterbotQuestion + chatterbotChatTextDE;
+      }
+      else
+      {
+        // update chat text
+        chatterbotChatTextDE = "Du: " + chatterbotQuestion + SEPERATOR
+                + chatterbotChatTextDE;
+      }
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      chatterbot.updateChatterbotSettings(
+              topicTreeFileURL,
+              null, null, macrosITFileURL,
+              null, null, textCorpusITFileURL);
+
+      if (chatterbotChatTextIT.isEmpty())
+      {
+        // update chat text
+        chatterbotChatTextIT = "Tu: " + chatterbotQuestion + chatterbotChatTextIT;
+      }
+      else
+      {
+        // update chat text
+        chatterbotChatTextIT = "Tu: " + chatterbotQuestion + SEPERATOR
+                + chatterbotChatTextIT;
+      }
+    }
+    else
+    {
+      chatterbot.updateChatterbotSettings(
+              topicTreeFileURL,
+              macrosENFileURL, null, null,
+              textCorpusENFileURL, null, null);
+
+      if (chatterbotChatTextEN.isEmpty())
+      {
+        // update chat text
+        chatterbotChatTextEN = "You: " + chatterbotQuestion + chatterbotChatTextEN;
+      }
+      else
+      {
+        // update chat text
+        chatterbotChatTextEN = "You: " + chatterbotQuestion + SEPERATOR
+                + chatterbotChatTextEN;
+      }
+    }
+
+    log.debug("Chatterbot settings updated.");
+
+    chatterbotQuestion = "";
+    chatterbotAnswer = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
 
     if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
     {
@@ -1565,6 +1780,28 @@ public class ChatterbotAdminBean implements Serializable
     }
 
     log.debug("Bob's answer has been received.");
+
+    if (chatterbotLanguage.equals("DE"))
+    {
+      // update chat text
+      chatterbotChatTextDE = "Bob: " + chatterbotAnswer + "\n"
+              + chatterbotChatTextDE;
+      chatterbotChatText = chatterbotChatTextDE;
+    }
+    else if (chatterbotLanguage.equals("IT"))
+    {
+      // update chat text
+      chatterbotChatTextIT = "Bob: " + chatterbotAnswer + "\n"
+              + chatterbotChatTextIT;
+      chatterbotChatText = chatterbotChatTextIT;
+    }
+    else
+    {
+      // update chat text
+      chatterbotChatTextEN = "Bob: " + chatterbotAnswer + "\n"
+              + chatterbotChatTextEN;
+      chatterbotChatText = chatterbotChatTextEN;
+    }
 
     return SUCCESS;
   }
@@ -1971,6 +2208,57 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the chatterbotLanguageENSelected
+   */
+  public Boolean getChatterbotLanguageENSelected()
+  {
+    return chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageENSelected the chatterbotLanguageENSelected to set
+   */
+  public void setChatterbotLanguageENSelected(
+          Boolean chatterbotLanguageENSelected)
+  {
+    this.chatterbotLanguageENSelected = chatterbotLanguageENSelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageDESelected
+   */
+  public Boolean getChatterbotLanguageDESelected()
+  {
+    return chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @param chatterbotLanguageDESelected the chatterbotLanguageDESelected to set
+   */
+  public void setChatterbotLanguageDESelected(
+          Boolean chatterbotLanguageDESelected)
+  {
+    this.chatterbotLanguageDESelected = chatterbotLanguageDESelected;
+  }
+
+  /**
+   * @return the chatterbotLanguageITSelected
+   */
+  public Boolean getChatterbotLanguageITSelected()
+  {
+    return chatterbotLanguageITSelected;
+  }
+
+  /**
+   * @param chatterbotLanguageITSelected the chatterbotLanguageITSelected to set
+   */
+  public void setChatterbotLanguageITSelected(
+          Boolean chatterbotLanguageITSelected)
+  {
+    this.chatterbotLanguageITSelected = chatterbotLanguageITSelected;
+  }
+
+  /**
    * @return the chatterbotAnswer
    */
   public String getChatterbotAnswer()
@@ -2003,6 +2291,70 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the chatterbotChatText
+   */
+  public String getChatterbotChatText()
+  {
+    return chatterbotChatText;
+  }
+
+  /**
+   * @param chatterbotChatText the chatterbotChatText to set
+   */
+  public void setChatterbotChatText(String chatterbotChatText)
+  {
+    this.chatterbotChatText = chatterbotChatText;
+  }
+
+  /**
+   * @return the chatterbotChatTextEN
+   */
+  public String getChatterbotChatTextEN()
+  {
+    return chatterbotChatTextEN;
+  }
+
+  /**
+   * @param chatterbotChatTextEN the chatterbotChatTextEN to set
+   */
+  public void setChatterbotChatTextEN(String chatterbotChatTextEN)
+  {
+    this.chatterbotChatTextEN = chatterbotChatTextEN;
+  }
+
+  /**
+   * @return the chatterbotChatTextDE
+   */
+  public String getChatterbotChatTextDE()
+  {
+    return chatterbotChatTextDE;
+  }
+
+  /**
+   * @param chatterbotChatTextDE the chatterbotChatTextDE to set
+   */
+  public void setChatterbotChatTextDE(String chatterbotChatTextDE)
+  {
+    this.chatterbotChatTextDE = chatterbotChatTextDE;
+  }
+
+  /**
+   * @return the chatterbotChatTextIT
+   */
+  public String getChatterbotChatTextIT()
+  {
+    return chatterbotChatTextIT;
+  }
+
+  /**
+   * @param chatterbotChatTextIT the chatterbotChatTextIT to set
+   */
+  public void setChatterbotChatTextIT(String chatterbotChatTextIT)
+  {
+    this.chatterbotChatTextIT = chatterbotChatTextIT;
+  }
+
+  /**
    * @return the topicTreeFile
    */
   public UploadedFile getTopicTreeFile()
@@ -2032,6 +2384,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTopicTreeFilename(String topicTreeFilename)
   {
     this.topicTreeFilename = topicTreeFilename;
+  }
+
+  /**
+   * @return the topicTreeFileURL
+   */
+  public URL getTopicTreeFileURL()
+  {
+    return topicTreeFileURL;
+  }
+
+  /**
+   * @param topicTreeFileURL the topicTreeFileURL to set
+   */
+  public void setTopicTreeFileURL(URL topicTreeFileURL)
+  {
+    this.topicTreeFileURL = topicTreeFileURL;
   }
 
   /**
@@ -2083,6 +2451,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the macrosFileURL
+   */
+  public URL getMacrosFileURL()
+  {
+    return macrosFileURL;
+  }
+
+  /**
+   * @param macrosFileURL the macrosFileURL to set
+   */
+  public void setMacrosFileURL(URL macrosFileURL)
+  {
+    this.macrosFileURL = macrosFileURL;
+  }
+
+  /**
    * @return the macrosFileIsUploaded
    */
   public Boolean getMacrosFileIsUploaded()
@@ -2128,6 +2512,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setMacrosENFilename(String macrosENFilename)
   {
     this.macrosENFilename = macrosENFilename;
+  }
+
+  /**
+   * @return the macrosENFileURL
+   */
+  public URL getMacrosENFileURL()
+  {
+    return macrosENFileURL;
+  }
+
+  /**
+   * @param macrosENFileURL the macrosENFileURL to set
+   */
+  public void setMacrosENFileURL(URL macrosENFileURL)
+  {
+    this.macrosENFileURL = macrosENFileURL;
   }
 
   /**
@@ -2179,6 +2579,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the macrosDEFileURL
+   */
+  public URL getMacrosDEFileURL()
+  {
+    return macrosDEFileURL;
+  }
+
+  /**
+   * @param macrosDEFileURL the macrosDEFileURL to set
+   */
+  public void setMacrosDEFileURL(URL macrosDEFileURL)
+  {
+    this.macrosDEFileURL = macrosDEFileURL;
+  }
+
+  /**
    * @return the macrosDEFileIsUploaded
    */
   public Boolean getMacrosDEFileIsUploaded()
@@ -2224,6 +2640,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setMacrosITFilename(String macrosITFilename)
   {
     this.macrosITFilename = macrosITFilename;
+  }
+
+  /**
+   * @return the macrosITFileURL
+   */
+  public URL getMacrosITFileURL()
+  {
+    return macrosITFileURL;
+  }
+
+  /**
+   * @param macrosITFileURL the macrosITFileURL to set
+   */
+  public void setMacrosITFileURL(URL macrosITFileURL)
+  {
+    this.macrosITFileURL = macrosITFileURL;
   }
 
   /**
@@ -2275,6 +2707,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the textCorpusFileURL
+   */
+  public URL getTextCorpusFileURL()
+  {
+    return textCorpusFileURL;
+  }
+
+  /**
+   * @param textCorpusFileURL the textCorpusFileURL to set
+   */
+  public void setTextCorpusFileURL(URL textCorpusFileURL)
+  {
+    this.textCorpusFileURL = textCorpusFileURL;
+  }
+
+  /**
    * @return the textCorpusFileIsUploaded
    */
   public Boolean getTextCorpusFileIsUploaded()
@@ -2320,6 +2768,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTextCorpusENFilename(String textCorpusENFilename)
   {
     this.textCorpusENFilename = textCorpusENFilename;
+  }
+
+  /**
+   * @return the textCorpusENFileURL
+   */
+  public URL getTextCorpusENFileURL()
+  {
+    return textCorpusENFileURL;
+  }
+
+  /**
+   * @param textCorpusENFileURL the textCorpusENFileURL to set
+   */
+  public void setTextCorpusENFileURL(URL textCorpusENFileURL)
+  {
+    this.textCorpusENFileURL = textCorpusENFileURL;
   }
 
   /**
@@ -2371,6 +2835,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the textCorpusDEFileURL
+   */
+  public URL getTextCorpusDEFileURL()
+  {
+    return textCorpusDEFileURL;
+  }
+
+  /**
+   * @param textCorpusDEFileURL the textCorpusDEFileURL to set
+   */
+  public void setTextCorpusDEFileURL(URL textCorpusDEFileURL)
+  {
+    this.textCorpusDEFileURL = textCorpusDEFileURL;
+  }
+
+  /**
    * @return the textCorpusDEFileIsUploaded
    */
   public Boolean getTextCorpusDEFileIsUploaded()
@@ -2416,6 +2896,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTextCorpusITFilename(String textCorpusITFilename)
   {
     this.textCorpusITFilename = textCorpusITFilename;
+  }
+
+  /**
+   * @return the textCorpusITFileURL
+   */
+  public URL getTextCorpusITFileURL()
+  {
+    return textCorpusITFileURL;
+  }
+
+  /**
+   * @param textCorpusITFileURL the textCorpusITFileURL to set
+   */
+  public void setTextCorpusITFileURL(URL textCorpusITFileURL)
+  {
+    this.textCorpusITFileURL = textCorpusITFileURL;
   }
 
   /**
@@ -2467,6 +2963,22 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
+   * @return the rngFileURL
+   */
+  public URL getRngFileURL()
+  {
+    return rngFileURL;
+  }
+
+  /**
+   * @param rngFileURL the rngFileURL to set
+   */
+  public void setRngFileURL(URL rngFileURL)
+  {
+    this.rngFileURL = rngFileURL;
+  }
+
+  /**
    * @return the rngFileIsUploaded
    */
   public Boolean getRngFileIsUploaded()
@@ -2512,6 +3024,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setTestQuestionsFilename(String testQuestionsFilename)
   {
     this.testQuestionsFilename = testQuestionsFilename;
+  }
+
+  /**
+   * @return the testQuestionsFileURL
+   */
+  public URL getTestQuestionsFileURL()
+  {
+    return testQuestionsFileURL;
+  }
+
+  /**
+   * @param testQuestionsFileURL the testQuestionsFileURL to set
+   */
+  public void setTestQuestionsFileURL(URL testQuestionsFileURL)
+  {
+    this.testQuestionsFileURL = testQuestionsFileURL;
   }
 
   /**
@@ -2624,6 +3152,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotSelected(Boolean chatterbotSelected)
   {
     this.chatterbotSelected = chatterbotSelected;
+  }
+
+  /**
+   * @return the SEPERATOR
+   */
+  public String getSEPERATOR()
+  {
+    return SEPERATOR;
+  }
+
+  /**
+   * @param SEPERATOR the SEPERATOR to set
+   */
+  public void setSEPERATOR(String SEPERATOR)
+  {
+    this.SEPERATOR = SEPERATOR;
   }
 
   /**

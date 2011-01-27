@@ -9,6 +9,7 @@
         <Node id="menu.jspx" x="150" y="450" zoom="true"/>
         <Node id="head.jspx" x="900" y="150" zoom="true"/>
         <Node id="qcheck.jspx" x="650" y="300" zoom="true"/>
+        <Node id="bbcheck.jspx" x="400" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
