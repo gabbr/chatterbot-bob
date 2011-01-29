@@ -656,7 +656,7 @@ public class QAMatchingBob
     {
       try
       {
-        i = Integer.parseInt(str.substring(7, 9)) + 1;
+        i = Integer.parseInt(str.substring(4, 6)) + 1;
       }
       catch (NumberFormatException e)
       {
