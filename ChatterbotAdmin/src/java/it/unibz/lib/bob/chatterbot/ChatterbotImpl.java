@@ -84,14 +84,14 @@ public class ChatterbotImpl implements Chatterbot
 
       if (dialogueManager == null)
       {
-        log.debug("dialogueManager was null. creating a new one.");
+        log.info("dialogueManager was null. creating a new one.");
         dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
                 macrosITFileURL, textCorpusITFileURL);
       }
       else
       {
-        log.debug("dialogueManager was not null. reloading topictree.");
+        log.info("dialogueManager was not null. reloading topictree.");
 
         dialogueManager.reloadTT(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
@@ -126,5 +126,34 @@ public class ChatterbotImpl implements Chatterbot
     }
 
     return answer;
+  }
+
+
+  public static void main (String[] args) {
+      URL urlTt = null;
+      URL urlMacrosEN = null;
+      URL urlMacrosDE = null;
+      URL urlMacrosIT = null;
+      URL urlCorpusEN = null;
+      URL urlCorpusDE = null;
+      URL urlCorpusIT = null;
+
+      try{
+        urlTt = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/topictree.xml");
+        urlMacrosEN = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_EN.txt");
+        urlMacrosDE = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt");
+        urlMacrosIT = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_IT.txt");
+        urlCorpusEN = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/ukwac/UKWAC-1.txt_sm");
+        urlCorpusDE = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/dewac/DEWAC-1.txt_sm");
+        urlCorpusIT = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/itwac/ITWAC-1.txt_sm");
+
+      } catch (Exception e) {
+          e.printStackTrace();
+      };
+
+      Chatterbot bot = new ChatterbotImpl();
+      bot.updateChatterbotSettings(urlTt, urlMacrosEN, urlMacrosDE, urlMacrosIT, urlCorpusEN, urlCorpusDE, urlCorpusIT);
+      
+      System.out.println(bot.getChatterbotAnswer("ich suche ein buch", "DE"));
   }
 }
