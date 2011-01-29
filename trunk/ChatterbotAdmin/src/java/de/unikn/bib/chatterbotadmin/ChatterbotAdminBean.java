@@ -553,7 +553,7 @@ public class ChatterbotAdminBean implements Serializable
    */
   private Boolean chatterbotSelected;
 
-  private String SEPERATOR = "\n-------------------------\n";
+  private String SEPARATOR = "\n-------------------------\n";
 
   /**
    * <p>
@@ -1705,7 +1705,7 @@ public class ChatterbotAdminBean implements Serializable
 
   public String chat()
   {
-    log.debug("Language is set to " + chatterbotLanguage);
+    log.debug("Language is currently set to " + chatterbotLanguage);
 
     if (chatterbotLanguage.equals("DE"))
     {
@@ -1713,18 +1713,6 @@ public class ChatterbotAdminBean implements Serializable
               topicTreeFileURL,
               null, macrosDEFileURL, null,
               null, textCorpusDEFileURL, null);
-
-      if (chatterbotChatTextDE.isEmpty())
-      {
-        // update chat text
-        chatterbotChatTextDE = "Du: " + chatterbotQuestion + chatterbotChatTextDE;
-      }
-      else
-      {
-        // update chat text
-        chatterbotChatTextDE = "Du: " + chatterbotQuestion + SEPERATOR
-                + chatterbotChatTextDE;
-      }
     }
     else if (chatterbotLanguage.equals("IT"))
     {
@@ -1732,18 +1720,6 @@ public class ChatterbotAdminBean implements Serializable
               topicTreeFileURL,
               null, null, macrosITFileURL,
               null, null, textCorpusITFileURL);
-
-      if (chatterbotChatTextIT.isEmpty())
-      {
-        // update chat text
-        chatterbotChatTextIT = "Tu: " + chatterbotQuestion + chatterbotChatTextIT;
-      }
-      else
-      {
-        // update chat text
-        chatterbotChatTextIT = "Tu: " + chatterbotQuestion + SEPERATOR
-                + chatterbotChatTextIT;
-      }
     }
     else
     {
@@ -1751,25 +1727,13 @@ public class ChatterbotAdminBean implements Serializable
               topicTreeFileURL,
               macrosENFileURL, null, null,
               textCorpusENFileURL, null, null);
-
-      if (chatterbotChatTextEN.isEmpty())
-      {
-        // update chat text
-        chatterbotChatTextEN = "You: " + chatterbotQuestion + chatterbotChatTextEN;
-      }
-      else
-      {
-        // update chat text
-        chatterbotChatTextEN = "You: " + chatterbotQuestion + SEPERATOR
-                + chatterbotChatTextEN;
-      }
     }
 
     log.debug("Chatterbot settings updated.");
 
-    chatterbotQuestion = "";
+    log.debug("getChatterbotAnswer(" + chatterbotQuestion + "," + chatterbotLanguage + ")");
     chatterbotAnswer = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
-
+    
     if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
     {
       log.warn("No answer received from Bob.");
@@ -1781,28 +1745,35 @@ public class ChatterbotAdminBean implements Serializable
 
     log.debug("Bob's answer has been received.");
 
+    // update chat text
     if (chatterbotLanguage.equals("DE"))
     {
-      // update chat text
-      chatterbotChatTextDE = "Bob: " + chatterbotAnswer + "\n"
-              + chatterbotChatTextDE;
-      chatterbotChatText = chatterbotChatTextDE;
+        if (!chatterbotChatTextDE.isEmpty()) {
+            chatterbotChatTextDE = SEPARATOR + chatterbotChatTextDE;
+        }
+        chatterbotChatTextDE = "\nBob: " + chatterbotAnswer + chatterbotChatTextDE;
+        chatterbotChatTextDE = "Du: " + chatterbotQuestion + chatterbotChatTextDE;
+        chatterbotChatText = chatterbotChatTextDE;
     }
     else if (chatterbotLanguage.equals("IT"))
     {
-      // update chat text
-      chatterbotChatTextIT = "Bob: " + chatterbotAnswer + "\n"
-              + chatterbotChatTextIT;
-      chatterbotChatText = chatterbotChatTextIT;
+        if (!chatterbotChatTextIT.isEmpty()) {
+            chatterbotChatTextIT = SEPARATOR + chatterbotChatTextIT;
+        }
+        chatterbotChatTextIT = "\nBob: " + chatterbotAnswer + chatterbotChatTextIT;
+        chatterbotChatTextIT = "Du: " + chatterbotQuestion + chatterbotChatTextIT;
+        chatterbotChatText = chatterbotChatTextIT;
     }
     else
     {
-      // update chat text
-      chatterbotChatTextEN = "Bob: " + chatterbotAnswer + "\n"
-              + chatterbotChatTextEN;
-      chatterbotChatText = chatterbotChatTextEN;
+        if (!chatterbotChatTextEN.isEmpty()) {
+            chatterbotChatTextEN = SEPARATOR + chatterbotChatTextEN;
+        }
+        chatterbotChatTextEN = "\nBob: " + chatterbotAnswer + chatterbotChatTextEN;
+        chatterbotChatTextEN = "Du: " + chatterbotQuestion + chatterbotChatTextEN;
+        chatterbotChatText = chatterbotChatTextEN;
     }
-
+    chatterbotQuestion = "";
     return SUCCESS;
   }
 
@@ -3159,7 +3130,7 @@ public class ChatterbotAdminBean implements Serializable
    */
   public String getSEPERATOR()
   {
-    return SEPERATOR;
+    return SEPARATOR;
   }
 
   /**
@@ -3167,7 +3138,7 @@ public class ChatterbotAdminBean implements Serializable
    */
   public void setSEPERATOR(String SEPERATOR)
   {
-    this.SEPERATOR = SEPERATOR;
+    this.SEPARATOR = SEPERATOR;
   }
 
   /**
