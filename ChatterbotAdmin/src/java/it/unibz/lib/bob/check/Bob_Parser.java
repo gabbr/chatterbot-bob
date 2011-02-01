@@ -12,11 +12,23 @@ import antlr.ASTFactory;
 import antlr.ASTPair;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
 {
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param tokenBuf
+   * @param k
+   */
   protected Bob_Parser(TokenBuffer tokenBuf, int k)
   {
     super(tokenBuf, k);
@@ -25,11 +37,26 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param tokenBuf
+   */
   public Bob_Parser(TokenBuffer tokenBuf)
   {
     this(tokenBuf, 1);
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param lexer
+   * @param k
+   */
   protected Bob_Parser(TokenStream lexer, int k)
   {
     super(lexer, k);
@@ -38,11 +65,25 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param lexer
+   */
   public Bob_Parser(TokenStream lexer)
   {
     this(lexer, 1);
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param state
+   */
   public Bob_Parser(ParserSharedInputState state)
   {
     super(state, 1);
@@ -51,9 +92,16 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void bExpression() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     it.unibz.lib.bob.check.MyAST bExpression_AST = null;
@@ -65,9 +113,16 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = bExpression_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void bExpression2() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     it.unibz.lib.bob.check.MyAST bExpression2_AST = null;
@@ -99,9 +154,16 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = bExpression2_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void bTerm() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     it.unibz.lib.bob.check.MyAST bTerm_AST = null;
@@ -133,9 +195,16 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = bTerm_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void notFactor() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     it.unibz.lib.bob.check.MyAST notFactor_AST = null;
@@ -215,9 +284,16 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = notFactor_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void bFactor() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     it.unibz.lib.bob.check.MyAST bFactor_AST = null;
@@ -246,6 +322,14 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = bFactor_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void parExpression() throws RecognitionException, TokenStreamException
   {
 
@@ -261,6 +345,14 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     returnAST = parExpression_AST;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @throws RecognitionException
+   * @throws TokenStreamException
+   */
   public final void quotedRe() throws RecognitionException, TokenStreamException
   {
 
@@ -277,6 +369,12 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     quotedRe_AST = (it.unibz.lib.bob.check.MyAST) currentAST.root;
     returnAST = quotedRe_AST;
   }
+
+  /**
+   * <p>
+   *
+   * </p>
+   */
   public static final String[] _tokenNames =
   {
     "<0>",
@@ -295,10 +393,13 @@ public class Bob_Parser extends antlr.LLkParser implements Bob_LexerTokenTypes
     "EMPTYSTRING_"
   };
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   protected void buildTokenTypeASTClassMap()
   {
     tokenTypeToASTClassMap = null;
   }
-
-  ;
 }

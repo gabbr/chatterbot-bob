@@ -1,20 +1,5 @@
 package it.unibz.lib.bob.check;
 
-/*************************************************************************
- *  Compilation:  javac In.java
- *  Execution:    java In
- *
- *  Reads in data of various types from: stdin, file, URL.
- *
- *  % java In
- *
- *  Remarks
- *  -------
- *    - isEmpty() returns true if there is no more input or
- *      it is all whitespace. This might lead to surprising behavior
- *      when used with readChar()
- *
- *************************************************************************/
 import java.net.URLConnection;
 import java.net.URL;
 import java.net.Socket;
@@ -26,11 +11,21 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public final class ReadIn
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private Scanner scanner;
 
   /**
@@ -51,17 +46,26 @@ public final class ReadIn
    */
   private Logger log = Logger.getLogger(ReadIn.class);
 
-  // assume Unicode UTF-8 encoding
-  //private String charsetName = "UTF-8";
-  //private String charsetName = "ISO-8859-1";
-  // for stdin
-
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param charsetName 
+   */
   public ReadIn(String charsetName)
   {
     scanner = new Scanner(System.in, charsetName);
   }
 
-  // for socket
+  /**
+   * <p>
+   * for sockets
+   * </p>
+   * 
+   * @param charsetName
+   * @param socket 
+   */
   public ReadIn(String charsetName, Socket socket)
   {
     try
@@ -75,7 +79,14 @@ public final class ReadIn
     }
   }
 
-  // for URLs
+  /**
+   * <p>
+   * for URLs
+   * </p>
+   * 
+   * @param charsetName
+   * @param url 
+   */
   public ReadIn(String charsetName, URL url)
   {
     try
@@ -90,7 +101,14 @@ public final class ReadIn
     }
   }
 
-  // for files and web pages
+  /**
+   * <p>
+   * for files and web pages
+   * </p>
+   * 
+   * @param charsetName
+   * @param s 
+   */
   public ReadIn(String charsetName, String s)
   {
     try
@@ -122,18 +140,37 @@ public final class ReadIn
     }
   }
 
-  // does input stream exists
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return true if input stream exists
+   */
   public boolean exists()
   {
     return scanner != null;
   }
 
-  // return true if only whitespace left
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return true if only whitespace left
+   */
   public boolean isEmpty()
   {
     return !scanner.hasNext();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public boolean hasNextLine()
   {
     boolean value = true;
@@ -149,7 +186,13 @@ public final class ReadIn
     return value;
   }
 
-  // return next line, or null if no such line
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return next line, or null if no such line
+   */
   public String readLine()
   {
     String line = null;
@@ -164,7 +207,13 @@ public final class ReadIn
     return line;
   }
 
-  // next character
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return next character
+   */
   public char readChar()
   {
     // (?s) for DOTALL mode so . matches any character, including a line termination character
@@ -175,7 +224,13 @@ public final class ReadIn
     return s.charAt(0);
   }
 
-  // return rest of input as string
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return rest of input as string
+   */
   public String readAll()
   {
     if (!scanner.hasNextLine())
@@ -187,38 +242,86 @@ public final class ReadIn
     return scanner.useDelimiter("\\A").next();
   }
 
-  // next string, int, double, long, byte, boolean
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public String readString()
   {
     return scanner.next();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public int readInt()
   {
     return scanner.nextInt();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public double readDouble()
   {
     return scanner.nextDouble();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public double readFloat()
   {
     return scanner.nextFloat();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public long readLong()
   {
     return scanner.nextLong();
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public byte readByte()
   {
     return scanner.nextByte();
   }
 
-  // read in a boolean, allowing "true" or "1" for true and "false" or "0" for false
+  /**
+   * <p>
+   * read in a boolean, allowing "true" or "1" for true and 
+   * "false" or "0" for false
+   * </p>
+   * 
+   * @return 
+   */
   public boolean readBoolean()
   {
     String s = readString();
@@ -242,7 +345,11 @@ public final class ReadIn
     throw new java.util.InputMismatchException();
   }
 
-  // close the scanner
+  /**
+   * <p>
+   * close the scanner
+   * </p>
+   */
   public void close()
   {
     scanner.close();

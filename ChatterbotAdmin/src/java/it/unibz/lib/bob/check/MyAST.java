@@ -8,11 +8,21 @@ import antlr.Token;
 import java.io.Serializable;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class MyAST extends CommonAST implements Serializable
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private Token token;
 
   @Override

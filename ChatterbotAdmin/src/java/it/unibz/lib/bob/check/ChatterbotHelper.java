@@ -28,32 +28,68 @@ import it.unibz.lib.bob.macroparser.macroParser_Parser;
 import org.apache.log4j.Logger;
 
 /**
- * ChatterbotHelper is another modified version of BobHelper class,
- * used only in BoB web application. Differs form BobHelper
- * by the constructor parameters and the usage of static methods.
- *  
- * It provides some helper methods to work with the 
- * Bob-imported topic tree and the abbreviations file.
- * 
- * @author kirschner
+ * <p>
+ * ChatterbotHelper is another modified version of BobHelper class, used only 
+ * in BoB web application. Differs form BobHelper by the constructor parameters
+ * and the usage of static methods.
+ * </p>
+ * <p>
+ * It provides some helper methods to work with the Bob-imported topic tree 
+ * and the abbreviations file.
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
- * 
  */
 public class ChatterbotHelper implements macroParser_LexerTokenTypes
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static URL urlAbbreviationsFileEN;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static URL urlAbbreviationsFileDE;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static URL urlAbbreviationsFileIT;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static HashMap<String, String> macroMapEN = null;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static HashMap<String, String> macroMapDE = null;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private static HashMap<String, String> macroMapIT = null;
 
-  // implementing the Singleton pattern
+  /**
+   * <p>
+   * implementing the Singleton pattern
+   * </p>
+   */
   private static ChatterbotHelper instance = null;
 
   /**
@@ -74,12 +110,31 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
    */
   private static Logger log = Logger.getLogger(Bob_Parser.class);
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param regex
+   * @return
+   */
   public static String simplifyAlphabet(String regex)
   {
     return regex.toLowerCase(Locale.GERMAN);
   }
 
-  public static synchronized ChatterbotHelper makeInstance(URL en, URL de, URL it)
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param en
+   * @param de
+   * @param it
+   * @return
+   */
+  public static synchronized ChatterbotHelper makeInstance(URL en, URL de,
+          URL it)
   {
     urlAbbreviationsFileEN = en;
     urlAbbreviationsFileDE = de;
@@ -98,21 +153,26 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
     return instance;
   }
 
-
   /**
+   * <p>
    * update filenames, so that reloadInstance() can be called next
+   * </p>
+   * 
    * @param urlAbbreviationsFileEN
    * @param urlAbbreviationsFileDE
    * @param urlAbbreviationsFileIT
    */
-  public static void updateFiles(URL en, URL de, URL it) {
-      urlAbbreviationsFileEN = en;
-      urlAbbreviationsFileDE = de;
-      urlAbbreviationsFileIT = it;
+  public static void updateFiles(URL en, URL de, URL it)
+  {
+    urlAbbreviationsFileEN = en;
+    urlAbbreviationsFileDE = de;
+    urlAbbreviationsFileIT = it;
   }
 
   /**
+   * <p>
    * reload abbrev files
+   * </p>
    */
   public static void reloadInstance()
   {
@@ -123,13 +183,10 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
             urlAbbreviationsFileDE, urlAbbreviationsFileIT);
   }
 
-  private ChatterbotHelper()
-  {
-  }
-
   /**
-   *
+   * <p>
    * Any of the arguments could be == null, disabling that language
+   * </p>
    *
    * @param urlAbbreviationsFileEN
    * @param urlAbbreviationsFileDE
@@ -140,17 +197,25 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
   {
     // macroMapEN = getMacroMap(urlAbbreviationsFileEN.toExternalForm());
     if (urlAbbreviationsFileEN != null)
-        macroMapEN = getMacroMap(urlAbbreviationsFileEN);
+    {
+      macroMapEN = getMacroMap(urlAbbreviationsFileEN);
+    }
     if (urlAbbreviationsFileDE != null)
-        macroMapDE = getMacroMap(urlAbbreviationsFileDE);
+    {
+      macroMapDE = getMacroMap(urlAbbreviationsFileDE);
+    }
     if (urlAbbreviationsFileIT != null)
-        macroMapIT = getMacroMap(urlAbbreviationsFileIT);
+    {
+      macroMapIT = getMacroMap(urlAbbreviationsFileIT);
+    }
     expandMacroMaps();
   }
 
   /**
+   * <p>
    * Expands the 3 macroMaps by iteratively applying the expansions on the
    * map's values.
+   * </p>
    */
   private void expandMacroMaps()
   {
@@ -162,105 +227,110 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
     /*
      * EN
      */
-    if (macroMapEN != null) {
-        temp = 0;
-        do
+    if (macroMapEN != null)
+    {
+      temp = 0;
+      do
+      {
+        somethingChanged = false;
+        temp++;
+        for (Map.Entry<String, String> entry : macroMapEN.entrySet())
         {
-          somethingChanged = false;
-          temp++;
-          for (Map.Entry<String, String> entry : macroMapEN.entrySet())
+          String key = entry.getKey();
+          String value = entry.getValue();
+
+          // Ignore macro FUNCTION syntax:
+          value = value.replaceAll("\\$1\\$", "foobar");
+          matcher = macro.matcher(value);
+
+          if (matcher.find())
           {
-            String key = entry.getKey();
-            String value = entry.getValue();
-
-            // Ignore macro FUNCTION syntax:
-            value = value.replaceAll("\\$1\\$", "foobar");
-            matcher = macro.matcher(value);
-
-            if (matcher.find())
-            {
-              String replacementValue = replaceMacrosMasked(value, "EN");
-              macroMapEN.put(key, replacementValue);
-              somethingChanged = true;
-            }
+            String replacementValue = replaceMacrosMasked(value, "EN");
+            macroMapEN.put(key, replacementValue);
+            somethingChanged = true;
           }
         }
-        while (somethingChanged);
+      }
+      while (somethingChanged);
 
-        log.debug("Number of macro expansion iterations needed for EN: " + temp);
+      log.debug("Number of macro expansion iterations needed for EN: " + temp);
     }
 
     /*
      * DE
      */
-    if (macroMapDE != null) {
-        temp = 0;
-        do
+    if (macroMapDE != null)
+    {
+      temp = 0;
+      do
+      {
+        somethingChanged = false;
+        temp++;
+
+        for (Map.Entry<String, String> entry : macroMapDE.entrySet())
         {
-          somethingChanged = false;
-          temp++;
+          String key = entry.getKey();
+          String value = entry.getValue();
 
-          for (Map.Entry<String, String> entry : macroMapDE.entrySet())
+          // Ignore macro FUNCTION syntax:
+          value = value.replaceAll("\\$1\\$", "foobar");
+          matcher = macro.matcher(value);
+
+          if (matcher.find())
           {
-            String key = entry.getKey();
-            String value = entry.getValue();
-
-            // Ignore macro FUNCTION syntax:
-            value = value.replaceAll("\\$1\\$", "foobar");
-            matcher = macro.matcher(value);
-
-            if (matcher.find())
-            {
-              String replacementValue = replaceMacrosMasked(value, "DE");
-              macroMapDE.put(key, replacementValue);
-              somethingChanged = true;
-            }
+            String replacementValue = replaceMacrosMasked(value, "DE");
+            macroMapDE.put(key, replacementValue);
+            somethingChanged = true;
           }
         }
-        while (somethingChanged);
+      }
+      while (somethingChanged);
 
-    log.debug("Number of macro expansion iterations needed for DE: " + temp);
+      log.debug("Number of macro expansion iterations needed for DE: " + temp);
     }
     /*
      * IT
      */
-    if (macroMapIT != null) {
-        temp = 0;
+    if (macroMapIT != null)
+    {
+      temp = 0;
 
-        do
+      do
+      {
+        somethingChanged = false;
+        temp++;
+
+        for (Map.Entry<String, String> entry : macroMapIT.entrySet())
         {
-          somethingChanged = false;
-          temp++;
+          String key = entry.getKey();
+          String value = entry.getValue();
 
-          for (Map.Entry<String, String> entry : macroMapIT.entrySet())
+          // Ignore macro FUNCTION syntax:
+          value = value.replaceAll("\\$1\\$", "foobar");
+          matcher = macro.matcher(value);
+
+          if (matcher.find())
           {
-            String key = entry.getKey();
-            String value = entry.getValue();
-
-            // Ignore macro FUNCTION syntax:
-            value = value.replaceAll("\\$1\\$", "foobar");
-            matcher = macro.matcher(value);
-
-            if (matcher.find())
-            {
-              String replacementValue = replaceMacrosMasked(value, "IT");
-              macroMapIT.put(key, replacementValue);
-              somethingChanged = true;
-            }
+            String replacementValue = replaceMacrosMasked(value, "IT");
+            macroMapIT.put(key, replacementValue);
+            somethingChanged = true;
           }
         }
+      }
+      while (somethingChanged);
 
-        while (somethingChanged);
-
-        log.debug("Number of macro expansion iterations needed for IT: " + temp);
+      log.debug("Number of macro expansion iterations needed for IT: " + temp);
     }
   }
 
   /**
+   * <p>
    * Extract all Shortcuts and RegEx patterns from the Shortcut definition
    * file MUST NOT have blank lines!
-   *
+   * </p>
+   * <p>
    * Change when reading the file: 1. $ -> &dollar;
+   * </p>
    *
    * @param url
    * @return
@@ -299,12 +369,12 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    *
-   * @param filename
-   *            of the output text file
-   * @param lang
-   *            of the macro file to be printed (one of "EN", "DE", "IT")
+   * </p>
    *
+   * @param filename of the output text file
+   * @param lang of the macro file to be printed (one of "EN", "DE", "IT")
    * @return false if an illegal lang was chosen
    */
   public boolean printMacroMap(String filename, String lang)
@@ -346,7 +416,7 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
       }
 
       // Don't forget to flush!
-      out.flush(); 
+      out.flush();
       out.close();
     }
     catch (UnsupportedEncodingException e)
@@ -361,8 +431,10 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    * Call private method, and add '_', '\' and '$' afterwards, where it had
    * been removed before
+   * </p>
    *
    * @param s
    * @param lang
@@ -388,13 +460,16 @@ public class ChatterbotHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    * Does only one replacement step for all macros in the string. I.e., if the
    * Map contains expansions with embedded macros, this has to be dealt with
    * at some higher level.
-   *
+   * </p>
+   * <p>
    * Does not convert _ and &dollar; to their PERL equivalents. Use the public
    * replaceMacros() if you need this.
-   *
+   * </p>
+   * 
    * @param s
    * @param lang
    * @return String

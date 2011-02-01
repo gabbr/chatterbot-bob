@@ -6,11 +6,13 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 /**
- * Parses a user question that had been identified to contain an OPAC query, and returns the contained query terms
+ * <p>
+ * Parses a user question that had been identified to contain an OPAC query,
+ * and returns the contained query terms.
+ * </p>
  *
- * @author manuelkirschner
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
- *
  */
 public class OpacQueryQuestionParser
 {
@@ -32,41 +34,90 @@ public class OpacQueryQuestionParser
    */
   private static Logger log = Logger.getLogger(OpacQueryQuestionParser.class);
 
-  /*
+  /**
+   * <p>
    * Keyword questions
+   * </p>
    */
   static class KeywordQuestion
   {
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String about_EN = "(?:of|on|by|about)";
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String question_EN = ".*\\b" + about_EN
             + "\\b ?([ \\w]*).*";
 
-    // private static String keywordQuestion_EN = ".*(.*).*";
+    /**
+     * <p>
+     * private static String keywordQuestion_EN = ".*(.*).*";
+     * </p>
+     */
     static Pattern question_EN_pattern = Pattern.compile(question_EN,
             Pattern.CASE_INSENSITIVE | Pattern.CANON_EQ
             | Pattern.UNICODE_CASE);
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String about_DE = "(?:[üu]ber|von)";
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String question_DE = ".*\\b" + about_DE
             + "\\b ?([ \\w]*).*";
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     static Pattern question_DE_pattern = Pattern.compile(question_DE,
             Pattern.CASE_INSENSITIVE | Pattern.CANON_EQ
             | Pattern.UNICODE_CASE);
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String about_IT = "(?:su|di|da)";
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     private static final String question_IT = ".*\\b" + about_IT
             + "\\b ?([ \\w]*).*";
 
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     static Pattern question_IT_pattern = Pattern.compile("(?i)"
             + question_IT, Pattern.CASE_INSENSITIVE | Pattern.CANON_EQ
             | Pattern.UNICODE_CASE);
 
     /**
-     *
+     * <p>
+     * 
+     * </p>
+     * 
      * @param str
      * @param language
      * @return the extracted query terms

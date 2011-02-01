@@ -15,45 +15,37 @@ import com.aliasi.util.AbstractExternalizable;
 import com.aliasi.util.Compilable;
 
 /**
+ * <p>
  * A <code>MyStemmedTokenizerFactory</code> creates tokenizers for
  * subsequences of character arrays.
- * 
+ * </p>
+ * <p> 
  * The tokenization is based on the following pipe, using existing LingPipe
  * code:
+ * </p>
  * <ul>
- * <li> IndoEuropeanTokenizerFactory
- * <li> LowerCaseFilterTokenizer
- * <li> EnglishStopListFilterTokenizer
- * <li> PorterStemmerFilterTokenizer
+ *  <li> IndoEuropeanTokenizerFactory</li>
+ *  <li> LowerCaseFilterTokenizer</li>
+ *  <li> EnglishStopListFilterTokenizer</li>
+ *  <li> PorterStemmerFilterTokenizer</li>
  * </ul>
  * 
- * @author Manuel Kirschner
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class MyStemmedTokenizerFactory implements Compilable, TokenizerFactory,
         Serializable
 {
-
-  private static final long serialVersionUID = -6920267163317533680L;
-
   /**
+   * <p>
    * An instance of a tokenizer factory.
+   * </p>
    */
   public static final TokenizerFactory FACTORY = new MyStemmedTokenizerFactory();
 
-  /**
-   * Returns a tokenizer for the specified subsequence of characters.
-   *
-   * @param ch
-   *            Characters to tokenize.
-   * @param start
-   *            Index of first character to tokenize.
-   * @param length
-   *            Number of characters to tokenize.
-   */
+  @Override
   public Tokenizer tokenizer(char[] ch, int start, int length)
   {
-
     Tokenizer tokenizer = IndoEuropeanTokenizerFactory.FACTORY.tokenizer(
             ch, start, length);
     tokenizer = new LowerCaseFilterTokenizer(tokenizer);
@@ -62,29 +54,25 @@ public class MyStemmedTokenizerFactory implements Compilable, TokenizerFactory,
     return tokenizer;
   }
 
-  /**
-   * Compiles this tokenizer factory to the specified object output. The
-   * tokenizer factory read back in is reference identical to the static
-   * constant {@link #FACTORY}.
-   *
-   * @param objOut
-   *            Object output to which this tokenizer factory is compiled.
-   * @throws IOException
-   *             If there is an I/O error during the write.
-   */
+  @Override
   public void compileTo(ObjectOutput objOut) throws IOException
   {
     objOut.writeObject(new Externalizer());
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static class Externalizer extends AbstractExternalizable
   {
+    /**
+     * <p>
+     * 
+     * </p>
+     */
     static final long serialVersionUID = 3826670589236636230L;
-
-    public Externalizer()
-    {
-      /* do nothing */
-    }
 
     @Override
     public void writeExternal(ObjectOutput objOut)

@@ -4,12 +4,16 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class MyAuthenticator extends Authenticator
 {
-//	 This method is called when a password-protected URL is accessed
+  @Override
   protected PasswordAuthentication getPasswordAuthentication()
   {
     /*
@@ -23,7 +27,6 @@ public class MyAuthenticator extends Authenticator
 
     // Get the password from the user...
     String password = "foo_http_password";
-
 
     // Return the information
     return new PasswordAuthentication(username, password.toCharArray());

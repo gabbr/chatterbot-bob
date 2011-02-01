@@ -6,19 +6,39 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * <p>
+ * This class implements Chatterbot interface and is used to update chat
+ * settings and to test chatterbot application.
+ * </p>
+ * 
+ * @author manuel.kirschner@gmail.com
+ * @author markus.grandpre@uni-konstanz.de
  * @version $Id$
  */
 public class ChatterbotImpl implements Chatterbot
 {
+  /**
+   * <p>
+   * </p>
+   */
   private DialogueManager dialogueManager;
 
+  /**
+   * <p>
+   * </p>
+   *
+   * @param lang
+   * @return
+   */
   public boolean understandsLanguage(String lang)
   {
     return dialogueManager.getTT().understandsLanguage(lang);
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param lang
    * @return true if this TopicTree was initialized with the corresponding
@@ -36,7 +56,7 @@ public class ChatterbotImpl implements Chatterbot
     }
     else
     {
-      return dialogueManager.getTT().getQAMB().getTfIdfIT().numDocuments() > 0; //italian
+      return dialogueManager.getTT().getQAMB().getTfIdfIT().numDocuments() > 0;
     }
   }
   /**
@@ -59,6 +79,7 @@ public class ChatterbotImpl implements Chatterbot
 
   /**
    * <p>
+   * This constructor sets DialogManager object to null when called.
    * </p>
    */
   public ChatterbotImpl()
@@ -82,29 +103,40 @@ public class ChatterbotImpl implements Chatterbot
             || textCorpusITFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("IT"))
     {
 
+      // check if DialogManager object already exists
       if (dialogueManager == null)
       {
-        log.info("dialogueManager was null. creating a new one.");
+        // DialogManager object does not exist
+        log.debug("dialogueManager was null. creating a new one.");
+
+        // create new DialogManager object
         dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
                 macrosITFileURL, textCorpusITFileURL);
       }
       else
       {
-        log.info("dialogueManager was not null. reloading topictree.");
+        // DialogManager object already exists
 
+        // update existing DialogueManager object
         dialogueManager.reloadTT(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
                 macrosITFileURL, textCorpusITFileURL);
+
+        // existing DialogueManager object has been updated
+        log.debug("Existing DialogueManager object has been updated.");
       }
 
+      // dialogue manager has been initialized
       log.info("New dialogue manager initialized with languages ["
               + ((macrosENFileURL != null) ? "EN " : "")
               + ((macrosDEFileURL != null) ? "DE " : "")
-              + ((macrosITFileURL != null) ? "IT " : "" + "] and MachineLearning for ["
+              + ((macrosITFileURL != null) ? "IT " : ""
+              + "] and MachineLearning for ["
               + ((textCorpusENFileURL != null) ? "EN " : "")
               + ((textCorpusDEFileURL != null) ? "DE " : "")
-              + ((textCorpusITFileURL != null) ? "IT " : "")) + "]");
+              + ((textCorpusITFileURL != null) ? "IT " : ""))
+              + "]");
     }
 
   }
@@ -112,48 +144,28 @@ public class ChatterbotImpl implements Chatterbot
   @Override
   public String getChatterbotAnswer(String question, String language)
   {
+    // initialize chatterbot's new answer
+    // as an empty String object
     String answer = new String();
 
     try
     {
+      // get answer from chatterbot
       answer = dialogueManager.getNextResponse(question, language);
+
+      // answer has been received
       log.debug("Bob's answer has been received: " + answer);
+
+      // return answer
+      return answer;
     }
     catch (Exception e)
     {
-      log.error("Failed to generate answer: " + e.getMessage());
+      // no answer has been received
+      log.error("No answer has been received: " + e.getMessage());
+
+      // report failure
       return null;
     }
-
-    return answer;
-  }
-
-
-  public static void main (String[] args) {
-      URL urlTt = null;
-      URL urlMacrosEN = null;
-      URL urlMacrosDE = null;
-      URL urlMacrosIT = null;
-      URL urlCorpusEN = null;
-      URL urlCorpusDE = null;
-      URL urlCorpusIT = null;
-
-      try{
-        urlTt = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/topictree.xml");
-        urlMacrosEN = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_EN.txt");
-        urlMacrosDE = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_DE.txt");
-        urlMacrosIT = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/Application_Data/bob_macros_IT.txt");
-        urlCorpusEN = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/ukwac/UKWAC-1.txt_sm");
-        urlCorpusDE = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/dewac/DEWAC-1.txt_sm");
-        urlCorpusIT = new URL("file:/Users/manuelkirschner/svn_base/libexperts/BoB_FUB/TrainingData_AnswerReranker/itwac/ITWAC-1.txt_sm");
-
-      } catch (Exception e) {
-          e.printStackTrace();
-      };
-
-      Chatterbot bot = new ChatterbotImpl();
-      bot.updateChatterbotSettings(urlTt, urlMacrosEN, urlMacrosDE, urlMacrosIT, urlCorpusEN, urlCorpusDE, urlCorpusIT);
-      
-      System.out.println(bot.getChatterbotAnswer("ich suche ein buch", "DE"));
   }
 }

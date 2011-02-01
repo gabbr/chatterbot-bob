@@ -1,7 +1,6 @@
 package it.unibz.lib.bob.bbcheck;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Vector;
 
 import com.mallardsoft.tuple.Quadruple;
@@ -16,37 +15,115 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ * <p>
+ * This class implements BBCheck interface and is used to update test settings
+ * and to perform test of bbcheck application. When test has finished, test
+ * results are provided as String object and as a test report file in XLS
+ * format.
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
+ * @author markus.grandpre@uni-konstanz.de
  * @version $Id$
  */
 public class BBCheckImpl implements BBCheck
 {
+  /**
+   * <p>
+   * This String object is used to set language setting for bbcheck test.
+   * </p>
+   */
   private String language;
 
-  private String outfilePath;
-
+  /**
+   * <p>
+   * This URL object is used to set topic tree file for bbcheck test.
+   * </p>
+   */
   private URL topicTreeFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set English macro file for bbcheck test.
+   * </p>
+   */
   private URL macrosENFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set German macro file for bbcheck test.
+   * </p>
+   */
   private URL macrosDEFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set Italian macro file for bbcheck test.
+   * </p>
+   */
   private URL macrosITFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set English text corpus file for bbcheck test.
+   * </p>
+   */
   private URL textCorpusENFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set German text corpus file for bbcheck test.
+   * </p>
+   */
   private URL textCorpusDEFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set Italian text corpus file for bbcheck test.
+   * </p>
+   */
   private URL textCorpusITFileURL;
 
+  /**
+   * <p>
+   * This URL object is used to set test questions file for bbcheck test.
+   * </p>
+   */
   private URL testQuestionsFileURL;
 
+  /**
+   * <p>
+   * This String object is used to store test report file on disk.
+   * </p>
+   */
+  private String outfilePath;
+
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Boolean trainingMode;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private TestQuestionSpreadSheet infile;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private ErrorReportSpreadSheet outfile;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private DialogueManager dialogueManager;
 
   /**
@@ -69,12 +146,16 @@ public class BBCheckImpl implements BBCheck
 
   /**
    * <p>
+   * This constructor initializes some test setting with null and disables
+   * training mode of bbcheck test.
    * </p>
    */
   public BBCheckImpl()
   {
     language = null;
     outfilePath = null;
+
+    // disable training mode permanently
     trainingMode = Boolean.FALSE;
     dialogueManager = null;
   }
@@ -110,36 +191,47 @@ public class BBCheckImpl implements BBCheck
             || textCorpusITFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("IT"))
     {
 
+      // check if DialogManager object already exists
       if (dialogueManager == null)
       {
+        // DialogManager object does not exist
         log.debug("dialogueManager was null. creating a new one.");
+
+        // create new DialogManager object
         dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
                 macrosITFileURL, textCorpusITFileURL);
       }
       else
       {
-        log.debug("dialogueManager was not null. reloading topictree.");
+        // DialogManager object already exists
 
+        // update existing DialogueManager object
         dialogueManager.reloadTT(topicTreeFileURL, macrosENFileURL,
                 textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
                 macrosITFileURL, textCorpusITFileURL);
-      }
 
+        // existing DialogueManager object has been updated
+        log.debug("Existing DialogueManager object has been updated.");
+      }
+      
+      // dialogue manager has been initialized
       log.info("New dialogue manager initialized with languages ["
               + ((macrosENFileURL != null) ? "EN " : "")
               + ((macrosDEFileURL != null) ? "DE " : "")
-              + ((macrosITFileURL != null) ? "IT " : "" + "] and MachineLearning for ["
+              + ((macrosITFileURL != null) ? "IT " : ""
+              + "] and MachineLearning for ["
               + ((textCorpusENFileURL != null) ? "EN " : "")
               + ((textCorpusDEFileURL != null) ? "DE " : "")
-              + ((textCorpusITFileURL != null) ? "IT " : "")) + "]");
+              + ((textCorpusITFileURL != null) ? "IT " : ""))
+              + "]");
     }
   }
 
   @Override
   public String performBBCheck()
   {
-
+    // initialize String object to collect test results
     String testResults = new String();
 
     infile = new TestQuestionSpreadSheet(new File(testQuestionsFileURL.getFile()));
@@ -206,7 +298,8 @@ public class BBCheckImpl implements BBCheck
 
         if (dialogueManager.topicIDsAreEquivalent(Tuple.get1(bestresp),
                 infile.ids.get(i))
-                || dialogueManager.topicIDsAreEquivalent(Tuple.get2(bestresp), infile.ids.get(i)))
+                || dialogueManager.topicIDsAreEquivalent(Tuple.get2(bestresp),
+                infile.ids.get(i)))
         {
           outfile.addRow(
                   "B - correct match, single solution",
@@ -283,7 +376,8 @@ public class BBCheckImpl implements BBCheck
 
         if (dialogueManager.topicIDsAreEquivalent(Tuple.get1(firstMatch),
                 infile.ids.get(i))
-                || dialogueManager.topicIDsAreEquivalent(Tuple.get2(firstMatch), infile.ids.get(i)))
+                || dialogueManager.topicIDsAreEquivalent(Tuple.get2(firstMatch),
+                infile.ids.get(i)))
         {
 
           Vector<String> wronglyMatchedIDs = new Vector<String>();
@@ -295,7 +389,8 @@ public class BBCheckImpl implements BBCheck
             for (int k = 0; k < vresp.size() - 1; k++)
             {
 
-              if (!dialogueManager.topicIDsAreEquivalent(Tuple.get1(vresp.get(k)), infile.ids.get(i))
+              if (!dialogueManager.topicIDsAreEquivalent(Tuple.get1(vresp.get(k)),
+                      infile.ids.get(i))
                       && !dialogueManager.topicIDsAreEquivalent(Tuple.get1(vresp.get(k)),
                       infile.ids.get(i)))
               {
