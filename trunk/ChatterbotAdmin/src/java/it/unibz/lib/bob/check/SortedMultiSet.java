@@ -7,49 +7,84 @@ import java.util.LinkedList;
 import java.util.SortedSet;
 
 /**
- *
- *Copyright (C) 2004 Geoffrey Alan Washburn
- *
+ * <p>
+ * Copyright (C) 2004 Geoffrey Alan Washburn
+ * </p>
+ * <p>
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *
+ * </p>
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * </p>
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
  * USA.
- *
+ * </p>
+ * <p>
  * An implementation of the {@link SortedSet} interface that allows multiple
  * "equivalent" objects to be stored, unlike {@link TreeSet}.
- * 
- * @author Geoffrey Washburn &lt;<a
- *         href="mailto:geoffw@cis.upenn.edu">geoffw@cis.upenn.edu</a>&gt;
+ * </p>
+ *
+ * @author Geoffrey Washburn, geoffw@cis.upenn.edu
  * @version $Id$
  */
 public final class SortedMultiSet extends LinkedList implements SortedSet
 {
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private Comparator comparator = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public SortedMultiSet()
   {
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param c 
+   */
   public SortedMultiSet(Collection c)
   {
     super(c);
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param c 
+   */
   public SortedMultiSet(Comparator c)
   {
     this.comparator = c;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param s 
+   */
   public SortedMultiSet(SortedSet s)
   {
     Iterator it = s.iterator();

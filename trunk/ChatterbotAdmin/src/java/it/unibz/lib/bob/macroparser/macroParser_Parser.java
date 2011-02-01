@@ -14,14 +14,24 @@ import antlr.ASTFactory;
 import antlr.ASTPair;
 import antlr.collections.impl.ASTArray;
 
-import org.apache.log4j.Logger;
-
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class macroParser_Parser extends antlr.LLkParser implements macroParser_LexerTokenTypes
 {
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param tokenBuf
+   * @param k 
+   */
   protected macroParser_Parser(TokenBuffer tokenBuf, int k)
   {
     super(tokenBuf, k);
@@ -30,11 +40,26 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param tokenBuf 
+   */
   public macroParser_Parser(TokenBuffer tokenBuf)
   {
     this(tokenBuf, 1);
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param lexer
+   * @param k 
+   */
   protected macroParser_Parser(TokenStream lexer, int k)
   {
     super(lexer, k);
@@ -43,11 +68,24 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * @param lexer 
+   */
   public macroParser_Parser(TokenStream lexer)
   {
     this(lexer, 1);
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param state 
+   */
   public macroParser_Parser(ParserSharedInputState state)
   {
     super(state, 1);
@@ -56,9 +94,16 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     astFactory = new ASTFactory(getTokenTypeToASTClassMap());
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @throws RecognitionException
+   * @throws TokenStreamException 
+   */
   public final void string() throws RecognitionException, TokenStreamException
   {
-
     returnAST = null;
     ASTPair currentAST = new ASTPair();
     AST string_AST = null;
@@ -103,6 +148,14 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     returnAST = string_AST;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @throws RecognitionException
+   * @throws TokenStreamException 
+   */
   public final void token() throws RecognitionException, TokenStreamException
   {
 
@@ -162,6 +215,12 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     }
     returnAST = token_AST;
   }
+  
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public static final String[] _tokenNames =
   {
     "<0>",
@@ -173,14 +232,24 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     "STRING_"
   };
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   protected void buildTokenTypeASTClassMap()
   {
     tokenTypeToASTClassMap = null;
   }
 
-  ;
-
-  private static final long[] mk_tokenSet_0()
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  private static long[] mk_tokenSet_0()
   {
     long[] data =
     {
@@ -188,9 +257,22 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     };
     return data;
   }
+  
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 
-  private static final long[] mk_tokenSet_1()
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  private static long[] mk_tokenSet_1()
   {
     long[] data =
     {
@@ -198,6 +280,12 @@ public class macroParser_Parser extends antlr.LLkParser implements macroParser_L
     };
     return data;
   }
+  
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 
 }

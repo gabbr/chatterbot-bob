@@ -17,26 +17,85 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 
+/**
+ * <p>
+ *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
+ * @version $Id$
+ */
 public class ErrorReportSpreadSheet
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private String lang = null;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private HSSFWorkbook wb = new HSSFWorkbook();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private FileOutputStream fileOut = null;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Vector<String> statusCategory = new Vector<String>();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Vector<String> testQuestion = new Vector<String>();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Vector<String> correctID = new Vector<String>();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Vector<String> regexPattern = new Vector<String>();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private Vector<Vector<String>> wronglyMatchedIDs = new Vector<Vector<String>>();
 
+  /**
+   * <p>
+   * This String object contains the filename of test report file of bbcheck
+   * test.
+   * </p>
+   */
   private String filename = null;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private boolean ml;
 
   /**
@@ -58,11 +117,12 @@ public class ErrorReportSpreadSheet
   private Logger log = Logger.getLogger(ErrorReportSpreadSheet.class);
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param lang
-   *            language
    * @param ml
-   *            add the ML suffix to the filename?
    */
   public ErrorReportSpreadSheet(String lang, boolean ml)
   {
@@ -70,6 +130,17 @@ public class ErrorReportSpreadSheet
     this.ml = ml;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param statusCategory
+   * @param testQuestion
+   * @param correctID
+   * @param regexPattern
+   * @param wronglyMatchedIDs
+   */
   public void addRow(String statusCategory, String testQuestion,
           String correctID, String regexPattern,
           Vector<String> wronglyMatchedIDs)
@@ -81,6 +152,13 @@ public class ErrorReportSpreadSheet
     this.wronglyMatchedIDs.add(wronglyMatchedIDs);
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
   public static String now()
   {
     Calendar cal = Calendar.getInstance();
@@ -88,6 +166,13 @@ public class ErrorReportSpreadSheet
     return sdf.format(cal.getTime());
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param path
+   */
   public void writeSheet(String path)
   {
 
@@ -184,6 +269,7 @@ public class ErrorReportSpreadSheet
 
       cell0.setCellValue(new HSSFRichTextString(testQuestion.get(i)));
       cell1.setCellValue(new HSSFRichTextString(correctID.get(i)));
+
       // this extracts just the 2-digit main topic numbers
       try
       {
@@ -191,7 +277,7 @@ public class ErrorReportSpreadSheet
       }
       catch (Exception e)
       {
-        ;
+        // not implemented yet
       }
 
       cell2.setCellValue(new HSSFRichTextString(statusCategory.get(i)));
@@ -285,6 +371,14 @@ public class ErrorReportSpreadSheet
     }
   }
 
+  /**
+   * <p>
+   * This method return the filename of test report file of bbcheck test after
+   * test has been finished.
+   * </p>
+   *
+   * @return filename of test report file
+   */
   public String getFilename()
   {
     return filename;

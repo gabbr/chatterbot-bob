@@ -38,14 +38,27 @@ import it.unibz.lib.bob.macroparser.macroParser_Parser;
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  *
- * @author kirschner
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class BobHelper implements macroParser_LexerTokenTypes
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   HashMap<String, String> macroMap;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   HashMap<String, String> macroMapSubsetUsedByCurrentPattern = new HashMap<String, String>();
 
   /**
@@ -66,11 +79,13 @@ public class BobHelper implements macroParser_LexerTokenTypes
    */
   private Logger log = Logger.getLogger(BobHelper.class);
 
-
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param shortcutFile
-   * @param lang (just for output purposes)
+   * @param lang
    */
   public BobHelper(URL shortcutFile, String lang)
   {
@@ -79,10 +94,11 @@ public class BobHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
+   * </p>
    *
    * @param shortcutFile
-   * @param lang
-   *            (just for output purposes)
+   * @param lang just for output purposes
    */
   public BobHelper(String shortcutFile, String lang)
   {
@@ -90,20 +106,30 @@ public class BobHelper implements macroParser_LexerTokenTypes
     expandMacroMap(lang);
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param regex
+   * @return
+   */
   public static String simplifyAlphabet(String regex)
   {
     return regex.toLowerCase(Locale.GERMAN);
   }
 
   /**
+   * <p>
    * Expands the macroMap by iteratively applying the expansions on the map's
    * values. Also, $ signs are escaped with a \
-   *
+   * </p>
+   * <p>
    * NEW: Ignore macro FUNCTION syntax: - in the rules:
    * #WIE_FINDE_ICH(#ST_REZEPT#)# - in cm.pattern: $1$
+   * </p>
    *
-   * @param lang
-   *            (just for output purposes)
+   * @param lang just for output purposes
    * @return true if some value in the array was changed.
    */
   private boolean expandMacroMap(String lang)
@@ -143,13 +169,15 @@ public class BobHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    * Extract all Shortcuts and RegEx patterns from the Shortcut definition
    * file MUST NOT have blank lines!
-   *
+   * </p>
+   * <p>
    * Change when reading the file: 1. $ -> &dollar;
+   * </p>
    *
-   * @param urlString
-   *            cm.pattern
+   * @param urlString cm.pattern
    * @return
    */
   HashMap<String, String> getMacroMapFromURL(String urlString)
@@ -217,7 +245,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
         while (matcher.find())
         {
           n_macros++;
-          String value = matcher.group(2).replaceAll("\\$","&dollar;");
+          String value = matcher.group(2).replaceAll("\\$", "&dollar;");
           value = value.replaceAll("\\\\", "&backslash;");
           stringMap.put(matcher.group(1), value);
         }
@@ -229,6 +257,14 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return stringMap;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param fileName
+   * @return
+   */
   HashMap<String, String> getMacroMapFromFile(String fileName)
   {
     String filecontent = null;
@@ -280,6 +316,13 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return stringMap;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param filename
+   */
   public void printMacroMap(String filename)
   {
     try
@@ -309,39 +352,97 @@ public class BobHelper implements macroParser_LexerTokenTypes
     }
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   public class Pair
   {
+    /**
+     * <p>
+     *
+     * </p>
+     */
     private Integer length;
 
+    /**
+     * <p>
+     *
+     * </p>
+     */
     private String macro;
 
+    /**
+     * <p>
+     *
+     * </p>
+     *
+     * @param a1
+     * @param a2
+     */
     public Pair(Integer a1, String a2)
     {
       length = a1;
       macro = a2;
     }
 
+    /**
+     * <p>
+     *
+     * </p>
+     *
+     * @return
+     */
     public Integer getLength()
     {
       return length;
     }
 
+    /**
+     * <p>
+     *
+     * </p>
+     *
+     * @return
+     */
     public String getMacro()
     {
       return macro;
     }
 
+    /**
+     * <p>
+     *
+     * </p>
+     *
+     * @param arg
+     */
     public void setLength(Integer arg)
     {
       length = arg;
     }
 
+    /**
+     * <p>
+     *
+     * </p>
+     *
+     * @param arg
+     */
     public void setMacro(String arg)
     {
       macro = arg;
     }
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
   public Pair[] get3OverallLongestMacros()
   {
     Pair[] result = new Pair[3];
@@ -372,6 +473,13 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return result;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
   public Pair[] get3CurrentPatternLongestMacros()
   {
     Pair[] result = new Pair[3];
@@ -402,7 +510,14 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return result;
   }
 
-  public boolean checkAllRegexesInMacroMap() 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
+  public boolean checkAllRegexesInMacroMap()
   {
     boolean result = true;
     for (Map.Entry<String, String> entry : macroMap.entrySet())
@@ -478,12 +593,13 @@ public class BobHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    * Call private method, and add '_', '\' and '$' afterwards, where it had
    * been removed before
-   *
+   * </p>
+   * 
    * @param s
-   * @param lang
-   *            (used for output only)
+   * @param lang used for output only
    * @return
    */
   public String replaceMacros(String s, String lang)
@@ -504,20 +620,23 @@ public class BobHelper implements macroParser_LexerTokenTypes
   }
 
   /**
+   * <p>
    * Does only one replacement step for all macros in the string. I.e., if the
    * Map contains expansions with embedded macros, this has to be dealt with
    * at some higher level.-
-   *
+   * </p>
+   * <p>
    * Does not convert _ and &dollar; to their PERL equivalents. Use the public
    * replaceMacros() if you need this. * NEW: Ignore macro FUNCTION syntax: -
    * in the rules: #WIE_FINDE_ICH(#ST_REZEPT#)# - in cm.pattern: $1$
-   *
+   * </p>
+   * <p>
    * NEW: populates the macroMapSubsetUsedByCurrentPattern map with patterns
    * and definitions used in current operation of replaceMacrosMasked()
+   * </p>
    *
    * @param s
-   * @param lang
-   *            (used only for output)
+   * @param lang used only for output
    * @return
    */
   private String replaceMacrosMasked(String s, String lang)
@@ -564,7 +683,7 @@ public class BobHelper implements macroParser_LexerTokenTypes
                     + key.substring(1, key.length() - 1) + "----");
             // deactivated WARNINGS for now, until all errors are removed
             log.warn("This macro is undefined for the specified "
-                    + "language: " + lang + "::"+ key);
+                    + "language: " + lang + "::" + key);
           }
         }
         else if (firstchild.getType() == NON_MACRO)
@@ -586,6 +705,14 @@ public class BobHelper implements macroParser_LexerTokenTypes
     return result;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   * 
+   * @param str
+   * @return
+   */
   public static boolean hasBalancedParentheses(String str)
   {
     java.text.StringCharacterIterator charIt = new java.text.StringCharacterIterator(

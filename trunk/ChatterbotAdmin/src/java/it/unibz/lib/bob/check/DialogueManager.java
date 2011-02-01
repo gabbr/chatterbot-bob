@@ -1,7 +1,8 @@
 package it.unibz.lib.bob.check;
 
+import com.mallardsoft.tuple.Quadruple;
+
 import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Queue;
 import java.util.Set;
@@ -17,53 +18,58 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.mallardsoft.tuple.Quadruple;
-import java.io.File;
-
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class DialogueManager
 {
   /**
-   * URL of the topic tree file
-   */
-  // private static String urlTopicTree =
-  // "https://babbage.inf.unibz.it/krdb/libexperts/BoB_Entwicklungsversionen/ulrike/topictree.xml"
-  // ;
-  private static String urlTopicTreeStr = "empty";
-
-  /**
+   * <p>
    * TopicTree provides most of the tree searching logic
+   * </p>
    */
   private TopicTree tt = null;
 
   /**
+   * <p>
    * The current topic
+   * </p>
    */
   private Node C = null;
 
   /**
+   * <p>
    * Indicates if we\'re in a SubDialogue; this is set only by getNextNode()
+   * </p>
    */
   private boolean sdMode = false;
 
   /**
+   * <p>
    * Count cont. errors to handle them at some threshold
+   * </p>
    */
   int continuousNoPatternFoundErrors = 0;
 
   /**
+   * <p>
    * remember the user query which did not match any question pattern, as it
    * might be an OPAC query...
+   * </p>
    */
   String possibleOpacQuery = null;
 
   /**
+   * <p>
    * The Java Session ID that this DM is connected to; needed for logging
+   * </p>
    */
   private String sessionID = "foobarSessionID";
 
@@ -87,7 +93,16 @@ public class DialogueManager
 
   /**
    * <p>
+   *
    * </p>
+   *
+   * @param topicTreeFileURL
+   * @param macrosENFileURL
+   * @param textCorpusENFileURL
+   * @param macrosDEFileURL
+   * @param textCorpusDEFileURL
+   * @param macrosITFileURL
+   * @param textCorpusITFileURL
    */
   public DialogueManager(URL topicTreeFileURL, URL macrosENFileURL,
           URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
@@ -106,9 +121,11 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * Entry point from getChat.jsp. Gets the next system response from BoB.
    * Sets the current focus node attribute (C), and the sdMode attribute.
    * Removes accents from user question.
+   * </p>
    *
    * @param userUtt
    * @return a String with the system response (or with an error message)
@@ -185,7 +202,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * Remove umlauts and accents (preserving upper/lower case, just in case)
+   * </p>
    *
    * @param s
    * @return
@@ -225,10 +244,12 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * For a give user question and language, returns a Vector of 4-tuples:
    * MatchedTopicID, TopicIDAfterLinks, AnswerString at MatchedTopicID (or at
    * TopicIDAfterLinks), RegexPattern at MatchedTopicID Removes accents from
    * user question.
+   * </p>
    *
    * @param userUtt
    * @param lang
@@ -285,6 +306,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @return a NodeList with all active \'normal\' or \'local\' topic nodes
    */
@@ -315,9 +339,11 @@ public class DialogueManager
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param lang
-   *
    * @return a topicID-sorted map &lt;answer, topicID&gt; of all the answers
    *         that can be reached from the topictree\'s "normal" topic nodes
    */
@@ -392,12 +418,22 @@ public class DialogueManager
     return sortedtMap;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
   public TopicTree getTT()
   {
     return tt;
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param id1
    * @param id2
@@ -420,6 +456,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param topicID
    * @return Set of all IDs of topicID\'s sister name-trace elements, including
@@ -431,6 +470,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param id
    *            topic ID
@@ -477,7 +519,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * The focus tree search algorithm. May also set sdMode attribute!
+   * </p>
    *
    * @param userUtt
    * @return the node containing the next system response for the current
@@ -679,8 +723,14 @@ public class DialogueManager
     return followLink(topNode, lang, true);
   }
 
-  /*
+  /**
+   * <p>
    * TODO: this is only used for getting all "normal" nodes (NO: SD, local)
+   * </p>
+   *
+   * @param userUtt
+   * @param lang
+   * @return
    */
   private Queue<Node> getNextNodes_allPossibleNormalPatterns(String userUtt,
           String lang)
@@ -689,7 +739,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * resets the dialogue history (C)
+   * </p>
    */
   public void resetDialogue()
   {
@@ -705,7 +757,9 @@ public class DialogueManager
   }
 
   /**
+   * <p>
    * reloads TT and abbrev files
+   * </p>
    */
   public void reloadTT()
   {
@@ -723,29 +777,39 @@ public class DialogueManager
     log.debug(sessionID.substring(0, 8) + " : *****************************");
   }
 
-   /**
+  /**
+   * <p>
    * reloads TT and abbrev files with new values
+   * </p>
+   *
+   * @param topicTreeFileURL
+   * @param macrosENFileURL
+   * @param textCorpusENFileURL
+   * @param macrosDEFileURL
+   * @param textCorpusDEFileURL
+   * @param macrosITFileURL
+   * @param textCorpusITFileURL
    */
   public void reloadTT(URL topicTreeFileURL, URL macrosENFileURL,
-              URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
-              URL macrosITFileURL, URL textCorpusITFileURL) {
-      tt.updateFiles(topicTreeFileURL, macrosENFileURL,
-              textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
-              macrosITFileURL, textCorpusITFileURL);
-      reloadTT();
+          URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
+          URL macrosITFileURL, URL textCorpusITFileURL)
+  {
+    tt.updateFiles(topicTreeFileURL, macrosENFileURL,
+            textCorpusENFileURL, macrosDEFileURL, textCorpusDEFileURL,
+            macrosITFileURL, textCorpusITFileURL);
+    reloadTT();
   }
 
-
-
   /**
+   * <p>
    * Follow any remaining links from node, setting the sdMode class attribute
    * if indicated by setSDmode
+   * </p>
    *
    * @param node
    * @param lang
-   * @param setSDmode
-   *            true if method is allowed to change the class attribute
-   *            sdMode; also toggles outputting of debug messages
+   * @param setSDmode true if method is allowed to change the class attribute
+   *    sdMode; also toggles outputting of debug messages
    * @return the new Node to which node links (recursively)
    */
   public Node followLink(Node node, String lang, boolean setSDmode)

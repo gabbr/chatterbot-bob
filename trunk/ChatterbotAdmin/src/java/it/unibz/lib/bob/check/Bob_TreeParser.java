@@ -8,19 +8,37 @@ import antlr.RecognitionException;
 import antlr.ANTLRException;
 import antlr.NoViableAltException;
 
-import org.apache.log4j.Logger;
-
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class Bob_TreeParser extends antlr.TreeParser implements Bob_LexerTokenTypes
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   public Bob_TreeParser()
   {
     tokenNames = _tokenNames;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _t
+   * @param query
+   * @return
+   * @throws RecognitionException
+   * @throws ANTLRException
+   */
   public final boolean bExpression(AST _t,
           String query) throws RecognitionException, ANTLRException
   {
@@ -126,6 +144,12 @@ public class Bob_TreeParser extends antlr.TreeParser implements Bob_LexerTokenTy
     _retTree = _t;
     return result;
   }
+
+  /**
+   * <p>
+   *
+   * </p>
+   */
   public static final String[] _tokenNames =
   {
     "<0>",
@@ -143,5 +167,4 @@ public class Bob_TreeParser extends antlr.TreeParser implements Bob_LexerTokenTy
     "CONC_",
     "EMPTYSTRING_"
   };
-
 }

@@ -20,27 +20,58 @@ import antlr.LexerSharedInputState;
 import antlr.collections.impl.BitSet;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes, TokenStream
 {
-  
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param in
+   */
   public Bob_Lexer(InputStream in)
   {
     this(new ByteBuffer(in));
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param in
+   */
   public Bob_Lexer(Reader in)
   {
     this(new CharBuffer(in));
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param ib
+   */
   public Bob_Lexer(InputBuffer ib)
   {
     this(new LexerSharedInputState(ib));
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param state
+   */
   public Bob_Lexer(LexerSharedInputState state)
   {
     super(state);
@@ -49,6 +80,7 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     literals = new Hashtable();
   }
 
+  @Override
   public Token nextToken() throws TokenStreamException
   {
     Token theRetToken = null;
@@ -150,7 +182,18 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     }
   }
 
-  public final void mOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
+  public final void mOR(boolean _createToken)
+          throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
     Token _token = null;
@@ -167,6 +210,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -184,6 +237,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -201,6 +264,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mLEFT_PAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -218,6 +291,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mRIGHT_PAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -235,6 +318,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mBLANK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -282,6 +375,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   public final void mSTRING_LITERAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -323,6 +426,16 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException
+   */
   protected final void mESCAPE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
@@ -454,7 +567,14 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     _returnToken = _token;
   }
 
-  private static final long[] mk_tokenSet_0()
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @return
+   */
+  private static long[] mk_tokenSet_0()
   {
     long[] data = new long[2048];
     data[0] = -17179869185L;
@@ -466,6 +586,8 @@ public class Bob_Lexer extends antlr.CharScanner implements Bob_LexerTokenTypes,
     data[1023] = 9223372036854775807L;
     return data;
   }
+  /**
+   *
+   */
   public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
-
 }

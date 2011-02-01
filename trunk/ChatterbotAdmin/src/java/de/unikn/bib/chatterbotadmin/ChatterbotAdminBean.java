@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -30,16 +31,17 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 /**
  * <p>
- *  This class represents a Java Server Faces Bean class and contains the
- *  application logic of ChatterbotAdmin web application. It aggregates
- *  several tests applications (bbCheck, qCheck and ttCheck) and a chat
- *  application (chatterbot) for testing purpose.
+ *  This class represents a Java Server Faces Bean class that implements the
+ *  application logic of ChatterbotAdmin application by controlling in- and
+ *  outputs on view. It also aggregates the tests applications (bbCheck, qCheck
+ *  and ttCheck) and a chat application (chatterbot) for testing purpose.
  * </p>
  * <p>
  *  All attributes and their default values that are managed by the UI of
  *  this application are also listed in faces-config.xml file.
  * </p>
  *
+ * @author manuel.kirschner@gmail.com
  * @author markus.grandpre@uni-konstanz.de
  * @version $Id$
  */
@@ -75,8 +77,8 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This String object represents the currently set language ("DE", "EN" and
-   * "IT") to perform bbCheck.
+   * This String object contains the currently set language to perform test
+   * of bbCheck application.
    * </p>
    */
   private String bbCheckLanguage;
@@ -84,7 +86,7 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if English language is currently set to
-   * perform bbCheck.
+   * perform test of bbCheck application.
    * </p>
    */
   private Boolean bbCheckLanguageENSelected;
@@ -92,7 +94,7 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if German language is currently set to
-   * perform bbCheck.
+   * perform test of bbCheck application.
    * </p>
    */
   private Boolean bbCheckLanguageDESelected;
@@ -100,34 +102,46 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if Italian language is currently set to
-   * perform bbCheck.
+   * perform test of bbCheck application.
    * </p>
    */
   private Boolean bbCheckLanguageITSelected;
 
   /**
    * <p>
+   * This String object is used to enable/disable selection of machine
+   * learning mode to perform test of bbCheck application.
    * </p>
    */
   private String bbCheckLearningInput;
 
   /**
    * <p>
+   * This Boolean object indicates if machine learning mode has been selected
+   * to perform test of bbCheck application.
    * </p>
    */
   private Boolean bbCheckLearningSelected;
 
   /**
    * <p>
-   * This String object represents the test results after bbCheck test has
-   * finished.
+   * This String object contains the test results after test of bbCheck
+   * application has finished.
    * </p>
    */
   private String bbCheckResults;
 
   /**
    * <p>
-   * This String object represents the URL ("file://") of the test report file
+   * This Boolean object indicated if a test report of bbCheck application
+   * is available for download.
+   * </p>
+   */
+  private Boolean bbCheckReportIsAvailable;
+
+  /**
+   * <p>
+   * This String object contains the URL ("file://") of the test report file
    * of bbCheck application. Path of this file is usually determined by value
    * of sharedFilePath attribute.
    * </p>
@@ -136,7 +150,7 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This String object represents the filename of the test report file
+   * This String object contains the filename of the test report file
    * of bbCheck application.
    * </p>
    */
@@ -144,44 +158,56 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This String object represents the content type of the test report file
-   * of bbCheck application. It is usually set
+   * This String object contains the content type of the test report file
+   * of bbCheck application. It is usually set to "application/octet-stream".
    * </p>
    */
   private String bbCheckReportFileContentType;
 
   /**
    * <p>
+   * This String object is used to select which format is about to be used
+   * to perform test of qCheck application.
    * </p>
    */
   private String qCheckFormat;
 
   /**
    * <p>
+   * This String object contains input of a regular expression to perform
+   * test of qCheck application.
    * </p>
    */
   private String qCheckRegularExpression;
 
   /**
    * <p>
+   * This String object contains input of a user question  to perform
+   * test of qCheck application.
    * </p>
    */
   private String qCheckUserQuestion;
 
   /**
    * <p>
+   * This String object contains the test results after test of qCheck
+   * application has finished.
    * </p>
    */
   private String qCheckResults;
 
   /**
    * <p>
+   * This String object contains the test results after test of ttCheck
+   * application has finished.
    * </p>
    */
   private String ttCheckResults;
 
   /**
    * <p>
+   * This String object is used to select which language is about
+   * to be used to perform test of chatterbot application.
    * </p>
    */
   private String chatterbotLanguage;
@@ -189,7 +215,7 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if English language is currently set to
-   * talk to bob.
+   *  perform test of chatterbot application.
    * </p>
    */
   private Boolean chatterbotLanguageENSelected;
@@ -197,7 +223,7 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if German language is currently set to
-   * talk to bob.
+   * perform test of chatterbot application.
    * </p>
    */
   private Boolean chatterbotLanguageDESelected;
@@ -205,321 +231,418 @@ public class ChatterbotAdminBean implements Serializable
   /**
    * <p>
    * This Boolean object indicates if Italian language is currently set to
-   * talk to bob.
+   * perform test of chatterbot application.
    * </p>
    */
   private Boolean chatterbotLanguageITSelected;
 
   /**
    * <p>
-   * </p>
-   */
-  private String chatterbotAnswer;
-
-  /**
-   * <p>
+   * This String object contains a user's question for to
+   * perform test of chatterbot application.
    * </p>
    */
   private String chatterbotQuestion;
 
   /**
    * <p>
+   * This String object contains Bob's answer to as test result when
+   * test of chatterbot application has finished.
+   * </p>
+   */
+  private String chatterbotAnswer;
+
+  /**
+   * <p>
+   * This String object contains all user questions and their corresponding
+   * answers from Bob depending on currently set language.
    * </p>
    */
   private String chatterbotChatText;
 
   /**
    * <p>
+   * This String object contains all user questions and their corresponding
+   * answers from Bob when English language has been selected.
    * </p>
    */
   private String chatterbotChatTextEN;
 
   /**
    * <p>
+   * This String object contains all user questions and their corresponding
+   * answers from Bob when German language has been selected.
    * </p>
    */
   private String chatterbotChatTextDE;
 
   /**
    * <p>
+   * This String object contains all user questions and their corresponding
+   * answers from Bob when Italian language has been selected.
    * </p>
    */
   private String chatterbotChatTextIT;
 
   /**
    * <p>
+   * This Object represents the reference to the content of topic tree file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile topicTreeFile;
 
   /**
    * <p>
+   * This String object contains the filename of topic tree file after upload
+   * of this file has succeeded.
    * </p>
    */
   private String topicTreeFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of topic tree file after upload
+   * of this file has succeeded.
    * </p>
    */
   private URL topicTreeFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if topic tree file has already been uploaded.
    * </p>
    */
   private Boolean topicTreeFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of a macros file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile macrosFile;
 
   /**
    * <p>
+   * This String object contains the filename of a macros file after upload
+   * of this file has succeeded.
    * </p>
    */
   private String macrosFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of a macros file after upload
+   * of this file has succeeded.
    * </p>
    */
   private URL macrosFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if a macros file has already been uploaded.
    * </p>
    */
   private Boolean macrosFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of English macros file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile macrosENFile;
 
   /**
    * <p>
+   * This String object contains the filename of English macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String macrosENFilename;
 
   /**
    * <p>
+   * This String object contains the file url of English macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL macrosENFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if English macros file has already been
+   * uploaded.
    * </p>
    */
   private Boolean macrosENFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of German macros file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile macrosDEFile;
 
   /**
    * <p>
+   * This String object contains the filename of German macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String macrosDEFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of German macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL macrosDEFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if German macros file has already been
+   * uploaded.
    * </p>
    */
   private Boolean macrosDEFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of Italian macros file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile macrosITFile;
 
   /**
    * <p>
+   * This String object contains the filename of Italian macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String macrosITFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of Italian macros file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL macrosITFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if Italian macros file has already been
+   * uploaded.
    * </p>
    */
   private Boolean macrosITFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of a text corpus file
+   * after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile textCorpusFile;
 
   /**
    * <p>
+   * This String object contains the filename of a text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String textCorpusFilename;
 
   /**
    * <p>
+   * This String object contains the file url of a text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL textCorpusFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if a text corpus file has already been
+   * uploaded.
    * </p>
    */
   private Boolean textCorpusFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of English text corpus
+   * file after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile textCorpusENFile;
 
   /**
    * <p>
+   * This String object contains the filename of English text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String textCorpusENFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of English text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL textCorpusENFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if English text corpus file has already been
+   * uploaded.
    * </p>
    */
   private Boolean textCorpusENFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of German text corpus
+   * file after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile textCorpusDEFile;
 
   /**
    * <p>
+   * This String object contains the filename of German text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String textCorpusDEFilename;
 
   /**
    * <p>
+   * This String object contains the file url of German text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL textCorpusDEFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if German text corpus file has already been
+   * uploaded.
    * </p>
    */
   private Boolean textCorpusDEFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of Italian text corpus
+   * file after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile textCorpusITFile;
 
   /**
    * <p>
+   * This String object contains the filename of Italian text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String textCorpusITFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of Italian text corpus file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL textCorpusITFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if Italian text corpus file has already been
+   * uploaded.
    * </p>
    */
   private Boolean textCorpusITFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of rng file after
+   * upload of this file has succeeded.
    * </p>
    */
   private UploadedFile rngFile;
 
   /**
    * <p>
+   * This String object contains the filename of a rng file after upload of
+   * this file has succeeded.
    * </p>
    */
   private String rngFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of a rng file after upload of
+   * this file has succeeded.
    * </p>
    */
   private URL rngFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if a rng file has already been uploaded.
    * </p>
    */
   private Boolean rngFileIsUploaded;
 
   /**
    * <p>
+   * This Object represents the reference to the content of English test
+   * questions file after upload of this file has succeeded.
    * </p>
    */
   private UploadedFile testQuestionsFile;
 
   /**
    * <p>
+   * This String object contains the filename of a test questions file after
+   * upload of this file has succeeded.
    * </p>
    */
   private String testQuestionsFilename;
 
   /**
    * <p>
+   * This String object contains the file URL of a test questions file after
+   * upload of this file has succeeded.
    * </p>
    */
   private URL testQuestionsFileURL;
 
   /**
    * <p>
+   * This Boolean object indicates if a test questions file has already been
+   * uploaded.
    * </p>
    */
   private Boolean testQuestionsFileIsUploaded;
 
   /**
    * <p>
-   * This String object represents
+   * This String object contains
    * </p>
    */
   private String sharedFilesPath;
 
   /**
    * <p>
-   * This String value represents the currently chosen language to display
+   * This String value contains the currently chosen language to display
    * messages from message bundle file.
    * </p>
    */
@@ -527,47 +650,251 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   * This Boolean object indicates if bbcheck application is selected.
+   * This Boolean object indicates if bbcheck application has been selected.
    * </p>
    */
   private Boolean bbCheckSelected;
 
   /**
    * <p>
-   * This Boolean object indicates if qcheck application is selected.
+   * This Boolean object indicates if qcheck application has been selected.
    * </p>
    */
   private Boolean qCheckSelected;
 
   /**
    * <p>
-   * This Boolean object indicates if ttcheck application is selected.
+   * This Boolean object indicates if ttcheck application has been selected.
    * </p>
    */
   private Boolean ttCheckSelected;
 
   /**
    * <p>
-   * This Boolean object indicates if chatterbot application is selected.
+   * This Boolean object indicates if chatterbot application has been selected.
    * </p>
    */
   private Boolean chatterbotSelected;
 
-  private String SEPARATOR = "\n-------------------------\n";
+  /**
+   * <p>
+   * This String represents the directory name where all files are stored that
+   * are required by this application.
+   * </p>
+   */
+  private final String SHARED_FILES_DIR_NAME = "/shared-files";
 
   /**
    * <p>
-   * This String object represents a constant return value any use case
-   * operation that indicates if corresponding operation has failed.
-   * This constant return values is used for JSF navigation rules that are
-   * defined in the web application's <tt>faces-config.xml</tt> configuration
-   * file.
+   * This String constant contains the value that is used to check whether
+   * English language has been selected to perform any test of this application.
+   * This value must equal the item value that is used for appropriate
+   * <tt>selectItem</tt> tag in <tt>bbcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLanguage}">
+   *   <f:selectItem
+   *    ...
+   *    itemValue="EN" />
+   *  </t:selectOneRadio>
+   * </xmp>
+   * <p>
+   *  and <tt>chatterbot.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.chatterbotLanguage}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="EN" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   */
+  private final String EN = "EN";
+
+  /**
+   * <p>
+   * This String constant contains the value that is used to check whether
+   * German language has been selected to perform any test of this application.
+   * This value must equal the item value that is used for appropriate
+   * <tt>selectItem</tt> tag in <tt>bbcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLanguage}">
+   *   <f:selectItem
+   *    ...
+   *    itemValue="DE" />
+   *  </t:selectOneRadio>
+   * </xmp>
+   * <p>
+   *  and <tt>chatterbot.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.chatterbotLanguage}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="DE" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   */
+  private final String DE = "DE";
+
+  /**
+   * <p>
+   * This String constant contains the value that is used to check whether
+   * Italian language has been selected to perform any test of this application.
+   ** This value must equal the item value that is used for appropriate
+   * <tt>selectItem</tt> tag in <tt>bbcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLanguage}">
+   *   <f:selectItem
+   *    ...
+   *    itemValue="IT" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   * <p>
+   *  and <tt>chatterbot.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.chatterbotLanguage}">
+   *   <f:selectItem
+   *    ...
+   *    itemValue="IT" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   */
+  private final String IT = "IT";
+
+  /**
+   * <p>
+   * This String constant contains the value that is used to enable machine
+   * learning mode for bbCheck application. This value must equal the item
+   * value that is used for appropriate <tt>selectItem</tt> tag in
+   * <tt>bbcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLearningInput}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="yes" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   */
+  private final String BBCHECK_ENABLE_MACHINE_LEARNING_MODE = "yes";
+
+  /**
+   * <p>
+   * This String constant contains the value that is used to enable machine
+   * learning mode for bbCheck application. This value must equal the item
+   * value that is used for appropriate <tt>selectItem</tt> tag in
+   * <tt>bbcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLearningInput}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="no" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   */
+  private final String BBCHECK_DISABLE_MACHINE_LEARNING_MODE = "no";
+
+  /**
+   * <p>
+   * This String constant contains the value that is used to enable the topic
+   * tree file format for qCheck application. This value must equal the item
+   * value that is used for appropriate <tt>selectItem</tt> tag in
+   * <tt>qcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLearningInput}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="tt" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
    * </p>
    */
-  private String SHARED_FILES_DIR_NAME = "/shared-files";
+  private final String QCHECK_TT_FILE_FORMAT = "tt";
 
-  private String SUCCESS = "success";
+  /**
+   * <p>
+   * This String constant the value that is used to enable the macro file
+   * format for qCheck application. This value must equal the item value
+   * that is used for appropriate <tt>selectItem</tt> tag in
+   * <tt>qcheck.jspx</tt>:
+   * </p>
+   * <xmp>
+   *  <t:selectOneRadio
+   *   ...
+   *   value="#{chatterbotAdminBean.bbCheckLearningInput}">
+   *   ...
+   *   <f:selectItem
+   *    ...
+   *    itemValue="macro" />
+   *    ...
+   *  </t:selectOneRadio>
+   * </xmp>
+   * </p>
+   */
+  private final String QCHECK_MACRO_FILE_FORMAT = "macro";
 
+  /**
+   * <p>
+   * This String constant is used to separate single question/answer of chat
+   * text output String in chatterbot application.
+   * </p>
+   */
+  private final String SEPARATOR = "\n-------------------------\n";
+
+  /**
+   * <p>
+   * This String constant represents a return value for bean methods that are
+   * triggered by ui elements from view and whose operation has succeeded. This
+   * return values is used for corresponding JSF navigation rule that is defined
+   * in the web application's <tt>faces-config.xml</tt> configuration file.
+   * </p>
+   */
+  private final String SUCCESS = "success";
+
+  /**
+   * <p>
+   * This String constant represents a return value for bean methods that are
+   * triggered by ui elements from view and whose operation has failed. This
+   * return values is used for corresponding JSF navigation rule that is defined
+   * in the web application's <tt>faces-config.xml</tt> configuration file.
+   * </p>
+   */
   private String FAILED = "failed";
 
   /**
@@ -590,13 +917,17 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   *
+   *  This constructor is called by JSF Frame work and initializes ui elements
+   *  of view by reading default values from <tt>faces-config.xml</tt>.
+   *  Moreover this constructor is used to include all test applications of and
+   *  to determine the location on harddisk where all files of this application
+   *  are supposed to be stored.
    * </p>
    */
   public ChatterbotAdminBean()
   {
     // bean has been called from JSF framework
-    log.debug("About to start ChatterbotAdmin application.");
+    log.debug("ChatterbotAdmin application has been started.");
 
     // initialize references to test applications
     bbCheck = new BBCheckImpl();
@@ -604,25 +935,31 @@ public class ChatterbotAdminBean implements Serializable
     ttCheck = new TTCheckImpl();
     chatterbot = new ChatterbotImpl();
 
-    // initialize String objects for chat texts
+    // initialize chat text objects
     chatterbotChatText = new String();
     chatterbotChatTextEN = new String();
     chatterbotChatTextDE = new String();
     chatterbotChatTextIT = new String();
 
+    // test applications have been initialized
+    log.debug("Test applications have been initialized.");
+
     // get faces context in order to retrieve
     // root path of this web application
-    FacesContext fcontext = FacesContext.getCurrentInstance();
-    ServletContext scontext = (ServletContext) fcontext.getExternalContext().getContext();
+    FacesContext fc = FacesContext.getCurrentInstance();
+    ExternalContext ec = fc.getExternalContext();
+    ServletContext sc = (ServletContext) ec.getContext();
 
     // if root path is retrieved set path to specified
     // directory where all uploaded files and all files
     // that are suposed to be downloaded reside
-    sharedFilesPath = scontext.getRealPath(SHARED_FILES_DIR_NAME);
-    log.debug("Shared files path is: " + sharedFilesPath);
+    sharedFilesPath = sc.getRealPath(SHARED_FILES_DIR_NAME);
+
+    // shared files path has been initialized
+    log.debug("Shared files path has been initialized: " + sharedFilesPath);
 
     // application has been initialized
-    log.debug("Application has been initialized.");
+    log.debug("ChatterbotAdmin application has been initialized.");
   }
 
   /**
@@ -637,12 +974,8 @@ public class ChatterbotAdminBean implements Serializable
    */
   private void uploadFile(UploadedFile uploadedFile, String fileLocation)
   {
-    // start upload
-    log.debug("About to upload file: " + uploadedFile.getName());
-
     try
     {
-
       // get data of uploaded file
       InputStream streamIn = uploadedFile.getInputStream();
       long size = uploadedFile.getSize();
@@ -659,7 +992,7 @@ public class ChatterbotAdminBean implements Serializable
       streamOut.close();
 
       // upload has succeeded
-      log.debug("File has been uploaded: " + uploadedFile.getName()
+      log.debug("File " + uploadedFile.getName() + " has been uploaded: "
               + " to " + fileLocation);
     }
     catch (FileNotFoundException e)
@@ -678,7 +1011,7 @@ public class ChatterbotAdminBean implements Serializable
 
   /**
    * <p>
-   *  This method is used to provide a file content for download.
+   *  This method is used to provide content of a file for download.
    * </p>
    *
    * @param fileURL location of file in URL representation
@@ -767,7 +1100,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of topic tree file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTopicTreeFile()
   {
@@ -791,14 +1124,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + topicTreeFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(topicTreeFile, topicTreeFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -807,14 +1140,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new topic tree file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTopicTreeFile()
   {
     // enable new upload
     topicTreeFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -824,7 +1157,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of any macro file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadMacrosFile()
   {
@@ -848,14 +1181,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + macrosFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(macrosFile, macrosFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -864,14 +1197,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new macros file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewMacrosFile()
   {
     // enable new upload
     macrosFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -881,7 +1214,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of English macro file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadMacrosENFile()
   {
@@ -905,14 +1238,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + macrosENFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(macrosENFile, macrosENFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -921,14 +1254,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new English macros file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewMacrosENFile()
   {
     // enable new upload
     macrosENFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -938,7 +1271,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of German macro file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadMacrosDEFile()
   {
@@ -962,14 +1295,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + macrosDEFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(macrosDEFile, macrosDEFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -978,14 +1311,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new German macros file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewMacrosDEFile()
   {
     // enable new upload
     macrosDEFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -995,7 +1328,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of Italian macro file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadMacrosITFile()
   {
@@ -1019,14 +1352,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + macrosITFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(macrosITFile, macrosITFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1035,14 +1368,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new Italian macros file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewMacrosITFile()
   {
     // enable new upload
     macrosITFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1052,7 +1385,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of any text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTextCorpusFile()
   {
@@ -1076,14 +1409,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + textCorpusFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(textCorpusFile, textCorpusFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1092,14 +1425,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTextCorpusFile()
   {
     // enable new upload
     textCorpusFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1109,7 +1442,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of English text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTextCorpusENFile()
   {
@@ -1133,14 +1466,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + textCorpusENFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(textCorpusENFile, textCorpusENFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1149,14 +1482,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new English text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTextCorpusENFile()
   {
     // enable new upload
     textCorpusENFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1166,7 +1499,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of German text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTextCorpusDEFile()
   {
@@ -1190,14 +1523,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + textCorpusDEFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(textCorpusDEFile, textCorpusDEFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1206,14 +1539,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new German text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTextCorpusDEFile()
   {
     // enable new upload
     textCorpusDEFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1223,7 +1556,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of Italian text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTextCorpusITFile()
   {
@@ -1247,14 +1580,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + textCorpusITFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(textCorpusITFile, textCorpusITFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1263,14 +1596,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new Italian text corpus file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTextCorpusITFile()
   {
     // enable new upload
     textCorpusITFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1280,7 +1613,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of rng file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadRngFile()
   {
@@ -1304,14 +1637,14 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + rngFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
     // start upload
     uploadFile(rngFile, rngFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1320,14 +1653,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new rng file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewRngFile()
   {
     // enable new upload
     rngFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1337,7 +1670,7 @@ public class ChatterbotAdminBean implements Serializable
    * file upload of test questions file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadTestQuestionsFile()
   {
@@ -1361,7 +1694,7 @@ public class ChatterbotAdminBean implements Serializable
       log.error("Failed to set url for file " + testQuestionsFile.getName()
               + ": " + e.getMessage());
 
-      // report exception to ui
+      // report exception to view
       return FAILED;
     }
 
@@ -1369,7 +1702,7 @@ public class ChatterbotAdminBean implements Serializable
     // start upload
     uploadFile(testQuestionsFile, testQuestionsFilename);
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1378,14 +1711,14 @@ public class ChatterbotAdminBean implements Serializable
    * This method is used to enable the upload of a new test questions file.
    * </p>
    *
-   * @return report success or failure of this operation to ui
+   * @return result string for JSF navigation rules
    */
   public String uploadNewTestQuestionsFile()
   {
     // enable new upload
     testQuestionsFileIsUploaded = Boolean.FALSE;
 
-    // report success to ui
+    // report success to view
     return SUCCESS;
   }
 
@@ -1399,13 +1732,31 @@ public class ChatterbotAdminBean implements Serializable
    */
   public String selectBBCheckLanguage()
   {
-    // langauge is already set
-    log.debug("BBCheck language set to: " + bbCheckLanguage);
-
-    // check if language is German
-    if (bbCheckLanguage.equals("DE"))
+    // check if language setting exits
+    if (bbCheckLanguage == null || bbCheckLanguage.isEmpty())
     {
-      // language is set to German
+      // language setting does not exit
+      log.error("Language setting does not exit for bbcheck.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check which language has been selected
+    if (bbCheckLanguage.equals(EN))
+    {
+      // English language has been selected
+
+      // enable upload of files that are related
+      // to English language by setting appropriate
+      // Boolean values for view
+      bbCheckLanguageENSelected = Boolean.TRUE;
+      bbCheckLanguageDESelected = Boolean.FALSE;
+      bbCheckLanguageITSelected = Boolean.FALSE;
+    }
+    else if (bbCheckLanguage.equals(DE))
+    {
+      // German language has been selected
 
       // enable upload of files that are related
       // to German language by setting appropriate
@@ -1414,9 +1765,9 @@ public class ChatterbotAdminBean implements Serializable
       bbCheckLanguageDESelected = Boolean.TRUE;
       bbCheckLanguageITSelected = Boolean.FALSE;
     }
-    else if (bbCheckLanguage.equals("IT"))
+    else if (bbCheckLanguage.equals(IT))
     {
-      // langauge is set to Italian
+      // Italian language has been selected
 
       // enable upload of files that are related
       // to Italian language by setting appropriate
@@ -1427,134 +1778,518 @@ public class ChatterbotAdminBean implements Serializable
     }
     else
     {
-      // langauge is set to English (default)
+      // no language has been selected
+      log.error("No language has been selected");
 
-      // enable upload of files that are related
-      // to English language by setting appropriate
-      // Boolean values for view
-      bbCheckLanguageENSelected = Boolean.TRUE;
-      bbCheckLanguageDESelected = Boolean.FALSE;
-      bbCheckLanguageITSelected = Boolean.FALSE;
-    }
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
 
-    // does not fail
-    return SUCCESS;
-  }
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
 
-  public String selectBBCheckLearningMode()
-  {
-    log.debug("Machine learning mode: " + bbCheckLearningInput);
-
-    if (bbCheckLearningInput != null)
-    {
-      if (bbCheckLearningInput.equals("yes"))
-      {
-        bbCheckLearningSelected = Boolean.TRUE;
-
-        log.debug("Machine learning mode has been enabled: "
-                + bbCheckLearningInput);
-      }
-      else
-      {
-        bbCheckLearningSelected = Boolean.FALSE;
-
-        log.debug("Machine learning mode has been disabled: "
-                + bbCheckLearningInput);
-      }
-    }
-    else
-    {
-      bbCheckLearningInput = "no";
-      bbCheckLearningSelected = Boolean.FALSE;
-
-      log.debug("Machine learning mode has been disabled: "
-              + bbCheckLearningInput);
-    }
-
-    return SUCCESS;
-  }
-
-  public String performBBCheck()
-  {
-    log.debug("Perform bbCheck.");
-
-    if (bbCheckLanguage.equals("DE"))
-    {
-      bbCheck.updateBBCheckSettings(
-              bbCheckLanguage,
-              topicTreeFileURL,
-              null, macrosDEFileURL, null,
-              null, textCorpusDEFileURL, null,
-              testQuestionsFileURL,
-              sharedFilesPath);
-    }
-    else if (bbCheckLanguage.equals("IT"))
-    {
-      bbCheck.updateBBCheckSettings(
-              bbCheckLanguage,
-              topicTreeFileURL,
-              null, null, macrosITFileURL,
-              null, null, textCorpusITFileURL,
-              testQuestionsFileURL,
-              sharedFilesPath);
-    }
-    else
-    {
-      bbCheck.updateBBCheckSettings(
-              bbCheckLanguage,
-              topicTreeFileURL,
-              macrosENFileURL, null, null,
-              textCorpusENFileURL, null, null,
-              testQuestionsFileURL,
-              sharedFilesPath);
-    }
-
-    bbCheckResults = bbCheck.performBBCheck();
-
-    if (bbCheckResults.isEmpty() || bbCheckResults == null)
-    {
-      log.warn("No test results for bbcheck received.");
-
+      // report failure to view
       return FAILED;
     }
 
-    log.debug("Test results for bbcheck received.");
+    // language for bbcheck has been selected
+    log.debug("Language for bbcheck has been selected: " + bbCheckLanguage);
 
+    // report success to vuiew
     return SUCCESS;
   }
 
+  /**
+   * <p>
+   *  This method is used to enable/disable machine learning mode of test of
+   *  bbCheck application. Therefore content of variable
+   *  <tt>bbCheckLearningInput</tt> is evaluated:
+   * </p>
+   * <ul>
+   *  <li><tt>yes</tt>: machine learning mode has been enabled</li>
+   *  <li><tt>no</tt>: machine learning mode has been disabled</li>
+   * </ul>
+   *
+   * @return result string for JSF navigation rules
+   */
+  public String selectBBCheckLearningMode()
+  {
+    // check if input string to enable/disable 
+    // machine learning mode exists
+    if (bbCheckLearningInput == null || bbCheckLearningInput.isEmpty())
+    {
+      // input string does not exist
+      log.error("Input string to enable/disable machine learning mode"
+              + " does not exist");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to ui
+      return FAILED;
+    }
+
+    // check input string to enable/disable machine learning mode
+    if (bbCheckLearningInput.equals(BBCHECK_ENABLE_MACHINE_LEARNING_MODE))
+    {
+      // machine leaning mode is about to be enabled
+      bbCheckLearningSelected = Boolean.TRUE;
+
+      // machine learning mode has been enabled
+      log.debug("Machine learning mode has been enabled: "
+              + bbCheckLearningInput);
+    }
+    else if (bbCheckLearningInput.equals(BBCHECK_DISABLE_MACHINE_LEARNING_MODE))
+    {
+      // machine leaning is about to be disabled
+      bbCheckLearningSelected = Boolean.FALSE;
+
+      // machine learning mode has been disabled
+      log.debug("Machine learning mode has been disabled: "
+              + bbCheckLearningInput);
+    }
+    else
+    {
+      // failed to enable/disable machine leaning mode
+      log.error("Failed to enable/disable machine leaning mode");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // report success to view
+    return SUCCESS;
+  }
+
+  /**
+   * <p>
+   * This method is used to trigger test of bbcheck application. Therefore
+   * </p>
+   * <ul>
+   *  <li>language must have been set</li>
+   *  <li>topic tree file must have been uploaded</li>
+   *  <li>macros file must have been uploaded</li>
+   *  <li>
+   *   text corpus file must have been uploaded
+   *   when machine learning mode is selected
+   *  </li>
+   *  <li>test questions file must have been uploaded</li>
+   *  <li>shared files path must have been set</li>
+   * </ul>
+   * <p>
+   * A test result is received after test of bbCheck application has finished.
+   * </p>
+   * 
+   * @return result string for JSF navigation rules
+   */
+  public String performBBCheck()
+  {
+    // check if language has been set
+    if (bbCheckLanguage == null || bbCheckLanguage.isEmpty())
+    {
+      // language has not been set
+      log.error("Language has not been set for bbCheck.");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if file URL of topic tree file exists
+    if (topicTreeFileURL == null)
+    {
+      // topic tree file does not exist
+      log.error("Topic tree file does not exist for bbCheck.");
+
+      // reset file settings for topic tree file
+      topicTreeFile = null;
+      topicTreeFileIsUploaded = Boolean.FALSE;
+      topicTreeFilename = "";
+
+      // settings for topic tree file have been reset
+      log.debug("Settings for topic tree file have been reset.");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if file URL of test questions file exists
+    if (testQuestionsFileURL == null)
+    {
+      // test questions file does not exist
+      log.error("Test questions file does not exist for bbCheck.");
+
+      // reset file settings for test questions file
+      testQuestionsFile = null;
+      testQuestionsFileIsUploaded = Boolean.FALSE;
+      testQuestionsFilename = "";
+
+      // settings for test questions file have been reset
+      log.debug("Settings for test questions file have been reset.");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check which language has been selected
+    if (bbCheckLanguage.equals(EN))
+    {
+      // English language has been selected
+
+      // check if file URL of macros file exists
+      if (macrosENFileURL == null)
+      {
+        // macros file does not exist
+        log.error("Macros file does not exist for bbCheck.");
+
+        // reset file settings for macros file
+        macrosENFile = null;
+        macrosENFileIsUploaded = Boolean.FALSE;
+        macrosENFilename = "";
+
+        // settings for macros file have been reset
+        log.debug("Settings for macros file (EN) have been reset.");
+
+        // disable test report for download
+        bbCheckReportIsAvailable = Boolean.FALSE;
+
+        // test report is not available for download
+        log.debug("Test report is not available for download.");
+
+        // report failure to view
+        return FAILED;
+      }
+
+      // check if machine learning mode has been selected
+      if (bbCheckLearningSelected)
+      {
+        // machine learning mode has been selected
+
+        // check if file URL of text corpus file exists
+        if (textCorpusENFileURL == null)
+        {
+          // text corpus file does not exist
+          log.error("Macros file does not exist for bbCheck.");
+
+          // reset file settings for text corpus file
+          textCorpusENFile = null;
+          textCorpusENFileIsUploaded = Boolean.FALSE;
+          textCorpusENFilename = "";
+
+          // settings for text corpus file have been reset
+          log.debug("Settings for text corpus file (EN) have been reset.");
+
+          // disable test report for download
+          bbCheckReportIsAvailable = Boolean.FALSE;
+
+          // test report is not available for download
+          log.debug("Test report is not available for download.");
+
+          // report failure to view
+          return FAILED;
+        }
+
+        // update settings to perform test of
+        // bbcheck application for English language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                macrosENFileURL, null, null,
+                textCorpusENFileURL, null, null,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+      else
+      {
+        // machine learning mode has not been selected
+
+        // update settings to perform test of
+        // bbcheck application for English language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                macrosENFileURL, null, null,
+                null, null, null,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+    }
+    else if (bbCheckLanguage.equals(DE))
+    {
+      // German language has been selected
+
+      // check if file URL of macros file exists
+      if (macrosDEFileURL == null)
+      {
+        // macros file does not exist
+        log.error("Macros file does not exist for bbCheck.");
+
+        // reset file settings for macros file
+        macrosDEFile = null;
+        macrosDEFileIsUploaded = Boolean.FALSE;
+        macrosDEFilename = "";
+
+        // settings for macros file have been reset
+        log.debug("Settings for macros file (DE) have been reset.");
+
+        // disable test report for download
+        bbCheckReportIsAvailable = Boolean.FALSE;
+
+        // test report is not available for download
+        log.debug("Test report is not available for download.");
+
+        // report failure to view
+        return FAILED;
+      }
+
+      // check if machine learning mode is selected
+      if (bbCheckLearningSelected)
+      {
+        // machine learning mode has been selected
+
+        // check if file URL of text corpus file exists
+        if (textCorpusDEFileURL == null)
+        {
+          // text corpus file does not exist
+          log.error("Macros file does not exist for bbCheck.");
+
+          // reset file settings for text corpus file
+          textCorpusDEFile = null;
+          textCorpusDEFileIsUploaded = Boolean.FALSE;
+          textCorpusDEFilename = "";
+
+          // settings for text corpus file have been reset
+          log.debug("Settings for text corpus file (DE) have been reset.");
+
+          // disable test report for download
+          bbCheckReportIsAvailable = Boolean.FALSE;
+
+          // test report is not available for download
+          log.debug("Test report is not available for download.");
+
+          // report failure to view
+          return FAILED;
+        }
+
+        // update settings to perform test of
+        // bbcheck application for German language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                null, macrosDEFileURL, null,
+                null, textCorpusDEFileURL, null,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+      else
+      {
+        // machine learning mode has not been selected
+
+        // update settings to perform test of
+        // bbcheck application for German language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                null, macrosDEFileURL, null,
+                null, null, null,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+    }
+    else if (bbCheckLanguage.equals(IT))
+    {
+      // Italian language has been selected
+
+      // check if file URL of macros file exists
+      if (macrosITFileURL == null)
+      {
+        // macros file does not exist
+        log.error("Macros file does not exist for bbCheck.");
+
+        // reset file settings for macros file
+        macrosITFile = null;
+        macrosITFileIsUploaded = Boolean.FALSE;
+        macrosITFilename = "";
+
+        // settings for macros file have been reset
+        log.debug("Settings for macros file (IT) have been reset.");
+
+        // disable test report for download
+        bbCheckReportIsAvailable = Boolean.FALSE;
+
+        // test report is not available for download
+        log.debug("Test report is not available for download.");
+
+        // report failure to view
+        return FAILED;
+      }
+
+      // check if machine learning mode is selected
+      if (bbCheckLearningSelected)
+      {
+        // machine learning mode has been selected
+
+        // check if file URL of text corpus file exists
+        if (textCorpusITFileURL == null)
+        {
+          // text corpus file does not exist
+          log.error("Macros file does not exist for bbCheck.");
+
+          // reset file settings for text corpus file
+          textCorpusITFile = null;
+          textCorpusITFileIsUploaded = Boolean.FALSE;
+          textCorpusITFilename = "";
+
+          // settings for text corpus file have been reset
+          log.debug("Settings for text corpus file (IT) have been reset.");
+
+          // disable test report for download
+          bbCheckReportIsAvailable = Boolean.FALSE;
+
+          // test report is not available for download
+          log.debug("Test report is not available for download.");
+
+          // report failure to view
+          return FAILED;
+        }
+
+        // update settings to perform test of
+        // bbcheck application for German language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                null, null, macrosITFileURL,
+                null, null, textCorpusITFileURL,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+      else
+      {
+        // machine learning mode has not been selected
+
+        // update settings to perform test of
+        // bbcheck application for German language
+        bbCheck.updateBBCheckSettings(
+                bbCheckLanguage,
+                topicTreeFileURL,
+                null, null, macrosITFileURL,
+                null, null, null,
+                testQuestionsFileURL,
+                sharedFilesPath);
+      }
+    }
+    else
+    {
+      // no language has been selected
+      log.error("No language has been selected.");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report filure to view
+      return FAILED;
+    }
+
+    // settings of bbcheck test has been updated
+    log.debug("Settings of bbcheck test has been updated for language: "
+            + bbCheckLanguage);
+
+    // perform bbcheck test and receive test results
+    bbCheckResults = bbCheck.performBBCheck();
+
+    // check if test results have been received
+    if (bbCheckResults.isEmpty() || bbCheckResults == null)
+    {
+      // no test results for bbcheck test have been received
+      log.warn("No test results for bbcheck test have been received.");
+
+      // disable test report for download
+      bbCheckReportIsAvailable = Boolean.FALSE;
+
+      // test report is not available for download
+      log.debug("Test report is not available for download.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // test results for bbcheck have been received
+    log.debug("Test results for bbcheck have been received: " + bbCheckResults);
+
+    // enable test report for download
+    bbCheckReportIsAvailable = Boolean.TRUE;
+
+    // test report is now available for download
+    log.debug("Test report is now available for download.");
+
+    // report success to view
+    return SUCCESS;
+  }
+
+  /**
+   * <p>
+   * </p>
+   * @return result string for JSF navigation rules
+   */
   public String downloadBBCheckReport()
   {
+    // set content type
+    bbCheckReportFileContentType = "application/octet-stream";
+
+    // content type set
+    log.debug("Content type set: " + bbCheckReportFileContentType);
+
+    // read filename of test report file from manager object
+    bbCheckReportFilename = bbCheck.getBBCheckTestReportFile();
+
+    // filename of test report file read from manager object
+    log.debug("Filename of test report file read from manager "
+            + "object: " + bbCheckReportFilename);
+
+    // create URL
+    bbCheckReportFileURL = "file://" + sharedFilesPath + "/"
+            + bbCheckReportFilename;
+
+    // url of test report file created
+    log.debug("URL of test report file created: " + bbCheckReportFileURL);
 
     try
     {
-      // set content type
-      bbCheckReportFileContentType = "application/octet-stream";
+      // get JSF context is used to access HttpServletResponse
+      // objects from JSF context.
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ExternalContext ec = fc.getExternalContext();
 
-      // content type set
-      log.debug("Content type set: " + bbCheckReportFileContentType);
-
-      // read filename of test report file from manager object
-      bbCheckReportFilename = bbCheck.getBBCheckTestReportFile();
-
-      // filename of test report file read from manager object
-      log.debug("Filename of test report file read from manager "
-              + "object: " + bbCheckReportFilename);
-
-      // create URL
-      bbCheckReportFileURL = "file://" + sharedFilesPath + "/"
-              + bbCheckReportFilename;
-
-      // url of test report file created
-      log.debug("URL of test report file created: " + bbCheckReportFileURL);
-
-      // get JSF context is used to access HttpServlerResponse
-      // objects from Java EE context.
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-
-      // get HttpServletResponse object to add file name to the header of HTTP
-      // response.
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      // get HttpServletResponse object
+      HttpServletResponse response = (HttpServletResponse) ec.getResponse();
 
       // set content type and add filename of vpn profile
       // to header of HTTP response
@@ -1571,7 +2306,7 @@ public class ChatterbotAdminBean implements Serializable
       outputStream.flush();
 
       // complete response
-      facesContext.responseComplete();
+      fc.responseComplete();
 
       // bbCheck test report has been downloaded
       log.info("BBCheck test report has been downloaded.");
@@ -1589,76 +2324,296 @@ public class ChatterbotAdminBean implements Serializable
     }
   }
 
+  /**
+   * <p>
+   * This method is used if
+   * </p>
+   * @return result string for JSF navigation rules
+   */
   public String selectQCheckFormat()
   {
-    if (this.qCheckFormat.equals("tt"))
+    // check which format has been selected
+    if (qCheckFormat.equals(QCHECK_TT_FILE_FORMAT))
     {
-      log.debug("Topic tree format for qcheck selected: " + qCheckFormat);
+      // topic tree file format has been selected
+      log.debug("Topic tree file format has been selected for qcheck: "
+              + qCheckFormat);
     }
-
-    if (this.qCheckFormat.equals("macro"))
+    else if (qCheckFormat.equals(QCHECK_MACRO_FILE_FORMAT))
     {
-      log.debug("Macro format for qcheck selected: " + qCheckFormat);
+      // macros file format has been selected
+      log.debug("Macro file format has been selected for qcheck: "
+              + qCheckFormat);
     }
-
-    return SUCCESS;
-  }
-
-  public String performQCheck()
-  {
-    log.debug("Perform qcheck.");
-
-    qCheckResults = qCheck.performQCheck(macrosFilename, qCheckRegularExpression,
-            qCheckUserQuestion, qCheckFormat);
-
-    if (qCheckResults.isEmpty() || qCheckResults == null)
+    else
     {
-      log.warn("No test results for qCheck received.");
+      // no fromat has been selected
+      log.error("No format has been selected for qcheck.");
 
+      // report failure to view
       return FAILED;
     }
 
-    log.debug("Test results for qCheck received.");
-
-    return SUCCESS;
-  }
-
-  public String performTTCheck()
-  {
-    log.debug("Perform ttcheck.");
-
-    ttCheckResults = ttCheck.performTTCheck(topicTreeFilename, rngFilename,
-            macrosDEFilename, macrosENFilename, macrosITFilename);
-
-    if (ttCheckResults.isEmpty() || ttCheckResults == null)
-    {
-      log.warn("No test results for ttCheck received.");
-
-      return FAILED;
-    }
-
-    log.debug("Test results for ttCheck received.");
-
+    // report success to view
     return SUCCESS;
   }
 
   /**
    * <p>
-   * This method is used to select language for bbCheck application and
-   * to enable upload of language related files.
+   * This method is used to trigger test of qcheck application. Therefore
+   * </p>
+   * <ul>
+   *  <li>macros file must have been uploaded</li>
+   *  <li>regular expression must have been entered</li>
+   *  <li>user question must have been entered</li>
+   *  <li>format must have been set</li>
+   * </ul>
+   * <p>
+   * A test result is received after test of qCheck application has finished.
+   * </p>
+   * 
+   * @return result string for JSF navigation rules
+   */
+  public String performQCheck()
+  {
+    // check if macros file exists
+    if (macrosFileURL == null)
+    {
+      // macros file does not exist
+      log.error("Macros file does not exist");
+
+      // reset file settings for topic tree file
+      macrosFile = null;
+      macrosFileIsUploaded = Boolean.FALSE;
+      macrosFilename = "";
+
+      // settings for macros file have been reset
+      log.debug("Settings for topic tree file have been reset.");
+
+      // report filure to view
+      return FAILED;
+    }
+
+    // check if regular expression exists
+    if (qCheckRegularExpression == null || qCheckRegularExpression.isEmpty())
+    {
+      // regular expression does not exist
+      log.error("QCheck regular expression does not exist.");
+
+      // report filure to view
+      return FAILED;
+    }
+
+    // check if user question exists
+    if (qCheckUserQuestion == null || qCheckUserQuestion.isEmpty())
+    {
+      // user question does not exist
+      log.error("QCheck user question does not exist.");
+
+      // report filure to view
+      return FAILED;
+    }
+
+    // check if format exists
+    if (qCheckFormat == null || qCheckFormat.isEmpty())
+    {
+      // format does not exist
+      log.error("QCheck format does not exist.");
+
+      // report filure to view
+      return FAILED;
+    }
+
+    // perform qcheck test and receive test results
+    qCheckResults = qCheck.performQCheck(macrosFilename, qCheckRegularExpression,
+            qCheckUserQuestion, qCheckFormat);
+
+    // check if test results have been received
+    if (qCheckResults.isEmpty() || qCheckResults == null)
+    {
+      // no test results for qCheck have been received
+      log.warn("No test results for qCheck have been received.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // test results for qCheck have been received
+    log.debug("Test results for qCheck have been received: "
+            + qCheckResults);
+
+    // report success to view
+    return SUCCESS;
+  }
+
+  /**
+   * <p>
+   * This method is used to trigger test of ttcheck application. Therefore
+   * </p>
+   * <ul>
+   *  <li>topic tree file must have been uploaded</li>
+   *  <li>rng file must have been uploaded</li>
+   *  <li>macros files EN, DE and IT must have been uploaded</li>
+   * </ul>
+   * <p>
+   * A test result is received after test of qCheck application has finished.
+   * </p>
+   *
+   * @return result string for JSF navigation rules
+   */
+  public String performTTCheck()
+  {
+    // check if filename of topic tree file exists
+    if (topicTreeFileURL == null)
+    {
+      // topic tree file does not exist
+      log.error("Topic tree file does not exist for qCheck.");
+
+      // reset file settings for topic tree file
+      topicTreeFile = null;
+      topicTreeFileIsUploaded = Boolean.FALSE;
+      topicTreeFileURL = null;
+
+      // settings for topic tree file have been reset
+      log.debug("Settings for topic tree file have been reset.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if filename of rng file exists
+    if (rngFileURL == null)
+    {
+      // rng file does not exist
+      log.error("Topic tree file does not exist for qCheck.");
+
+      // reset file settings for rng file
+      rngFile = null;
+      rngFileIsUploaded = Boolean.FALSE;
+      rngFileURL = null;
+
+      // settings for rng file have been reset
+      log.debug("Settings for rng file have been reset.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if filename of macros file exists
+    if (macrosENFilename == null)
+    {
+      // macros filename does not exist
+      log.error("Macros filename does not exist for ttCheck.");
+
+      // reset file settings for macros file
+      macrosENFile = null;
+      macrosENFileIsUploaded = Boolean.FALSE;
+      macrosENFileURL = null;
+
+      // settings for macros file have been reset
+      log.debug("Settings for macros file (EN) have been reset.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if filename of macros file exists
+    if (macrosDEFilename == null)
+    {
+      // macros filename does not exist
+      log.error("Macros filename does not exist for ttCheck.");
+
+      // reset file settings for macros file
+      macrosDEFile = null;
+      macrosDEFileIsUploaded = Boolean.FALSE;
+      macrosDEFileURL = null;
+
+      // settings for macros file have been reset
+      log.debug("Settings for macros file (DE) have been reset.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if filename of macros file exists
+    if (macrosITFilename == null)
+    {
+      // macros filename does not exist
+      log.error("Macros filename does not exist for ttCheck.");
+
+      // reset file settings for macros file
+      macrosITFile = null;
+      macrosITFileIsUploaded = Boolean.FALSE;
+      macrosITFileURL = null;
+
+      // settings for macros file have been reset
+      log.debug("Settings for macros file (IT) have been reset.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // perform ttcheck test and receive test results
+    ttCheckResults = ttCheck.performTTCheck(topicTreeFilename, rngFilename,
+            macrosENFilename, macrosDEFilename, macrosITFilename);
+
+    // check if test results have been received
+    if (ttCheckResults.isEmpty() || ttCheckResults == null)
+    {
+      // no test results have been received
+      log.warn("No test results for ttCheck received.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // test results have been received
+    log.debug("Test results for ttCheck have been received: "
+            + ttCheckResults);
+
+    // report success to view
+    return SUCCESS;
+  }
+
+  /**
+   * <p>
+   * This method is used to select language for chatterbot application. 
+   * Upload of language related files and display of chat text depends on
+   * current language selection.
    * </p>
    *
    * @return result string for JSF navigation rules
    */
   public String selectChatterbotLanguage()
   {
-    // language is already set
-    log.debug("Chatterbot language set to: " + chatterbotLanguage);
-
-    // check if language is German
-    if (chatterbotLanguage.equals("DE"))
+    // check if language setting exits
+    if (chatterbotLanguage == null || chatterbotLanguage.isEmpty())
     {
-      // language is set to German
+      // language setting does not exit
+      log.error("Language setting does not exit for chatterbot.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check which language has been selected
+    if (chatterbotLanguage.equals(EN))
+    {
+      // language is set to English (default)
+
+      // enable upload of files that are related
+      // to English language by setting appropriate
+      // Boolean values for view
+      chatterbotLanguageENSelected = Boolean.TRUE;
+      chatterbotLanguageDESelected = Boolean.FALSE;
+      chatterbotLanguageITSelected = Boolean.FALSE;
+
+      // update chat text
+      chatterbotChatText = chatterbotChatTextEN;
+    }
+    else if (chatterbotLanguage.equals(DE))
+    {
+      // German language has been selected
 
       // enable upload of files that are related
       // to German language by setting appropriate
@@ -1670,7 +2625,7 @@ public class ChatterbotAdminBean implements Serializable
       // update chat text
       chatterbotChatText = chatterbotChatTextDE;
     }
-    else if (chatterbotLanguage.equals("IT"))
+    else if (chatterbotLanguage.equals(IT))
     {
       // language is set to Italian
 
@@ -1686,36 +2641,88 @@ public class ChatterbotAdminBean implements Serializable
     }
     else
     {
-      // language is set to English (default)
+      // no language has been selected
+      log.error("No language has been selected");
 
-      // enable upload of files that are related
-      // to English language by setting appropriate
-      // Boolean values for view
-      chatterbotLanguageENSelected = Boolean.TRUE;
-      chatterbotLanguageDESelected = Boolean.FALSE;
-      chatterbotLanguageITSelected = Boolean.FALSE;
-
-      // update chat text
-      chatterbotChatText = chatterbotChatTextEN;
+      // report failure to view
+      return FAILED;
     }
 
-    // does not fail
+    // language for chatterbot has been selected
+    log.debug("Language for chatterbot has been selected: "
+            + chatterbotLanguage);
+
+    // report success to vuiew
     return SUCCESS;
   }
 
+  /**
+   * <p>
+   * This method is used to trigger test of chatterbot application by passing
+   * a userquery to chatterbot application and receiving an answer as test
+   * result.
+   * </p>
+   * <ul>
+   *  <li>language must have been set</li>
+   *  <li>topic tree file must have been uploaded</li>
+   *  <li>macros file must have been uploaded</li>
+   *  <li>text corpus file must have been uploaded</li>
+   *  <li>test questions file must have been uploaded</li>
+   * </ul>
+   *
+   * @return result string for JSF navigation rules
+   */
   public String chat()
   {
-    log.debug("Language is currently set to " + chatterbotLanguage);
-
-    if (chatterbotLanguage.equals("DE"))
+    // check if language setting exits
+    if (chatterbotLanguage == null || chatterbotLanguage.isEmpty())
     {
+      // language setting does not exit
+      log.error("Language setting does not exit for chatterbot.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check if user question exits
+    if (chatterbotQuestion == null || chatterbotQuestion.isEmpty())
+    {
+      // user question does not exit
+      log.error("User question does not exit for chatterbot.");
+
+      // report failure to view
+      return FAILED;
+    }
+
+    // check which language has been selected
+    if (chatterbotLanguage.equals(EN))
+    {
+      // English language has been selected
+
+      // update settings to perform test of
+      // chatterbot application for English language
+      chatterbot.updateChatterbotSettings(
+              topicTreeFileURL,
+              macrosENFileURL, null, null,
+              textCorpusENFileURL, null, null);
+    }
+    else if (chatterbotLanguage.equals(DE))
+    {
+      // German language has been selected
+
+      // update settings to perform test of
+      // chatterbot application for German language
       chatterbot.updateChatterbotSettings(
               topicTreeFileURL,
               null, macrosDEFileURL, null,
               null, textCorpusDEFileURL, null);
     }
-    else if (chatterbotLanguage.equals("IT"))
+    else if (chatterbotLanguage.equals(IT))
     {
+      // Italian language has been selected
+
+      // update settings to perform test of
+      // chatterbot application for Italian language
       chatterbot.updateChatterbotSettings(
               topicTreeFileURL,
               null, null, macrosITFileURL,
@@ -1723,57 +2730,115 @@ public class ChatterbotAdminBean implements Serializable
     }
     else
     {
-      chatterbot.updateChatterbotSettings(
-              topicTreeFileURL,
-              macrosENFileURL, null, null,
-              textCorpusENFileURL, null, null);
-    }
+      // no language has been selected
+      log.error("No language has been selected");
 
-    log.debug("Chatterbot settings updated.");
-
-    log.debug("getChatterbotAnswer(" + chatterbotQuestion + "," + chatterbotLanguage + ")");
-    chatterbotAnswer = chatterbot.getChatterbotAnswer(chatterbotQuestion, chatterbotLanguage);
-    
-    if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
-    {
-      log.warn("No answer received from Bob.");
-
-      chatterbotAnswer = "Error: selected language was not initialized!";
-
+      // report failure to view
       return FAILED;
     }
 
-    log.debug("Bob's answer has been received.");
+    // chatterbot settings have been updated
+    log.debug("Chatterbot settings have been updated for language: "
+            + chatterbotLanguage);
 
-    // update chat text
-    if (chatterbotLanguage.equals("DE"))
+    // receive chatterbot answer by sending
+    // user question and set language
+    chatterbotAnswer = chatterbot.getChatterbotAnswer(chatterbotQuestion,
+            chatterbotLanguage);
+
+    // check if answer has been received
+    if (chatterbotAnswer == null || chatterbotAnswer.isEmpty())
     {
-        if (!chatterbotChatTextDE.isEmpty()) {
-            chatterbotChatTextDE = SEPARATOR + chatterbotChatTextDE;
-        }
-        chatterbotChatTextDE = "\nBob: " + chatterbotAnswer + chatterbotChatTextDE;
-        chatterbotChatTextDE = "Du: " + chatterbotQuestion + chatterbotChatTextDE;
-        chatterbotChatText = chatterbotChatTextDE;
+      // no answer has been received
+      log.error("No answer has been received from Bob.");
+
+      // report failure to view
+      return FAILED;
     }
-    else if (chatterbotLanguage.equals("IT"))
+
+    // answer has been received
+    log.debug("Bob's answer has been received: " + chatterbotAnswer);
+
+    // check if English language has been selected
+    if (chatterbotLanguage.equals(EN))
     {
-        if (!chatterbotChatTextIT.isEmpty()) {
-            chatterbotChatTextIT = SEPARATOR + chatterbotChatTextIT;
-        }
-        chatterbotChatTextIT = "\nBob: " + chatterbotAnswer + chatterbotChatTextIT;
-        chatterbotChatTextIT = "Du: " + chatterbotQuestion + chatterbotChatTextIT;
-        chatterbotChatText = chatterbotChatTextIT;
+      // English language has been selected
+
+      // check if chat has just started
+      if (!chatterbotChatTextEN.isEmpty())
+      {
+        // chat has not just started
+
+        // prepend separator to English chat text
+        chatterbotChatTextEN = SEPARATOR + chatterbotChatTextEN;
+      }
+
+      // compose English chat text
+      chatterbotChatTextEN = "\nBob: " + chatterbotAnswer + chatterbotChatTextEN;
+      chatterbotChatTextEN = "Du: " + chatterbotQuestion + chatterbotChatTextEN;
+
+      // update chat text that is displayed in view
+      // with English chat text
+      chatterbotChatText = chatterbotChatTextEN;
     }
-    else
+
+    // check if German language has been selected
+    if (chatterbotLanguage.equals(DE))
     {
-        if (!chatterbotChatTextEN.isEmpty()) {
-            chatterbotChatTextEN = SEPARATOR + chatterbotChatTextEN;
-        }
-        chatterbotChatTextEN = "\nBob: " + chatterbotAnswer + chatterbotChatTextEN;
-        chatterbotChatTextEN = "Du: " + chatterbotQuestion + chatterbotChatTextEN;
-        chatterbotChatText = chatterbotChatTextEN;
+      // German language has been selected
+
+      // check if chat has just started
+      if (!chatterbotChatTextDE.isEmpty())
+      {
+        // chat has not just started
+
+        // prepend separator to German chat text
+        chatterbotChatTextDE = SEPARATOR + chatterbotChatTextDE;
+      }
+
+      // compose German chat text
+      chatterbotChatTextDE = "\nBob: " + chatterbotAnswer + chatterbotChatTextDE;
+      chatterbotChatTextDE = "Du: " + chatterbotQuestion + chatterbotChatTextDE;
+
+      // update chat text that is displayed in view
+      // with German chat text
+      chatterbotChatText = chatterbotChatTextDE;
     }
+
+    // check if Italian language has been selected
+    if (chatterbotLanguage.equals(IT))
+    {
+      // Italian language has been selected
+
+      // check if chat has just started
+      if (!chatterbotChatTextIT.isEmpty())
+      {
+        // chat has not just started
+
+        // prepend separator to Italian chat text
+        chatterbotChatTextIT = SEPARATOR + chatterbotChatTextIT;
+      }
+
+      // compose Italian chat text
+      chatterbotChatTextIT = "\nBob: " + chatterbotAnswer + chatterbotChatTextIT;
+      chatterbotChatTextIT = "Du: " + chatterbotQuestion + chatterbotChatTextIT;
+
+      // update chat text that is displayed in view
+      // with German chat text
+      chatterbotChatText = chatterbotChatTextIT;
+    }
+
+    // chat text has been updated
+    log.debug("Chat text (" + chatterbotLanguage + ") has been updated: "
+            + chatterbotChatText);
+
+    // reset user question
     chatterbotQuestion = "";
+
+    // user question has been reset
+    log.debug("User question has been reset.");
+
+    // report success to view
     return SUCCESS;
   }
 
@@ -1784,8 +2849,10 @@ public class ChatterbotAdminBean implements Serializable
    * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
+   *
+   * @return result string for JSF navigation rules
    */
-  public void selectBBCheck()
+  public String selectBBCheck()
   {
     // enable bbcheck application, disable other applications
     bbCheckSelected = Boolean.TRUE;
@@ -1795,6 +2862,9 @@ public class ChatterbotAdminBean implements Serializable
 
     // bbcheck application has been selected
     log.info("BBCheck application has been selected.");
+
+    // report success to view
+    return SUCCESS;
   }
 
   /**
@@ -1804,8 +2874,10 @@ public class ChatterbotAdminBean implements Serializable
    * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
+   *
+   * @return result string for JSF navigation rules
    */
-  public void selectQCheck()
+  public String selectQCheck()
   {
     // enable qcheck application, disable other applications
     bbCheckSelected = Boolean.FALSE;
@@ -1815,6 +2887,9 @@ public class ChatterbotAdminBean implements Serializable
 
     // qcheck application has been selected
     log.info("QCheck application has been selected.");
+
+    // report success to view
+    return SUCCESS;
   }
 
   /**
@@ -1824,8 +2899,10 @@ public class ChatterbotAdminBean implements Serializable
    * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
+   *
+   * @return result string for JSF navigation rules
    */
-  public void selectTTCheck()
+  public String selectTTCheck()
   {
     // enable qcheck application, disable other applications
     bbCheckSelected = Boolean.FALSE;
@@ -1835,6 +2912,9 @@ public class ChatterbotAdminBean implements Serializable
 
     // ttcheck application has been selected
     log.info("TTCheck application has been selected.");
+
+    // report success to view
+    return SUCCESS;
   }
 
   /**
@@ -1844,8 +2924,10 @@ public class ChatterbotAdminBean implements Serializable
    * has to become included in <tt>jsp<tt>. This method
    * is invoked from <tt>menu.jsp</tt>.
    * </p>
+   *
+   * @return result string for JSF navigation rules
    */
-  public void selectChatterbot()
+  public String selectChatterbot()
   {
     // enable chatterbot application, disable other applications
     bbCheckSelected = Boolean.FALSE;
@@ -1855,70 +2937,9 @@ public class ChatterbotAdminBean implements Serializable
 
     // chatterbot application has been selected
     log.info("Chatterbot application has been selected.");
-  }
 
-  /**
-   * @return the bbCheck
-   */
-  public BBCheck getBbCheck()
-  {
-    return bbCheck;
-  }
-
-  /**
-   * @param bbCheck the bbCheck to set
-   */
-  public void setBbCheck(BBCheck bbCheck)
-  {
-    this.bbCheck = bbCheck;
-  }
-
-  /**
-   * @return the qCheck
-   */
-  public QCheck getqCheck()
-  {
-    return qCheck;
-  }
-
-  /**
-   * @param qCheck the qCheck to set
-   */
-  public void setqCheck(QCheck qCheck)
-  {
-    this.qCheck = qCheck;
-  }
-
-  /**
-   * @return the ttCheck
-   */
-  public TTCheck getTtCheck()
-  {
-    return ttCheck;
-  }
-
-  /**
-   * @param ttCheck the ttCheck to set
-   */
-  public void setTtCheck(TTCheck ttCheck)
-  {
-    this.ttCheck = ttCheck;
-  }
-
-  /**
-   * @return the chatterbot
-   */
-  public Chatterbot getChatterbot()
-  {
-    return chatterbot;
-  }
-
-  /**
-   * @param chatterbot the chatterbot to set
-   */
-  public void setChatterbot(Chatterbot chatterbot)
-  {
-    this.chatterbot = chatterbot;
+    // report success to view
+    return SUCCESS;
   }
 
   /**
@@ -2031,6 +3052,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setBbCheckResults(String bbCheckResults)
   {
     this.bbCheckResults = bbCheckResults;
+  }
+
+  /**
+   * @return the bbCheckReportIsAvailable
+   */
+  public Boolean getBbCheckReportIsAvailable()
+  {
+    return bbCheckReportIsAvailable;
+  }
+
+  /**
+   * @param bbCheckReportIsAvailable the bbCheckReportIsAvailable to set
+   */
+  public void setBbCheckReportIsAvailable(Boolean bbCheckReportIsAvailable)
+  {
+    this.bbCheckReportIsAvailable = bbCheckReportIsAvailable;
   }
 
   /**
@@ -2230,22 +3267,6 @@ public class ChatterbotAdminBean implements Serializable
   }
 
   /**
-   * @return the chatterbotAnswer
-   */
-  public String getChatterbotAnswer()
-  {
-    return chatterbotAnswer;
-  }
-
-  /**
-   * @param chatterbotAnswer the chatterbotAnswer to set
-   */
-  public void setChatterbotAnswer(String chatterbotAnswer)
-  {
-    this.chatterbotAnswer = chatterbotAnswer;
-  }
-
-  /**
    * @return the chatterbotQuestion
    */
   public String getChatterbotQuestion()
@@ -2259,6 +3280,22 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotQuestion(String chatterbotQuestion)
   {
     this.chatterbotQuestion = chatterbotQuestion;
+  }
+
+  /**
+   * @return the chatterbotAnswer
+   */
+  public String getChatterbotAnswer()
+  {
+    return chatterbotAnswer;
+  }
+
+  /**
+   * @param chatterbotAnswer the chatterbotAnswer to set
+   */
+  public void setChatterbotAnswer(String chatterbotAnswer)
+  {
+    this.chatterbotAnswer = chatterbotAnswer;
   }
 
   /**
@@ -3123,85 +4160,5 @@ public class ChatterbotAdminBean implements Serializable
   public void setChatterbotSelected(Boolean chatterbotSelected)
   {
     this.chatterbotSelected = chatterbotSelected;
-  }
-
-  /**
-   * @return the SEPERATOR
-   */
-  public String getSEPERATOR()
-  {
-    return SEPARATOR;
-  }
-
-  /**
-   * @param SEPERATOR the SEPERATOR to set
-   */
-  public void setSEPERATOR(String SEPERATOR)
-  {
-    this.SEPARATOR = SEPERATOR;
-  }
-
-  /**
-   * @return the SHARED_FILES_DIR_NAME
-   */
-  public String getSHARED_FILES_DIR_NAME()
-  {
-    return SHARED_FILES_DIR_NAME;
-  }
-
-  /**
-   * @param SHARED_FILES_DIR_NAME the SHARED_FILES_DIR_NAME to set
-   */
-  public void setSHARED_FILES_DIR_NAME(String SHARED_FILES_DIR_NAME)
-  {
-    this.SHARED_FILES_DIR_NAME = SHARED_FILES_DIR_NAME;
-  }
-
-  /**
-   * @return the SUCCESS
-   */
-  public String getSUCCESS()
-  {
-    return SUCCESS;
-  }
-
-  /**
-   * @param SUCCESS the SUCCESS to set
-   */
-  public void setSUCCESS(String SUCCESS)
-  {
-    this.SUCCESS = SUCCESS;
-  }
-
-  /**
-   * @return the FAILED
-   */
-  public String getFAILED()
-  {
-    return FAILED;
-  }
-
-  /**
-   * @param FAILED the FAILED to set
-   */
-  public void setFAILED(String FAILED)
-  {
-    this.FAILED = FAILED;
-  }
-
-  /**
-   * @return the log
-   */
-  public Logger getLog()
-  {
-    return log;
-  }
-
-  /**
-   * @param log the log to set
-   */
-  public void setLog(Logger log)
-  {
-    this.log = log;
   }
 }

@@ -20,26 +20,67 @@ import antlr.LexerSharedInputState;
 import antlr.collections.impl.BitSet;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
-public class macroParser_Lexer extends antlr.CharScanner implements macroParser_LexerTokenTypes, TokenStream
+public class macroParser_Lexer extends antlr.CharScanner implements
+  macroParser_LexerTokenTypes, TokenStream
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
+  public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
+
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param in 
+   */
   public macroParser_Lexer(InputStream in)
   {
     this(new ByteBuffer(in));
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param in 
+   */
   public macroParser_Lexer(Reader in)
   {
     this(new CharBuffer(in));
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param ib 
+   */
   public macroParser_Lexer(InputBuffer ib)
   {
     this(new LexerSharedInputState(ib));
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param state 
+   */
   public macroParser_Lexer(LexerSharedInputState state)
   {
     super(state);
@@ -48,6 +89,7 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
     literals = new Hashtable();
   }
 
+  @Override
   public Token nextToken() throws TokenStreamException
   {
     Token theRetToken = null;
@@ -80,7 +122,8 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
             }
             else
             {
-              throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+              throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
             }
           }
 
@@ -112,7 +155,18 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
     }
   }
 
-  public final void mNON_MACRO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException 
+   */
+  public final void mNON_MACRO(boolean _createToken)
+    throws RecognitionException, CharStreamException, TokenStreamException
   {
     int _ttype;
     Token _token = null;
@@ -138,7 +192,8 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
           }
           else
           {
-            throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+              getLine(), getColumn());
           }
         }
 
@@ -149,12 +204,24 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
     if (_createToken && _token == null && _ttype != Token.SKIP)
     {
       _token = makeToken(_ttype);
-      _token.setText(new String(text.getBuffer(), _begin, text.length() - _begin));
+      _token.setText(
+        new String(text.getBuffer(), _begin, text.length() - _begin));
     }
     _returnToken = _token;
   }
 
-  public final void mMACRO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param _createToken
+   * @throws RecognitionException
+   * @throws CharStreamException
+   * @throws TokenStreamException 
+   */
+  public final void mMACRO(boolean _createToken) throws RecognitionException,
+    CharStreamException, TokenStreamException
   {
     int _ttype;
     Token _token = null;
@@ -170,12 +237,20 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
     if (_createToken && _token == null && _ttype != Token.SKIP)
     {
       _token = makeToken(_ttype);
-      _token.setText(new String(text.getBuffer(), _begin, text.length() - _begin));
+      _token.setText(
+        new String(text.getBuffer(), _begin, text.length() - _begin));
     }
     _returnToken = _token;
   }
 
-  private static final long[] mk_tokenSet_0()
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  private static long[] mk_tokenSet_0()
   {
     long[] data = new long[2048];
     data[0] = -34359738369L;
@@ -186,6 +261,4 @@ public class macroParser_Lexer extends antlr.CharScanner implements macroParser_
     data[1023] = 9223372036854775807L;
     return data;
   }
-  public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
-
 }

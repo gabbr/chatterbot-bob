@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unibz.lib.bob.bbcheck;
 
 import java.io.File;
@@ -20,17 +16,41 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  *
- * @author markus
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
+ * @version $Id$
  */
 public class TestQuestionSpreadSheet
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   InputStream myxls;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   HSSFWorkbook wb;
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   List<String> questions = new ArrayList<String>();
 
+  /**
+   * <p>
+   *
+   * </p>
+   */
   List<String> ids = new ArrayList<String>();
 
   /**
@@ -52,13 +72,11 @@ public class TestQuestionSpreadSheet
   private Logger log = Logger.getLogger(TestQuestionSpreadSheet.class);
 
   /**
+   * <p>
+   *
+   * </p>
    *
    * @param file
-   *
-   * @throws FileNotFoundException
-   *             ...
-   * @throws IOException
-   *             ...
    */
   public TestQuestionSpreadSheet(File file)
   {
@@ -81,7 +99,12 @@ public class TestQuestionSpreadSheet
 
   }
 
-  @SuppressWarnings("unchecked")
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   */
   public void loadSheet()
   {
     HSSFSheet sheet = wb.getSheetAt(0);

@@ -3,8 +3,6 @@ package it.unibz.lib.bob.check;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,38 +38,98 @@ import antlr.RecognitionException;
 import antlr.TokenStreamException;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class TopicTree
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private Document document = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private Map<String, Set<String>> equivalentTopicIDs = new HashMap<String, Set<String>>();
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private URL urlTopicTreeFile = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL urlAbbreviationsFileEN = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL urlAbbreviationsFileDE = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL urlAbbreviationsFileIT = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL idftrainingdataEN = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL idftrainingdataDE = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static URL idftrainingdataIT = null;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private QAMatchingBob qamb;
 
   /**
+   * <p>
    * used in replacePhraseTopicsInLinksWithURLsRecursive
+   * </p>
    */
-  private Pattern myPattern = Pattern.compile("([^<>]*)<linkToPhrases>([^|]*)\\|([^<>]*)</linkToPhrases>([^<>]*)");
+  private Pattern myPattern = Pattern.compile(
+    "([^<>]*)<linkToPhrases>([^|]*)\\|([^<>]*)</linkToPhrases>([^<>]*)");
 
   /** 
-   *implementing the Singleton pattern
+   * <p>
+   * implementing the Singleton pattern
+   * </p>
    */
   private static TopicTree instance = null;
 
@@ -94,10 +152,13 @@ public class TopicTree
   private static Logger log = Logger.getLogger(TopicTree.class);
 
   /**
+   * <p>
+   * 
+   * </p>
    * 
    * @param lang
    * @return true if this TopicTree was initialized with the corresponding 
-   * macro files for the language lang
+   *   macro files for the language lang
    */
   public boolean understandsLanguage(String lang)
   {
@@ -115,13 +176,16 @@ public class TopicTree
     }
   }
 
-   /**
-   *
+  /**
+   * <p>
+   * </p>
+   * 
    * @param lang
    * @return true if this TopicTree was initialized with the corresponding
-   * text corpus (for machine learning) files for the language lang
+   *   text corpus (for machine learning) files for the language lang
    */
-  public boolean machineLearningEnabledLanguage(String lang) {
+  public boolean machineLearningEnabledLanguage(String lang)
+  {
     if (lang.toUpperCase().equals("EN"))
     {
       return getQAMB().getTfIdfEN().numDocuments() > 0;
@@ -137,8 +201,16 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Constructor that specifies TopicTree (the XML file), the 3
    * macro/abbreviation files, and the 3 training data files.
+   * </p>
+   * <p>
+   * Except for urlTopicTreeFile, any parameters can be == null. If abbrev files 
+   * are null, answering questions in that language is disabled. If training data 
+   * files are null, machine learning mode (the answer reranker) for that language 
+   * is disabled.
+   * </p>
    *
    * @param urlTopicTreeFile
    * @param urlAbbreviationsFileEN
@@ -147,15 +219,10 @@ public class TopicTree
    * @param idftrainingdataEN
    * @param idftrainingdataDE
    * @param idftrainingdataIT
-   *
-   * Except for urlTopicTreeFile, any parameters can be == null. If abbrev files 
-   * are null, answering questions in that language is disabled. If training data 
-   * files are null, machine learning mode (the answer reranker) for that language 
-   * is disabled.
    */
   private TopicTree(URL urlTopicTreeFile, URL urlAbbreviationsFileEN,
-          URL urlAbbreviationsFileDE, URL urlAbbreviationsFileIT,
-          URL idftrainingdataEN, URL idftrainingdataDE, URL idftrainingdataIT)
+    URL urlAbbreviationsFileDE, URL urlAbbreviationsFileIT,
+    URL idftrainingdataEN, URL idftrainingdataDE, URL idftrainingdataIT)
   {
     this.urlTopicTreeFile = urlTopicTreeFile;
     TopicTree.urlAbbreviationsFileEN = urlAbbreviationsFileEN;
@@ -168,23 +235,35 @@ public class TopicTree
     initDOM();
 
     ChatterbotHelper.makeInstance(urlAbbreviationsFileEN,
-            urlAbbreviationsFileDE, urlAbbreviationsFileIT);
+      urlAbbreviationsFileDE, urlAbbreviationsFileIT);
 
     qamb = new QAMatchingBob(urlAbbreviationsFileEN,
-            urlAbbreviationsFileDE, urlAbbreviationsFileIT,
-            idftrainingdataEN, idftrainingdataDE, idftrainingdataIT);
+      urlAbbreviationsFileDE, urlAbbreviationsFileIT,
+      idftrainingdataEN, idftrainingdataDE, idftrainingdataIT);
 
     // setLanguage("EN");
     fillEquivalentTopicIDs("someSessionID");
   }
 
   /**
-   * Sets the filenames in TopicTree and ChatterbitHelper, so that reloadInstance() can be called
+   * <p>
+   * Sets the filenames in TopicTree and ChatterbitHelper, so that 
+   * reloadInstance() can be called
+   * </p>
+   *
+   * @param topicTreeFileURL
+   * @param macrosENFileURL
+   * @param textCorpusENFileURL
+   * @param macrosDEFileURL
+   * @param textCorpusDEFileURL
+   * @param macrosITFileURL
+   * @param textCorpusITFileURL 
    */
   public void updateFiles(URL topicTreeFileURL, URL macrosENFileURL,
-              URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
-              URL macrosITFileURL, URL textCorpusITFileURL) {
-      this.urlTopicTreeFile = topicTreeFileURL;
+    URL textCorpusENFileURL, URL macrosDEFileURL, URL textCorpusDEFileURL,
+    URL macrosITFileURL, URL textCorpusITFileURL)
+  {
+    this.urlTopicTreeFile = topicTreeFileURL;
     TopicTree.urlAbbreviationsFileEN = macrosENFileURL;
     TopicTree.urlAbbreviationsFileDE = macrosDEFileURL;
     TopicTree.urlAbbreviationsFileIT = macrosITFileURL;
@@ -192,27 +271,44 @@ public class TopicTree
     TopicTree.idftrainingdataDE = textCorpusDEFileURL;
     TopicTree.idftrainingdataIT = textCorpusITFileURL;
 
-    ChatterbotHelper.updateFiles(macrosENFileURL, macrosDEFileURL, macrosITFileURL);
+    ChatterbotHelper.updateFiles(macrosENFileURL, macrosDEFileURL,
+      macrosITFileURL);
 
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param urlTopicTreeFile
+   * @param urlAbbreviationsFileEN
+   * @param urlAbbreviationsFileDE
+   * @param urlAbbreviationsFileIT
+   * @param urlIDFtrainingDataEN
+   * @param urlIDFtrainingDataDE
+   * @param urlIDFtrainingDataIT
+   * @return 
+   */
   public static synchronized TopicTree getInstance(URL urlTopicTreeFile,
-          URL urlAbbreviationsFileEN, URL urlAbbreviationsFileDE,
-          URL urlAbbreviationsFileIT, URL urlIDFtrainingDataEN,
-          URL urlIDFtrainingDataDE, URL urlIDFtrainingDataIT)
+    URL urlAbbreviationsFileEN, URL urlAbbreviationsFileDE,
+    URL urlAbbreviationsFileIT, URL urlIDFtrainingDataEN,
+    URL urlIDFtrainingDataDE, URL urlIDFtrainingDataIT)
   {
     if (instance == null)
     {
       instance = new TopicTree(urlTopicTreeFile, urlAbbreviationsFileEN,
-              urlAbbreviationsFileDE, urlAbbreviationsFileIT,
-              urlIDFtrainingDataEN, urlIDFtrainingDataDE, urlIDFtrainingDataIT);
+        urlAbbreviationsFileDE, urlAbbreviationsFileIT,
+        urlIDFtrainingDataEN, urlIDFtrainingDataDE, urlIDFtrainingDataIT);
     }
 
     return instance;
   }
 
   /**
+   * <p>
    * Reload TT and abbrev file
+   * </p>
    */
   public static synchronized void reloadInstance()
   {
@@ -222,25 +318,41 @@ public class TopicTree
 
     instance.qamb = null;
     instance.qamb = new QAMatchingBob(urlAbbreviationsFileEN,
-            urlAbbreviationsFileDE, urlAbbreviationsFileIT,
-            idftrainingdataEN, idftrainingdataDE, idftrainingdataIT);
+      urlAbbreviationsFileDE, urlAbbreviationsFileIT,
+      idftrainingdataEN, idftrainingdataDE, idftrainingdataIT);
 
     log.debug("*** reloadInstance(): reloaded TT and abbrev files");
 
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   private synchronized Document getDocument()
   {
     return document;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
   public QAMatchingBob getQAMB()
   {
     return qamb;
   }
 
   /**
+   * <p>
    * Builds the DOM tree from url, stores it in document
+   * </p>
    */
   private synchronized void initDOM()
   {
@@ -257,8 +369,10 @@ public class TopicTree
        * Anonymous inner class adapter to provide an ErrorHandler
        */
       builder.setErrorHandler(new org.xml.sax.ErrorHandler()
+      
       {
         // treat validation errors as fatal
+
         @Override
         public void error(SAXParseException e) throws SAXParseException
         {
@@ -268,7 +382,7 @@ public class TopicTree
         // ignore fatal errors (an exception is guaranteed)
         @Override
         public void fatalError(SAXParseException exception)
-                throws SAXException
+          throws SAXException
         {
           throw exception;
         }
@@ -279,10 +393,11 @@ public class TopicTree
         {
           // throws SAXParseException {
           log.warn("org.xml.sax.ErrorHandler() line " + e.getLineNumber()
-                  + ", uri " + e.getSystemId()
-                  + " *** org.xml.sax.ErrorHandler() ***   "
-                  + e.getMessage());
+            + ", uri " + e.getSystemId()
+            + " *** org.xml.sax.ErrorHandler() ***   "
+            + e.getMessage());
         }
+
       });
 
       myDocument = builder.parse(urlTopicTreeFile.toString());
@@ -321,6 +436,10 @@ public class TopicTree
   }
 
   /**
+   * <p>
+   * 
+   * </p>
+   * 
    * @return the root topic node
    */
   public synchronized Node getRootNode()
@@ -341,9 +460,11 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Traverse the DOM, remove all empty text nodes. Then, find all
-   * <linkToPhrases> elements in the answer, replace the PHRASES element
+   * linkToPhrases elements in the answer, replace the PHRASES element
    * inside it with the corresponding URL gotten from the TT
+   * </p>
    */
   public synchronized void replacePhraseTopicsInLinksWithURLs()
   {
@@ -360,8 +481,10 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * remove empty text nodes (ie nothing else than spaces and carriage return)
    * that are in the DOM :-(
+   * </p>
    *
    * @param node
    */
@@ -376,9 +499,9 @@ public class TopicTree
       if (child.getNodeType() == Node.TEXT_NODE)
       {
         if (child.getNodeValue().trim().length() == 0
-                || child.getNodeValue().equals("\n")
-                || child.getNodeValue().equals("\r")
-                || child.getNodeValue().equals("\r\n"))
+          || child.getNodeValue().equals("\n")
+          || child.getNodeValue().equals("\r")
+          || child.getNodeValue().equals("\r\n"))
         {
           node.removeChild(child);
         }
@@ -395,14 +518,16 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Recursive method, does the replacement in the local answer, recurses down
    * in the tree. Note: Does NOT honor "name-trace" elements when looking for
    * the targeted topic nodes! I.e., any moved topics will generate an error.
-   *
+   *  </p>
+   * 
    * @param topicnode
    */
   private synchronized void replacePhraseTopicsInLinksWithURLsRecursive(
-          Node topicnode)
+    Node topicnode)
   {
     NodeList answers = topicnode.getChildNodes();
     for (int j = 0; j < answers.getLength(); j++)
@@ -422,7 +547,7 @@ public class TopicTree
               {
                 String str = answer.item(m).getNodeValue();
                 if (str != null
-                        && str.contains("linkToPhrases"))
+                  && str.contains("linkToPhrases"))
                 {
                   // log.debug(str);
 
@@ -432,9 +557,9 @@ public class TopicTree
 
                   // mask any other pointy brackets for now
                   str = str.replaceAll("<option>",
-                          "__OPTION__");
+                    "__OPTION__");
                   str = str.replaceAll("</option>",
-                          "__/OPTION__");
+                    "__/OPTION__");
 
                   Matcher myMatcher = myPattern.matcher(str);
                   String newstr = "";
@@ -444,8 +569,8 @@ public class TopicTree
                     if (myMatcher.groupCount() != 4)
                     {
                       log.debug("Matched "
-                              + myMatcher.groupCount()
-                              + "  groups!");
+                        + myMatcher.groupCount()
+                        + "  groups!");
                     }
                     else
                     {
@@ -453,33 +578,33 @@ public class TopicTree
                       newstr += "<linkToPhrases>";
 
                       String xpath_expression = "//topic[@name='"
-                              + myMatcher.group(2)
-                              + "']"
-                              + "/answer/languages/"
-                              + en_de_it.item(l).getNodeName()
-                              + "/text()" + "[1]";
+                        + myMatcher.group(2)
+                        + "']"
+                        + "/answer/languages/"
+                        + en_de_it.item(l).getNodeName()
+                        + "/text()" + "[1]";
 
                       XPath xpath = XPathFactory.newInstance().newXPath();
                       NodeList linkedNode = null;
                       try
                       {
                         linkedNode = (NodeList) xpath.evaluate(
-                                xpath_expression,
-                                getRootNode(),
-                                XPathConstants.NODESET);
+                          xpath_expression,
+                          getRootNode(),
+                          XPathConstants.NODESET);
                       }
                       catch (XPathExpressionException xe)
                       {
                         log.debug("*** "
-                                + xe.toString());
+                          + xe.toString());
                       }
                       if (linkedNode.item(0) == null)
                       {
                         log.debug("*** ERROR: Could not find PHRASES element using its ID!!! \n"
-                                + "Current Link ID: "
-                                + myMatcher.group(2)
-                                + " ; Offending language: "
-                                + en_de_it.item(l).getNodeName());
+                          + "Current Link ID: "
+                          + myMatcher.group(2)
+                          + " ; Offending language: "
+                          + en_de_it.item(l).getNodeName());
                         newstr += "ERROR-IN-PHRASES";
                       }
                       else
@@ -493,15 +618,15 @@ public class TopicTree
                   }
 
                   newstr = newstr.replaceAll("__OPTION__",
-                          "<option>");
+                    "<option>");
                   newstr = newstr.replaceAll("__/OPTION__",
-                          "</option>");
+                    "</option>");
 
                   Text text = getDocument().createTextNode(
-                          newstr);
+                    newstr);
 
                   en_de_it.item(l).replaceChild(text,
-                          answer.item(m));
+                    answer.item(m));
                 }
               }
             }
@@ -516,25 +641,28 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
-   * @param language
-   *            EN DE IT
+   * @param language EN DE IT
    * @param sessionID
-   * @param appendPhrase
-   *            add to the answer the URL from PHRASES that node links to?
+   * @param appendPhrase add to the answer the URL from PHRASES that node 
+   *  links to?
    * @return (randomly one of the) answer(s) of this node, or an error message
-   *         if the node has no answer. If the Node (which we know must
-   *         contain an answer per se) also has a link into a 'PHRASES' topic,
-   *         the answer (= a URL) from there is retrieved and appended to the
-   *         first answer if needed
+   *   if the node has no answer. If the Node (which we know must contain an 
+   *   answer per se) also has a link into a 'PHRASES' topic, the answer 
+   *   (= a URL) from there is retrieved and appended to the first answer if 
+   *   needed
    */
   public synchronized String getNodeAnswer(Node node, String language,
-          String sessionID, boolean appendPhrase)
+    String sessionID, boolean appendPhrase)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (node == null)
@@ -542,7 +670,7 @@ public class TopicTree
       log.error(sessionID + ", called with null startnode!");
 
       return "[ERROR: no pattern found (not even a generic one for "
-              + "the error message).]";
+        + "the error message).]";
     }
 
     NodeList offspring;
@@ -581,9 +709,9 @@ public class TopicTree
               if (hasNodeLink(node, sessionID))
               {
                 Node linkedNode = getNodeLinkedNode(node,
-                        sessionID);
+                  sessionID);
                 String linkedNodeName = getNodeName(linkedNode,
-                        sessionID);
+                  sessionID);
                 if (linkedNodeName.startsWith("PHRASES."))
                 {
                   // answer += " <linkToPhrases>"
@@ -594,7 +722,7 @@ public class TopicTree
                   // language, sessionID)
                   // + "</linkToPhrases>";
                   answer += getNodeAnswer(linkedNode,
-                          language, sessionID, false);
+                    language, sessionID, false);
                 }
               }
               responses.add(answer);
@@ -607,8 +735,8 @@ public class TopicTree
     if (responses.size() == 0)
     {
       log.error(sessionID + ", no answer node found at node "
-              + getNodeName(node, sessionID)
-              + ". Returning empty string.");
+        + getNodeName(node, sessionID)
+        + ". Returning empty string.");
 
       return "";
     }
@@ -617,25 +745,27 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
-   * @param language
-   *            EN DE IT
+   * @param language EN DE IT
    * @param sessionID
-   * @param appendPhrase
-   *            add to the answer the URL from PHRASES that node links to?
+   * @param appendPhrase add to the answer the URL from PHRASES that node 
+   *   links to?
    * @return ALL answer(s) of this node, or an error message if the node has
-   *         no answer. If the Node (which we know must contain an answer per
-   *         se) also has a link into a 'PHRASES' topic, the answer (= a URL)
-   *         from there is retrieved and appended to the first answer if
-   *         needed
+   *   no answer. If the Node (which we know must contain an answer per se) 
+   *   also has a link into a 'PHRASES' topic, the answer (= a URL) from there 
+   *   is retrieved and appended to the first answer if needed
    */
   public synchronized Vector<String> getNodeAllAnswers(Node node,
-          String language, String sessionID, boolean appendPhrase)
+    String language, String sessionID, boolean appendPhrase)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (node == null)
@@ -644,7 +774,7 @@ public class TopicTree
 
       Vector<String> result = new Vector<String>();
       result.add("[ERROR: no pattern found (not even a generic "
-              + "one for the error message).]");
+        + "one for the error message).]");
 
       return result;
     }
@@ -684,9 +814,9 @@ public class TopicTree
               if (hasNodeLink(node, sessionID))
               {
                 Node linkedNode = getNodeLinkedNode(node,
-                        sessionID);
+                  sessionID);
                 String linkedNodeName = getNodeName(linkedNode,
-                        sessionID);
+                  sessionID);
                 if (linkedNodeName.startsWith("PHRASES."))
                 {
                   // answer += " <linkToPhrases>"
@@ -697,7 +827,7 @@ public class TopicTree
                   // language, sessionID)
                   // + "</linkToPhrases>";
                   answer += getNodeAnswer(linkedNode,
-                          language, sessionID, false);
+                    language, sessionID, false);
                 }
               }
               responses.add(answer);
@@ -710,8 +840,8 @@ public class TopicTree
     if (responses.size() == 0)
     {
       log.debug(sessionID + ", no answer node found at node "
-              + getNodeName(node, sessionID)
-              + ". Returning empty string.");
+        + getNodeName(node, sessionID)
+        + ". Returning empty string.");
 
       Vector<String> result = new Vector<String>();
       result.add("");
@@ -723,6 +853,10 @@ public class TopicTree
   }
 
   /**
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
    * @return true if node has a link attribute
    */
@@ -750,7 +884,9 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Get (randomly one of) the linked nodes
+   * </p>
    *
    * @param node
    * @return (randomly one of) the linked node(s)
@@ -794,16 +930,20 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
-   * @return true iff node has a NON-NULL Answer/SysResponse
+   * @return true if node has a NON-NULL Answer/SysResponse
    */
   public synchronized boolean hasNodeSysResponse(Node node, String language,
-          String sessionID)
+    String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (node == null)
@@ -830,7 +970,7 @@ public class TopicTree
         for (int j = 0; j < child_offspring.getLength(); j++)
         {
           if (child_offspring.item(j).getNodeName().equals(
-                  "languages"))
+            "languages"))
           {
             if (child_offspring.item(j).getFirstChild() == null)
             {
@@ -841,7 +981,7 @@ public class TopicTree
             for (int k = 0; k < child_offspring2.getLength(); k++)
             {
               if (child_offspring2.item(k).getNodeName().equals(
-                      language))
+                language))
               {
                 if (child_offspring2.item(k).getFirstChild() == null)
                 {
@@ -862,20 +1002,22 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Search C for closest matching SD node. Only traverse EMPTY patterns
    * downwards.
+   * </p>
    *
-   * @param startNode
-   *            starting node for search
+   * @param startNode starting node for search
    * @param query
    * @return closest matching SD node, or null
    */
   public synchronized Node searchSD(Node startNode, String query,
-          String language, String sessionID)
+    String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (startNode == null)
@@ -888,10 +1030,11 @@ public class TopicTree
     // startNode = getNodeParent(startNode);
 
     // 1. the current node matches the user query
-    if (matchesNode(query, startNode, false, true, true, false, language, sessionID))
+    if (matchesNode(query, startNode, false, true, true, false, language,
+      sessionID))
     {
       if (hasNodeSysResponse(startNode, language, sessionID)
-              || hasNodeLink(startNode, sessionID))
+        || hasNodeLink(startNode, sessionID))
       {
         return startNode;
       }
@@ -910,11 +1053,11 @@ public class TopicTree
         // SD rules WITHOUT following empty regex
 
         if (matchesNode(query, offspring.item(i), false, true, true,
-                false, language, sessionID))
+          false, language, sessionID))
         {
           if (hasNodeSysResponse(offspring.item(i), language,
-                  sessionID)
-                  || hasNodeLink(offspring.item(i), sessionID))
+            sessionID)
+            || hasNodeLink(offspring.item(i), sessionID))
           {
             return offspring.item(i);
           }
@@ -930,10 +1073,10 @@ public class TopicTree
       if (offspring.item(i).getNodeName().equals("topic"))
       {
         if (matchesNode(query, offspring.item(i), true, true, true,
-                false, language, sessionID))
+          false, language, sessionID))
         {
           q.addAll(getNodeMatchingChildren(query, offspring.item(i),
-                  true, true, true, false, language, sessionID));
+            true, true, true, false, language, sessionID));
         }
       }
     }
@@ -954,21 +1097,23 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Search C and C's siblings for 1. first matching normal node right here,
    * 2. "closest (in the tree)" matching normal node after traversing empty
    * patterns.
+   * </p>
    *
-   * @param startNode
-   *            starting node for search
+   * @param startNode starting node for search
    * @param query
    * @return Queue with ordered matching nodes, or null
    */
   public synchronized Queue<Node> searchRecursiveSiblings(Node startNode,
-          String query, String language, String sessionID)
+    String query, String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (startNode == null)
@@ -991,13 +1136,13 @@ public class TopicTree
       {
         // normal rules WITHOUT following empty regex
         if (matchesNode(query, offspring.item(i), false, false, false,
-                true, language, sessionID))
+          true, language, sessionID))
         {
           log.debug(sessionID + ", found a matching topic in current location: "
-                  + getNodeName(offspring.item(i), sessionID));
+            + getNodeName(offspring.item(i), sessionID));
 
           q.addAll(getNodeMatchingChildren(query, offspring.item(i),
-                  false, false, false, true, language, sessionID));
+            false, false, false, true, language, sessionID));
         }
       }
     }
@@ -1009,17 +1154,17 @@ public class TopicTree
       if (offspring.item(i).getNodeName().equals("topic"))
       {
         if (matchesNode(query, offspring.item(i), true, false, false,
-                true, language, sessionID))
+          true, language, sessionID))
         {
           q.addAll(getNodeMatchingChildren(query, offspring.item(i),
-                  true, false, false, true, language, sessionID));
+            true, false, false, true, language, sessionID));
         }
       }
     }
     if (q.size() < 1)
     {
       log.warn(sessionID + ", searchRecursiveSiblings found no matching "
-              + "normal nodes!");
+        + "normal nodes!");
 
       return null;
     }
@@ -1033,19 +1178,22 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Search C and C's siblings for closest matching local node. Do not
    * traverse empty regex nodes.
+   * </p>
    *
    * @param startNode
    * @param query
    * @return closest matching local node, or null
    */
   public synchronized Node searchLocalSiblings(Node startNode, String query,
-          String language, String sessionID)
+    String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (startNode == null)
@@ -1066,7 +1214,7 @@ public class TopicTree
       {
         // local rules WITHOUT following empty regex
         if (matchesNode(query, offspring.item(i), false, true, false,
-                false, language, sessionID))
+          false, language, sessionID))
         {
           return offspring.item(i);
         }
@@ -1077,33 +1225,32 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Checks whether a query matches a node. "System Initiative" nodes are
    * always rejected (since they don't need to be MATCHed in the first place).
    * Only 'active' nodes can ever match.
+   * </p>
    *
    * @param query
    * @param node
-   * @param matchEmptyRegex
-   *            should an empty regex element lead to a match?
-   * @param matchLocalRules
-   *            should rules declared as "local" be tried?
-   * @param matchSubDialogueRules
-   *            should rules declared as "SubDialogue" be tried?
-   * @param matchNormalRules
-   *            should normal rules be tried?
+   * @param matchEmptyRegex should an empty regex element lead to a match?
+   * @param matchLocalRules should rules declared as "local" be tried?
+   * @param matchSubDialogueRules should rules declared as "SubDialogue" be 
+   *   tried?
+   * @param matchNormalRules should normal rules be tried?
    * @return true if node is active, and the node's regex pattern (in the
-   *         language set with the language class attribute) matches with
-   *         query, or if is empty and empty patterns are allowed via the
-   *         matchEmptyRegex flag.
+   *   language set with the language class attribute) matches with query, or 
+   *   if is empty and empty patterns are allowed via the matchEmptyRegex flag.
    */
   private synchronized boolean matchesNode(String query, Node node,
-          boolean matchEmptyRegex, boolean matchLocalRules,
-          boolean matchSubDialogueRules, boolean matchNormalRules,
-          String language, String sessionID)
+    boolean matchEmptyRegex, boolean matchLocalRules,
+    boolean matchSubDialogueRules, boolean matchNormalRules,
+    String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (node == null)
@@ -1121,27 +1268,27 @@ public class TopicTree
     }
 
     if (atts.getNamedItem("isSubDialogue").getNodeValue().equals("true")
-            && !matchSubDialogueRules)
+      && !matchSubDialogueRules)
     {
       return false;
     }
 
     if (atts.getNamedItem("isLocal").getNodeValue().equals("true")
-            && !matchLocalRules)
+      && !matchLocalRules)
     {
       return false;
     }
 
     if (atts.getNamedItem("isSystemInitiative").getNodeValue().equals(
-            "true"))
+      "true"))
     {
       return false;
     }
 
     if (atts.getNamedItem("isSubDialogue").getNodeValue().equals("true")
-            && atts.getNamedItem("isLocal").getNodeValue().equals("true")
-            && atts.getNamedItem("isSystemInitiative").getNodeValue().equals("true")
-            && !matchNormalRules)
+      && atts.getNamedItem("isLocal").getNodeValue().equals("true")
+      && atts.getNamedItem("isSystemInitiative").getNodeValue().equals("true")
+      && !matchNormalRules)
     {
       return false;
     }
@@ -1173,7 +1320,7 @@ public class TopicTree
 
               String regex = languages.item(j).getFirstChild().getNodeValue();
               if (matchExtendedRegex(regex, query, language,
-                      sessionID))
+                sessionID))
               {
                 return true;
               }
@@ -1193,30 +1340,30 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Retrieves a queue of matching nodes for a query and a node NEW: now also
    * follows links in the absence of sysresponses
+   * </p>
    *
    * @param query
    * @param node
-   * @param followEmptyRegex
-   *            should empty regex be traversed for finding matching nodes?
-   * @param matchLocalRules
-   *            should local nodes be included in results?
-   * @param matchSubDialogueRules
-   *            should SubDialogue nodes be included in results?
-   * @param matchNormalRules
-   *            should normal nodes be included in results?
+   * @param followEmptyRegex should empty regex be traversed for finding 
+   *   matching nodes?
+   * @param matchLocalRules should local nodes be included in results?
+   * @param matchSubDialogueRules should SubDialogue nodes be included in results?
+   * @param matchNormalRules should normal nodes be included in results?
    * @return a queue of nodes that match query under the given constraints (or
-   *         an empty queue)
+   *   an empty queue)
    */
   private synchronized Queue<Node> getNodeMatchingChildren(String query,
-          Node node, boolean followEmptyRegex, boolean matchLocalRules,
-          boolean matchSubDialogueRules, boolean matchNormalRules,
-          String language, String sessionID)
+    Node node, boolean followEmptyRegex, boolean matchLocalRules,
+    boolean matchSubDialogueRules, boolean matchNormalRules,
+    String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     if (node == null)
@@ -1235,8 +1382,8 @@ public class TopicTree
       if (offspring.item(i).getNodeName().equals("topic"))
       {
         if (matchesNode(query, offspring.item(i), followEmptyRegex,
-                matchLocalRules, matchSubDialogueRules,
-                matchNormalRules, language, sessionID))
+          matchLocalRules, matchSubDialogueRules,
+          matchNormalRules, language, sessionID))
         {
           if (hasNodeEmptyRegex(offspring.item(i), sessionID))
           {
@@ -1250,8 +1397,8 @@ public class TopicTree
               // + getNodeName(offspring.item(i),
               // sessionID));
               q.addAll(getNodeMatchingChildren(query, offspring.item(i),
-                      followEmptyRegex, matchLocalRules, matchSubDialogueRules,
-                      matchNormalRules, language, sessionID));
+                followEmptyRegex, matchLocalRules, matchSubDialogueRules,
+                matchNormalRules, language, sessionID));
             }
           }
           else if (hasNodeSysResponse(offspring.item(i), language, sessionID))
@@ -1268,9 +1415,9 @@ public class TopicTree
             // just a "filtering" pattern (no empty regex, NO
             // sysResponse): have to try to go down the tree
             q.addAll(getNodeMatchingChildren(query, offspring.item(i),
-                    followEmptyRegex, matchLocalRules,
-                    matchSubDialogueRules, matchNormalRules,
-                    language, sessionID));
+              followEmptyRegex, matchLocalRules,
+              matchSubDialogueRules, matchNormalRules,
+              language, sessionID));
           }
         }
       }
@@ -1280,20 +1427,22 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Evaluates a string against an "extended regex" pattern
+   * </p>
    *
-   * @param regex
-   *            the "extended regex" pattern (= Perl regex + boolean
-   *            connectives)
+   * @param regex the "extended regex" pattern (= Perl regex + boolean
+   *   connectives)
    * @param query
    * @return true if query and regex match
    */
   public boolean matchExtendedRegex(String regex, String query,
-          String language, String sessionID)
+    String language, String sessionID)
   {
     if (!understandsLanguage(language))
     {
-      throw new IllegalArgumentException("Language " + language + " was not initialized!");
+      throw new IllegalArgumentException(
+        "Language " + language + " was not initialized!");
     }
 
     regex = ChatterbotHelper.replaceMacros(regex, language);
@@ -1309,7 +1458,8 @@ public class TopicTree
     try
     {
       parser.bExpression();
-      it.unibz.lib.bob.check.MyAST tree = (it.unibz.lib.bob.check.MyAST) parser.getAST();
+      it.unibz.lib.bob.check.MyAST tree = (it.unibz.lib.bob.check.MyAST) parser.
+        getAST();
       log.debug("Tree = " + tree.toStringTree());
 
       try
@@ -1319,9 +1469,9 @@ public class TopicTree
       catch (ANTLRException e)
       {
         log.error(sessionID + ",  error with regular expression: \n\t"
-                + regex.trim() + "\n\t"
-                + "Query: " + query + "\n\t"
-                + e.getMessage());
+          + regex.trim() + "\n\t"
+          + "Query: " + query + "\n\t"
+          + e.getMessage());
       }
     }
     catch (RecognitionException e)
@@ -1335,12 +1485,21 @@ public class TopicTree
     catch (Exception e)
     {
       log.error(sessionID + ", other exception regarding the Regex Pattern -- "
-              + e.toString());
+        + e.toString());
     }
 
     return result;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param node
+   * @param sessionID
+   * @return 
+   */
   public synchronized String getNodeRegexPattern(Node node, String sessionID)
   {
     if (node == null)
@@ -1369,7 +1528,10 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
    * @return the node name, or an empty string for illegal node
    */
@@ -1389,10 +1551,12 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Retrieve the DOM node of the "topic" element with the specified (via
    * <b>id</b>) "name" attribute. If no such element exists, search for a
    * "topic" element that has a "name-trace" element indicating that at an
    * earlier point it had the topicID <id>id</id>.
+   * </p>
    *
    * @param id
    * @param sessionID
@@ -1408,7 +1572,7 @@ public class TopicTree
     try
     {
       node = (NodeList) xpath.evaluate(xpath_expression, getRootNode(),
-              XPathConstants.NODESET);
+        XPathConstants.NODESET);
     }
     catch (XPathExpressionException e)
     {
@@ -1420,7 +1584,7 @@ public class TopicTree
       try
       {
         node = (NodeList) xpath.evaluate(xpath_expression2,
-                getRootNode(), XPathConstants.NODESET);
+          getRootNode(), XPathConstants.NODESET);
       }
       catch (XPathExpressionException e)
       {
@@ -1430,7 +1594,7 @@ public class TopicTree
       if (node == null || node.item(0) == null)
       {
         log.error(sessionID + ", error with id=" + id
-                + ": returning null");
+          + ": returning null");
 
         return null;
       }
@@ -1439,14 +1603,17 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param topicID
    * @param sessionID
    * @return Set of all IDs of topicID's sister name-trace elements, including
-   *         itself
+   *   itself
    */
   public synchronized Set<String> getAllEquivalentTopicIDs(String topicID,
-          String sessionID)
+    String sessionID)
   {
     if (!equivalentTopicIDs.containsKey(topicID))
     {
@@ -1460,9 +1627,11 @@ public class TopicTree
   }
 
   /**
+   * <p>
    * Fills equivalentTopicIDs with all topicIDs, mapping to any equivalent ID
    * (including itself). Does all the XPATH querying once, so that later
    * getAllEquivalentTopicIDs is fast
+   * </p>
    *
    * @param sessionID
    */
@@ -1476,7 +1645,7 @@ public class TopicTree
     try
     {
       nodes = (NodeList) xpath.evaluate(xpath_expression, getRootNode(),
-              XPathConstants.NODESET);
+        XPathConstants.NODESET);
     }
     catch (XPathExpressionException e)
     {
@@ -1491,12 +1660,13 @@ public class TopicTree
 
       try
       {
-        nodes2 = (NodeList) xpath.evaluate(xpath_expression2, nodes.item(j), XPathConstants.NODESET);
+        nodes2 = (NodeList) xpath.evaluate(xpath_expression2, nodes.item(j),
+          XPathConstants.NODESET);
       }
       catch (XPathExpressionException e)
       {
         log.debug("Error in expression  \"" + xpath_expression + "\": "
-                + e.getMessage());
+          + e.getMessage());
       }
 
       if (nodes2 == null)
@@ -1518,14 +1688,17 @@ public class TopicTree
     }
 
     log.info(sessionID + ", " + equivalentTopicIDs.size()
-            + " topicIDs loaded into equivalence map.");
+      + " topicIDs loaded into equivalence map.");
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param startNode
    * @return startNode's parent, or startNode itself in the case of the root
-   *         node
+   *   node
    */
   public synchronized Node getNodeParent(Node startNode, String sessionID)
   {
@@ -1549,7 +1722,10 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param startNode
    * @return startNode's next sibling (follower), or null
    */
@@ -1566,7 +1742,10 @@ public class TopicTree
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
+   * 
    * @param node
    * @return true if node has an empty regex pattern
    */
@@ -1596,8 +1775,14 @@ public class TopicTree
     return false;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public void reset()
   {
     // do nothing (could reload abbrev files, or tt)
   }
+
 }

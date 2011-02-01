@@ -5,16 +5,36 @@ import antlr.collections.AST;
 import antlr.RecognitionException;
 
 /**
+ * <p>
  *
+ * </p>
+ *
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
-public class macroParser_TreeParser extends antlr.TreeParser implements macroParser_LexerTokenTypes
+public class macroParser_TreeParser extends antlr.TreeParser
+  implements macroParser_LexerTokenTypes
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public macroParser_TreeParser()
   {
     tokenNames = _tokenNames;
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param _t
+   * @return
+   * @throws RecognitionException 
+   */
   public final String string(AST _t) throws RecognitionException
   {
     String result;
@@ -57,7 +77,14 @@ public class macroParser_TreeParser extends antlr.TreeParser implements macroPar
     _retTree = _t;
     return result;
   }
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public static final String[] _tokenNames =
+  
   {
     "<0>",
     "EOF",

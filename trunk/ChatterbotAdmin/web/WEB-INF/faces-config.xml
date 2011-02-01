@@ -21,7 +21,10 @@
 	<!-- chatterbotAdmin bean -->
   <managed-bean>
     <description>
-
+     This class represents a Java Server Faces Bean class that implements the
+     application logic of ChatterbotAdmin application by controlling in- and
+     outputs on view. It also aggregates the tests applications (bbCheck, qCheck
+     and ttCheck) and a chat application (chatterbot) for testing purpose.
     </description>
     <managed-bean-name>chatterbotAdminBean</managed-bean-name>
     <managed-bean-class>de.unikn.bib.chatterbotadmin.ChatterbotAdminBean</managed-bean-class>
@@ -29,7 +32,8 @@
     <!-- bean attributes -->
     <managed-property>
       <description>
-
+       This String object contains the currently set language to perform test
+       of bbCheck application.
       </description>
       <property-name>bbCheckLanguage</property-name>
       <property-class>java.lang.String</property-class>
@@ -37,7 +41,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if English language is currently set to
+       perform test of bbCheck application.
       </description>
       <property-name>bbCheckLanguageENSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -45,7 +50,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if German language is currently set to
+       perform test of bbCheck application.
       </description>
       <property-name>bbCheckLanguageDESelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -53,7 +59,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if Italian language is currently set to
+       perform test of bbCheck application.
       </description>
       <property-name>bbCheckLanguageITSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -61,7 +68,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object is used to enable/disable selection of machine
+       learning mode to perform test of bbCheck application.
       </description>
       <property-name>bbCheckLearningInput</property-name>
       <property-class>java.lang.String</property-class>
@@ -69,7 +77,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if machine learning mode has been selected
+       to perform test of bbCheck application.
       </description>
       <property-name>bbCheckLearningSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -77,7 +86,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the test results after test of bbCheck
+       application has finished.
       </description>
       <property-name>bbCheckResults</property-name>
       <property-class>java.lang.String</property-class>
@@ -85,7 +95,17 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This boolean object indicated if a test report of bbCheck application
+       is available for download. 
+      </description>
+      <property-name>bbCheckReportIsAvailable</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+       This String object is used to select which format is about to be used
+       to perform test of qCheck application.
       </description>
       <property-name>qCheckFormat</property-name>
       <property-class>java.lang.String</property-class>
@@ -93,7 +113,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object is used to select which format is about to be used
+       to perform test of qCheck application.
       </description>
       <property-name>qCheckRegularExpression</property-name>
       <property-class>java.lang.String</property-class>
@@ -101,7 +122,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains input of a user question  to perform
+       test of qCheck application.
       </description>
       <property-name>qCheckUserQuestion</property-name>
       <property-class>java.lang.String</property-class>
@@ -109,7 +131,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the test results after test of qCheck
+       application has finished.
       </description>
       <property-name>qCheckResults</property-name>
       <property-class>java.lang.String</property-class>
@@ -117,7 +140,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the test results after test of ttCheck
+       application has finished.
       </description>
       <property-name>ttCheckResults</property-name>
       <property-class>java.lang.String</property-class>
@@ -125,7 +149,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object is used to select which language is about
+       to be used to perform test of chatterbot application.
       </description>
       <property-name>chatterbotLanguage</property-name>
       <property-class>java.lang.String</property-class>
@@ -133,7 +158,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if English language is currently set to
+       perform test of chatterbot application.
       </description>
       <property-name>chatterbotLanguageENSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -141,7 +167,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if German language is currently set to
+       perform test of chatterbot application.
       </description>
       <property-name>chatterbotLanguageDESelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -149,7 +176,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if Italian language is currently set to
+       perform test of chatterbot application.
       </description>
       <property-name>chatterbotLanguageITSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -157,15 +185,8 @@
     </managed-property>
     <managed-property>
       <description>
-
-      </description>
-      <property-name>chatterbotChatText</property-name>
-      <property-class>java.lang.String</property-class>
-      <value/>
-    </managed-property>
-    <managed-property>
-      <description>
-
+       This String object contains a user's question for to
+       perform test of chatterbot application.
       </description>
       <property-name>chatterbotQuestion</property-name>
       <property-class>java.lang.String</property-class>
@@ -173,7 +194,17 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains all user questions and their corresponding
+       answers from Bob depending on currently set language.
+      </description>
+      <property-name>chatterbotChatText</property-name>
+      <property-class>java.lang.String</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+       This Object represents the reference to the content of topic tree file
+       after upload of this file has succeeded.
       </description>
       <property-name>topicTreeFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -181,21 +212,16 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of topic tree file after upload
+       of this file has succeeded.
       </description>
       <property-name>topicTreeFilename</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
-      <property-name>macrosFile</property-name>
-      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
-      <value/>
-    </managed-property>
-    <managed-property>
       <description>
-
+       This Boolean object indicates if topic tree file has already been uploaded.
       </description>
       <property-name>topicTreeFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -203,21 +229,43 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of a macros file
+       after upload of this file has succeeded.
+      </description>
+      <property-name>macrosFile</property-name>
+      <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
+      <value/>
+    </managed-property>
+    <managed-property>
+      <description>
+       This String object contains the filename of a macros file after upload
+       of this file has succeeded.
       </description>
       <property-name>macrosFilename</property-name>
       <property-class>java.lang.String</property-class>
       <value/>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+       This Boolean object indicates if macros file has already been uploaded.
+      </description>
+      <property-name>macrosFileIsUploaded</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value>FALSE</value>
+    </managed-property>
+    <managed-property>
+      <description>
+       This Object represents the reference to the content of English macros file
+       after upload of this file has succeeded.
+      </description>
       <property-name>macrosENFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of English macros file after
+       upload of this file has succeeded.
       </description>
       <property-name>macrosENFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -225,21 +273,26 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if English macros file has already been
+       uploaded.
       </description>
-      <property-name>macrosFileIsUploaded</property-name>
+      <property-name>macrosENFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+       This String object contains the file url of German macros file after
+       upload of this file has succeeded.
+      </description>
       <property-name>macrosDEFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of German macros file after
+       upload of this file has succeeded.
       </description>
       <property-name>macrosDEFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -247,7 +300,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if German macros file has already been
+       uploaded.
       </description>
       <property-name>macrosDEFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -255,7 +309,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of Italian macros file
+       after upload of this file has succeeded.
       </description>
       <property-name>macrosITFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -263,7 +318,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of Italian macros file after
+       upload of this file has succeeded.
       </description>
       <property-name>macrosITFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -271,7 +327,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if Italian macros file has already been
+       uploaded.
       </description>
       <property-name>macrosITFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -279,7 +336,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of a text corpus file
+       after upload of this file has succeeded.
       </description>
       <property-name>textCorpusFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -287,7 +345,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of a text corpus file after
+       upload of this file has succeeded.
       </description>
       <property-name>textCorpusFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -295,7 +354,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if a text corpus file has already been
+       uploaded.
       </description>
       <property-name>textCorpusFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -303,7 +363,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of English text
+       corpus file after upload of this file has succeeded.
       </description>
       <property-name>textCorpusENFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -311,7 +372,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of English text corpus file
+       after upload of this file has succeeded.
       </description>
       <property-name>textCorpusENFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -319,21 +381,26 @@
     </managed-property>
     <managed-property>
       <description>
-
+      This Boolean object indicates if English text corpus file has already been
+      uploaded.
       </description>
       <property-name>textCorpusENFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>
     <managed-property>
-      <description></description>
+      <description>
+       This Object represents the reference to the content of German text corpus
+       file after upload of this file has succeeded.
+      </description>
       <property-name>textCorpusDEFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
       <value/>
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of German text corpus file after
+       upload of this file has succeeded.
       </description>
       <property-name>textCorpusDEFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -341,15 +408,17 @@
     </managed-property>
     <managed-property>
       <description>
-
+      This Boolean object indicates if German text corpus file has already been
+      uploaded.
       </description>
-      <property-name>textCorpusITFileIsUploaded</property-name>
+      <property-name>textCorpusDEFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of Italian text
+       corpus file after upload of this file has succeeded.
       </description>
       <property-name>textCorpusITFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -357,7 +426,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of Italian text corpus file
+       after upload of this file has succeeded.
       </description>
       <property-name>textCorpusITFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -365,15 +435,17 @@
     </managed-property>
     <managed-property>
       <description>
-
+      This Boolean object indicates if Italian text corpus file has already
+      been uploaded.
       </description>
-      <property-name>textCorpusFileIsUploaded</property-name>
+      <property-name>textCorpusITFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
       <value>FALSE</value>
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of rng file after
+       upload of this file has succeeded.
       </description>
       <property-name>rngFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -381,7 +453,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of a rng file after upload of
+       this file has succeeded.
       </description>
       <property-name>rngFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -389,7 +462,7 @@
     </managed-property>
     <managed-property>
       <description>
-
+      This Boolean object indicates if rng file has already been uploaded.
       </description>
       <property-name>rngFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -397,7 +470,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Object represents the reference to the content of a test questions
+       file after upload of this file has succeeded.
       </description>
       <property-name>testQuestionsFile</property-name>
       <property-class>org.apache.myfaces.custom.fileupload.UploadedFile</property-class>
@@ -405,7 +479,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This String object contains the filename of a test questions file after
+       upload of this file has succeeded.
       </description>
       <property-name>testQuestionsFilename</property-name>
       <property-class>java.lang.String</property-class>
@@ -413,7 +488,8 @@
     </managed-property>
     <managed-property>
       <description>
-
+       This Boolean object indicates if a test questions file has already been
+       uploaded.
       </description>
       <property-name>testQuestionsFileIsUploaded</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -421,8 +497,8 @@
     </managed-property>
     <managed-property>
       <description>
-             This String value represents the currently chosen language to
-             display messages from message bundle file.
+       This String value represents the currently chosen language to
+       display messages from message bundle file.
       </description>
       <property-name>locale</property-name>
       <property-class>java.lang.String</property-class>
@@ -430,7 +506,7 @@
     </managed-property>
     <managed-property>
       <description>
-             This Boolean object indicates if bbcheck application is selected.
+       This Boolean object indicates if bbcheck application is selected.
       </description>
       <property-name>bbCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -438,7 +514,7 @@
     </managed-property>
     <managed-property>
       <description>
-             This Boolean object indicates if qcheck application is selected.
+       This Boolean object indicates if qcheck application is selected.
       </description>
       <property-name>qCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -446,7 +522,7 @@
     </managed-property>
     <managed-property>
       <description>
-             This Boolean object indicates if ttcheck application is selected.
+       This Boolean object indicates if ttcheck application is selected.
       </description>
       <property-name>ttCheckSelected</property-name>
       <property-class>java.lang.Boolean</property-class>
@@ -454,7 +530,7 @@
     </managed-property>
     <managed-property>
       <description>
-             This Boolean object indicates if chatterbot application is selected.
+       This Boolean object indicates if chatterbot application is selected.
       </description>
       <property-name>chatterbotSelected</property-name>
       <property-class>java.lang.Boolean</property-class>

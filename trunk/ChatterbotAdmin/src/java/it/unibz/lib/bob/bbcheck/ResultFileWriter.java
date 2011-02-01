@@ -11,12 +11,21 @@ import java.io.PrintWriter;
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
+ * Write results to ARFF or CSV. At some point should provide a nice API for
+ * writing correct ARFF files.
+ * </p>
  *
- * @author
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
  */
 public class ResultFileWriter
 {
+  /**
+   * <p>
+   *
+   * </p>
+   */
   private PrintWriter out;
 
   /**
@@ -37,6 +46,13 @@ public class ResultFileWriter
    */
   private Logger log = Logger.getLogger(BBCheckImpl.class);
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param filename
+   */
   public ResultFileWriter(String filename)
   {
     try
@@ -49,16 +65,35 @@ public class ResultFileWriter
     }
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param s
+   */
   public void println(String s)
   {
     out.println(s);
   }
 
+  /**
+   * <p>
+   *
+   * </p>
+   *
+   * @param sb
+   */
   public void append(StringBuffer sb)
   {
     out.append(sb);
   }
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   public void close()
   {
     out.close();

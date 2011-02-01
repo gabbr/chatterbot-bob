@@ -24,16 +24,47 @@ import java.util.regex.PatternSyntaxException;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * <p>
+ * This class implements QCheck interfaced and is used to perform test of 
+ * qcheck application. When test has finished, test results are provided 
+ * as a String object.
+ * </p>
+ * 
+ * @author manuel.kirschner@gmail.com
+ * @author markus.grandpre@uni-konstanz.de
  * @version $Id$
  */
 public class QCheckImpl implements QCheck
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private static BobHelper sh = null;
+
+  /**
+   * <p>
+   * Logging of this class uses four different log levels:
+   * </p>
+   * <ul>
+   * <li><b>DEBUG</b> to reproduce complete program flow</li>
+   * <li><b>INFO</b> to reproduce system activities</li>
+   * <li><b>WARN</b> to reproduce system warnings</li>
+   * <li><b>ERROR</b> to reproduce system failures</li>
+   * <li><b>FATAL</b> to reproduce fatal system failures</li>
+   * </ul>
+   * <p>
+   * The corresponding <tt>log4j.properties</tt> file is located in the
+   * <tt>WEB-INF/classes</tt> directory of this web application.
+   * </p>
+   */
+  private Logger log = Logger.getLogger(QCheckImpl.class);
 
   @Override
   public String performQCheck(String macroFile, String regularExpression,
-          String userQuestion, String format)
+    String userQuestion, String format)
   {
     String testResults = new String();
 
@@ -51,34 +82,37 @@ public class QCheckImpl implements QCheck
       String loadTime = dateFormat.format(date);
 
       testResults = testResults + "Macro file loaded at "
-              + loadTime
-              + ": "
-              // + macroFileChooser.getSelectedFile().getCanonicalPath()
-              + macroFile + "\nIts 3 longest macros:\n"
-              + longestMacros[0].getMacro() + " -> "
-              + longestMacros[0].getLength() + "\n"
-              + longestMacros[1].getMacro() + " -> "
-              + longestMacros[1].getLength() + "\n"
-              + longestMacros[2].getMacro() + " -> "
-              + longestMacros[2].getLength() + "\n";
+        + loadTime
+        + ": "
+        // + macroFileChooser.getSelectedFile().getCanonicalPath()
+        + macroFile + "\nIts 3 longest macros:\n"
+        + longestMacros[0].getMacro() + " -> "
+        + longestMacros[0].getLength() + "\n"
+        + longestMacros[1].getMacro() + " -> "
+        + longestMacros[1].getLength() + "\n"
+        + longestMacros[2].getMacro() + " -> "
+        + longestMacros[2].getLength() + "\n";
 
       String regexResolved = sh.replaceMacros(regularExpression, "");
       testResults = testResults + "Expanded question pattern:\n" + regexResolved + "\n";
 
 
 
-        //Iterate over all matches in a string
-        try {
-            Pattern regex = Pattern.compile("----MacroNotFound-([^-]+)----");
-            Matcher regexMatcher = regex.matcher(regexResolved);
-            while (regexMatcher.find()) {
-                testResults += "Error: unknown macro in question pattern: " +  regexMatcher.group(1) + "\n";
-            }
-        } catch (PatternSyntaxException ex) {
-            // Syntax error in the regular expression
+      //Iterate over all matches in a string
+      try
+      {
+        Pattern regex = Pattern.compile("----MacroNotFound-([^-]+)----");
+        Matcher regexMatcher = regex.matcher(regexResolved);
+        while (regexMatcher.find())
+        {
+          testResults += "Error: unknown macro in question pattern: " + regexMatcher.
+            group(1) + "\n";
         }
-
-
+      }
+      catch (PatternSyntaxException ex)
+      {
+        // Syntax error in the regular expression
+      }
 
       if (format.equals("macro"))
       {
@@ -137,51 +171,52 @@ public class QCheckImpl implements QCheck
       catch (RecognitionException e)
       {
         testResults = testResults + "Error in boolean part of regular "
-                + "expression (i.e., outside of the double quotes): "
-                + e.toString() + "\n";
+          + "expression (i.e., outside of the double quotes): "
+          + e.toString() + "\n";
       }
       catch (TokenStreamException e)
       {
         testResults = testResults + "Error in boolean part of regular "
-                + "expression (i.e., outside of the double quotes): "
-                + e.toString() + "\n";
+          + "expression (i.e., outside of the double quotes): "
+          + e.toString() + "\n";
       }
       catch (ANTLRException e)
       {
         testResults = testResults + "Error in boolean part of regular "
-                + "expression (i.e., outside of the double quotes): "
-                + e.toString() + "\n";
+          + "expression (i.e., outside of the double quotes): "
+          + e.toString() + "\n";
       }
       catch (Exception e)
       {
         if (e.getMessage().endsWith("Expression is too large."))
         {
           testResults = testResults + "Error in Perl regex part of regular "
-                  + "expression (i.e., inside the double quotes): Pattern is "
-                  + "too complex!\n"
-                  + "\nThese are the 3 longest macros used in this pattern "
-                  + "(to be removed by hand, or shortened considerably):\n"
-                  + longestMacros[0].getMacro()
-                  + " -> "
-                  + longestMacros[0].getLength()
-                  + "\n"
-                  + longestMacros[1].getMacro()
-                  + " -> "
-                  + longestMacros[1].getLength()
-                  + "\n"
-                  + longestMacros[2].getMacro()
-                  + " -> "
-                  + longestMacros[2].getLength() + "\n";
+            + "expression (i.e., inside the double quotes): Pattern is "
+            + "too complex!\n"
+            + "\nThese are the 3 longest macros used in this pattern "
+            + "(to be removed by hand, or shortened considerably):\n"
+            + longestMacros[0].getMacro()
+            + " -> "
+            + longestMacros[0].getLength()
+            + "\n"
+            + longestMacros[1].getMacro()
+            + " -> "
+            + longestMacros[1].getLength()
+            + "\n"
+            + longestMacros[2].getMacro()
+            + " -> "
+            + longestMacros[2].getLength() + "\n";
         }
         else
         {
           testResults = testResults + "Other error in Perl regex part of "
-                  + "regular expression (i.e., inside the double quotes):\n"
-                  + e.toString();
+            + "regular expression (i.e., inside the double quotes):\n"
+            + e.toString();
         }
       }
     }
 
     return testResults;
   }
+
 }

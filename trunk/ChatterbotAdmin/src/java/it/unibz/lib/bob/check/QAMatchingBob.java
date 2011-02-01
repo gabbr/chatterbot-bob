@@ -2,52 +2,80 @@ package it.unibz.lib.bob.check;
 
 import it.unibz.inf.alice.MyStemmedTokenizerFactory;
 
+import com.aliasi.spell.TfIdfDistance;
+import com.aliasi.tokenizer.TokenizerFactory;
+
+import com.mallardsoft.mytuple.Pair;
+import com.mallardsoft.tuple.Quadruple;
+import com.mallardsoft.tuple.Tuple;
+
 import java.net.URL;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.Vector;
 
-import com.aliasi.spell.TfIdfDistance;
-import com.aliasi.tokenizer.Tokenizer;
-import com.aliasi.tokenizer.TokenizerFactory;
-import com.mallardsoft.mytuple.Pair;
-
-import com.mallardsoft.tuple.Quadruple;
-import com.mallardsoft.tuple.Tuple;
-
 import org.apache.log4j.Logger;
 
 /**
+ * <p>
  * Train and test the answer reranker for first questions.
+ * </p>
  * 
- * @author manuelkirschner
+ * @author manuel.kirschner@gmail.com
  * @version $Id$
- * 
  */
-public class QAMatchingBob
+public final class QAMatchingBob
 {
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private TokenizerFactory tokenizerFactory = MyStemmedTokenizerFactory.FACTORY;
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private TfIdfDistance tfIdfEN = new TfIdfDistance(tokenizerFactory);
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private TfIdfDistance tfIdfDE = new TfIdfDistance(tokenizerFactory);
 
+  /**
+   * <p>
+   * 
+   * </p>
+   */
   private TfIdfDistance tfIdfIT = new TfIdfDistance(tokenizerFactory);
 
-  public TfIdfDistance getTfIdfEN()
-  {
-    return tfIdfEN;
-  }
+  /**
+   * <p>
+   * 
+   * </p>
+   */
+  private boolean understandsEN = false;
 
-  public TfIdfDistance getTfIdfDE()
-  {
-    return tfIdfDE;
-  }
+  /**
+   * <p>
+   * 
+   * </p>
+   */
+  private boolean understandsDE = false;
 
-  public TfIdfDistance getTfIdfIT()
-  {
-    return tfIdfIT;
-  }
+  /**
+   * <p>
+   * 
+   * </p>
+   */
+  private boolean understandsIT = false;
+
   /**
    * <p>
    * Logging of this class uses four different log levels:
@@ -66,188 +94,273 @@ public class QAMatchingBob
    */
   private Logger log = Logger.getLogger(QAMatchingBob.class);
 
-  private boolean understandsEN = false;
-  private boolean understandsDE = false;
-  private boolean understandsIT = false;
-
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param ae
+   * @param ad
+   * @param ai
+   * @param idftrainingdataEN
+   * @param idftrainingdataDE
+   * @param idftrainingdataIT 
+   */
   public QAMatchingBob(URL ae, URL ad, URL ai, URL idftrainingdataEN,
-          URL idftrainingdataDE, URL idftrainingdataIT)
+    URL idftrainingdataDE, URL idftrainingdataIT)
   {
     // this should not do anything, since a static StellaHelper object
     // already exists...
     ChatterbotHelper.makeInstance(ae, ad, ai);
-    if (ae != null) {
-        trainIDF_EN(idftrainingdataEN);
-        understandsEN = true;
-      }
-    if (ad != null) {
-        trainIDF_DE(idftrainingdataDE);
-        understandsDE = true;
-      }
-    if (ai != null) {
-        trainIDF_IT(idftrainingdataIT);
-        understandsIT = true;
-      }
-  }
-
-  /**
-   * Print IDF statistics for EN
-   */
-  public void printIDFStatsEN()
-  {
-    if (understandsEN) {
-        for (String term : tfIdfEN.termSet())
-        {
-          log.debug("Term:     " + term);
-          log.debug("Doc Freq: " + tfIdfEN.docFrequency(term));
-          log.debug("IDF:      " + tfIdfEN.idf(term));
-        }
+    if (ae != null)
+    {
+      trainIDF_EN(idftrainingdataEN);
+      understandsEN = true;
+    }
+    if (ad != null)
+    {
+      trainIDF_DE(idftrainingdataDE);
+      understandsDE = true;
+    }
+    if (ai != null)
+    {
+      trainIDF_IT(idftrainingdataIT);
+      understandsIT = true;
     }
   }
 
   /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  public TfIdfDistance getTfIdfEN()
+  {
+    return tfIdfEN;
+  }
+
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  public TfIdfDistance getTfIdfDE()
+  {
+    return tfIdfDE;
+  }
+
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @return 
+   */
+  public TfIdfDistance getTfIdfIT()
+  {
+    return tfIdfIT;
+  }
+
+  /**
+   * <p>
+   * Print IDF statistics for EN
+   * </p>
+   */
+  public void printIDFStatsEN()
+  {
+    if (understandsEN)
+    {
+      for (String term : tfIdfEN.termSet())
+      {
+        log.debug("Term:     " + term);
+        log.debug("Doc Freq: " + tfIdfEN.docFrequency(term));
+        log.debug("IDF:      " + tfIdfEN.idf(term));
+      }
+    }
+  }
+
+  /**
+   * <p>
    * Train EN IDF scores
+   * </p>
    *
    * @param s
    */
   private void trainIDFsingleDocEN(String s)
   {
     if (understandsEN)
-        tfIdfEN.trainIdf(s);
+    {
+      tfIdfEN.trainIdf(s);
+    }
   }
 
   /**
+   * <p>
    * Train DE IDF scores
+   * </p>
    *
    * @param s
    */
   private void trainIDFsingleDocDE(String s)
-  { if (understandsDE)
-        tfIdfDE.trainIdf(s);
+  {
+    if (understandsDE)
+    {
+      tfIdfDE.trainIdf(s);
+    }
   }
 
   /**
+   * <p>
    * Train IT IDF scores
-   *
+   * </p>
+   * 
    * @param s
    */
   private void trainIDFsingleDocIT(String s)
-  { if (understandsIT)
-        tfIdfIT.trainIdf(s);
+  {
+    if (understandsIT)
+    {
+      tfIdfIT.trainIdf(s);
+    }
   }
 
   /**
+   * <p>
    * Trains EN IDF scores from doc
+   * </p>
    *
    * @param idftrainingdata
    */
   void trainIDF_EN(URL idftrainingdata)
   {
-    if (understandsEN) {
-        if (idftrainingdata != null)
+    if (understandsEN)
+    {
+      if (idftrainingdata != null)
+      {
+        log.debug("*** Reading in English IDF training data from URL: "
+          + idftrainingdata.toString());
+
+        ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+        int lcount = 0;
+
+        for (String line; (line = readin.readLine()) != null;)
         {
-          log.debug("*** Reading in English IDF training data from URL: "
-                  + idftrainingdata.toString());
+          trainIDFsingleDocEN(line);
+          lcount++;
 
-          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-          int lcount = 0;
-
-          for (String line; (line = readin.readLine()) != null;)
+          if (lcount % 10000 == 0)
           {
-            trainIDFsingleDocEN(line);
-            lcount++;
-
-            if (lcount % 10000 == 0)
-            {
-              // log.debug(".");
-            }
-
-            if (lcount == 100000)
-            {
-              break;
-            }
+            // log.debug(".");
           }
-        } else {
-             log.warn("*** No English IDF training data specified/loaded.");
+
+          if (lcount == 100000)
+          {
+            break;
+          }
         }
-     }
+      }
+      else
+      {
+        log.warn("*** No English IDF training data specified/loaded.");
+      }
+    }
   }
 
   /**
+   * <p>
    * Trains DE IDF scores from doc
+   * </p>
    *
    * @param idftrainingdata
    */
   void trainIDF_DE(URL idftrainingdata)
   {
-    if (understandsDE) {
-        if (idftrainingdata != null)
+    if (understandsDE)
+    {
+      if (idftrainingdata != null)
+      {
+        log.debug("*** Reading in German IDF training data from URL: "
+          + idftrainingdata.toString());
+
+        ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+        int lcount = 0;
+
+        for (String line; (line = readin.readLine()) != null;)
         {
-          log.debug("*** Reading in German IDF training data from URL: "
-                  + idftrainingdata.toString());
+          trainIDFsingleDocDE(line);
+          lcount++;
 
-          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-          int lcount = 0;
-
-          for (String line; (line = readin.readLine()) != null;)
+          if (lcount % 10000 == 0)
           {
-            trainIDFsingleDocDE(line);
-            lcount++;
-
-            if (lcount % 10000 == 0)
-            {
-              // log.debug(".");
-            }
-
-            if (lcount == 100000)
-            {
-              break;
-            }
+            // log.debug(".");
           }
-        } else {
-             log.warn("*** No German IDF training data specified/loaded.");
+
+          if (lcount == 100000)
+          {
+            break;
+          }
         }
       }
+      else
+      {
+        log.warn("*** No German IDF training data specified/loaded.");
+      }
+    }
   }
 
   /**
+   * <p>
    * Trains IT IDF scores from doc
+   * </p>
    *
    * @param idftrainingdata
    */
   void trainIDF_IT(URL idftrainingdata)
   {
-    if (understandsIT) {
-        if (idftrainingdata != null)
+    if (understandsIT)
+    {
+      if (idftrainingdata != null)
+      {
+        log.debug("*** Reading in Italian IDF training data from URL: "
+          + idftrainingdata.toString());
+
+        ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
+        int lcount = 0;
+
+        for (String line; (line = readin.readLine()) != null;)
         {
-          log.debug("*** Reading in Italian IDF training data from URL: "
-                  + idftrainingdata.toString());
+          trainIDFsingleDocIT(line);
+          lcount++;
 
-          ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
-          int lcount = 0;
-
-          for (String line; (line = readin.readLine()) != null;)
+          if (lcount % 10000 == 0)
           {
-            trainIDFsingleDocIT(line);
-            lcount++;
-
-            if (lcount % 10000 == 0)
-            {
-              // log.debug(".");
-            }
-
-            if (lcount == 100000)
-            {
-              break;
-            }
+            // log.debug(".");
           }
-        } else {
-             log.warn("*** No Italian IDF training data specified/loaded.");
+
+          if (lcount == 100000)
+          {
+            break;
+          }
         }
       }
+      else
+      {
+        log.warn("*** No Italian IDF training data specified/loaded.");
+      }
+    }
   }
 
-  @SuppressWarnings("unused")
+  /**
+   * <p>
+   * 
+   * </p>
+   * 
+   * @param v 
+   */
   private void trainIDFfromVector(Vector<String> v)
   {
     for (String s : v)
@@ -257,21 +370,20 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Generates the CSV lines with all feature values, needed for R as training
    * data.
+   * </p>
    *
    * @param question
    * @param correctID
-   * @param vresp
-   *            a vector with the ranked hypotheses (i.e., 4-tuples with
-   *            MatchedTopicID,
-   *            TopicIDAfterLinks,AnswerStringAfterLinks,RegexPattern
-   *
+   * @param vresp a vector with the ranked hypotheses (i.e., 4-tuples with
+   *   MatchedTopicID, TopicIDAfterLinks,AnswerStringAfterLinks,RegexPattern
    * @param lang
    * @return
    */
   public StringBuffer getTrainingData(String question, String correctID,
-          Vector<Quadruple<String, String, String, String>> vresp, String lang)
+    Vector<Quadruple<String, String, String, String>> vresp, String lang)
   {
     StringBuffer result = new StringBuffer();
     result.append("% Q: " + question + "\n");
@@ -291,7 +403,7 @@ public class QAMatchingBob
       double regexmatchLetterLen = countLetters(regex, lang);
       double regexmatchPipeLen = countPipes(regex, lang);
       double regexmatchLetterOverPipe = regexmatchLetterLen
-              / (regexmatchPipeLen + 1);
+        / (regexmatchPipeLen + 1);
       double tfIdfSimilarity = -1.0;
 
       if (lang.toUpperCase().equals("EN"))
@@ -318,13 +430,13 @@ public class QAMatchingBob
       double rankOverTopicID = treeSearchRank / (topicID + 1);
 
       QAFeatures features = new QAFeatures(regexmatch, regexmatchLen,
-              regexmatchLetterLen, regexmatchPipeLen,
-              regexmatchLetterOverPipe, tfIdfSimilarity, treeSearchRank,
-              nAND, nOR, nANDoverOR, topicID, rankOverTopicID,
-              treeSearchProminence);
+        regexmatchLetterLen, regexmatchPipeLen,
+        regexmatchLetterOverPipe, tfIdfSimilarity, treeSearchRank,
+        nAND, nOR, nANDoverOR, topicID, rankOverTopicID,
+        treeSearchProminence);
 
       boolean answerIsCorrect = correctID.equals(Tuple.get1(vresp.get(k)))
-              || correctID.equals(Tuple.get2(vresp.get(k)));
+        || correctID.equals(Tuple.get2(vresp.get(k)));
 
       result.append(features.getDataCsvString(answerIsCorrect));
 
@@ -333,12 +445,12 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Calculate total score for an answer candidate, represented by feature
    * values
+   * </p>
    *
-   *
-   * @param lang
-   *            (EN, DE)
+   * @param lang EN, DE
    * @param regexmatchLen
    * @param tfIdfSimilarity
    * @param treeSearchRank
@@ -350,10 +462,10 @@ public class QAMatchingBob
    * @return
    */
   public static double calculateAnswerScore(String lang,
-          double regexmatchLen, double tfIdfSimilarity,
-          double treeSearchRank, double nANDoverOR,
-          double treeSearchProminence, double nOR, double topicID,
-          double rankOverTopicID, double nAND)
+    double regexmatchLen, double tfIdfSimilarity,
+    double treeSearchRank, double nANDoverOR,
+    double treeSearchProminence, double nOR, double topicID,
+    double rankOverTopicID, double nAND)
   {
     double score = 0;
 
@@ -412,7 +524,7 @@ public class QAMatchingBob
       score += -2.5083120  * treeSearchRank;
       score +=  0.0440263 * nANDoverOR;
       score += -0.2406180 * topicID;
-
+      
       score +=  0.0001262 * regexmatchLen * topicID;
       score += 0.0646147 * topicID * treeSearchRank;
       score += 0.0215565 * topicID * nANDoverOR;
@@ -438,19 +550,19 @@ public class QAMatchingBob
   }
 
   /**
-   * ... dropping the last answer candidate (i.e., the "no pattern matched"
-   * one).
-   *
+   * <p>
+   * ... dropping the last answer candidate (i.e., the "no pattern matched" one).
+   * </p>
+   * 
    * @param question
    * @param vresp
-   * @param lang
-   *            (EN, DE)
+   * @param lang (EN, DE)
    * @return
    */
   @SuppressWarnings("unchecked")
   public Vector<Quadruple<String, String, String, String>> rerankAnswers(
-          String question,
-          Vector<Quadruple<String, String, String, String>> vresp, String lang)
+    String question,
+    Vector<Quadruple<String, String, String, String>> vresp, String lang)
   {
 
     SortedSet<com.mallardsoft.mytuple.Pair<Double, Quadruple<String, String, String, String>>> rankedAnswerCandidates = new SortedMultiSet();
@@ -468,35 +580,35 @@ public class QAMatchingBob
       if (lang.toUpperCase().equals("EN"))
       {
         log.debug("@@@ Number of DOCS used in TFIDF.proximity: "
-                + tfIdfEN.numDocuments());
+          + tfIdfEN.numDocuments());
 
         tfIdfSimilarity = tfIdfEN.proximity(question, Tuple.get3(vresp.get(k)));
       }
       else if (lang.toUpperCase().equals("DE"))
       {
         log.debug("@@@ Number of DOCS used in TFIDF.proximity: "
-                + tfIdfDE.numDocuments());
+          + tfIdfDE.numDocuments());
 
         tfIdfSimilarity = tfIdfDE.proximity(question, Tuple.get3(vresp.get(k)));
       }
       else if (lang.toUpperCase().equals("IT"))
       {
         log.debug("@@@ Number of DOCS used in TFIDF.proximity: "
-                + tfIdfIT.numDocuments());
+          + tfIdfIT.numDocuments());
 
         tfIdfSimilarity = tfIdfIT.proximity(question, Tuple.get3(vresp.get(k)));
       }
 
       log.debug("///// " + k + " tfIdfSimilarity between:\n\t"
-              + question + " && " + Tuple.get3(vresp.get(k)));
+        + question + " && " + Tuple.get3(vresp.get(k)));
 
       log.debug("///// " + k + " tfIdfSimilarity "
-              + tfIdfSimilarity);
+        + tfIdfSimilarity);
 
       double treeSearchRank = k;
 
       log.debug("///// " + k + " treeSearchRank "
-              + treeSearchRank);
+        + treeSearchRank);
 
       double nAND = countBooleanAND(regex);
 
@@ -517,30 +629,29 @@ public class QAMatchingBob
       double rankOverTopicID = treeSearchRank / (topicID + 1);
 
       log.debug("///// " + k + " rankOverTopicID "
-              + rankOverTopicID);
+        + rankOverTopicID);
 
       double treeSearchProminence = getTreeSearchProminence(vresp.size(), k + 1);
 
       log.debug("///// " + k + " treeSearchProminence "
-              + treeSearchProminence);
+        + treeSearchProminence);
 
       double totalscore = calculateAnswerScore(lang, regexmatchLen,
-              tfIdfSimilarity, treeSearchRank, nANDoverOR,
-              treeSearchProminence, nOR, topicID, rankOverTopicID, nAND);
+        tfIdfSimilarity, treeSearchRank, nANDoverOR,
+        treeSearchProminence, nOR, topicID, rankOverTopicID, nAND);
 
       log.debug("///// " + k + " totalscore " + totalscore);
 
-      Pair<Double, Quadruple<String, String, String, String>> p 
-              = new Pair<Double, Quadruple<String, String, String, String>>(totalscore, vresp.get(k));
+      Pair<Double, Quadruple<String, String, String, String>> p = new Pair<Double, Quadruple<String, String, String, String>>(
+        totalscore, vresp.get(k));
 
       rankedAnswerCandidates.add(p);
     }
 
-    Vector<Quadruple<String, String, String, String>> rerankedAnswers
-            = new Vector<Quadruple<String, String, String, String>>();
+    Vector<Quadruple<String, String, String, String>> rerankedAnswers = new Vector<Quadruple<String, String, String, String>>();
 
-    Iterator<Pair<Double, Quadruple<String, String, String, String>>> it 
-            = rankedAnswerCandidates.iterator();
+    Iterator<Pair<Double, Quadruple<String, String, String, String>>> it = rankedAnswerCandidates.
+      iterator();
 
     log.debug("@@@@@");
 
@@ -549,10 +660,11 @@ public class QAMatchingBob
 
       Pair<Double, Quadruple<String, String, String, String>> pair = it.next();
 
-      Quadruple<String, String, String, String> quad = com.mallardsoft.mytuple.Tuple.get2(pair);
+      Quadruple<String, String, String, String> quad = com.mallardsoft.mytuple.Tuple.
+        get2(pair);
 
       log.debug("reranked score: " + com.mallardsoft.mytuple.Pair.get1(pair)
-              + "\t" + Tuple.get1(quad) + "\n");
+        + "\t" + Tuple.get1(quad) + "\n");
 
       rerankedAnswers.add(quad);
     }
@@ -561,44 +673,53 @@ public class QAMatchingBob
   }
 
   /**
-   *
+   * <p>
+   * 
+   * </p>
    *
    * @param question
    * @param correctID
    * @param vresp
-   * @param lang
-   *            (EN, DE, IT)
+   * @param lang EN, DE, IT
    * @return
    */
   public boolean afterRerankingFirstCorrect(String question,
-          String correctID,
-          Vector<Quadruple<String, String, String, String>> vresp, String lang)
+    String correctID,
+    Vector<Quadruple<String, String, String, String>> vresp, String lang)
   {
 
-    Vector<Quadruple<String, String, String, String>> reranked
-            = rerankAnswers(question, vresp, lang);
+    Vector<Quadruple<String, String, String, String>> reranked = rerankAnswers(
+      question, vresp, lang);
 
-    Quadruple<String, String, String, String> highestScoringAnsw = reranked.get(reranked.size() - 1);
+    Quadruple<String, String, String, String> highestScoringAnsw = reranked.get(reranked.
+      size() - 1);
 
     boolean answerIsCorrect = correctID.equals(Tuple.get1(highestScoringAnsw))
-            || correctID.equals(Tuple.get2(highestScoringAnsw));
+      || correctID.equals(Tuple.get2(highestScoringAnsw));
 
     if (answerIsCorrect)
     {
       log.debug("afterRerankingFirstCorrect returned good answer on top for Q:"
-              + question + "  --- correctID:" + correctID);
+        + question + "  --- correctID:" + correctID);
     }
     else
     {
       log.debug("afterRerankingFirstCorrect returned BAD answer on top for Q:"
-              + question + "  --- correctID:" + correctID);
+        + question + "  --- correctID:" + correctID);
     }
 
     return answerIsCorrect;
   }
 
   /**
+   * <p>
    * Count the number of letters in a String
+   * </p>
+   *
+   * 
+   * @param str
+   * @param lang
+   * @return 
    */
   private int countLetters(String str, String lang)
   {
@@ -620,7 +741,12 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Count the number of && in a String
+   * </p>
+   * 
+   * @param str
+   * @return 
    */
   private int countBooleanAND(String str)
   {
@@ -641,7 +767,11 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Extracts the main topic ID + 1; 0 for errors
+   * </p>
+   * 
+   * @param str 
    */
   private int getMainTopicID(String str)
   {
@@ -667,11 +797,12 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Tree Search prominence. Rank 1 is always 1, last rank is always 0.
+   * </p>
    *
    * @param elements
-   * @param rank
-   *            starts with 1!
+   * @param rank starts with 1!
    * @return
    */
   private double getTreeSearchProminence(double elements, double rank)
@@ -681,7 +812,12 @@ public class QAMatchingBob
   }
 
   /**
-   * Count the number of || in a String
+   * <p>
+   * Count the number of "||" in a String
+   * </p>
+   *
+   * @param str
+   * @return 
    */
   private int countBooleanOR(String str)
   {
@@ -702,7 +838,13 @@ public class QAMatchingBob
   }
 
   /**
+   * <p>
    * Count the number of pipe symbols in a String
+   * </p>
+   *
+   * @param str
+   * @param lang
+   * @return 
    */
   private int countPipes(String str, String lang)
   {
@@ -724,4 +866,5 @@ public class QAMatchingBob
 
     return counter;
   }
+
 }
