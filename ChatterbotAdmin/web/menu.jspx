@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-     $Id$
+     This Java Server Page implements view of the menu that is permanently
+     shown on left panel of page. The menu provides some command buttons
+
+       * to select message bundle file to load,
+
+       * to select single functional entities of this web application whose
+         Java Server Pages files become included and are displayed on right
+         panel.
+
+     Author: markus.grandpre@uni-konstanz.de
+     Version: $Id$
 -->
 <jsp:root
   xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"

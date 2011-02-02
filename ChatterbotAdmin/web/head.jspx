@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+     This Java Server Page repersents the head element that becomes included
+     when view of this web application is displayed to use the defined CSS
+     files.
+
      $Id$
 -->
 <jsp:root 
@@ -7,7 +11,7 @@
   xmlns:jsp="http://java.sun.com/JSP/Page"
   version="2.0">
   <title>
-    Test
+    ChatterbotAdmin
   </title>
   <!--
        some browser settings

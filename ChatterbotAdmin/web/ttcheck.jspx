@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-     $Id$
+     This Java Server Page implements view for ttcheck application
+     that is divided in:
+
+       * title and info of ttcheck application
+       * upload of required files
+       * test section
+
+     Author: markus.grandpre@uni-konstanz.de
+     Version: $Id$
 -->
 <jsp:root
   xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
