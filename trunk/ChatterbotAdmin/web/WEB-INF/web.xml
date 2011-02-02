@@ -1,72 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-     $Id$
+     Deployment descriptor for ChatterbotAdmin web application.
+     
+     Author: markus.grandpre@uni-konstanz.de
+     Version: $Id$
 -->
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param>
-    <context-param>
-        <param-name>com.sun.faces.enableViewStateIdRendering</param-name>
-        <param-value>false</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.apache.myfaces.RENDER_VIEWSTATE_ID</param-name>
-        <param-value>false</param-value>
-    </context-param>
-    <filter>
-        <filter-name>extensionsFilter</filter-name>
-        <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
-        <init-param>
-            <description>
-      Set the size limit for uploaded files.
-      Format:  10 - 10 bytes
-              10k - 10 KB
-              10m - 10 MB
-               1g - 1 GB
+<web-app
+ version="3.0"
+ xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.enableViewStateIdRendering</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.RENDER_VIEWSTATE_ID</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <filter>
+    <filter-name>extensionsFilter</filter-name>
+    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+    <init-param>
+      <description>
+      Set the size limit for uploaded files. Formats:
+           *  10 - 10 bytes
+           * 10k - 10 KB
+           * 10m - 10 MB
+           *  1g - 1 GB
       </description>
-            <param-name>uploadMaxFileSize</param-name>
-            <param-value>200m</param-value>
-        </init-param>
-        <init-param>
-            <description>
-      Set the threshold size - files below this limit are stored
-			in memory, files above this limit are stored on disk.
-      Format: 10 - 10 bytes
-             10k - 10 KB
-             10m - 10 MB
-              1g - 1 GB
+      <param-name>uploadMaxFileSize</param-name>
+      <param-value>200m</param-value>
+    </init-param>
+    <init-param>
+      <description>
+       Set the threshold size - files below this limit are stored
+			 in memory, files above this limit are stored on disk. Formats:
+            *  10 - 10 bytes
+            * 10k - 10 KB
+            * 10m - 10 MB
+            *  1g - 1 GB
       </description>
-            <param-name>uploadThresholdSize</param-name>
-            <param-value>100k</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>extensionsFilter</filter-name>
-        <url-pattern>*.jsf</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>extensionsFilter</filter-name>
-        <url-pattern>/faces/*</url-pattern>
-    </filter-mapping>
-    <listener>
-        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-    </listener>
-    <display-name>ChatterbotAdmin</display-name>
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>600</session-timeout>
-    </session-config>
-    <welcome-file-list>
-        <welcome-file>faces/chatterbotadmin.jspx</welcome-file>
-    </welcome-file-list>
+      <param-name>uploadThresholdSize</param-name>
+      <param-value>100k</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>extensionsFilter</filter-name>
+    <url-pattern>*.jsf</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>extensionsFilter</filter-name>
+    <url-pattern>/faces/*</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>
+      org.apache.myfaces.webapp.StartupServletContextListener
+    </listener-class>
+  </listener>
+  <display-name>ChatterbotAdmin</display-name>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>600</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>faces/chatterbotadmin.jspx</welcome-file>
+  </welcome-file-list>
 </web-app>

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-     $Id$
+     This Java Server Page implements view for chatterbot application
+     that is divided in:
+
+       * title and info of chatterbot application
+       * language selection
+       * upload of required files
+       * chat section
+ 
+     Author: markus.grandpre@uni-konstanz.de
+     Version: $Id$
 -->
 <jsp:root
   xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"

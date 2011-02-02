@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     $Id$
+     This Java Server Page represents the main entry point of ChatterbotAdmin
+     web application. It includes the message bundle property files in order
+     to display all messages in either English, German or Italian language.
+     The page is split into a left and right panel. Left panel represents a
+     menu to select single functional entities of this web application whose
+     Java Server Pages files become included and are displayed on right panel.
+
+     Author: markus.grandpre@uni-konstanz.de
+     Version: $Id$
 -->
 <jsp:root
   xmlns="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"

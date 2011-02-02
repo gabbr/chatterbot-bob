@@ -1,4 +1,10 @@
-/* $Id$ */
+/* 
+   This CSS file defines some styles when JFS framework renders the HTML
+   output of ChatterbotAdmin web application.
+
+   Author: markus.grandpre@uni-konstanz.de
+   Version: $Id$
+*/
 
 body {
   margin-top: 10px;
