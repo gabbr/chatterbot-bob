@@ -182,21 +182,21 @@ public class TopicTree
    * 
    * @param lang
    * @return true if this TopicTree was initialized with the corresponding
-   *   text corpus (for machine learning) files for the language lang
+   *   text corpus (for machine learning) file for the language lang
    */
   public boolean machineLearningEnabledLanguage(String lang)
   {
     if (lang.toUpperCase().equals("EN"))
     {
-      return getQAMB().getTfIdfEN().numDocuments() > 0;
+      return getQAMB().getTfIdfEN() != null;
     }
     if (lang.toUpperCase().equals("DE"))
     {
-      return getQAMB().getTfIdfDE().numDocuments() > 0;
+      return getQAMB().getTfIdfDE() != null;
     }
     else
     {
-      return getQAMB().getTfIdfIT().numDocuments() > 0; //italian
+      return getQAMB().getTfIdfIT() != null; //italian
     }
   }
 
