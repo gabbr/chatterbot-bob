@@ -95,19 +95,19 @@ public class ChatterbotImpl implements Chatterbot
     // create a new DialogueManager object if an additional
     // language has been activated in the form
     if (dialogueManager == null
-            || macrosENFileURL != null && !dialogueManager.getTT().understandsLanguage("EN")
-            || macrosDEFileURL != null && !dialogueManager.getTT().understandsLanguage("DE")
-            || macrosITFileURL != null && !dialogueManager.getTT().understandsLanguage("IT")
-            || textCorpusENFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("EN")
-            || textCorpusDEFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("DE")
-            || textCorpusITFileURL != null && !dialogueManager.getTT().machineLearningEnabledLanguage("IT"))
+            || ((macrosENFileURL != null) && (!dialogueManager.getTT().understandsLanguage("EN")))
+            || ((macrosDEFileURL != null) && (!dialogueManager.getTT().understandsLanguage("DE")))
+            || ((macrosITFileURL != null) && (!dialogueManager.getTT().understandsLanguage("IT")))
+            || ((textCorpusENFileURL != null) && (!dialogueManager.getTT().machineLearningEnabledLanguage("EN")))
+            || ((textCorpusDEFileURL != null) && (!dialogueManager.getTT().machineLearningEnabledLanguage("DE")))
+            || ((textCorpusITFileURL != null) && (!dialogueManager.getTT().machineLearningEnabledLanguage("IT"))))
     {
 
       // check if DialogManager object already exists
       if (dialogueManager == null)
       {
         // DialogManager object does not exist
-        log.debug("dialogueManager was null. creating a new one.");
+        log.info("dialogueManager was null. creating a new one.");
 
         // create new DialogManager object
         dialogueManager = new DialogueManager(topicTreeFileURL, macrosENFileURL,
@@ -124,7 +124,7 @@ public class ChatterbotImpl implements Chatterbot
                 macrosITFileURL, textCorpusITFileURL);
 
         // existing DialogueManager object has been updated
-        log.debug("Existing DialogueManager object has been updated.");
+        log.info("Existing DialogueManager object has been updated.");
       }
 
       // dialogue manager has been initialized

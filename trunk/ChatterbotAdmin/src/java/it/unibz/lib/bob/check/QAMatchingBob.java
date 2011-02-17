@@ -39,21 +39,24 @@ public final class QAMatchingBob
    * 
    * </p>
    */
-  private TfIdfDistance tfIdfEN = new TfIdfDistance(tokenizerFactory);
+  //private TfIdfDistance tfIdfEN = new TfIdfDistance(tokenizerFactory);
+  private TfIdfDistance tfIdfEN = null;
 
   /**
    * <p>
    * 
    * </p>
    */
-  private TfIdfDistance tfIdfDE = new TfIdfDistance(tokenizerFactory);
+  //private TfIdfDistance tfIdfDE = new TfIdfDistance(tokenizerFactory);
+  private TfIdfDistance tfIdfDE = null;
 
   /**
    * <p>
    * 
    * </p>
    */
-  private TfIdfDistance tfIdfIT = new TfIdfDistance(tokenizerFactory);
+  //private TfIdfDistance tfIdfIT = new TfIdfDistance(tokenizerFactory);
+  private TfIdfDistance tfIdfIT = null;
 
   /**
    * <p>
@@ -172,7 +175,7 @@ public final class QAMatchingBob
    */
   public void printIDFStatsEN()
   {
-    if (understandsEN)
+    if (understandsEN && (tfIdfEN!=null))
     {
       for (String term : tfIdfEN.termSet())
       {
@@ -237,11 +240,13 @@ public final class QAMatchingBob
    */
   void trainIDF_EN(URL idftrainingdata)
   {
-    if (understandsEN)
-    {
+    
+    
       if (idftrainingdata != null)
       {
-        log.debug("*** Reading in English IDF training data from URL: "
+        tfIdfEN = new TfIdfDistance(tokenizerFactory);
+
+        log.info("*** Reading in English IDF training data from URL: "
           + idftrainingdata.toString());
 
         ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
@@ -268,8 +273,7 @@ public final class QAMatchingBob
         log.warn("*** No English IDF training data specified/loaded.");
       }
     }
-  }
-
+  
   /**
    * <p>
    * Trains DE IDF scores from doc
@@ -279,11 +283,12 @@ public final class QAMatchingBob
    */
   void trainIDF_DE(URL idftrainingdata)
   {
-    if (understandsDE)
-    {
+  
+  
       if (idftrainingdata != null)
       {
-        log.debug("*** Reading in German IDF training data from URL: "
+        tfIdfDE = new TfIdfDistance(tokenizerFactory);
+        log.info("*** Reading in German IDF training data from URL: "
           + idftrainingdata.toString());
 
         ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
@@ -310,8 +315,7 @@ public final class QAMatchingBob
         log.warn("*** No German IDF training data specified/loaded.");
       }
     }
-  }
-
+  
   /**
    * <p>
    * Trains IT IDF scores from doc
@@ -321,11 +325,11 @@ public final class QAMatchingBob
    */
   void trainIDF_IT(URL idftrainingdata)
   {
-    if (understandsIT)
-    {
+  
       if (idftrainingdata != null)
       {
-        log.debug("*** Reading in Italian IDF training data from URL: "
+        tfIdfIT = new TfIdfDistance(tokenizerFactory);
+        log.info("*** Reading in Italian IDF training data from URL: "
           + idftrainingdata.toString());
 
         ReadIn readin = new ReadIn("ISO-8859-1", idftrainingdata);
@@ -352,8 +356,7 @@ public final class QAMatchingBob
         log.warn("*** No Italian IDF training data specified/loaded.");
       }
     }
-  }
-
+  
   /**
    * <p>
    * 
